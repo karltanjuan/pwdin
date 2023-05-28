@@ -30,7 +30,7 @@ class AuthController extends Controller
 
     //
     public function postRegister(Request $request)
-    {   
+    {       
         $validator = $this->validateRegister($request);
 
         if ($validator->fails()) {
@@ -76,6 +76,7 @@ class AuthController extends Controller
         $user->last_name       = $request->last_name; // minimum of 2 character
         $user->prefix          = $request->prefix; // optional
         $user->birthdate       = $request->birthdate; // required
+        $user->gender          = $request->gender; // required
         $user->mobile_no       = $request->mobile_no; // starts with 09#########, must be 12 digit
         $user->education_level = $request->education_level; // required
         $user->address         = $request->address; // required
@@ -108,25 +109,27 @@ class AuthController extends Controller
 
     public function validateRegister($request) {
         $rules = [
-            'username'        => 'required|unique:users',
-            'email'           => 'required|email|unique:users',
-            'password'        => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])[a-zA-Z0-9!@#$%^&*()_+]{8,}$/',
-            'first_name'      => 'required|min:2',
-            'middle_name'     => 'nullable|min:2',
-            'last_name'       => 'required|min:2',
-            'prefix'          => 'nullable|min:2',
-            'birthdate'       => 'required',
-            'mobile_no'       => 'required|regex:/^09[0-9]{9}$/',
-            'education_level' => 'required',
-            'address'         => 'required',
-            'province'        => 'required',
-            'city'            => 'required',
-            'summary'         => 'max:300',
-            'zip_code'        => 'required|digits:4',
-            'profile_photo'   => 'required|mimes:jpeg,jpg,png',
-            'resume'          => 'required|mimes:pdf',
-            'pwd_card'        => 'required|mimes:jpeg,jpg,png',
-            'status'          => 'required|in:0,1,2',
+            'username'              => 'required|unique:users',
+            'email'                 => 'required|email|unique:users',
+            'mobile_no'             => 'required|regex:/^09[0-9]{9}$/',
+            'password'              => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])[a-zA-Z0-9!@#$%^&*()_+]{8,}$/',
+            'password_confirmation' => ['required', 'same:password'],
+            'birthdate'             => 'required',
+            'first_name'            => 'required|min:2',
+            'middle_name'           => 'nullable|min:2',
+            'last_name'             => 'required|min:2',
+            'prefix'                => 'nullable|min:2',
+            'gender'                => 'required',
+            'education_level'       => 'required',
+            'province'              => 'required|',
+            'city'                  => 'required|',
+            'address'               => 'required',
+            // 'summary'               => 'max:300',
+            'zip_code'              => 'required|digits:4',
+            'profile_photo'         => 'required|mimes:jpeg,jpg,png',
+            'resume'                => 'required|mimes:pdf',
+            'pwd_card'              => 'required|mimes:jpeg,jpg,png',
+            // 'status'          => 'required|in:0,1,2',
         ];
 
         return $validator = Validator::make($request->all(), $rules);
