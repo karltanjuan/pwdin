@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PendingApplicantEmail;
 use Validator;
 use Session;
 use Storage;
 use Auth;
 use Hash;
-use Mail;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -21,12 +22,13 @@ class AuthController extends Controller
     public function getRegister()
     {
         if (auth()->check()) {
-            return redirect('customer/dashboard');
+            // return redirect('applicant/dashboard');
         }
 
-        return view('customer.register');
+        return view('applicant.register');
     }
 
+    //
     public function postRegister(Request $request)
     {   
         $validator = $this->validateRegister($request);
@@ -88,15 +90,14 @@ class AuthController extends Controller
         $user->save();
 
         // Send email to applicant for pending registration
-        // Mail::to($request->email_address)
-        //     ->send(new CustomerVerifyEmail(
-        //         $request->username,
-        //         $request->email_address,
-        //         $token
-        //     )
-        // );
+        Mail::to($request->email)
+            ->send(new PendingApplicantEmail(
+                $request->username,
+                $request->email
+            )
+        );
 
-        if ($user) {
+        if ($user) { // When user save on database successfully
             return response()->json([
                 'message' => 'Applicant created successfully',
                 'code'    => '200'
