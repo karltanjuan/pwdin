@@ -1,0 +1,157 @@
+.navbar{
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: flex-end;
+  height: 60px;
+}
+
+.navbar-buttons > a{
+    display: inline-flex;
+    justify-content: space-between;
+    margin-left: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-weight: 400;
+    color: black;
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.logo{
+    position: absolute;
+    width: 170px;
+    height: 70px;
+    top: 10px;
+}
+
+.form-container, .register-container{
+    padding: 20px;
+}
+
+.register-container {
+    text-align: center;
+}
+
+.login-container {
+
+}
+
+.image-container {
+    background: url('../img/quote1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh; /* Adjust as needed */
+    border-radius: 10px;
+}
+
+.quotes {
+    width: 100%;
+    height: auto;
+}
+
+.welcome{
+    font-family: 'Josefin Sans', sans-serif;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 104%;
+    text-align: center;
+    letter-spacing: -0.065em;
+    color: #000000;
+}
+
+.logo2 {
+    width: 377px;
+    height: 139px;    
+    margin: auto;
+    display: block;
+}
+
+.form-group-inputs {
+    width: 380px;
+    margin: auto;
+}
+
+#email,
+#password {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0px 15px 0px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+.forgot-pass{
+    font-family: sans-serif;
+    text-decoration: none;
+    color: #19A7CE;
+    font-size: 16px;
+    float: right;
+    margin-top: -15px;
+    margin-bottom: 10px;
+}
+
+.btn-login {
+    width: 293px;
+    height: 53px;
+    top: 10px;
+    border: none;
+    color: white;
+    font-size: medium;
+    background: #19A7CE;
+    border-radius: 34px;
+    cursor:pointer;
+    margin: auto;
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.or{
+    width: 328px;
+    height: 15px;
+    margin: auto;
+    display: block;
+}
+
+.register-candidate, .register-employer {
+    width: 161px;
+    height: 41px;
+    font-family: sans-serif;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: -0.065em;
+    border-style: none;
+    color: white;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.register-candidate {
+    left: 220px;
+    background: #16B9EC;
+}
+
+.register-employer {
+    left: 360px;
+    background: #16B9EC;
+    opacity: 65%;
+}
+
+.err-msg {
+    color: red;
+    font-size: 11px;
+    position: relative;
+}
+
+.error {
+    border: 1px solid red !important;
+}
+
+.swal2-styled.swal2-confirm {
+    background: rgba(22, 185, 236, 1) !important;
+}

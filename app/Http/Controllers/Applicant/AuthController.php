@@ -28,7 +28,6 @@ class AuthController extends Controller
         return view('applicant.register');
     }
 
-    //
     public function postRegister(Request $request)
     {       
         $validator = $this->validateRegister($request);
@@ -135,91 +134,36 @@ class AuthController extends Controller
         return $validator = Validator::make($request->all(), $rules);
     }
 
-    public function getVerifyEmail($token)
-    {
-        if (auth()->check()) {
-            return redirect('customer/dashboard');
-        }
-
-        $token = User::where('token', $token)
-                ->where('role', 3)
-                ->where('token_expired_at', '>', date('Y-m-d'))
-                ->first();
-
-        if (!$token) {
-            return view('customer.verify-email-expired');
-        }
-
-        return view('customer.verify-email');
-    }
-
-    public function postVerifyEmail(Request $request)
-    {
-        $user = User::where('token', $request->verify_token)
-                ->where('token_expired_at', '>', date('Y-m-d'))
-                ->where('role', 3)
-                ->first();
-
-        if (!$user) {
-            return response()->json([
-                'error' => ['Token link is expired.'],
-                'code'  => '422'
-            ]);
-        }
-
-        // $validator = $this->validateVerifyEmail($request);
-
-        // if (!$validator->passes()) {
-        //     return response()->json([
-        //         'error' => $validator->errors()->all(),
-        //         'code'  => '422'
-        //     ]);
-        // }   
-
-        $user = User::where('id', $user->id)
-                    ->where('role', 3)
-                    ->update([
-                        'status'            => 1,
-                        'token'             => null,
-                        'token_expired_at'  => null,
-                        'email_verified_at' => date('Y-m-d H:i:s')
-                    ]);
-        
-        return response()->json([
-            'message' => 'Email verified successfully',
-            'code'    => '200'
-        ]);
-        
-    }
-
     public function getLogin()
     {
         if (auth()->check()) {
-            return redirect('customer/dashboard');
+            // return redirect('customer/dashboard');
         }
 
-        return view('customer.login');
+        return view('applicant.login');
     }
+
 
     public function postLogin(Request $request)
     {
-
         $validator = $this->validateLogin($request);
-        $response = response()->json(['message' => 'Invalid username or password', 'code' => '422']);
+        $response = response()->json(['message' => 'Invalid email or password', 'code' => '422']);
 
-        if (!$validator->passes()) {
-            return response()->json(['message' => $validator->errors()->all(), 'code' => '422']);
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
-        $user = User::where('username', $request->username)
+        $user = User::where('email', $request->email)
                     ->where('status', 1)
-                    ->where('role', 3)
                     ->first();
 
         if (!$user) {
             return $response;
         }
 
+        // compare database password to input password
         if (!Hash::check($request->password, $user->password)) {
             return $response;
         }
@@ -233,21 +177,16 @@ class AuthController extends Controller
         //     auth()->user()->id
         // );
 
-        return response()->json(['message' => 'Login successfully!', 'code' => '200']);        
+        return response()->json(['message' => 'Login successfully', 'code' => '200']);
 
     }
 
-    public function reloadCaptcha()
-    {
-        return response()->json(['captcha' => captcha_img()]);
-    }
-
+    // Login validator
     public function validateLogin(Request $request)
     {
          return Validator::make($request->all(), [ 
-            'username' => 'required|string',
-            'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
-            'captcha'  => ['required', 'captcha']
+            'email'    => 'required|email',
+            'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
         ]);
     }
 
@@ -397,6 +336,13 @@ class AuthController extends Controller
         
     }
 
+    public function validateResetPassword(Request $request) {
+        return Validator::make($request->all(), [
+            'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
+            'password_confirmation' => ['required', 'same:new_password']
+        ]);
+    }
+
     public function logout()
     {
         if (isset(auth()->user()->id)) {
@@ -411,13 +357,6 @@ class AuthController extends Controller
         Session::flush();
         Auth::logout();
         return redirect('/customer/login');
-    }
-
-    public function validateResetPassword(Request $request) {
-        return Validator::make($request->all(), [
-            'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
-            'password_confirmation' => ['required', 'same:new_password']
-        ]);
     }
   
 }

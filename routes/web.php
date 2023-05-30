@@ -15,24 +15,25 @@ use App\Http\Controllers\Applicant\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Applicant
 /* prefix is use to reduce redudancy on the route url */
 Route::group(['prefix' => 'applicant'], function() {
-
-    // Route::post('postLogin', [AuthController::class, 'postLogin'])->name('applicant.postLogin');
-
     Route::get('register', [AuthController::class, 'getRegister'])->name('applicant.getRegister');
 
     // submit data to backend using HTTP POST 
     Route::post('postRegister', [AuthController::class, 'postRegister'])->name('applicant.postRegister');
+
+    Route::get('login', [AuthController::class, 'getLogin'])->name('applicant.getLogin');
+
+    Route::post('postLogin', [AuthController::class, 'postLogin'])->name('applicant.postLogin');
+
+
+    // middleware
+    Route::get('/dashboard', function() {
+        dd('applicant dashboard');
+    });
 });
 
 // Employer
