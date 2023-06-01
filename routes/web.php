@@ -29,10 +29,12 @@ Route::group(['prefix' => 'applicant'], function() {
 
     Route::post('postLogin', [AuthController::class, 'postLogin'])->name('applicant.postLogin');
 
+    Route::middleware('is_applicant')->group(function () {
+        Route::get('/dashboard', function() {
+            return view('applicant.dashboard');
+        });
 
-    // middleware
-    Route::get('/dashboard', function() {
-        dd('applicant dashboard');
+        Route::get('logout', [AuthController::class, 'logout'])->name('applicant.logout');
     });
 });
 

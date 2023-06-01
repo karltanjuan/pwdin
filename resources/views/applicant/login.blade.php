@@ -96,6 +96,10 @@
 	            contentType: false,
 	            success: function(response) {
 	                if (response.code == "200") {
+                        
+                        $('input').removeClass('error')
+                        $('.err-msg').hide()
+
 	                	Swal.fire({
 						  title: 'Login Successful',
 						  text: 'Please wait...',
@@ -103,9 +107,9 @@
 						  showCancelButton: false,
 						  confirmButtonText: 'OK'
 						}).then((result) => {
-						  if (result.isConfirmed) {
-						  	window.location.href = '{{url('/applicant/dashboard')}}'
-						  }
+						  	setTimeout(function() {
+                                window.location.href = '{{url('/applicant/dashboard')}}'
+                            }, 2000)
 						});
 	                } else {
 	                    displayErrors(JSON.parse(response.errors));

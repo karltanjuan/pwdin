@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function getRegister()
     {
         if (auth()->check()) {
-            // return redirect('applicant/dashboard');
+            return redirect('applicant/dashboard');
         }
 
         return view('applicant.register');
@@ -137,7 +137,7 @@ class AuthController extends Controller
     public function getLogin()
     {
         if (auth()->check()) {
-            // return redirect('customer/dashboard');
+            return redirect('applicant/dashboard');
         }
 
         return view('applicant.login');
@@ -147,7 +147,9 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
         $validator = $this->validateLogin($request);
-        $response = response()->json(['message' => 'Invalid email or password', 'code' => '422']);
+        $response = response()->json(['errors' => [
+            'email' => ['Invalid email or password']]
+            ], 422);
 
         if ($validator->fails()) {
             return response()->json([
@@ -346,17 +348,17 @@ class AuthController extends Controller
     public function logout()
     {
         if (isset(auth()->user()->id)) {
-            ActivityLogHelper::save(
-                'User Logout', 
-                'Logout', 
-                request()->ip(),
-                auth()->user()->id
-            );
+            // ActivityLogHelper::save(
+            //     'User Logout', 
+            //     'Logout', 
+            //     request()->ip(),
+            //     auth()->user()->id
+            // );
         }
 
         Session::flush();
         Auth::logout();
-        return redirect('/customer/login');
+        return redirect('/applicant/login');
     }
   
 }
