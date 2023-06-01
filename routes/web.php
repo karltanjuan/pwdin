@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Applicant\AuthController;
+use App\Http\Controllers\Employer\EmployerAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,5 +40,13 @@ Route::group(['prefix' => 'applicant'], function() {
 });
 
 // Employer
+Route::group(['prefix' => 'employer'], function() { 
 
+    // Route::post('postLogin', [AuthController::class, 'postLogin'])->name('applicant.postLogin');
+
+    Route::get('register', [EmployerAuthController::class, 'getRegister'])->name('employer.getRegister');
+
+    // submit data to backend using HTTP POST 
+    Route::post('postRegister', [EmployerAuthController::class, 'postRegister'])->name('employer.postRegister');
+});
 // Admin/Moderator

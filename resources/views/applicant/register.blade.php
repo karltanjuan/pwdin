@@ -136,13 +136,13 @@
 
                     <div class="fields">
                         <div class="input-field">
-                            <label>UPLOAD CV</label>
+                            <label>Upload CV</label>
                             <input class="resume" id="resume" type="file" accept=".pdf">
                             <span class="err-resume err-msg"></span>
                           </div>
 
                           <div class="input-field">
-                            <label>UPLOAD PWD ID CARD/RECENT MEDICAL RECORDS</label>
+                            <label>Upload PWD ID card / Recent medical records</label>
                             <input class="pwd_card" id="pwd_card" type="file" accept=".png,.jpeg,.jpg">
                             <span class="err-pwd_card err-msg"></span>
                           </div>

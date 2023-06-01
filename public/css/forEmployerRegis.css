@@ -8,37 +8,40 @@
 }
 
 .navbar{
-    top: 0px;
-    color: black;
     display: flex;
     justify-content: space-between;
+    padding: 0 15%;
+    top: 5px;
+    color: black;
     position: absolute;
     width: 100%;
-    display: block;
   } 
 
+.navbar-buttons{
+    display: flex;
+}
 
   .navbar-buttons a{
+    height: 100%;
+    padding: 0 30px;
+    transition: 0.5s ease;
     justify-content: space-between;
     position: relative;
-    display: flex;
+
     font-family: Poppins , Arial, Helvetica, sans-serif;
     text-decoration: none;
     color: black;
     font-size: 20px;
-        
-    margin: 10px 30px 0 30px;
+    
     float: right;
-    z-index: 1;
   }
 
-  .navbar-buttons a:hover{
+.navbar-buttons a:hover{
     background-color: #19A7CE;
     color: white;
     transition: 0.5s ease;
     border-radius: 10%;
     padding: 5px;
-    
   }
 
 .navbar .logo{
@@ -47,7 +50,26 @@
     height: 70px;
     top: 10px;
     float: left;
+    left: 5px;
+    z-index: -1;
 }
+
+.menu-button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    float: right;
+  }
+  
+  .menu-icon {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: #333;
+    margin-bottom: 4px;
+  }
 
 body{
     min-height: 100vh;
@@ -56,7 +78,7 @@ body{
     justify-content: center;
     background: rgba(22, 185, 236, 0.2);
 }
-.login-container {
+.container{
     top: 80px;
     position: relative;
     max-width: 1000px;
@@ -68,13 +90,13 @@ body{
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
-.login-container header{
+.container header{
     position: relative;
     font-size: 25px;
     font-weight: 600;
     color: #333;
 }
-.login-container header::before{
+.container header::before{
     content: "";
     position: absolute;
     left: 0;
@@ -84,7 +106,7 @@ body{
     border-radius: 8px;
     background-color: black
 }
-.login-container #form{
+.container #form{
     position: relative;
     margin-top: 16px;
     min-height: 610px;
@@ -92,21 +114,22 @@ body{
     overflow-x: hidden;
     overflow-y: scroll;
 }
-.login-container #form .form{
+.container #form .form{
     position: absolute;
     background-color: #fff;
     transition: 0.3s ease;
 }
 
 
-.login-container #form .first{
+.container #form .first{
     position: relative;
     background-color: #fff;
     transition: 0.3s ease;
 }
 
 
-.login-container #form .title{
+
+.container #form .title{
     display: block;
     margin-bottom: 8px;
     font-size: 20px;
@@ -114,7 +137,7 @@ body{
     margin: 6px 0;
     color: #333;
 }
-.login-container #form .fields{
+.container #form .fields{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -122,7 +145,7 @@ body{
 }
 
 /* form-first*/
- #form .first .fields .input-field{
+#form .first .fields .input-field{
     width: calc(100% / 3 - 15px);
     flex-direction: column;
     margin: 4px 0;
@@ -159,15 +182,6 @@ body{
     margin: 8px 0;
 }
 
-.terms_condition input[type="checkbox"] {
-    color: greenyellow;
-    border-radius: 5px;
-    min-width: 20px;
-    min-height: 20px;
-    border: 1px solid #aaa;
-    border-radius: 3px;
-} 
-
 
 .input-field input :focus,
 .input-field select:focus{
@@ -180,7 +194,7 @@ body{
 .input-field input[type="date"]:valid{
     color: #333;
 }
-.login-container #form button, .backBtn{
+.container #form button, .backBtn{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -194,9 +208,11 @@ body{
     margin: 25px 0;
     background-color: rgba(22, 185, 236, 1);
     transition: all 0.3s linear;
-    cursor: pointer;
+    cursor: pointer
 }
-.login-container #form .btnText{
+
+
+.container #form .btnText{
     font-size: 14px;
     font-weight: 400;
 }
@@ -219,132 +235,92 @@ body{
 }
 
 @media (max-width: 750px) {
-    .login-container #form{
+    .container #form{
         overflow-y: scroll;
     }
-    .login-container #form::-webkit-scrollbar{
+    .container #form::-webkit-scrollbar{
        display: none;
     }
     #form .first .fields .input-field{
         width: calc(100% / 2 - 15px);
     }
-
     #form .second .fields .input-field{
         width: calc(100% / 2 - 15px);
     }
+    nav{
+        padding: 0 2rem;
+    }
+    nav .navbar .navbar-buttons {
+        padding: 0 20px;
+    }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 610px) {
     #form .first .fields .input-field{
         width: 100%;
     }
     #form .second .fields .input-field{
         width: 100%;
     }
-    .navbar-buttons {
-        display: none;
-      }
+    nav .navbar-buttons{
+        display: grid;
+        position: absolute;
+        background-color: #19A7CE;
+        width: 100%;
+        top: 0px;
+        left: 0;
+        transform: translateY(-100%); 
+        z-index: -1;
+        transition: .6s;
+        transition: .6s;
+    }
+    nav .navbar-buttons a{
+        padding-left: 35px;
+    }
+    nav .navbar-toggler{
+        display: grid !important;
+
+    }
+   
 }
 
-.swal2-styled.swal2-confirm {
-    background: rgba(22, 185, 236, 1) !important;
-}
-
-.err-msg {
-    color: red;
-    font-size: 11px;
-    display: flex;
-    flex-direction: row-reverse;
-}
-
-.err-agreement {
-    color: red;
-    font-size: 11px;
-}
-
-.read-agreement {
-    text-decoration: none;
+nav .navbar-toggler {
+    display: none;
+    height: min-content;
+    margin: 18px -10px 0 0;
     cursor: pointer;
 }
 
-.read-agreement > label {
-    color: blue;
-    cursor: pointer;
+nav .navbar-toggler .bar {
+    width: 40px;
+    height: 5px;
+    margin-bottom: 10px;
+    background: black;
+    border-radius: 10%;
+    transition: .4s;
 }
 
-.modal {
-  display: none; /* Hide the modal by default */
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+.toggle {
+    display: none;
 }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: 0 auto; /* Horizontally center the modal */
-  margin-top: 2%; /* Adjust the top margin as needed */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 800px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+input:checked ~ nav .navbar-buttons {
+    transform: translateY(0);
 }
 
-.modal-header h2 {
-  margin-top: 0;
+input:checked ~ nav .navbar-toggler {
+    margin-top: 35px;
 }
 
-.modal-body {
-    text-align: justify;
+input:checked ~ nav .navbar-toggler .bar:nth-child(1) {
+    position: absolute;
+    transform: rotate(45deg);
 }
 
-.modal-footer {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #333;
-    display: flex;
-    flex-direction: row-reverse;
+input:checked ~ nav .navbar-toggler .bar:nth-child(2) {
+    display: none;
 }
 
-.modal-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: -55px;
-}
-
-.primary-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 45px;
-    max-width: 200px;
-    width: 100%;
-    border: none;
-    outline: none;
-    color: #fff;
-    border-radius: 5px;
-    background-color: rgba(22, 185, 236, 1);
-    transition: all 0.3s linear;
-    cursor: pointer;
-}
-
-.primary-btn:hover {
-    background-color: #265df2;
-}
-
-.float-right {
-    float: right;
-}
-
-.error {
-    border: 1px solid red !important;
+input:checked ~ nav .navbar-toggler .bar:nth-child(3) {
+    transform: rotate(-45deg);
 }
