@@ -15,11 +15,12 @@
         <a href="{{url('/')}}">
             <img src="{{asset('img/logo.png')}}" class="logo" alt="PWD Logo"/>
         </a>
-        <label class="navbar-toggler" for="toggle">
+        <label class="navbar-toggler" for="toggigggle">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
-        </label>
+        </label> 
+        
         <div class="navbar-buttons">  
             <a href="home">Home</a>
             <a href="job_seeker">Job Seekers</a>
