@@ -55,31 +55,6 @@ class AdminAuthController extends Controller
 
         return $response;
 
-        // $user = Admin::where('email', $request->email)
-        //             ->where('status', 1)
-        //             ->first();
-
-
-        // if (!$user) {
-        //     return $response;
-        // }
-
-        // // compare database password to input password
-        // if (!Hash::check($request->password, $user->password)) {
-        //     return $response;
-        // }
-
-        // Auth::login(new Admin, ['email' => $request->email, 'password' => $request->password]);
-
-        // ActivityLogHelper::save(
-        //     'User Login', 
-        //     'Login', 
-        //     request()->ip(),
-        //     auth()->user()->id
-        // );
-
-        return response()->json(['message' => 'Login successfully', 'code' => '200']);
-
     }
 
     // Login validator
@@ -94,10 +69,10 @@ class AdminAuthController extends Controller
     public function getforgotPassword()
     {
         if (auth()->check()) {
-            return redirect('customer/dashboard');
+            return redirect('admin/dashboard');
         }
 
-        return view('customer.forgot-password');
+        return view('admin.forgot-password');
         
     }
 
@@ -177,7 +152,7 @@ class AdminAuthController extends Controller
 
     public function validateForgotPassword($request) {
         return Validator::make($request->all(), [ 
-            'email_address' => 'required|email',
+            'email' => 'required|email',
         ]);
     }
 
