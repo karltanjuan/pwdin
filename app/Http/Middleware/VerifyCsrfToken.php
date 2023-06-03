@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/applicant/postRegister',
         '/applicant/postLogin',
+        '/admin/postLogin',
     ];
 }
