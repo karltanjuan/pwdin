@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Applicant\AuthController;
 use App\Http\Controllers\Employer\EmployerAuthController;
+use App\Http\Controllers\Admin\AdminAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +50,18 @@ Route::group(['prefix' => 'employer'], function() {
     // submit data to backend using HTTP POST 
     Route::post('postRegister', [EmployerAuthController::class, 'postRegister'])->name('employer.postRegister');
 });
+
 // Admin/Moderator
+Route::group(['prefix' => 'admin'], function() {
+    
+    Route::get('login', [AdminAuthController::class, 'getLogin'])->name('admin.getLogin');
+    Route::post('postLogin', [AdminAuthController::class, 'postLogin'])->name('admin.postLogin');
+
+    Route::middleware('is_admin')->group(function () {
+        Route::get('/dashboard', function() {
+            return view('admin.dashboard');
+        });
+
+        Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    });
+});
