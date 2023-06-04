@@ -18,6 +18,82 @@ use Carbon\Carbon;
 class AdminAuthController extends Controller
 {
 
+    public function getRegister()
+    {
+        if (auth()->check()) {
+            return redirect('admin/dashboard');
+        }
+
+        return view('admin.register');
+    }
+
+
+    public function postRegister(Request $request)
+    {       
+        $validator = $this->validateRegister($request);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        // profile_photo
+        $profile_photo_file = null;
+        $profile_photo_path = "";
+        if ($request->file('profile_photo')) {
+            $profile_photo_file = $request->file('profile_photo');
+            $profile_photo_path = uniqid().md5(1).'_'.$profile_photo_file->getClientOriginalName();
+            $profile_photo_path = $request->file('profile_photo')->storeAs('public/employer/profile_photo', $profile_photo_path);
+        }
+
+        // save to database
+        $user                = new Admin();
+        $user->username      = $request->username; // validate must be unique
+        $user->email         = $request->email; // validate must be unique
+        $user->password      = bcrypt($request->password); // must be minimum 8 alphanumeric character with special symbol with capital and small character, validate with confirm password
+        $user->mobile_no     = $request->mobile_no; // starts with 09#########, must be 12 digit
+        $user->first_name    = $request->first_name; // minimum of 2 character
+        $user->middle_name   = $request->middle_name; // optional
+        $user->last_name     = $request->last_name; // minimum of 2 character
+        $user->prefix        = $request->prefix; // optional
+        $user->profile_photo = $profile_photo_path; // validate as jpg, jpeg, or png
+        $user->role          = $request->role; // 0 - inactive, 1 - active, 2 - deleted
+        $user->status        = 1;
+        $user->save();
+
+        $role = "Admin";
+        if ($request->role == 1) {
+            $role = "Staff";
+        }
+
+        if ($user) { // When user save on database successfully
+            return response()->json([
+                'message' => $role.' created successfully',
+                'code'    => '200'
+            ]);
+        }
+
+    }
+
+    public function validateRegister($request) {
+        $rules = [
+            'username'              => 'required|unique:users',
+            'email'                 => 'required|email|unique:users',
+            'mobile_no'             => 'required|regex:/^09[0-9]{9}$/',
+            'password'              => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+])[a-zA-Z0-9!@#$%^&*()_+]{8,}$/',
+            'password_confirmation' => ['required', 'same:password'],
+            'first_name'            => 'required|min:2',
+            'middle_name'           => 'nullable|min:2',
+            'last_name'             => 'required|min:2',
+            'prefix'                => 'nullable|min:2',
+            'profile_photo'         => 'required|mimes:jpeg,jpg,png',
+            'role'                  => 'required|in:0,1'
+        ];
+
+        return $validator = Validator::make($request->all(), $rules);
+    }
+
     public function getLogin()
     {
         if (auth()->check()) {
@@ -43,8 +119,8 @@ class AdminAuthController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (auth('admin')->attempt($credentials)) {
-            $user = auth('admin')->user();
+        if (auth('admins')->attempt($credentials)) {
+            $user = auth('admins')->user();
 
             if ($user->status == 1) {
                 return response()->json(['message' => 'Login successfully', 'code' => '200']);

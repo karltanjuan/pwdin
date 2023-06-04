@@ -18,8 +18,10 @@ class VerifyCsrfToken extends Middleware
 
         // employer
         '/employer/postRegister',
+        '/employer/postLogin',
 
         // admin
+        '/admin/postRegister',
         '/admin/postLogin',
     ];
 }

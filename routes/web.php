@@ -43,16 +43,18 @@ Route::group(['prefix' => 'applicant'], function() {
 // Employer
 Route::group(['prefix' => 'employer'], function() { 
 
-    // Route::post('postLogin', [AuthController::class, 'postLogin'])->name('applicant.postLogin');
+    Route::get('login', [EmployerAuthController::class, 'getLogin'])->name('employer.getLogin');
+    Route::post('postLogin', [EmployerAuthController::class, 'postLogin'])->name('employer.postLogin');
 
     Route::get('register', [EmployerAuthController::class, 'getRegister'])->name('employer.getRegister');
-
-    // submit data to backend using HTTP POST 
     Route::post('postRegister', [EmployerAuthController::class, 'postRegister'])->name('employer.postRegister');
 });
 
 // Admin/Moderator
 Route::group(['prefix' => 'admin'], function() {
+
+    Route::get('register', [AdminAuthController::class, 'getRegister'])->name('employer.getRegister');
+    Route::post('postRegister', [AdminAuthController::class, 'postRegister'])->name('employer.postRegister');
     
     Route::get('login', [AdminAuthController::class, 'getLogin'])->name('admin.getLogin');
     Route::post('postLogin', [AdminAuthController::class, 'postLogin'])->name('admin.postLogin');
