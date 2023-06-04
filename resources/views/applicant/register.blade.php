@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <title>Candidate Registration</title>
+    <title>Applicant Registration</title>
 </head>
 <body>
     <!--navbar-->
@@ -279,7 +279,7 @@
     			$('.err-agreement').hide()
 	    		// prepare the data to be submitted on backend
 	    		var formData = new FormData();
-				formData.append('_token', "{{ csrf_token() }}");
+				formData.append('_token', "{{ csrf_token() }}"); // for browser request
 				formData.append('username', $('#username').val());
 				formData.append('email', $('#email').val());
 				formData.append('mobile_no', $('#mobile_no').val());

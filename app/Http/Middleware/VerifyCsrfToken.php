@@ -12,8 +12,14 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
+        // applicant
         '/applicant/postRegister',
         '/applicant/postLogin',
+
+        // employer
+        '/employer/postRegister',
+
+        // admin
         '/admin/postLogin',
     ];
 }
