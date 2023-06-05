@@ -80,13 +80,13 @@ class EmployerAuthController extends Controller
         $user->city            = $request->city; // required
         $user->summary         = $request->summary; // maximum 300 words
         $user->zip_code        = $request->zip_code; // validated as 4 digit
-        $user->company_logo    = $company_logo_path; // validate as pdf only
-        $user->business_permit = $business_permit_path; // validate as jpg, jpeg, or png
-        $user->bir_certificate = $bir_certificate_path; // validate as jpg, jpeg, or png
+        $user->company_logo    = $company_logo_path; // validate as jpg, jpeg or png
+        $user->business_permit = $business_permit_path; // validate as pdf, jpg, jpeg, or png
+        $user->bir_certificate = $bir_certificate_path; // validate as pdf, jpg, jpeg, or png
         $user->status          = 0; // 0 - inactive, 1 - active, 2 - deleted
         $user->save();
 
-        // Send email to enokiter for pending registration
+        // Send email to employer for pending registration
         Mail::to($request->email)
             ->send(new PendingEmployerEmail(
                 $request->username,
@@ -123,6 +123,54 @@ class EmployerAuthController extends Controller
         ];
 
         return $validator = Validator::make($request->all(), $rules);
+    }
+
+        public function getLogin()
+    {
+        if (auth()->check()) {
+            return redirect('employer/dashboard');
+        }
+
+        return view('employer.login');
+    }
+
+
+    public function postLogin(Request $request)
+    {
+        $validator = $this->validateLogin($request);
+        $response = response()->json(['errors' => [
+            'email' => ['Invalid email or password']]
+            ], 422);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $credentials = $request->only('email', 'password');
+
+        if (auth('employers')->attempt($credentials)) {
+            $user = auth('employers')->user();
+
+            if ($user->status == 1) {
+                return response()->json(['message' => 'Login successfully', 'code' => '200']);
+            } else {
+                return $response;
+            }
+        }
+
+        return $response;
+
+    }
+
+    // Login validator
+    public function validateLogin(Request $request)
+    {
+         return Validator::make($request->all(), [ 
+            'email'    => 'required|email',
+            'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
+        ]);
     }
 
 }

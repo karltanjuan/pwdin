@@ -89,11 +89,8 @@ body{
     margin-top: 16px;
     min-height: 610px;
     background-color: #fff;
-    overflow-x: hidden;
-    overflow-y: scroll;
 }
 .login-container #form .form{
-    position: absolute;
     background-color: #fff;
     transition: 0.3s ease;
 }
