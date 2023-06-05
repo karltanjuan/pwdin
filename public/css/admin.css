@@ -215,3 +215,17 @@ body {
   color: #ffffff;
   box-shadow: inset 250px 0 0 0 #44c7f5;
 }
+
+.swal2-styled.swal2-confirm {
+    background: rgba(22, 185, 236, 1) !important;
+}
+
+.err-msg {
+    color: red;
+    font-size: 11px;
+    display: flex;
+}
+
+.error {
+    border: 1px solid red !important;
+}

@@ -317,11 +317,11 @@
 							  icon: 'info',
 							  showCancelButton: false,
 							  confirmButtonText: 'OK'
-							}).then((result) => {
-								setTimeout(function() {
+							});
+							
+							setTimeout(function() {
 									window.location.href = '{{url('/')}}'
 								}, 2000)
-							});
 		                } else {
 		                    displayErrors(JSON.parse(response.errors));
 		                }

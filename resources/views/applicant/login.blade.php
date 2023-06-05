@@ -35,7 +35,7 @@
                         <p class="welcome">Welcome To</p>
                         <img src="{{asset('img/logo2.png')}}" class="logo2" alt="">
                         <div class="form-group-inputs">
-                            <input type="text" id="email" class="email" placeholder="Enter email"/>
+                            <input type="text" id="email" class="email" placeholder="Enter email address"/>
                            	<span class="err-email err-msg"></span>
                             <input type="password" id="password" class="password" placeholder="Enter password"/>
                             <span class="err-password err-msg"></span>
@@ -108,11 +108,11 @@
 						  icon: 'success',
 						  showCancelButton: false,
 						  confirmButtonText: 'OK'
-						}).then((result) => {
-						  	setTimeout(function() {
-                                window.location.href = '{{url('/applicant/dashboard')}}'
-                            }, 2000)
-						});
+						})
+
+                        setTimeout(function() {
+                            window.location.href = '{{url('/applicant/dashboard')}}'
+                        }, 2000)
 	                } else {
 	                    displayErrors(JSON.parse(response.errors));
 	                }

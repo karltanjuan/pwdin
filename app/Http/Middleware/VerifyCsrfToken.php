@@ -24,6 +24,6 @@ class VerifyCsrfToken extends Middleware
 
         // admin
         '/admin/postRegister',
-        '/admin/postLogin',
+        // '/admin/postLogin',
     ];
 }

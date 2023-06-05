@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminForgotPasswordEmail;
 use Validator;
 use Session;
 use Storage;
@@ -108,7 +109,7 @@ class AdminAuthController extends Controller
     {
         $validator = $this->validateLoginAdmin($request);
         $response = response()->json(['errors' => [
-            'email' => ['Invalid email or password']]
+            'username' => ['Invalid username or password']]
             ], 422);
 
         if ($validator->fails()) {
@@ -117,7 +118,7 @@ class AdminAuthController extends Controller
             ], 422);
         }
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('username', 'password');
 
         if (auth('admins')->attempt($credentials)) {
             $user = auth('admins')->user();
@@ -137,7 +138,7 @@ class AdminAuthController extends Controller
     public function validateLoginAdmin(Request $request)
     {
          return Validator::make($request->all(), [ 
-            'email'    => 'required|email',
+            'username'    => 'required',
             'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
         ]);
     }
@@ -154,15 +155,19 @@ class AdminAuthController extends Controller
 
     public function postforgotPassword(Request $request)
     {
-    
         $validator = $this->validateForgotPasswordAdmin($request);
-        $response = response()->json(['message' => 'Email address not found', 'code' => '422']);
 
-        if (!$validator->passes()) {
-            return $response;
+        $response = response()->json(['errors' => [
+            'email' => ['Email address not found']]
+            ], 422);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
-        $user = Admin::where('email_address', $request->email_address)
+        $user = Admin::where('email', $request->email)
                 ->first();
 
         if (!$user) {
@@ -172,7 +177,7 @@ class AdminAuthController extends Controller
         $token = $user->username.md5(rand(1, 10) . microtime());
         $token_expired_at = Carbon::now()->addDay(1)->format("Y-m-d");
 
-        $user_token = Admin::where('email_address', $request->email_address)
+        $user_token = Admin::where('email', $request->email)
                       ->update([
                         'token'            => $token,
                         'token_expired_at' => $token_expired_at
@@ -210,11 +215,10 @@ class AdminAuthController extends Controller
             $browser = 'Internet Explorer';
         }
 
-        // Sent to email here
-        Mail::to($request->email_address)
-            ->send(new CustomerForgotPassword(
+        Mail::to($request->email)
+            ->send(new AdminForgotPasswordEmail(
                 $user->username,
-                $request->email_address,
+                $request->email,
                 $token,
                 $operating_system,
                 $browser
@@ -263,12 +267,11 @@ class AdminAuthController extends Controller
 
         $validator = $this->validateResetPasswordAdmin($request);
 
-        if (!$validator->passes()) {
+        if ($validator->fails()) {
             return response()->json([
-                'error' => $validator->errors()->all(),
-                'code'  => '422'
-            ]);
-        }   
+                'errors' => $validator->errors(),
+            ], 422);
+        }
 
         $user = Admin::where('id', $user->id)
                     ->update([
