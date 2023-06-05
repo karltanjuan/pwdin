@@ -32,7 +32,7 @@ class EmployerAuthController extends Controller
 
     public function postRegister(Request $request)
     {       
-        $validator = $this->validateRegister($request);
+        $validator = $this->validateRegisterEmployer($request);
 
         if ($validator->fails()) {
             return response()->json([
@@ -103,7 +103,7 @@ class EmployerAuthController extends Controller
 
     }
 
-    public function validateRegister($request) {
+    public function validateRegisterEmployer($request) {
         $rules = [
             'username'              => 'required|unique:users',
             'email'                 => 'required|email|unique:users',
@@ -137,7 +137,7 @@ class EmployerAuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        $validator = $this->validateLogin($request);
+        $validator = $this->validateLoginEmployer($request);
         $response = response()->json(['errors' => [
             'email' => ['Invalid email or password']]
             ], 422);
@@ -165,7 +165,7 @@ class EmployerAuthController extends Controller
     }
 
     // Login validator
-    public function validateLogin(Request $request)
+    public function validateLoginEmployer(Request $request)
     {
          return Validator::make($request->all(), [ 
             'email'    => 'required|email',

@@ -19,17 +19,25 @@ use App\Http\Controllers\Admin\AdminAuthController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('test', function() {
+    return view('applicant.reset-password-expired');
+});
+
 // Applicant
 /* prefix is use to reduce redudancy on the route url */
 Route::group(['prefix' => 'applicant'], function() {
     Route::get('register', [AuthController::class, 'getRegister'])->name('applicant.getRegister');
-
     // submit data to backend using HTTP POST 
     Route::post('postRegister', [AuthController::class, 'postRegister'])->name('applicant.postRegister');
 
     Route::get('login', [AuthController::class, 'getLogin'])->name('applicant.getLogin');
-
     Route::post('postLogin', [AuthController::class, 'postLogin'])->name('applicant.postLogin');
+
+    Route::get('forgot-password', [AuthController::class, 'getForgotPassword'])->name('applicant.getForgotPassword');
+    Route::post('postForgotPassword', [AuthController::class, 'postForgotPassword'])->name('applicant.postForgotPassword');
+
+    Route::get('reset-password', [AuthController::class, 'getResetPassword'])->name('applicant.getResetPassword');
+    Route::post('postResetPassword', [AuthController::class, 'postResetPassword'])->name('applicant.postResetPassword');
 
     Route::middleware('is_applicant')->group(function () {
         Route::get('/dashboard', function() {
@@ -53,8 +61,8 @@ Route::group(['prefix' => 'employer'], function() {
 // Admin/Moderator
 Route::group(['prefix' => 'admin'], function() {
 
-    Route::get('register', [AdminAuthController::class, 'getRegister'])->name('employer.getRegister');
-    Route::post('postRegister', [AdminAuthController::class, 'postRegister'])->name('employer.postRegister');
+    Route::get('register', [AdminAuthController::class, 'getRegister'])->name('admin.getRegister');
+    Route::post('postRegister', [AdminAuthController::class, 'postRegister'])->name('admin.postRegister');
     
     Route::get('login', [AdminAuthController::class, 'getLogin'])->name('admin.getLogin');
     Route::post('postLogin', [AdminAuthController::class, 'postLogin'])->name('admin.postLogin');

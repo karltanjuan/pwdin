@@ -32,10 +32,10 @@
                     <img src = "{{asset('img/pic1.png')}}" alt = "" >
                 </div>
                 <div class="slide">
-                    <img src = "pics/pic2.png" alt = "" >
+                    <img src = "{{asset('img/pic2.png')}}" alt = "" >
                 </div>
                 <div class="slide">
-                    <img src = "pics/pic3.png" alt = "" >
+                    <img src = "{{asset('img/pic3.png')}}" alt = "" >
                 </div>
                 <div class="navigation-auto">
                     <div class="auto-btn1"></div>
@@ -93,7 +93,7 @@
     <!-- Our Services -->
     <div class = "home-pic2">
         <div class = "image-container">
-            <img src = "pics/pic4.png" ref="#" class="pic2">
+            <img src = "{{asset('img/pic4.png')}}" ref="#" class="pic2">
             
             <div class="text-container2">
                 <p> OUR SERVICES </p>
@@ -101,7 +101,7 @@
             <div class="slide-container">
                 <div class="card">
                     <figure>
-                        <img src = "{{asset('img/c1.jpg')}}">
+                        <img src="{{asset('img/c1.jpg')}}">
                     </figure>
                     <div class="content">
                         <h3> Job Search</h3>
@@ -111,7 +111,7 @@
                 </div>
                 <div class="card">
                     <figure>
-                        <img src = "{{asset('img/c2.jpg')}}">
+                        <img src="{{asset('img/c2.jpg')}}">
                     </figure>
                     <div class="content">
                         <h3> Resume Builder</h3>
@@ -121,7 +121,7 @@
                 </div>
                 <div class="card">
                     <figure>
-                        <img src = "{{asset('img/c3.jpg')}}">
+                        <img src="{{asset('img/c3.jpg')}}">
                     </figure>
                     <div class="content">
                         <h3> Employer Search</h3>
@@ -138,7 +138,7 @@
         <div class="main-content">
             <h1 class="recent-article-title"> Latest Article </h1>
             <div class="post">
-                <img src = "{{asset('img/c1.jpg')}}" alt="" class="post-image">
+                <img src="{{asset('img/c1.jpg')}}" alt="" class="post-image">
                 <div class="post-review">
                     <h1><a href ="#"> Hire Confidently with PWDIn</a></h1>
                     <i class="far fa-user"> Mar 11, 2019</i>

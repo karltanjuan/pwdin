@@ -30,7 +30,7 @@ class AdminAuthController extends Controller
 
     public function postRegister(Request $request)
     {       
-        $validator = $this->validateRegister($request);
+        $validator = $this->validateRegisterAdmin($request);
 
         if ($validator->fails()) {
             return response()->json([
@@ -44,7 +44,7 @@ class AdminAuthController extends Controller
         if ($request->file('profile_photo')) {
             $profile_photo_file = $request->file('profile_photo');
             $profile_photo_path = uniqid().md5(1).'_'.$profile_photo_file->getClientOriginalName();
-            $profile_photo_path = $request->file('profile_photo')->storeAs('public/employer/profile_photo', $profile_photo_path);
+            $profile_photo_path = $request->file('profile_photo')->storeAs('public/admin/profile_photo', $profile_photo_path);
         }
 
         // save to database
@@ -76,7 +76,7 @@ class AdminAuthController extends Controller
 
     }
 
-    public function validateRegister($request) {
+    public function validateRegisterAdmin($request) {
         $rules = [
             'username'              => 'required|unique:users',
             'email'                 => 'required|email|unique:users',
@@ -106,7 +106,7 @@ class AdminAuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        $validator = $this->validateLogin($request);
+        $validator = $this->validateLoginAdmin($request);
         $response = response()->json(['errors' => [
             'email' => ['Invalid email or password']]
             ], 422);
@@ -134,7 +134,7 @@ class AdminAuthController extends Controller
     }
 
     // Login validator
-    public function validateLogin(Request $request)
+    public function validateLoginAdmin(Request $request)
     {
          return Validator::make($request->all(), [ 
             'email'    => 'required|email',
@@ -155,7 +155,7 @@ class AdminAuthController extends Controller
     public function postforgotPassword(Request $request)
     {
     
-        $validator = $this->validateForgotPassword($request);
+        $validator = $this->validateForgotPasswordAdmin($request);
         $response = response()->json(['message' => 'Email address not found', 'code' => '422']);
 
         if (!$validator->passes()) {
@@ -226,7 +226,7 @@ class AdminAuthController extends Controller
 
     }
 
-    public function validateForgotPassword($request) {
+    public function validateForgotPasswordAdmin($request) {
         return Validator::make($request->all(), [ 
             'email' => 'required|email',
         ]);
@@ -264,7 +264,7 @@ class AdminAuthController extends Controller
             ]);
         }
 
-        $validator = $this->validateResetPassword($request);
+        $validator = $this->validateResetPasswordAdmin($request);
 
         if (!$validator->passes()) {
             return response()->json([
@@ -288,7 +288,7 @@ class AdminAuthController extends Controller
         
     }
 
-    public function validateResetPassword(Request $request) {
+    public function validateResetPasswordAdmin(Request $request) {
         return Validator::make($request->all(), [
             'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
             'password_confirmation' => ['required', 'same:new_password']

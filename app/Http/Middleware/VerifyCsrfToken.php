@@ -15,6 +15,8 @@ class VerifyCsrfToken extends Middleware
         // applicant
         '/applicant/postRegister',
         '/applicant/postLogin',
+        '/applicant/postForgotPassword',
+        '/applicant/postResetPassword',
 
         // employer
         '/employer/postRegister',

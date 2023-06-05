@@ -270,6 +270,8 @@
 				$(errMsgSelector).text(messages[0]);
 				$(inputSelector).addClass('error');
 			});
+
+			$("html, body").animate({ scrollTop: 0 }, "slow");
 		}
 
 		

@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PendingApplicantEmail;
+use App\Mail\ApplicantForgotPasswordEmail;
 use Validator;
 use Session;
 use Storage;
@@ -30,7 +31,7 @@ class AuthController extends Controller
 
     public function postRegister(Request $request)
     {       
-        $validator = $this->validateRegister($request);
+        $validator = $this->validateRegisterApplicant($request);
 
         if ($validator->fails()) {
             return response()->json([
@@ -106,7 +107,7 @@ class AuthController extends Controller
 
     }
 
-    public function validateRegister($request) {
+    public function validateRegisterApplicant($request) {
         $rules = [
             'username'              => 'required|unique:users',
             'email'                 => 'required|email|unique:users',
@@ -146,7 +147,7 @@ class AuthController extends Controller
 
     public function postLogin(Request $request)
     {
-        $validator = $this->validateLogin($request);
+        $validator = $this->validateLoginApplicant($request);
         $response = response()->json(['errors' => [
             'email' => ['Invalid email or password']]
             ], 422);
@@ -184,7 +185,7 @@ class AuthController extends Controller
     }
 
     // Login validator
-    public function validateLogin(Request $request)
+    public function validateLoginApplicant(Request $request)
     {
          return Validator::make($request->all(), [ 
             'email'    => 'required|email',
@@ -192,29 +193,29 @@ class AuthController extends Controller
         ]);
     }
 
-    public function getforgotPassword()
+    public function getForgotPassword()
     {
         if (auth()->check()) {
-            return redirect('customer/dashboard');
+            return redirect('applicant/dashboard');
         }
 
-        return view('customer.forgot-password');
+        // return view('applicant.forgot-password');
         
     }
 
-    public function postforgotPassword(Request $request)
+    public function postForgotPassword(Request $request)
     {
     
-        $validator = $this->validateForgotPassword($request);
+        $validator = $this->validateForgotPasswordApplicant($request);
         $response = response()->json(['message' => 'Email address not found', 'code' => '422']);
 
-        if (!$validator->passes()) {
-            return $response;
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
         }
 
-        $user = User::where('email_address', $request->email_address)
-                ->where('role', 3)
-                ->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             return $response;
@@ -223,7 +224,7 @@ class AuthController extends Controller
         $token = $user->username.md5(rand(1, 10) . microtime());
         $token_expired_at = Carbon::now()->addDay(1)->format("Y-m-d");
 
-        $user_token = User::where('email_address', $request->email_address)
+        $user_token = User::where('email', $request->email)
                       ->update([
                         'token'            => $token,
                         'token_expired_at' => $token_expired_at
@@ -262,10 +263,10 @@ class AuthController extends Controller
         }
 
         // Sent to email here
-        Mail::to($request->email_address)
-            ->send(new CustomerForgotPassword(
+        Mail::to($request->email)
+            ->send(new ApplicantForgotPasswordEmail(
                 $user->username,
-                $request->email_address,
+                $request->email,
                 $token,
                 $operating_system,
                 $browser
@@ -273,38 +274,35 @@ class AuthController extends Controller
         );
 
         return response()->json(['message' => 'Reset password emailed successfully. Kindly check your inbox.', 'code' => '200']);        
-
     }
 
-    public function validateForgotPassword($request) {
+    public function validateForgotPasswordApplicant($request) {
         return Validator::make($request->all(), [ 
-            'email_address' => 'required|email',
+            'email' => 'required|email',
         ]);
     }
 
     public function getResetPassword($token)
     {
         if (auth()->check()) {
-            return redirect('customer/dashboard');
+            return redirect('applicant/dashboard');
         }
 
         $token = User::where('token', $token)
-                ->where('role', 3)
                 ->where('token_expired_at', '>', date('Y-m-d'))
                 ->first();
 
         if (!$token) {
-            return view('customer.reset-password-expired');
+            return view('applicant.reset-password-expired');
         }
 
-        return view('customer.reset-password');
+        return view('applicant.reset-password');
     }
 
     public function postResetPassword(Request $request)
     {
         $user = User::where('token', $request->reset_token)
                 ->where('token_expired_at', '>', date('Y-m-d'))
-                ->where('role', 3)
                 ->first();
 
         if (!$user) {
@@ -314,7 +312,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $validator = $this->validateResetPassword($request);
+        $validator = $this->validateResetPasswordApplicant($request);
 
         if (!$validator->passes()) {
             return response()->json([
@@ -324,7 +322,6 @@ class AuthController extends Controller
         }   
 
         $user = User::where('id', $user->id)
-                    ->where('role', 3)
                     ->update([
                         'password'          => Hash::make($request->new_password, ['rounds' => 12]),
                         'token'             => null,
@@ -338,7 +335,7 @@ class AuthController extends Controller
         
     }
 
-    public function validateResetPassword(Request $request) {
+    public function validateResetPasswordApplicant(Request $request) {
         return Validator::make($request->all(), [
             'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
             'password_confirmation' => ['required', 'same:new_password']
