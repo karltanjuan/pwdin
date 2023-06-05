@@ -56,6 +56,14 @@ Route::group(['prefix' => 'employer'], function() {
 
     Route::get('register', [EmployerAuthController::class, 'getRegister'])->name('employer.getRegister');
     Route::post('postRegister', [EmployerAuthController::class, 'postRegister'])->name('employer.postRegister');
+
+    Route::middleware('is_employer')->group(function () {
+        Route::get('/dashboard', function() {
+            return view('employer.dashboard');
+        });
+
+        Route::get('logout', [EmployerAuthController::class, 'logout'])->name('employer.logout');
+    });
 });
 
 // Admin/Moderator

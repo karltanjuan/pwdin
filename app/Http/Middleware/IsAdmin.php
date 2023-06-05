@@ -17,10 +17,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Check if user is authenticated
-        if (Auth::check()) {
+        // Check if admin is authenticated
+        if (Auth::guard('admins')->check()) {
             // Retrieve the authenticated user
-            $user = Auth::user();
+            $user = auth('admins')->user();
 
             $db_user = Admin::where('email', $user->email)->first();
         

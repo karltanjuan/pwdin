@@ -20,7 +20,7 @@ class AdminAuthController extends Controller
 
     public function getRegister()
     {
-        if (auth()->check()) {
+        if (auth()->guard('admins')->check()) {
             return redirect('admin/dashboard');
         }
 
@@ -96,7 +96,7 @@ class AdminAuthController extends Controller
 
     public function getLogin()
     {
-        if (auth()->check()) {
+        if (auth()->guard('admins')->check()) {
             return redirect('admin/dashboard');
         }
 
@@ -144,7 +144,7 @@ class AdminAuthController extends Controller
 
     public function getforgotPassword()
     {
-        if (auth()->check()) {
+        if (auth()->guard('admins')->check()) {
             return redirect('admin/dashboard');
         }
 
@@ -234,7 +234,7 @@ class AdminAuthController extends Controller
 
     public function getResetPassword($token)
     {
-        if (auth()->check()) {
+        if (auth()->guard('admins')->check()) {
             return redirect('customer/dashboard');
         }
 

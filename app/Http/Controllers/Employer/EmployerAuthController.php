@@ -22,7 +22,7 @@ class EmployerAuthController extends Controller
 
     public function getRegister()
     {
-        if (auth()->check()) {
+        if (auth()->guard('employers')->check()) {
             return redirect('employer/dashboard');
         }
 
@@ -127,7 +127,7 @@ class EmployerAuthController extends Controller
 
         public function getLogin()
     {
-        if (auth()->check()) {
+        if (auth()->guard('employers')->check()) {
             return redirect('employer/dashboard');
         }
 
@@ -171,6 +171,22 @@ class EmployerAuthController extends Controller
             'email'    => 'required|email',
             'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
         ]);
+    }
+
+     public function logout()
+    {
+        if (isset(auth()->user()->id)) {
+            // ActivityLogHelper::save(
+            //     'User Logout', 
+            //     'Logout', 
+            //     request()->ip(),
+            //     auth()->user()->id
+            // );
+        }
+
+        Session::flush();
+        Auth::logout();
+        return redirect('/employer/login');
     }
 
 }

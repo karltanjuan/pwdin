@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Applicant Dashboard</title>
+	<title>Employer Dashboard</title>
 </head>
 <body>
 
-	<h2>Applicant Dashboard</h2>
-	<a href="{{route('applicant.logout')}}">Logout</a>
+	<h2>Employer Dashboard</h2>
+	<a href="{{route('employer.logout')}}">Logout</a>
 	
 </body>
 </html>

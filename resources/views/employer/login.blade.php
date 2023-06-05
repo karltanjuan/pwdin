@@ -35,23 +35,17 @@
                         <p class="welcome">Welcome To</p>
                         <img src="{{asset('img/logo2.png')}}" class="logo2" alt="">
                         <div class="form-group-inputs">
-                            <input type="text" id="email" class="email" placeholder="Enter email"/>
+                            <input type="text" id="email" class="email" placeholder="Enter email address"/>
                            	<span class="err-email err-msg"></span>
                             <input type="password" id="password" class="password" placeholder="Enter password"/>
                             <span class="err-password err-msg"></span>
                             <br><br>
                             <a href="javascript:void(0)" class="forgot-pass">Forgot Password</a>
                             <br>
-                            <button type="button" class="btn-login">Log In Applicant</button>
+                            <button type="button" class="btn-login">Log In Employer</button>
                         </div>
                     </div>
-                    <!--Register container-->
-                    <div class="register-container">
-                        <img src="{{asset('img/or.png')}}" class="or" alt="or">
-                        <p class="welcome">Register As</p>
-                        <input type="button" class="register-candidate" value="Candidate">
-                        <input type="button" class="register-employer" value="Employer">
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-tab-5">
@@ -91,7 +85,7 @@
 
 	        // Send an AJAX request to validate the data
 	        $.ajax({
-	            url: '{{ route('applicant.postLogin') }}',
+	            url: '{{ route('employer.postLogin') }}',
 	            type: 'POST',
 	            data: formData,
 	            processData: false,
@@ -110,7 +104,7 @@
 						  confirmButtonText: 'OK'
 						}).then((result) => {
 						  	setTimeout(function() {
-                                window.location.href = '{{url('/applicant/dashboard')}}'
+                                window.location.href = '{{url('/employer/dashboard')}}'
                             }, 2000)
 						});
 	                } else {
