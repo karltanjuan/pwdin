@@ -155,3 +155,12 @@
 .swal2-styled.swal2-confirm {
     background: rgba(22, 185, 236, 1) !important;
 }
+
+.eye-icon-position,
+.eye-icon-position2 {
+    display: block;
+    position: relative;
+    margin-top: -43px;
+    float: right;
+    margin-right: 10px;
+}

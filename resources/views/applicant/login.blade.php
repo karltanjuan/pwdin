@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/login.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
     <title>PWDIn Login</title>
@@ -38,6 +40,9 @@
                             <input type="text" id="email" class="email" placeholder="Enter email address"/>
                            	<span class="err-email err-msg"></span>
                             <input type="password" id="password" class="password" placeholder="Enter password"/>
+                            <span class="show eye-icon-position">
+                                <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i> 
+                            </span>
                             <span class="err-password err-msg"></span>
                             <br><br>
                             <a href="javascript:void(0)" class="forgot-pass">Forgot Password</a>
@@ -67,6 +72,24 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+
+        var state1 = false;
+        let hide1 = $("#show1");
+
+        function toggle1() {
+          if (state1) {
+            $("#password").attr("type", "password");
+            hide1.css("color", "#D0CECE");
+            hide1.removeClass("la-eye-slash").addClass("la-eye");
+            state1 = false;
+          } else {
+            $("#password").attr("type", "text");
+            hide1.css("color", "#1976D2");
+            hide1.removeClass("la-eye").addClass("la-eye-slash");
+            state1 = true;
+          }
+        }
+
     	var err_counter = 0;
 		function displayErrors(errors) {
 			$('.err-msg').text('');

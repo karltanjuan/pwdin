@@ -229,3 +229,11 @@ body {
 .error {
     border: 1px solid red !important;
 }
+
+.eye-icon-position,
+.eye-icon-position2 {
+    display: block;
+    margin-top: -27px;
+    float: right;
+    margin-right: 10px;
+}

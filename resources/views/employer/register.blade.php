@@ -5,8 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    
     <title>Employer Registration</title>
+
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+
+    <style>
+        .eye-icon-position,
+        .eye-icon-position2 {
+            position: absolute;
+            margin-left: 270px;
+            margin-top: 35px;
+        }
+    </style>
 </head>
 
 <body>
@@ -51,11 +63,17 @@
                         <div class="input-field">
                             <label>Password</label>
                             <input id="password" class="password" type="password" placeholder="Enter password"/>
+                             <span class="show eye-icon-position">
+                                <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i> 
+                            </span>
                             <span class="err-password err-msg"></span>
                         </div>
                         <div class="input-field">
                             <label>Confirm Password</label>
                             <input id="password_confirmation" class="password_confirmation" type="password" placeholder="Enter confirm password"/>
+                            <span class="show eye-icon-position2">
+                                <i class="las la-eye fs-5" id="show2" onclick="toggle2()"></i> 
+                            </span>
                             <span class="err-password_confirmation err-msg"></span>
                         </div>
                         <div class="input-field">
@@ -150,6 +168,40 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+
+        var state1 = false;
+        var state2 = false;
+        let hide1 = $("#show1");
+        let hide2 = $("#show2");
+
+        function toggle1() {
+          if (state1) {
+            $("#password").attr("type", "password");
+            hide1.css("color", "#D0CECE");
+            hide1.removeClass("la-eye-slash").addClass("la-eye");
+            state1 = false;
+          } else {
+            $("#password").attr("type", "text");
+            hide1.css("color", "#1976D2");
+            hide1.removeClass("la-eye").addClass("la-eye-slash");
+            state1 = true;
+          }
+        }
+
+        function toggle2() {
+          if (state2) {
+            $("#password_confirmation").attr("type", "password");
+            hide2.css("color", "#D0CECE");
+            hide2.removeClass("la-eye-slash").addClass("la-eye");
+            state2 = false;
+          } else {
+            $("#password_confirmation").attr("type", "text");
+            hide2.css("color", "#1976D2");
+            hide2.removeClass("la-eye").addClass("la-eye-slash");
+            state2 = true;
+          }
+        }
+
         // on first load of page
         $(document).ready(function() {
             getProvinces()

@@ -4,7 +4,8 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>PWDIn - Admin Login</title>
-
+		
+		<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 		<link rel="stylesheet" href="{{asset('css/admin.css')}}">
 	</head>
 	<body>
@@ -27,6 +28,9 @@
 							<p>
 								<label>Password<span>*</span></label>
 								<input type="password" class="password" id="password" placeholder="Enter password">
+								<span class="show eye-icon-position">
+                                    <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i> 
+                                </span>
 								<span class="err-password err-msg"></span>
 							</p>
 							<p>
@@ -47,6 +51,23 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+    	var state1 = false;
+		let hide1 = $("#show1");
+
+		function toggle1() {
+		  if (state1) {
+		    $("#password").attr("type", "password");
+		    hide1.css("color", "#D0CECE");
+		    hide1.removeClass("la-eye-slash").addClass("la-eye");
+		    state1 = false;
+		  } else {
+		    $("#password").attr("type", "text");
+		    hide1.css("color", "#1976D2");
+		    hide1.removeClass("la-eye").addClass("la-eye-slash");
+		    state1 = true;
+		  }
+		}
+
     	var err_counter = 0;
 		function displayErrors(errors) {
 			$('.err-msg').text('');
