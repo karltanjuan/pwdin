@@ -114,7 +114,7 @@
                         <img src="{{asset('img/c2.jpg')}}">
                     </figure>
                     <div class="content">
-                        <h3> Resume Builder</h3>
+                        <h3> Dashboard Viewer</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit rem dolores laborum itaque possimus pariatur esse necessitatibus quibusdam eos labore, facilis at ab. Odit non deserunt repellat, voluptatem similique laborum?</p>
                         
                     </div>
@@ -146,11 +146,74 @@
                         Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                         Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
                     </p>
-                    <a href="#" class="btn"> Read More </a>
+                    <a href="#" class="btn read-more"> Read More </a>
                 </div>
             </div>
+
+            <div class="article-content1 clearfix">
+                <div class="main-content">
+                    <h1 class="recent-article-title">  </h1>
+        
+                    <div class="post2">
+                        <img src = "pics/post2.png" alt="" class="post-image">
+                        <div class="post-review2">
+                            <h1><a href ="#"> Empower Your Team with Diverse Abilities</a></h1>
+                            <i class="far fa-user"> Mar 11, 2019</i>
+                            <p class="preview-text">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                                Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
+                            </p>
+                            <a href="#" class="btn read-more2"> Read More </a>
+                        </div>
+                    </div>
+
+            <div class="article-content1 clearfix">
+                <div class="main-content">
+                    <h1 class="recent-article-title">  </h1>
+        
+                    <div class="post3">
+                        <img src = "pics/post3.jpg" alt="" class="post-image">
+                        <div class="post-review3">
+                            <h1><a href ="#"> PWDIn: Hire Now!</a></h1>
+                            <i class="far fa-user"> Mar 11, 2019</i>
+                            <p class="preview-text">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                                Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
+                            </p>
+                            <a href="#" class="btn read-more3"> Read More </a>
+                        </div>
+                    </div>
+
+            
         </div>
-        <div class="sidebar"></div>
+
+        
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-section about"></div>
+            <div class="footer-section links"></div>
+            <div class="footer-section contact-form"></div>
+        </div>
+        
+        <div class="footer-bottom">
+            &copy; PWDIn.com | Designed by Irene Domingo & Abigail Larupay
+        </div>
     </div>
+
+
+      
+
+
+        
+
+        
+
+    
+
+    
+
+    
 </body>
 </html>
