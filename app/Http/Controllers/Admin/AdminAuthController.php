@@ -162,8 +162,7 @@ class AdminAuthController extends Controller
             return $response;
         }
 
-        $user = User::where('email_address', $request->email_address)
-                ->where('role', 3)
+        $user = Admin::where('email_address', $request->email_address)
                 ->first();
 
         if (!$user) {
@@ -173,7 +172,7 @@ class AdminAuthController extends Controller
         $token = $user->username.md5(rand(1, 10) . microtime());
         $token_expired_at = Carbon::now()->addDay(1)->format("Y-m-d");
 
-        $user_token = User::where('email_address', $request->email_address)
+        $user_token = Admin::where('email_address', $request->email_address)
                       ->update([
                         'token'            => $token,
                         'token_expired_at' => $token_expired_at
@@ -235,26 +234,24 @@ class AdminAuthController extends Controller
     public function getResetPassword($token)
     {
         if (auth()->guard('admins')->check()) {
-            return redirect('customer/dashboard');
+            return redirect('admin/dashboard');
         }
 
-        $token = User::where('token', $token)
-                ->where('role', 3)
+        $token = Admin::where('token', $token)
                 ->where('token_expired_at', '>', date('Y-m-d'))
                 ->first();
 
         if (!$token) {
-            return view('customer.reset-password-expired');
+            return view('admin.reset-password-expired');
         }
 
-        return view('customer.reset-password');
+        return view('admin.reset-password');
     }
 
     public function postResetPassword(Request $request)
     {
-        $user = User::where('token', $request->reset_token)
+        $user = Admin::where('token', $request->reset_token)
                 ->where('token_expired_at', '>', date('Y-m-d'))
-                ->where('role', 3)
                 ->first();
 
         if (!$user) {
@@ -273,8 +270,7 @@ class AdminAuthController extends Controller
             ]);
         }   
 
-        $user = User::where('id', $user->id)
-                    ->where('role', 3)
+        $user = Admin::where('id', $user->id)
                     ->update([
                         'password'          => Hash::make($request->new_password, ['rounds' => 12]),
                         'token'             => null,

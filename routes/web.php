@@ -19,10 +19,6 @@ use App\Http\Controllers\Admin\AdminAuthController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('test', function() {
-    return view('applicant.reset-password-expired');
-});
-
 // Applicant
 /* prefix is use to reduce redudancy on the route url */
 Route::group(['prefix' => 'applicant'], function() {
@@ -74,6 +70,12 @@ Route::group(['prefix' => 'admin'], function() {
     
     Route::get('login', [AdminAuthController::class, 'getLogin'])->name('admin.getLogin');
     Route::post('postLogin', [AdminAuthController::class, 'postLogin'])->name('admin.postLogin');
+
+    Route::get('forgot-password', [AdminAuthController::class, 'getForgotPassword'])->name('admin.getForgotPassword');
+    Route::post('postForgotPassword', [AdminAuthController::class, 'postForgotPassword'])->name('admin.postForgotPassword');
+
+    Route::get('reset-password/{token}', [AdminAuthController::class, 'getResetPassword'])->name('admin.getResetPassword');
+    Route::post('postResetPassword', [AdminAuthController::class, 'postResetPassword'])->name('admin.postResetPassword');
 
     Route::middleware('is_admin')->group(function () {
         Route::get('/dashboard', function() {

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>PWDIn - Admin Login</title>
+		<title>PWDIn - Admin Forgot Password</title>
 
 		<link rel="stylesheet" href="{{asset('css/admin.css')}}">
 	</head>
@@ -18,20 +18,13 @@
 				</div>
 				<div class="col-right">
 					<div class="login-form">
-						<h2>Login</h2>
+						<h2>Forgot Password</h2>
 							<p>
-								<label>Username<span>*</span></label>
-								<input type="text" placeholder="Enter username" required>
+								<label>Email Address<span>*</span></label>
+								<input type="text" class="email" id="email" placeholder="Enter email address" required>
 							</p>
 							<p>
-								<label>Password<span>*</span></label>
-								<input type="password" placeholder="Enter password" required>
-							</p>
-							<p>
-								<input class="btn-login" type="button" value="Log In" />
-							</p>
-							<p>
-								<a href="{{url('admin/forgot-password')}}">Forgot Password?</a>
+								<input class="btn-send" type="button" value="Send" />
 							</p>
 					</div>
 				</div>
