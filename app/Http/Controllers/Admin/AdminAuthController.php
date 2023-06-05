@@ -241,13 +241,13 @@ class AdminAuthController extends Controller
             return redirect('admin/dashboard');
         }
 
-        // $token = Admin::where('token', $token)
-        //         ->where('token_expired_at', '>', date('Y-m-d'))
-        //         ->first();
+        $token = Admin::where('token', $token)
+                ->where('token_expired_at', '>', date('Y-m-d'))
+                ->first();
 
-        // if (!$token) {
-        //     return view('admin.reset-password-expired');
-        // }
+        if (!$token) {
+            return view('admin.reset-password-expired');
+        }
 
         return view('admin.reset-password');
     }
