@@ -318,9 +318,9 @@
 							  showCancelButton: false,
 							  confirmButtonText: 'OK'
 							}).then((result) => {
-							  if (result.isConfirmed) {
-							  	window.location.href = '{{url('/')}}'
-							  }
+								setTimeout(function() {
+									window.location.href = '{{url('/')}}'
+								}, 2000)
 							});
 		                } else {
 		                    displayErrors(JSON.parse(response.errors));
