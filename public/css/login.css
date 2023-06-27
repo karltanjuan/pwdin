@@ -1,3 +1,7 @@
+html.hide-scroll{
+    overflow: hidden;
+}
+
 .navbar{
   color: black;
   display: flex;

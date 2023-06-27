@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="hide-scroll">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,20 +8,23 @@
         <link rel="stylesheet" href="{{asset('css/home.css')}}">
     </head>
     <body>
-        <!-- Navbar -->
-        <header>
-            <nav class="navbar">
-                <a href="#">
-                    <img src="{{asset('img/logo.png')}}" href="#" class="logo"></img>
-                </a>
-                <div class="navbar-buttons">
-                    <a href="home">Home</a>
-                    <a href="job_seeker">Job Seekers</a>
-                    <a href="employer">Employers</a>
-                    <a href="about_us">About Us</a>
-                </div>
-            </nav>
-        </header>
+    <div class="grid-fluid">
+        <div class="row">
+            <div class="col-tab-12">
+                <!-- Navbar -->
+                <nav class="navbar">
+                    <a href="#">
+                        <img src="{{asset('img/logo.png')}}" class="logo"/>
+                    </a>
+                    <div class="navbar-buttons">
+                        <a href="home">Home</a>
+                        <a href="job_seeker">Job Seekers</a>
+                        <a href="employer">Employers</a>
+                        <a href="about_us">About Us</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
         <!-- Slider -->
         <div class = "slider">
             <div class="slides">
@@ -49,41 +52,48 @@
                 <label for="radio3" class = "manual-btn"></label>
             </div>
         </div>
+
+
         <!-- Slider//Javascript -->
-        <script type ="text/javascript">
-        var counter =1;
-        setInterval(function(){
-        document.getElementById('radio' + counter).checked = true;
-        counter++;
-        if(counter > 3){
-        counter = 1;
-        }
-        }, 5000);
-        </script>
+                <script type ="text/javascript">
+                var counter =1;
+                setInterval(function(){
+                document.getElementById('radio' + counter).checked = true;
+                counter++;
+                if(counter > 3){
+                counter = 1;
+                }
+                }, 5000);
+                </script>
+
+
         <!-- Floating button -->
-        <a href="login.html" class="floating-button">Looking for a JOB? </a>
-        <a href="#" class="floating-button2">Looking to HIRE? </a>
+        <div class="floating">
+            <a href="login.html" class="floating-button">Looking for a JOB? </a>
+            <a href="#" class="floating-button2">Looking to HIRE? </a>
+        </div>
+
         <!-- Floating image -->
-        <img src= "{{asset('img/bgc.png')}}" ref="#" class="inner-img1">
-        <img src= "{{asset('img/zIaO.png')}}" ref="#" class="inner-img2">
-        <img src= "{{asset('img/ct.png')}}" ref="#" class="inner-img3">
-        <img src ="{{asset('img/tc.png')}}" ref="#" class="inner-img4">
+            <!-- <img src= "{{asset('img/bgc.png')}}" ref="#" class="inner-img1">
+            <img src= "{{asset('img/zIaO.png')}}" ref="#" class="inner-img2">
+            <img src= "{{asset('img/ct.png')}}" ref="#" class="inner-img3">
+            <img src ="{{asset('img/tc.png')}}" ref="#" class="inner-img4"> -->
         <div class="text-container">
             <p> "EMPOWERING ABILITIES, <br> CONNECTING OPPORTUNITIES"</p>
         </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     
     <div class = "text-container1">
         <p class ="txt-1"> "Innovative assistive tools for <br> a more accesible world." </p>
@@ -138,7 +148,7 @@
         <div class="main-content">
             <h1 class="recent-article-title"> Latest Article </h1>
             <div class="post">
-                <img src="{{asset('img/c1.jpg')}}" alt="" class="post-image">
+                <img src="{{asset('img/post1.png')}}" alt="" class="post-image">
                 <div class="post-review">
                     <h1><a href ="#"> Hire Confidently with PWDIn</a></h1>
                     <i class="far fa-user"> Mar 11, 2019</i>
@@ -155,7 +165,7 @@
                     <h1 class="recent-article-title">  </h1>
         
                     <div class="post2">
-                        <img src = "pics/post2.png" alt="" class="post-image">
+                        <img src = "{{asset('img/post2.png')}}" alt="" class="post-image">
                         <div class="post-review2">
                             <h1><a href ="#"> Empower Your Team with Diverse Abilities</a></h1>
                             <i class="far fa-user"> Mar 11, 2019</i>
@@ -172,7 +182,7 @@
                     <h1 class="recent-article-title">  </h1>
         
                     <div class="post3">
-                        <img src = "pics/post3.jpg" alt="" class="post-image">
+                        <img src = "{{asset('img/post3.jpg')}}" alt="" class="post-image">
                         <div class="post-review3">
                             <h1><a href ="#"> PWDIn: Hire Now!</a></h1>
                             <i class="far fa-user"> Mar 11, 2019</i>
@@ -183,10 +193,10 @@
                             <a href="#" class="btn read-more3"> Read More </a>
                         </div>
                     </div>
-
-            
+                </div>
+            </div>
         </div>
-
+    </div>
         
 
     <!-- Footer -->
@@ -201,6 +211,7 @@
             &copy; PWDIn.com | Designed by Irene Domingo & Abigail Larupay
         </div>
     </div>
+</div>
 
 
       
