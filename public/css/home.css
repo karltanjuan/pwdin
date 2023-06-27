@@ -1,78 +1,30 @@
- /* Navbar */
- .logo {
-    margin-right: 20px;
-    position: absolute;
-    width: 180px;
-    height: 70px;
-    top: 10px;
-}
 .navbar{
     color: black;
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px;
     align-items: flex-end;
     height: 60px;
-    margin-right: 10%;
-  }
-  ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    right: 40px;
   }
   
-  ul li {
-    float: center;
-    margin-top: 10px;
-    display: inline-block;
-    position: relative;
+  .navbar-buttons > a{
+      display: inline-flex;
+      justify-content: space-between;
+      margin-left: 100px;
+      font-family: Arial, Helvetica, sans-serif;
+      text-decoration: none;
+      font-weight: 400;
+      color: black;
+      font-size: 24px;
+      line-height: 29px;
   }
-
-  ul li a {
-    width: 150px;
-    display: block;
-    padding: 12px;
-    color: #0e0b0b;
-    text-decoration: none;
-    text-align: center;
-    font-size: 20px;
+  
+  .logo{
+      position: absolute;
+      width: 170px;
+      height: 70px;
+      top: 10px;
   }
-
-  ul li ul.dropdown li{
-    list-style-type: none;
-    display: block;
-  }
-
-  ul li ul.dropdown {
-    width: 100%;
-    background: #fff;
-    position: absolute;
-    z-index: 999;
-    display: none;
-  }
-
-  ul li a:hover {
-    background: #6a6a6a1c;
-    color: #60a2e4;
-  }
-
-  ul li:hover ul.dropdown{
-    display: block;
-  }
-
-.navbar-buttons > a{
-    display: inline-flex;
-    justify-content: space-between;
-    margin-left: 90px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-decoration: none;
-    font-weight: 400;
-    color: black;
-    font-size: 18px;
-    line-height: 29px;
-}
 
 /* Floating text */
 .text-container{
@@ -96,30 +48,28 @@
 
 
 /* Floating button */
-  .floating-button {
+.floating a{
     position: absolute;
     top: 69%;
-    left: 45%;
     transform: translate(-50%, -50%);
     display: inline-block;
     padding: 10px 20px;
+    padding-left: 5px;
+    text-decoration: none;
+}
+
+.floating-button {
+    left: 45%;
     background-color: #60a2e4;
     color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
+    padding-left: 5px;
   }
+
   .floating-button2 {
-    position: absolute;
-    top: 69%;
     left: 56.5%;
-    transform: translate(-50%, -50%);
-    display: inline-block;
-    padding: 10px 20px;
     border: 2px solid #60a2e4;
     background-color: #60a2e400;
     color: #60a2e4;
-    text-decoration: none;
-    border-radius: 5px;
   }
 
   .floating-button2:hover{
@@ -137,6 +87,7 @@
      margin: -50px;
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
      transition: transform 0.3s, box-shadow 0.3s;
+     width: fit-content;
   }
 
   .inner-img1:hover, .inner-img2:hover, .inner-img3:hover,.inner-img4:hover {
@@ -152,6 +103,7 @@
      margin: -50px;
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
      transition: transform 0.3s, box-shadow 0.3s;
+     width: fit-content;
   }
   .inner-img3 {
     position: absolute;
@@ -161,6 +113,7 @@
      margin: -50px;
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
      transition: transform 0.3s, box-shadow 0.3s;
+     width: fit-content;
   }
   .inner-img4 {
     position: absolute;
@@ -170,6 +123,7 @@
      margin: -50px;
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
      transition: transform 0.3s, box-shadow 0.3s;
+     width: fit-content;
   }
 
 /* Innovative assitive tools.... */
