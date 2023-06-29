@@ -31,15 +31,19 @@
                 <input type="radio" name="radio-btn" id = "radio1">
                 <input type="radio" name="radio-btn" id = "radio2">
                 <input type="radio" name="radio-btn" id = "radio3">
+
                 <div class = "slide first">
                     <img src = "{{asset('img/pic1.png')}}" alt = "" >
                 </div>
+
                 <div class="slide">
                     <img src = "{{asset('img/pic2.png')}}" alt = "" >
                 </div>
+
                 <div class="slide">
                     <img src = "{{asset('img/pic3.png')}}" alt = "" >
                 </div>
+
                 <div class="navigation-auto">
                     <div class="auto-btn1"></div>
                     <div class="auto-btn2"></div>
@@ -56,14 +60,14 @@
 
         <!-- Slider//Javascript -->
                 <script type ="text/javascript">
-                var counter =1;
-                setInterval(function(){
-                document.getElementById('radio' + counter).checked = true;
-                counter++;
-                if(counter > 3){
-                counter = 1;
-                }
-                }, 5000);
+                    var counter =1;
+                    setInterval(function(){
+                            document.getElementById('radio' + counter).checked = true;
+                            counter++;
+                        if(counter > 3){
+                            counter = 1;
+                        }
+                    }, 5000);
                 </script>
 
 
@@ -74,30 +78,18 @@
         </div>
 
         <!-- Floating image -->
-            <!-- <img src= "{{asset('img/bgc.png')}}" ref="#" class="inner-img1">
+        <div class="inner">
+            <img src= "{{asset('img/bgc.png')}}" ref="#" class="inner-img1">
             <img src= "{{asset('img/zIaO.png')}}" ref="#" class="inner-img2">
             <img src= "{{asset('img/ct.png')}}" ref="#" class="inner-img3">
-            <img src ="{{asset('img/tc.png')}}" ref="#" class="inner-img4"> -->
+            <img src ="{{asset('img/tc.png')}}" ref="#" class="inner-img4">
+        </div>
         <div class="text-container">
             <p> "EMPOWERING ABILITIES, <br> CONNECTING OPPORTUNITIES"</p>
         </div>
-    
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-    
-    <div class = "text-container1">
-        <p class ="txt-1"> "Innovative assistive tools for <br> a more accesible world." </p>
-    </div>
+        <div class = "text-container1">
+            <p class ="txt-1"> "Innovative assistive tools for <br> a more accesible world." </p>
+        </div>
     <br>
     <br>
     <!-- Our Services -->
@@ -212,19 +204,5 @@
         </div>
     </div>
 </div>
-
-
-      
-
-
-        
-
-        
-
-    
-
-    
-
-    
 </body>
 </html>

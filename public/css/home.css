@@ -48,40 +48,62 @@
 
 
 /* Floating button */
-.floating a{
+.floating {
+
+    display:flex;
+    justify-content: center;
     position: absolute;
-    top: 69%;
+    left: 45%;
+    top: 525px;
+}
+
+.floating a {
+    /* position: absolute; */
+    /* top: 69%; */
     transform: translate(-50%, -50%);
-    display: inline-block;
+    display: flex;
     padding: 10px 20px;
-    padding-left: 5px;
     text-decoration: none;
+    /* margin: 10px 20px; */
+    border-radius: 34px;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
 }
 
 .floating-button {
-    left: 45%;
+    /* left: 45%; */
     background-color: #60a2e4;
     color: #fff;
     padding-left: 5px;
-  }
+    /* position: absolute; */
+}
 
-  .floating-button2 {
-    left: 56.5%;
+.floating-button2 {
+    /* left: 56.5%; */
     border: 2px solid #60a2e4;
     background-color: #60a2e400;
     color: #60a2e4;
-  }
+    position: relative;
+}
 
   .floating-button2:hover{
     background-color: #60a2e4;
     color: #fff;
+    transition: 0.5s;
 
   }
 
   /* Floating image */
+
+  .inner{
+    position: relative;
+    margin-top: 155px;
+    margin-bottom: 20px;
+
+  }
+
   .inner-img1 {
     position: absolute;
-    top: 112%;
     left: 18%;
     transform: translate(-50%, -50%);
      margin: -50px;
@@ -97,7 +119,6 @@
 
   .inner-img2 {
     position: absolute;
-    top: 112%;
     left: 42%;
     transform: translate(-50%, -50%);
      margin: -50px;
@@ -107,7 +128,6 @@
   }
   .inner-img3 {
     position: absolute;
-    top: 112%;
     left: 65%;
     transform: translate(-50%, -50%);
      margin: -50px;
@@ -117,7 +137,6 @@
   }
   .inner-img4 {
     position: absolute;
-    top: 112%;
     left: 90%;
     transform: translate(-50%, -50%);
      margin: -50px;
@@ -128,15 +147,13 @@
 
 /* Innovative assitive tools.... */
   .text-container1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px; /* Set a specific height for the container */
-  }
+    position: relative;
+    display: block;
+    margin-top: 300px;
+}
   .txt-1 {
     text-align: center;
-    margin: auto;
-    font-family: Lucida Handwriting;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 50px;
   }
  
@@ -239,15 +256,16 @@
 
 /* Slider in first content */
 .slider{
-    width: 1470px;
+    width:auto;
     height: 600px;
-    overflow: hidden;
+    overflow: hidden !important;
 }
 
 .slides {
-    width: 500%;
+    width: 420%;
     height: 500px;
     display: flex;
+    overflow: hidden !important;
 
 }
 
@@ -256,21 +274,22 @@
 }
 
 .slide{
-    width: 20%;
     transition: 2s;
+    overflow: hidden !important;
 }
 
 .slide img {
-    width: 1470px;
+    width: 100%;
     height: 600px;
 }
 
 .navigation-manual {
     position: absolute;
     top:80%;
-    width: 1550px;
+    left: 47%;
     display: flex;
     justify-content: center;
+    margin: auto;
 }
 
 .manual-btn{
@@ -301,8 +320,7 @@ margin-right: 40px;
 }
 
 .navigation-auto {
-    position:absolute;
-    display: flex;
+    display: none;
     top:80%;
     width: 1550px;
     justify-content: center;
