@@ -1,0 +1,130 @@
+/* navbar */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  color: black;
+  display: flex;
+  position: relative;
+  padding: 10px 10px;
+  align-items: flex-end;
+  height: 60px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar- {
+  display: flex;
+  align-items: flex-end;
+}
+
+.navbar-buttons > a {
+  margin-left: 80px;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  line-height: 29px;
+}
+
+.logo {
+  position: relative;
+  width: 170px;
+  height: 70px;
+  top: 10px;
+}
+
+.navbar-right {
+  float: right;
+  display: flex;
+  align-items: flex-end;
+}
+
+.employer-company {
+  display: inline;
+  position: relative;
+}
+
+.employer-company::before {
+  height: 40px;
+  width: 2px;
+  margin: 0px -15px;
+  background-color: #AAA6B9;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: '';
+}
+
+.employer-icon {
+  padding: 0px 6vw;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+}
+
+.employer-icon img {
+  width: 4vw;
+  height: 4vw;
+  float: right;
+}
+
+.employer-icon p {
+  padding-left: 1vw;
+}
+
+.employer-icon::after {
+  height: 40px;
+  width: 2px;
+  margin: 0px 50px;
+  background-color: #AAA6B9;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  content: '';
+}
+
+/* Activity tabs */
+.activity-tabs {
+  background-color: rgba(214, 247, 254, 0.72);
+  width: auto;
+  height: 90px;
+}
+
+.activity-tabs a {
+  margin: 0px 60px;
+  font-size: 25px;
+  justify-items: center;
+  font-weight: 900;
+  display: inline-flex;
+  padding-top: 30px;
+  text-decoration: none;
+  color: #000;
+  opacity: 100%;
+}
+
+.tab {
+  position: relative;
+}
+
+.tab:hover {
+  color: #55abf4;
+}
+
+.tab::after {
+  transition: all 0.2s;
+  opacity: 0;
+  height: 4px;
+  width: 100%;
+  background-color: #55abf4;
+  position: absolute;
+  bottom: -23px;
+  left: 0;
+  content: "";
+}
+
+.tab:hover::after {
+  opacity: 1;
+}
