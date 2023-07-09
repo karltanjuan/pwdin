@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" class="hide-scroll">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home</title>
-        <link rel="stylesheet" href="{{asset('css/home.css')}}">
-    </head>
-    <body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{asset('css/home.css')}}">
+</head>
+
+<body>
     <div class="grid-fluid">
         <div class="row">
             <div class="col-tab-12">
                 <!-- Navbar -->
                 <nav class="navbar">
                     <a href="#">
-                        <img src="{{asset('img/logo.png')}}" class="logo"/>
+                        <img src="{{asset('img/logo.png')}}" class="logo" />
                     </a>
                     <div class="navbar-buttons">
                         <a href="home">Home</a>
@@ -26,22 +28,22 @@
             </div>
         </div>
         <!-- Slider -->
-        <div class = "slider">
+        <div class="slider">
             <div class="slides">
-                <input type="radio" name="radio-btn" id = "radio1">
-                <input type="radio" name="radio-btn" id = "radio2">
-                <input type="radio" name="radio-btn" id = "radio3">
+                <input type="radio" name="radio-btn" id="radio1">
+                <input type="radio" name="radio-btn" id="radio2">
+                <input type="radio" name="radio-btn" id="radio3">
 
-                <div class = "slide first">
-                    <img src = "{{asset('img/pic1.png')}}" alt = "" >
+                <div class="slide first">
+                    <img src="{{asset('img/pic1.png')}}" alt="">
                 </div>
 
                 <div class="slide">
-                    <img src = "{{asset('img/pic2.png')}}" alt = "" >
+                    <img src="{{asset('img/pic2.png')}}" alt="">
                 </div>
 
                 <div class="slide">
-                    <img src = "{{asset('img/pic3.png')}}" alt = "" >
+                    <img src="{{asset('img/pic3.png')}}" alt="">
                 </div>
 
                 <div class="navigation-auto">
@@ -51,24 +53,24 @@
                 </div>
             </div>
             <div class="navigation-manual">
-                <label for="radio1" class = "manual-btn"></label>
-                <label for="radio2" class = "manual-btn"></label>
-                <label for="radio3" class = "manual-btn"></label>
+                <label for="radio1" class="manual-btn"></label>
+                <label for="radio2" class="manual-btn"></label>
+                <label for="radio3" class="manual-btn"></label>
             </div>
         </div>
 
 
         <!-- Slider//Javascript -->
-                <script type ="text/javascript">
-                    var counter =1;
-                    setInterval(function(){
-                            document.getElementById('radio' + counter).checked = true;
-                            counter++;
-                        if(counter > 3){
-                            counter = 1;
-                        }
-                    }, 5000);
-                </script>
+        <script type="text/javascript">
+            var counter = 1;
+            setInterval(function() {
+                document.getElementById('radio' + counter).checked = true;
+                counter++;
+                if (counter > 3) {
+                    counter = 1;
+                }
+            }, 5000);
+        </script>
 
 
         <!-- Floating button -->
@@ -79,130 +81,130 @@
 
         <!-- Floating image -->
         <div class="inner">
-            <img src= "{{asset('img/bgc.png')}}" ref="#" class="inner-img1">
-            <img src= "{{asset('img/zIaO.png')}}" ref="#" class="inner-img2">
-            <img src= "{{asset('img/ct.png')}}" ref="#" class="inner-img3">
-            <img src ="{{asset('img/tc.png')}}" ref="#" class="inner-img4">
+            <img src="{{asset('img/bgc.png')}}" ref="#" class="inner-img1">
+            <img src="{{asset('img/zIaO.png')}}" ref="#" class="inner-img2">
+            <img src="{{asset('img/ct.png')}}" ref="#" class="inner-img3">
+            <img src="{{asset('img/tc.png')}}" ref="#" class="inner-img4">
         </div>
         <div class="text-container">
             <p> "EMPOWERING ABILITIES, <br> CONNECTING OPPORTUNITIES"</p>
         </div>
-        <div class = "text-container1">
-            <p class ="txt-1"> "Innovative assistive tools for <br> a more accesible world." </p>
+        <div class="text-container1">
+            <p class="txt-1"> "Innovative assistive tools for <br> a more accesible world." </p>
         </div>
-    <br>
-    <br>
-    <!-- Our Services -->
-    <div class = "home-pic2">
-        <div class = "image-container">
-            <img src = "{{asset('img/pic4.png')}}" ref="#" class="pic2">
-            
-            <div class="text-container2">
-                <p> OUR SERVICES </p>
-            </div>
-            <div class="slide-container">
-                <div class="card">
-                    <figure>
-                        <img src="{{asset('img/c1.jpg')}}">
-                    </figure>
-                    <div class="content">
-                        <h3> Job Search</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit rem dolores laborum itaque possimus pariatur esse necessitatibus quibusdam eos labore, facilis at ab. Odit non deserunt repellat, voluptatem similique laborum?</p>
-                        
-                    </div>
-                </div>
-                <div class="card">
-                    <figure>
-                        <img src="{{asset('img/c2.jpg')}}">
-                    </figure>
-                    <div class="content">
-                        <h3> Dashboard Viewer</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit rem dolores laborum itaque possimus pariatur esse necessitatibus quibusdam eos labore, facilis at ab. Odit non deserunt repellat, voluptatem similique laborum?</p>
-                        
-                    </div>
-                </div>
-                <div class="card">
-                    <figure>
-                        <img src="{{asset('img/c3.jpg')}}">
-                    </figure>
-                    <div class="content">
-                        <h3> Employer Search</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit rem dolores laborum itaque possimus pariatur esse necessitatibus quibusdam eos labore, facilis at ab. Odit non deserunt repellat, voluptatem similique laborum?</p>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </div>
-    <!-- Latest Article -->
-    <div class="article-content clearfix">
-        <div class="main-content">
-            <h1 class="recent-article-title"> Latest Article </h1>
-            <div class="post">
-                <img src="{{asset('img/post1.png')}}" alt="" class="post-image">
-                <div class="post-review">
-                    <h1><a href ="#"> Hire Confidently with PWDIn</a></h1>
-                    <i class="far fa-user"> Mar 11, 2019</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                        Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
-                    </p>
-                    <a href="#" class="btn read-more"> Read More </a>
-                </div>
-            </div>
+        <br>
+        <br>
+        <!-- Our Services -->
+        <div class="home-pic2">
+            <div class="image-container">
+                <img src="{{asset('img/pic4.png')}}" ref="#" class="pic2">
 
-            <div class="article-content1 clearfix">
-                <div class="main-content">
-                    <h1 class="recent-article-title">  </h1>
-        
-                    <div class="post2">
-                        <img src = "{{asset('img/post2.png')}}" alt="" class="post-image">
-                        <div class="post-review2">
-                            <h1><a href ="#"> Empower Your Team with Diverse Abilities</a></h1>
-                            <i class="far fa-user"> Mar 11, 2019</i>
-                            <p class="preview-text">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                                Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
-                            </p>
-                            <a href="#" class="btn read-more2"> Read More </a>
+                <div class="text-container2">
+                    <p> OUR SERVICES </p>
+                </div>
+                <div class="slide-container">
+                    <div class="card">
+                        <figure>
+                            <img src="{{asset('img/c1.jpg')}}">
+                        </figure>
+                        <div class="content">
+                            <h3> Job Search</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
                         </div>
                     </div>
+                    <div class="card">
+                        <figure>
+                            <img src="{{asset('img/c2.jpg')}}">
+                        </figure>
+                        <div class="content">
+                            <h3> Dashboard Viewer</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 
-            <div class="article-content1 clearfix">
-                <div class="main-content">
-                    <h1 class="recent-article-title">  </h1>
-        
-                    <div class="post3">
-                        <img src = "{{asset('img/post3.jpg')}}" alt="" class="post-image">
-                        <div class="post-review3">
-                            <h1><a href ="#"> PWDIn: Hire Now!</a></h1>
-                            <i class="far fa-user"> Mar 11, 2019</i>
-                            <p class="preview-text">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
-                                Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
-                            </p>
-                            <a href="#" class="btn read-more3"> Read More </a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <figure>
+                            <img src="{{asset('img/c3.jpg')}}">
+                        </figure>
+                        <div class="content">
+                            <h3> Employer Search</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit rem dolores laborum itaque possimus pariatur esse necessitatibus quibusdam eos labore, facilis at ab. Odit non deserunt repellat, voluptatem similique laborum?</p>
+
                         </div>
                     </div>
                 </div>
             </div>
+
+        </div>
+        <!-- Latest Article -->
+        <div class="article-content clearfix">
+            <div class="main-content">
+                <h1 class="recent-article-title"> Latest Article </h1>
+
+
+                <div class="post">
+                    <img src="{{asset('img/post1.png')}}" alt="" class="post-image">
+                    <div class="post-review">
+                        <h1><a href="#"> Hire Confidently with PWDIn</a></h1>
+                        <i class="far fa-user"> Mar 11, 2019</i>
+                        <p class="preview-text">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
+                        </p>
+                            <a href="#" class="btn read-more"> Read More </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="article-content clearfix">
+            <div class="main-content">
+
+                <div class="post2">
+                    <img src="{{asset('img/post2.png')}}" alt="" class="post-image">
+                    <div class="post-review2">
+                        <h1><a href="#"> Empower Your Team with Diverse Abilities</a></h1>
+                        <i class="far fa-user"> Mar 11, 2019</i>
+                        <p class="preview-text">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
+                        </p>
+                        <a href="#" class="btn read-more2"> Read More </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-content clearfix">
+            <div class="main-content">
+
+                <div class="post3">
+                    <img src="{{asset('img/post3.jpg')}}" alt="" class="post-image">
+                    <div class="post-review3">
+                        <h1><a href="#"> PWDIn: Hire Now!</a></h1>
+                        <i class="far fa-user"> Mar 11, 2019</i>
+                        <p class="preview-text">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            Est officiis excepturi quaerat exercitationem assumenda corporis non vel magnam quos delectus. Nam mollitia quos quae aspernatur, nesciunt placeat ullam labore nulla.
+                        </p>
+                        <a href="#" class="btn read-more3"> Read More </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-        
+
+
+
 
     <!-- Footer -->
-    <div class="footer">
-        <div class="footer-content">
-            <div class="footer-section about"></div>
-            <div class="footer-section links"></div>
-            <div class="footer-section contact-form"></div>
-        </div>
-        
-        <div class="footer-bottom">
-            &copy; PWDIn.com | Designed by Irene Domingo & Abigail Larupay
-        </div>
-    </div>
-</div>
+     <div class="footer">
+                <div class="footer-bottom">
+                    &copy; PWDIn.com | Designed by Irene Domingo & Abigail Larupay
+                </div>
+            </div> 
+
 </body>
+
 </html>
