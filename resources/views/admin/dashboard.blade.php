@@ -63,7 +63,7 @@
             </ul>
             <ul class="bottom-link">
                 <li>
-                    <a href="#">
+                    <a href="{{url('/admin/logout')}}">
                         <ion-icon name="log-out-outline"></ion-icon>
                         <span class="links">Logout</span>
                     </a>
