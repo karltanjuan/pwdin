@@ -25,56 +25,68 @@
         <div class="menu-items">
             <ul class="navLinks">
                 <li class="navList active">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <ion-icon name="home-outline"></ion-icon>
                         <span class="links">Dashboard</span>
                     </a>
                 </li>
                 <li class="navList">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <ion-icon name="folder-outline"></ion-icon>
                         <span class="links">Jobs</span>
                     </a>
                 </li>
                 <li class="navList">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <ion-icon name="analytics-outline"></ion-icon>
                         <span class="links">Employers</span>
                     </a>
                 </li>
                 <li class="navList">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <ion-icon name="heart-outline"></ion-icon>
                         <span class="links">Applicants</span>
                     </a>
                 </li>
                 <li class="navList">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <ion-icon name="heart-outline"></ion-icon>
                         <span class="links">Messages</span>
                     </a>
                 </li>
                 <li class="navList">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <ion-icon name="chatbubbles-outline"></ion-icon>
                         <span class="links">Blogs</span>
                     </a>
                 </li>
-            </ul>
-            <ul class="bottom-link">
-                <li>
-                    <a href="{{url('/admin/logout')}}">
-                        <ion-icon name="log-out-outline"></ion-icon>
-                        <span class="links">Logout</span>
+                <li class="navList">
+                    <a href="javascript:void(0)">
+                        <ion-icon name="people-outline"></ion-icon>
+                        <span class="links">Users</span>
                     </a>
                 </li>
+                <li class="navList">
+                    <a href="javascript:void(0)">
+                        <ion-icon name="settings-outline"></ion-icon>
+                        <span class="links">Settings</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="bottom-link">
                 <li class="mode">
-                    <a href="#">
+                    <a href="javascript:void(0)">
                         <ion-icon name="moon-outline"></ion-icon>
                         <span class="links">Dark Mode</span>
                         <div class="darkToggle">
                             <span class="switch"></span>
                         </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/admin/logout')}}">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                        <span class="links">Logout</span>
                     </a>
                 </li>
             </ul>
@@ -88,7 +100,9 @@
                 <ion-icon name="search-outline"></ion-icon>
                 <input type="text" placeholder="Search">
             </div>
-            <img class="pwdin-logo" src="{{asset('img/logo.png')}}" alt="PWDIn Logo">
+            <a class="profile" href="javascript:void(0)">
+                <ion-icon name="person-outline"></ion-icon>
+            </a>
         </div>
         <div class="container">
             <div class="overview">
