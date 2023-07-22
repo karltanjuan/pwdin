@@ -5,7 +5,12 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+body{
+  background-color: rgba(217, 217, 217, 0.34)
+}
+
 .navbar {
+  background-color: #fff;
   color: black;
   display: flex;
   position: relative;
@@ -45,6 +50,7 @@
 .employer-company {
   display: inline;
   position: relative;
+  cursor: pointer;
 }
 
 .employer-company::before {
@@ -63,6 +69,7 @@
   display: flex;
   align-items: flex-end;
   position: relative;
+  cursor: pointer;
 }
 
 .employer-icon img {
@@ -86,34 +93,39 @@
   content: '';
 }
 
-/* Activity tabs */
-.activity-tabs {
+/* Tabs */
+
+.tab- {
+  display: flex;
+  align-items: flex-end;
   background-color: rgba(214, 247, 254, 0.72);
   width: auto;
   height: 90px;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.activity-tabs a {
+.tab- a {
   margin: 0px 60px;
   font-size: 25px;
   justify-items: center;
   font-weight: 900;
-  display: inline-flex;
   padding-top: 30px;
   text-decoration: none;
   color: #000;
   opacity: 100%;
 }
 
-.tab {
+.tablinks {
   position: relative;
 }
 
-.tab:hover {
+.tablinks:hover {
   color: #55abf4;
+  cursor: pointer;
 }
 
-.tab::after {
+.tablinks::after {
   transition: all 0.2s;
   opacity: 0;
   height: 4px;
@@ -125,6 +137,62 @@
   content: "";
 }
 
-.tab:hover::after {
+.tablinks:hover::after {
   opacity: 1;
 }
+
+.solidButton{
+  background-color: #55ABF4;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  border-radius: 34px;
+  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+  margin: 0px 50px;
+}
+
+/* Style the tab */
+.tab- {
+  overflow: hidden;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  flex: content;
+  
+  /* padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none; */
+}
+
+.jobcontainer{
+  background-color: #fff;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-content: center;
+  margin-left: 5%;
+  border-top: 7px solid rgba(214, 247, 254, 0.72);
+  border-radius: 6px;
+}
+
+.jobcontainer > table{
+  display: block;
+  flex: content;
+}
+
+.jobcontainer > thead{
+  
+}
+
+  td, th {
+    vertical-align: middle;
+  }
+
+
