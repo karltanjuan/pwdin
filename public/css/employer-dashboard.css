@@ -5,8 +5,8 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-  background-color: rgba(217, 217, 217, 0.34)
+body {
+  background-color: rgba(217, 217, 217, 0.34);
 }
 
 .navbar {
@@ -57,11 +57,11 @@ body{
   height: 40px;
   width: 2px;
   margin: 0px -15px;
-  background-color: #AAA6B9;
+  background-color: #aaa6b9;
   position: absolute;
   bottom: 0;
   left: 0;
-  content: '';
+  content: "";
 }
 
 .employer-icon {
@@ -86,11 +86,11 @@ body{
   height: 40px;
   width: 2px;
   margin: 0px 50px;
-  background-color: #AAA6B9;
+  background-color: #aaa6b9;
   position: absolute;
   bottom: 0;
   left: 0;
-  content: '';
+  content: "";
 }
 
 /* Tabs */
@@ -141,8 +141,8 @@ body{
   opacity: 1;
 }
 
-.solidButton{
-  background-color: #55ABF4;
+.solidButton {
+  background-color: #55abf4;
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -163,13 +163,13 @@ body{
 .tabcontent {
   display: none;
   flex: content;
-  
+
   /* padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none; */
 }
 
-.jobcontainer{
+.jobcontainer {
   background-color: #fff;
   width: 90%;
   height: 90%;
@@ -182,17 +182,34 @@ body{
   border-radius: 6px;
 }
 
-.jobcontainer > table{
-  display: block;
-  flex: content;
+table.datatable {
+	width:100%;
+	border: none;
+	background:#fff;
 }
-
-.jobcontainer > thead{
-  
+table.datatable td.table_foot {
+	border: none;
+	background: #fff;
+	text-align: center;
 }
-
-  td, th {
-    vertical-align: middle;
-  }
-
-
+table.datatable tr.odd_col {
+	background: none;
+}
+table.datatable tr.even_col {
+	background: #ddd;
+}
+table.datatable td {
+	font-size:10pt;
+	padding:5px 10px;
+	border-bottom:1px solid #ddd;
+	text-align: left;
+}
+table.datatable th {
+	text-align: left;
+	font-size: 8pt;
+	padding: 10px 10px 7px;   
+	text-transform: uppercase;
+	color: #fff;
+	background-color: black;
+	font-family: sans-serif;
+}

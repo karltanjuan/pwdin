@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Employer Dashboard</title>
 	<link rel="stylesheet" href="{{asset('css/employer-dashboard.css')}}">
+	<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 </head>
 
 <body>
@@ -64,51 +65,38 @@
 			<h3>Open and paused jobs (3)</h3>
 			<input type="text" class="searchbar">
 			<div class="jobcontainer">
-				<table class="table table-bordered">
+				<table class="datatable">
 					<thead>
 						<tr>
-							<th scope="col">Job Title</th>
-							<th scope="col">Candidates</th>
-							<th scope="col">Job Status</th>
-							<th scope="col">Actions</th>
+							<th><input id="check_all" type="checkbox">Select All</th>
+							<th>Job Title</th>
+							<th>Candidates</th>
+							<th></th>
+							<th></th>
+							<th>Job Status</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>
-								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="customCheck1">
-									<label class="custom-control-label" for="customCheck1">1</label>
-								</div>
-							</td>
-							<td>Bootstrap 4 CDN and Starter Template</td>
-							<td>Cristina</td>
-							<td>913</td>
-							<td>2.846</td>
+						<tr class="odd_col">
+							<td><input type="checkbox" name="row-check" value="1">Executive Administrative Assistant</td>
+							<td></td>
+							<td>American Tourist</td>
+							<td>12000</td>
 						</tr>
-						<tr>
-							<td>
-								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="customCheck2">
-									<label class="custom-control-label" for="customCheck2">2</label>
-								</div>
-							</td>
-							<td>Bootstrap Grid 4 Tutorial and Examples</td>
-							<td>Cristina</td>
-							<td>1.434</td>
-							<td>3.417</td>
+						<tr class="even_col">
+							<td><input type="checkbox" name="row-check" value="2">Data Encoder</td>
+							<td>USB02</td>
+							<td>EXP Portable Hard Drive</td>
+							<td>5000</td>
 						</tr>
-						<tr>
-							<td>
-								<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" id="customCheck3">
-									<label class="custom-control-label" for="customCheck3">3</label>
-								</div>
-							</td>
-							<td>Bootstrap Flexbox Tutorial and Examples</td>
-							<td>Cristina</td>
-							<td>1.877</td>
-							<td>1.234</td>
+						<tr class="odd_col">
+							<td><input type="checkbox" name="row-check" value="3">Executive Administrative Assistant</td>
+							<td>SH03</td>
+							<td>Shoes</td>
+							<td>1000</td>
+						</tr>
+						
 						</tr>
 					</tbody>
 				</table>
@@ -145,6 +133,30 @@
 			document.getElementById(cityName).style.display = "block";
 			evt.currentTarget.className += " active";
 		}
+
+		$(function() {
+			//If check_all checked then check all table rows
+			$("#check_all").on("click", function() {
+				if ($("input:checkbox").prop("checked")) {
+					$("input:checkbox[name='row-check']").prop("checked", true);
+				} else {
+					$("input:checkbox[name='row-check']").prop("checked", false);
+				}
+			});
+
+			// Check each table row checkbox
+			$("input:checkbox[name='row-check']").on("change", function() {
+				var total_check_boxes = $("input:checkbox[name='row-check']").length;
+				var total_checked_boxes = $("input:checkbox[name='row-check']:checked").length;
+
+				// If all checked manually then check check_all checkbox
+				if (total_check_boxes === total_checked_boxes) {
+					$("#check_all").prop("checked", true);
+				} else {
+					$("#check_all").prop("checked", false);
+				}
+			});
+		});
 	</script>
 
 </body>
