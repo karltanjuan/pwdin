@@ -18,12 +18,14 @@ return new class extends Migration
             $table->string('password')->nullable(false);
             $table->string('contact_person')->nullable(false);
             $table->string('mobile_no', 12)->nullable();
+            
             $table->string('company_name')->nullable(false);
             $table->text('address')->nullable(false);
             $table->string('province')->nullable(false);
             $table->string('city')->nullable(false);
             $table->string('zip_code')->nullable(false);
             $table->text('summary')->nullable();
+
             $table->string('company_logo')->nullable(false);
             $table->string('business_permit')->nullable(false);
             $table->string('bir_certificate')->nullable(false);
