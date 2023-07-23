@@ -173,10 +173,6 @@ body {
   background-color: #fff;
   width: 90%;
   height: 90%;
-  display: flex;
-  position: absolute;
-  justify-content: center;
-  align-content: center;
   margin-left: 5%;
   border-top: 7px solid rgba(214, 247, 254, 0.72);
   border-radius: 6px;

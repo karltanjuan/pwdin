@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Employer Dashboard</title>
 	<link rel="stylesheet" href="{{asset('css/employer-dashboard.css')}}">
-	<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+	<link rel="stylesheet" href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -62,17 +62,17 @@
 		</div> -->
 
 		<div id="Jobs" class="tabcontent">
-			<h3>Open and paused jobs (3)</h3>
-			<input type="text" class="searchbar">
 			<div class="jobcontainer">
-				<table class="datatable">
+				<table class="datatable jobs-table">
 					<thead>
 						<tr>
-							<th><input id="check_all" type="checkbox">Select All</th>
+							<th>
+								<input id="check_all" type="checkbox">Select All
+							</th>
 							<th>Job Title</th>
 							<th>Candidates</th>
-							<th></th>
-							<th></th>
+							<th>Test1</th>
+							<th>Test2</th>
 							<th>Job Status</th>
 							<th>Action</th>
 						</tr>
@@ -83,18 +83,27 @@
 							<td></td>
 							<td>American Tourist</td>
 							<td>12000</td>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
 						</tr>
 						<tr class="even_col">
 							<td><input type="checkbox" name="row-check" value="2">Data Encoder</td>
 							<td>USB02</td>
 							<td>EXP Portable Hard Drive</td>
 							<td>5000</td>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
 						</tr>
 						<tr class="odd_col">
 							<td><input type="checkbox" name="row-check" value="3">Executive Administrative Assistant</td>
 							<td>SH03</td>
 							<td>Shoes</td>
 							<td>1000</td>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
 						</tr>
 						
 						</tr>
@@ -119,7 +128,16 @@
 		</div>
 	</div>
 
+	<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+	<script src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
 	<script>
+
+		var datatable_job = $('.jobs-table').DataTable({
+			"lengthChange": false,
+			"iDisplayLength" : 10,
+			"order": [[0, 'asc']],
+		});
+
 		function openCity(evt, cityName) {
 			var i, tabcontent, tablinks;
 			tabcontent = document.getElementsByClassName("tabcontent");
