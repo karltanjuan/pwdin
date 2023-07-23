@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('employer_id')->unsigned();
             $table->foreign('employer_id')->references('id')->on('employers')->onDelete('cascade'); //foreign key
-            $table->string('contact_person')->nullable(false);
             $table->string('job_title')->nullable(false);
             $table->text('job_description')->nullable(false);
             $table->string('career_level')->nullable(false);

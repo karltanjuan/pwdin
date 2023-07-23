@@ -50,7 +50,7 @@
 					</div>
 				</div>
 				<div class="right-tab">
-					<button class="solidButton">Post a Job</button>
+					<button class="solidButton btn-add">Post a Job</button>
 				</div>
 			</div>
 		</div>
@@ -128,9 +128,87 @@
 		</div>
 	</div>
 
+	<!-- The modal -->
+	<div id="modal-add-job" class="modal modal-add-job">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Post Job</h2>
+				<span class="modal-close">&times;</span>
+			</div>
+			<div class="modal-body">
+				<div class="login-container">
+				<div id="form">
+					<div class="form first" id="form-first">
+						<div class="details personal">
+							<div class="fields">
+								<div class="input-field">
+									<label>Job Title</label>
+									<input id="job_title" class="job_title" type="text" placeholder="Enter job title"/>
+									<span class="err-job_title err-msg"></span>
+								</div>
+								<div class="input-field">
+									<label>Province</label>
+								<select class="province" id="province"></select>
+								<span class="err-province err-msg"></span>
+								</div>
+								<div class="input-field">
+									<label>City</label>
+									<select class="city" id="city">
+										{{-- <option selected disabled>Please select</option> --}}
+									</select>
+									<span class="err-city err-msg"></span>
+								</div>
+								<div class="input-field">
+									<label>Zip Code</label>
+									<input class="zip_code" id="zip_code" type="text" placeholder="Enter zip code">
+									<span class="err-zip_code err-msg"></span>
+								</div>
+								<div class="input-field">
+									<label>Address</label>
+									<input class="adress" id="address" type="text" placeholder="Enter complete address">
+									<span class="err-address err-msg"></span>
+								</div>
+							</div>
+							<div class="input-field">
+								<label>Job Description</label>
+								<textarea id="job_description" class="job_description" placeholder="Enter job description"></textarea>
+								<span class="err-email err-msg"></span>
+							</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="primary-btn btn-save">Save</button>
+				<button class="secondary-btn btn-cancel">Cancel</button>
+			</div>
+		</div>
+	</div>
+
 	<script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 	<script src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+	
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 	<script>
+
+		$(document).on('click', '.btn-add', function() {
+			$('.modal-add-job').show();
+		})
+
+		tinymce.init({
+	     selector: 'textarea#job_description',
+	     plugins: 'powerpaste advcode table lists checklist emoticons',
+	     toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
+	   });
+
+		function closeModal() {
+            $(".modal").css("display", "none");
+        }
+
+        $(document).on('click', '.modal-close, .btn-cancel', function() {
+            closeModal()
+        })
 
 		var datatable_job = $('.jobs-table').DataTable({
 			"lengthChange": false,
