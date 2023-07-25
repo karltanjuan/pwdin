@@ -19,8 +19,7 @@ class EmployerJobController extends Controller
         return view('employer.jobs');
     }
 
-    public function postJob(Request $request)
-    {       
+    public function postJob(Request $request){      
         $validator = $this->validateJob($request);
 
         if ($validator->fails()) {
@@ -31,22 +30,10 @@ class EmployerJobController extends Controller
 
 
         // save to database
-        $user = new Employer();
+        $user = new Job();
         $user->username        = $request->username; // validate must be unique
         $user->email           = $request->email; // validate must be unique
-        $user->password        = bcrypt($request->password); // must be minimum 8 alphanumeric character with special symbol with capital and small character, validate with confirm password
-        $user->contact_person  = $request->contact_person; // required
-        $user->mobile_no       = $request->mobile_no; // starts with 09#########, must be 12 digit
-        $user->company_name    = $request->company_name; // required
-        $user->address         = $request->address; // required
-        $user->province        = $request->province; // required
-        $user->city            = $request->city; // required
-        $user->summary         = $request->summary; // maximum 300 words
-        $user->zip_code        = $request->zip_code; // validated as 4 digit
-        $user->company_logo    = $company_logo_path; // validate as jpg, jpeg or png
-        $user->business_permit = $business_permit_path; // validate as pdf, jpg, jpeg, or png
-        $user->bir_certificate = $bir_certificate_path; // validate as pdf, jpg, jpeg, or png
-        $user->status          = 0; // 0 - inactive, 1 - active, 2 - deleted
+        $user->status          = 1; // 0 - inactive, 1 - active, 2 - deleted
         $user->save();
 
         if ($user) { // When user save on database successfully
@@ -60,7 +47,7 @@ class EmployerJobController extends Controller
 
     public function validateJob($request) {
         $rules = [
-            'job_title'             => 'required|',
+            'job_title'             => 'required',
             'job_description'       => 'required',
             'job_title'	=> 'required',
         	'career_level'	=> 'required',

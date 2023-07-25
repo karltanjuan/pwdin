@@ -169,6 +169,7 @@
 										<option value="Saturday">Saturday</option>
 										<option value="Sunday">Sunday</option>
 									</select>
+									<span class="err-working_days err-msg"></span>
 								</div>
 							</div>
 							<div class="input-field">
@@ -236,26 +237,41 @@
         
         $('.btn-save').on('click', function() {
             // data to be uploaded on ajax
-            var payload = {
-            	'_token': '{{ csrf_token() }}',
-            	'job_title': $('#job_title').val(),
-            	'career_level': $('#career_level').val(),
-            	'job_type': $('#job_type').val(),
-            	'job_industry': $('#job_industry').val(),
-            	'years_experience': $('#years_experience').val(),
-            	'average_processing_time': $('#average_processing_time').val(),
-            	'salary': $('#salary').val(),
-            	'qualification': $('#qualification').val(),
-            	'work_setup': $('#work_setup').val(),
-            	'working_days': $('#working_days').val(),
-            	'job_description': tinymce.get("job_description").getContent(),
-            }
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+        	formData.append('job_title', $('#job_title').val());
+			formData.append('career_level', $('#career_level').val());
+			formData.append('job_type', $('#job_type').val());
+			formData.append('job_industry',  $('#job_industry').val());
+			formData.append('years_experience', $('#years_experience').val());
+			formData.append('average_processing_time', $('#average_processing_time').val());
+			formData.append('salary',  $('#salary').val());
+			formData.append('qualification', $('#qualification').val());
+			formData.append('work_setup', $('#work_setup').val());
+			formData.append('working_days', $('#working_days').val().join());
+			formData.append('job_description', tinymce.get("job_description").getContent());
+
+
+            // var payload = {
+            // 	'_token': "{{ csrf_token() }}",
+            // 	'job_title': $('#job_title').val(),
+            // 	'career_level': $('#career_level').val(),
+            // 	'job_type': $('#job_type').val(),
+            // 	'job_industry': $('#job_industry').val(),
+            // 	'years_experience': $('#years_experience').val(),
+            // 	'average_processing_time': $('#average_processing_time').val(),
+            // 	'salary': $('#salary').val(),
+            // 	'qualification': $('#qualification').val(),
+            // 	'work_setup': $('#work_setup').val(),
+            // 	'working_days': $('#working_days').val().join(),
+            // 	'job_description': tinymce.get("job_description").getContent(),
+            // }
 
              // Send an AJAX request to validate the data
             $.ajax({
                 url: '{{ route('employer.postJob') }}',
                 type: 'POST',
-                data: payload,
+                data: formData,
                 processData: false,
                 contentType: false,
                 success: function(response) {
