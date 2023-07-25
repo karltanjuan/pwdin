@@ -28,7 +28,7 @@ class Job extends Model
         'working_days',
         'qualification',
         'work_setup',
-        'disclaimer'
+        // 'disclaimer'
     ];
 
     /**

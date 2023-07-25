@@ -28,7 +28,8 @@ return new class extends Migration
             $table->string('working_days')->nullable();
             $table->text('qualification')->nullable(false);
             $table->string('work_setup')->nullable(false);
-            $table->text('disclaimer')->nullable();
+            $table->tinyInteger('status')->nullable(false); // 1 - Active, 0 - Inactive
+            // $table->text('disclaimer')->nullable();
             $table->timestamps();
         });
     }

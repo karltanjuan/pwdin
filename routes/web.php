@@ -56,9 +56,11 @@ Route::group(['prefix' => 'employer'], function() {
     Route::post('postRegister', [EmployerAuthController::class, 'postRegister'])->name('employer.postRegister');
 
     Route::middleware('is_employer')->group(function () {
-        Route::get('/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.index');
+        Route::get('/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.dashboard');
 
         Route::get('/jobs', [EmployerJobController::class, 'index'])->name('employer.index');
+
+        Route::post('postJob', [EmployerJobController::class, 'postJob'])->name('employer.postJob');
 
         Route::get('logout', [EmployerAuthController::class, 'logout'])->name('employer.logout');
     });

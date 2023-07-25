@@ -132,44 +132,6 @@
 									<input class="average_processing_time" id="average_processing_time" type="number" placeholder="Enter days">
 									<span class="err-average_processing_time err-msg"></span>
 								</div>
-								<div class="input-field d-flex">
-									<label>Working Days</label>
-									<label class="container-checkbox">
-									  <input class="working_days" type="checkbox" value="Monday">
-									  <span class="checkmark"></span>
-									  <span>Monday</span>
-									</label>
-									<label class="container-checkbox">
-									  <input class="working_days" type="checkbox" value="Tuesday">
-									  <span class="checkmark"></span>
-									  <span>Tuesday</span>
-									</label>
-									<label class="container-checkbox">
-									  <input class="working_days" type="checkbox" value="Wednesday">
-									  <span class="checkmark"></span>
-									  <span>Wednesday</span>
-									</label>
-									<label class="container-checkbox">
-									  <input class="working_days" type="checkbox" value="Thursday">
-									  <span class="checkmark"></span>
-									  <span>Thursday</span>
-									</label>
-									<label class="container-checkbox">
-									  <input class="working_days" type="checkbox" value="Friday">
-									  <span class="checkmark"></span>
-									  <span>Friday</span>
-									</label>
-									<label class="container-checkbox">
-									  <input class="working_days" type="checkbox" value="Saturday">
-									  <span class="checkmark"></span>
-									  <span>Saturday</span>
-									</label>
-									<label class="container-checkbox">
-									  <input class="working_days" type="checkbox" value="Sunday">
-									  <span class="checkmark"></span>
-									  <span>Sunday</span>
-									</label>
-								</div>
 								<div class="input-field">
 									<label>Salary</label>
 									<input class="salary" id="salary" type="number" placeholder="Enter salary">
@@ -196,11 +158,23 @@
 									</select>
 									<span class="err-work_setup err-msg"></span>
 								</div>
+								<div class="input-field">
+									<label>Working Days</label>
+									<select class="working_days" id="working_days" name="working_days[]" multiple="multiple">
+										<option value="Monday" selected>Monday</option>
+										<option value="Tuesday">Tuesday</option>
+										<option value="Wednesday">Wednesday</option>
+										<option value="Thursday">Thursday</option>
+										<option value="Friday">Friday</option>
+										<option value="Saturday">Saturday</option>
+										<option value="Sunday">Sunday</option>
+									</select>
+								</div>
 							</div>
 							<div class="input-field">
 								<label>Job Description</label>
-								<textarea rows="2" id="job_description" class="job_description" placeholder="Enter job description"></textarea>
-								<span class="err-email err-msg"></span>
+								<textarea rows="2" id="job_description" class="job_description" placeholder="Enter job description">Enter job description and optional disclaimer.</textarea>
+								<span class="err-job_description err-msg"></span>
 							</div>
 					</div>
 				</div>
@@ -216,7 +190,7 @@
 	<script>
 
 		$(document).ready(function() {
-		
+			$('.working_days').select2();
 		})
 
 		$(document).on('click', '.btn-add', function() {
@@ -242,5 +216,72 @@
 			"iDisplayLength" : 10,
 			"order": [[0, 'asc']],
 		});
+
+		var err_counter = 0;
+        function displayErrors(errors) {
+            $('.err-msg').text('');
+            $('.err-msg').siblings('input, select').removeClass('error');
+
+            // loop all the error messages from backend to display on ui
+            $.each(errors, function(field, messages) {
+                var errMsgSelector = '.err-' + field;
+                var inputSelector = '#' + field;
+                $(errMsgSelector).text(messages[0]);
+                $(inputSelector).addClass('error');
+            });
+
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
+
+        
+        $('.btn-save').on('click', function() {
+            // data to be uploaded on ajax
+            var payload = {
+            	'_token': '{{ csrf_token() }}',
+            	'job_title': $('#job_title').val(),
+            	'career_level': $('#career_level').val(),
+            	'job_type': $('#job_type').val(),
+            	'job_industry': $('#job_industry').val(),
+            	'years_experience': $('#years_experience').val(),
+            	'average_processing_time': $('#average_processing_time').val(),
+            	'salary': $('#salary').val(),
+            	'qualification': $('#qualification').val(),
+            	'work_setup': $('#work_setup').val(),
+            	'working_days': $('#working_days').val(),
+            	'job_description': tinymce.get("job_description").getContent(),
+            }
+
+             // Send an AJAX request to validate the data
+            $.ajax({
+                url: '{{ route('employer.postJob') }}',
+                type: 'POST',
+                data: payload,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        Swal.fire({
+                          title: 'Job Post Created',
+                          text: 'Success',
+                          icon: 'success',
+                          showCancelButton: false,
+                          confirmButtonText: 'OK'
+                        });
+
+                        setTimeout(function() {
+                            window.location.href = '{{url('/employer/jobs')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
+   
+        })
 	</script>
 @endsection
