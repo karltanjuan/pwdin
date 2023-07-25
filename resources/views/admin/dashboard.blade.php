@@ -8,7 +8,7 @@
 	<!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
-	<link rel="stylesheet" href="{{asset('css/admin-dashboard.css')}}">
+	<link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
 </head>
 <body>
 

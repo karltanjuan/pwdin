@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('job_type')->nullable(false);
             $table->integer('years_experience');
             $table->string('job_industry')->nullable(false);
-            $table->string('company_size')->nullable();
+            // $table->string('company_size')->nullable(); move this to employer table
             $table->string('average_processing_time')->nullable(false);
-            $table->text('benefits')->nullable(false);
+            // $table->text('benefits')->nullable(false);
             $table->decimal('salary', 6, 2);
             $table->string('working_days')->nullable();
             $table->text('qualification')->nullable(false);

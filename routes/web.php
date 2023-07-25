@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Applicant\AuthController;
 use App\Http\Controllers\Employer\EmployerAuthController;
+use App\Http\Controllers\Employer\EmployerDashboardController;
+use App\Http\Controllers\Employer\EmployerJobController;
 use App\Http\Controllers\Admin\AdminAuthController;
 
 /*
@@ -54,9 +56,9 @@ Route::group(['prefix' => 'employer'], function() {
     Route::post('postRegister', [EmployerAuthController::class, 'postRegister'])->name('employer.postRegister');
 
     Route::middleware('is_employer')->group(function () {
-        Route::get('/dashboard', function() {
-            return view('employer.dashboard');
-        });
+        Route::get('/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.index');
+
+        Route::get('/jobs', [EmployerJobController::class, 'index'])->name('employer.index');
 
         Route::get('logout', [EmployerAuthController::class, 'logout'])->name('employer.logout');
     });
