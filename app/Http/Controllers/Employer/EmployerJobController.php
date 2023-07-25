@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Auth;
 use Validator;
 use Session;
 use Storage;
-use App\Models\Employer;
+use App\Models\Job;
 use Carbon\Carbon;
 
 
@@ -30,13 +31,23 @@ class EmployerJobController extends Controller
 
 
         // save to database
-        $user = new Job();
-        $user->username        = $request->username; // validate must be unique
-        $user->email           = $request->email; // validate must be unique
-        $user->status          = 1; // 0 - inactive, 1 - active, 2 - deleted
-        $user->save();
+        $job = new Job();
+        $job->employer_id               = auth()->guard('employers')->id; //the employer na nakalogin
+        $job->job_title                 = $request->job_title; 
+        $job->career_level              = $request->career_level; 
+        $job->job_type                  = $request->job_type; 
+        $job->job_industry              = $request->job_industry; 
+        $job->years_experience          = $request->years_experience; 
+        $job->average_processing_time   = $request->average_processing_time; 
+        $job->salary                    = $request->salary; 
+        $job->qualification             = $request->qualification; 
+        $job->work_setup                = $request->work_setup; 
+        $job->working_days              = $request->working_days;
+        $job->job_description           = $request->job_description; 
+        $job->status                    = 1; // 0 - inactive, 1 - active
+        $job->save();
 
-        if ($user) { // When user save on database successfully
+        if ($job) { // When user save on database successfully
             return response()->json([
                 'message' => 'Job created created successfully',
                 'code'    => '200'
@@ -46,21 +57,20 @@ class EmployerJobController extends Controller
     }
 
     public function validateJob($request) {
-        $rules = [
-            'job_title'             => 'required',
-            'job_description'       => 'required',
-            'job_title'	=> 'required',
-        	'career_level'	=> 'required',
-        	'job_type'	=> 'required',
-        	'job_industry'	=> 'required',
-        	'years_experience'	=> 'required',
-        	'average_processing_time'	=> 'required',
-        	'salary'	=> 'required',
-        	'qualification'	=> 'required',
-        	'work_setup'	=> 'required',
-        	'working_days'	=> 'required',
-        	'job_description'	=> 'required',
+         $rules = [
+            'job_title'                 => 'required|string',
+            'job_description'           => 'required|string',
+            'career_level'              => 'required|string',
+            'job_type'                  => 'required|string',
+            'job_industry'              => 'required|string',
+            'years_experience'          => 'required|numeric',
+            'average_processing_time'   => 'required|string',
+            'salary'                    => 'required|numeric',
+            'qualification'             => 'required|string',
+            'work_setup'                => 'required|string',
+            'working_days'              => 'required|string',
         ];
+
 
         return $validator = Validator::make($request->all(), $rules);
     }
