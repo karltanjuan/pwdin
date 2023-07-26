@@ -3,6 +3,17 @@
 @section('title', 'Employer Job Post')
 
 @section('content')
+	<style>
+		.modal-view-job .content > div {
+			border: 1px solid #333;
+			padding: 5px;
+		}
+
+		.modal-view-job .content > div:last-child > div {
+			padding-left: 30px;
+		}
+	</style>
+
     <div class="head-container">
     	<h1>Job Post</h1>
     	<button class="btn-add primary-btn">
@@ -232,6 +243,22 @@
 		</div>
 	</div>
 
+	<div id="modal-view-job" class="modal modal-view-job">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>View Job</h2>
+				<span class="modal-close">&times;</span>
+			</div>
+			<div class="modal-body">
+				<div class="content">
+				</div>
+				<div class="modal-footer">
+					<button class="secondary-btn btn-cancel">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script>
 		var id = 0;
 		$(document).ready(function() {
@@ -281,6 +308,32 @@
                     // $('.job_description').val(response.job_description)
                     tinymce.get('job_description').setContent(response.job_description);
                     $('.status').val(response.status)
+
+                    var status = "Closed";
+
+                    if (response.status == 1) {
+                    	status = "Open"
+                    }
+
+                    const salary = parseFloat(response.salary).toLocaleString(undefined, {
+					  style: 'currency',
+					  currency: 'PHP', 
+					});
+
+                    $('.modal-view-job .content').html(`
+                    	<div>Job Title: ${response.job_title}</div>
+						<div>Career Level: ${response.career_level}</div>
+						<div>Job Type: ${response.job_type}</div>
+						<div>Industry: ${response.job_industry}</div>
+						<div>Years of Experience: ${response.years_experience}</div>
+						<div>Average Processing Days: ${response.average_processing_time}</div>
+						<div>Salary: ${salary}</div>
+						<div>Educational Attainment: ${response.qualification}</div>
+						<div>Work Setup: ${response.work_setup}</div>
+						<div>Working Days: ${response.working_days}</div>
+						<div>Status: ${status}</div>
+						<div>Job Description: <div>${response.job_description}</div></div>
+                    `)
                 },
                 error: function(xhr, status, error) {
                     var result = JSON.parse(xhr.responseText)
@@ -321,6 +374,12 @@
 		$(document).on('click', '.btn-delete', function() {
 			id = $(this).data('id')
 			$('.modal-delete-job').show();
+		})
+
+		$(document).on('click', '.btn-view', function() {
+			id = $(this).data('id')
+			getJobsById(id)
+			$('.modal-view-job').show();
 		})
 
 		$(document).on('click', '.btn-remove', function() {
