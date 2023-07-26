@@ -61,7 +61,15 @@
 				@endforeach
 			@else
 				<tr>
-					<td colspan="9" class="text-center">No records found.</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="text-center">No records found.</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
 			@endif
 	</tbody>
@@ -234,7 +242,7 @@
 		var datatable_job = $('.jobs-table').DataTable({
 			"lengthChange": false,
 			"iDisplayLength" : 10,
-			"order": [[0, 'asc']],
+			// "order": [[0, 'asc']],
 		});
 
 		var err_counter = 0;

@@ -953,3 +953,7 @@ d-flex {
 .error {
     border: 1px solid red !important;
 }
+
+.text-center {
+    text-align: center;
+}
