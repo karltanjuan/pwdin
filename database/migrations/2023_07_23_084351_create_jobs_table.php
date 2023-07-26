@@ -24,7 +24,7 @@ return new class extends Migration
             // $table->string('company_size')->nullable(); move this to employer table
             $table->string('average_processing_time')->nullable(false);
             // $table->text('benefits')->nullable(false);
-            $table->decimal('salary', 6, 2);
+            $table->decimal('salary', 10, 2);
             $table->string('working_days')->nullable();
             $table->text('qualification')->nullable(false);
             $table->string('work_setup')->nullable(false);

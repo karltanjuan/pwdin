@@ -20,7 +20,8 @@ class EmployerJobController extends Controller
         return view('employer.jobs');
     }
 
-    public function postJob(Request $request){      
+    public function postJob(Request $request){
+
         $validator = $this->validateJob($request);
 
         if ($validator->fails()) {
@@ -29,10 +30,9 @@ class EmployerJobController extends Controller
             ], 422);
         }
 
-
         // save to database
         $job = new Job();
-        $job->employer_id               = auth()->guard('employers')->id; //the employer na nakalogin
+        $job->employer_id               = auth()->guard('employers')->user()->id; //the employer na nakalogin
         $job->job_title                 = $request->job_title; 
         $job->career_level              = $request->career_level; 
         $job->job_type                  = $request->job_type; 
@@ -70,7 +70,6 @@ class EmployerJobController extends Controller
             'work_setup'                => 'required|string',
             'working_days'              => 'required|string',
         ];
-
 
         return $validator = Validator::make($request->all(), $rules);
     }

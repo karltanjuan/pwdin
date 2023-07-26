@@ -276,6 +276,8 @@
                 contentType: false,
                 success: function(response) {
                     if (response.code == "200") {
+                    	$('.modal').hide()
+                    	
                         Swal.fire({
                           title: 'Job Post Created',
                           text: 'Success',
