@@ -21,6 +21,11 @@ class EmployerJobController extends Controller
         return view('employer.jobs', compact('jobs'));
     }
 
+    public function getJobsById(Request $request) {
+        $jobs = Job::where('id', $request->id)->first();
+        return response()->json($jobs);
+    }
+
     public function postJob(Request $request){
 
         $validator = $this->validateJob($request);
@@ -45,12 +50,48 @@ class EmployerJobController extends Controller
         $job->work_setup                = $request->work_setup; 
         $job->working_days              = $request->working_days;
         $job->job_description           = $request->job_description; 
-        $job->status                    = 1; // 0 - inactive, 1 - active
+        $job->status                    = $request->status; // 0 - inactive, 1 - active
         $job->save();
 
         if ($job) { // When user save on database successfully
             return response()->json([
                 'message' => 'Job created successfully',
+                'code'    => '200'
+            ]);
+        }
+
+    }
+
+    public function updateJob(Request $request){
+
+        $validator = $this->validateJob($request);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        // save to database
+        $job = Job::where('id', $request->id);
+        $job->update([
+            'job_title'                 => $request->job_title, 
+            'career_level'              => $request->career_level,
+            'job_type'                  => $request->job_type, 
+            'job_industry'              => $request->job_industry, 
+            'years_experience'          => $request->years_experience, 
+            'average_processing_time'   => $request->average_processing_time, 
+            'salary'                    => $request->salary, 
+            'qualification'             => $request->qualification, 
+            'work_setup'                => $request->work_setup, 
+            'working_days'              => $request->working_days,
+            'job_description'           => $request->job_description, 
+            'status'                    => $request->status // 0 - inactive, 1 - active
+        ]);
+
+        if ($job) { // When user update on database successfully
+            return response()->json([
+                'message' => 'Job updated successfully',
                 'code'    => '200'
             ]);
         }

@@ -75,12 +75,12 @@
 	</tbody>
 	</table>
 	
-	<!-- The modal -->
+	<!-- modal -->
 	<div id="modal-add-job" class="modal modal-add-job">
 		<!-- Modal content -->
 		<div class="modal-content">
 			<div class="modal-header">
-				<h2>Post Job</h2>
+				<h2 class="modal-title">Post Job</h2>
 				<span class="modal-close">&times;</span>
 			</div>
 			<div class="modal-body">
@@ -177,7 +177,7 @@
 								<div class="input-field">
 									<label>Working Days</label>
 									<select class="working_days" id="working_days" name="working_days[]" multiple="multiple">
-										<option value="Monday" selected>Monday</option>
+										<option value="Monday">Monday</option>
 										<option value="Tuesday">Tuesday</option>
 										<option value="Wednesday">Wednesday</option>
 										<option value="Thursday">Thursday</option>
@@ -187,6 +187,15 @@
 									</select>
 									<span class="err-working_days err-msg"></span>
 								</div>
+								<div class="input-field">
+									<label>Status</label>
+									<select class="status" id="status">
+										<option value="1">Open</option>
+										<option value="0">Closed</option>
+									</select>
+									<span class="err-status err-msg"></span>
+								</div>
+								<div class="input-field"></div>
 							</div>
 							<div class="input-field">
 								<label>Job Description</label>
@@ -226,6 +235,12 @@
 	<script>
 		var id = 0;
 		$(document).ready(function() {
+			tinymce.init({
+				selector: 'textarea#job_description',
+				plugins: 'powerpaste advcode table lists checklist emoticons',
+				toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
+		   	});
+
 			$('.working_days').select2();
 		})
 
@@ -235,11 +250,71 @@
         });
 
         $("input[type='checkbox']:not(.check-all)").click(function() {
-            var allOtherCheckboxesChecked = ($("input[type='checkbox']:not(.check-all)").length === $("input[type='checkbox']:not(.check-all):checked").length);
-            $(".check-all").prop("checked", allOtherCheckboxesChecked);
+            var other_checkbox = ($("input[type='checkbox']:not(.check-all)").length === $("input[type='checkbox']:not(.check-all):checked").length);
+            $(".check-all").prop("checked", other_checkbox);
         });
 
+        function getJobsById(id) {
+        	var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+        	formData.append('id', parseInt(id));
+
+            // Send an AJAX request to validate the data
+            $.ajax({
+                url: '{{ route('employer.getJobsById') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $('.job_title').val(response.job_title)
+                    $('.career_level').val(response.career_level)
+                    $('.job_type').val(response.job_type)
+                    $('.job_industry').val(response.job_industry)
+                    $('.years_experience').val(response.years_experience)
+                    $('.average_processing_time').val(response.average_processing_time)
+                    $('.salary').val(response.salary)
+                    $('.qualification').val(response.qualification)
+                    $('.work_setup').val(response.work_setup)
+                    $('.working_days').val(response.working_days.split(",").map(item => item.trim()))
+                    $('.working_days').trigger('change');
+                    // $('.job_description').val(response.job_description)
+                    tinymce.get('job_description').setContent(response.job_description);
+                    $('.status').val(response.status)
+                },
+                error: function(xhr, status, error) {
+                    var result = JSON.parse(xhr.responseText)
+                    console.log(result.errors)
+                }
+            });
+        }
+
 		$(document).on('click', '.btn-add', function() {
+			$('.modal-title').text('Post Job')
+			$('.btn-save').text('Save')
+
+			$('.job_title').val('')
+            $('.career_level').val('Intern Level')
+            $('.job_type').val('Full-time')
+            $('.job_industry').val('Accounting/Finance')
+            $('.years_experience').val('')
+            $('.average_processing_time').val('')
+            $('.salary').val('')
+            $('.qualification').val('Grade School')
+            $('.work_setup').val('Onsite')
+            $('.working_days').val('')
+            $('.working_days').trigger('change');
+            tinymce.get('job_description').setContent('');
+            $('.status').val(1)
+
+			$('.modal-add-job').show();
+		})
+
+		$(document).on('click', '.btn-edit', function() {
+			$('.modal-title').text('Edit Job')
+			$('.btn-save').text('Update')
+			id = $(this).data('id')
+			getJobsById(id)
 			$('.modal-add-job').show();
 		})
 
@@ -287,12 +362,6 @@
             });
 		})
 
-		tinymce.init({
-			selector: 'textarea#job_description',
-			plugins: 'powerpaste advcode table lists checklist emoticons',
-			toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
-	   	});
-
 		function closeModal() {
             $(".modal").css("display", "none");
         }
@@ -325,9 +394,13 @@
 
         
         $('.btn-save').on('click', function() {
+
+
+
             // data to be uploaded on ajax
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
+            formData.append('id', id);
         	formData.append('job_title', $('#job_title').val());
 			formData.append('career_level', $('#career_level').val());
 			formData.append('job_type', $('#job_type').val());
@@ -339,10 +412,19 @@
 			formData.append('work_setup', $('#work_setup').val());
 			formData.append('working_days', $('#working_days').val().join());
 			formData.append('job_description', tinymce.get("job_description").getContent());
+			formData.append('status', $('#status').val());
+
+			if ($(this).text() == "Save") {
+	            var url = '{{ route('employer.postJob') }}'
+	            event = "save"
+	        } else {
+	            var url ='{{ route('employer.updateJob') }}'
+	            event = "update"
+	        }
 
             // Send an AJAX request to validate the data
             $.ajax({
-                url: '{{ route('employer.postJob') }}',
+                url: url,
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -351,8 +433,15 @@
                     if (response.code == "200") {
                     	$('.modal').hide()
 
+                    	var modal_title = ""
+                    	if (event == "save") {
+                    		modal_title = 'Job Post Created'
+                    	} else {
+                    		modal_title = 'Job Post Updated'
+                    	}
+
                         Swal.fire({
-                          title: 'Job Post Created',
+                          title: modal_title,
                           text: 'Success',
                           icon: 'success',
                           showCancelButton: false,
