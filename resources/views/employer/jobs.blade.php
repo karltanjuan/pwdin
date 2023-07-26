@@ -44,16 +44,16 @@
 					<td><a href="#">4</a></td>
 					<td><a href="#">1</a></td>
 					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
-					<td>07/20/23</td>
+					<td>{{ date('m/d/y', strtotime($job->created_at))}}</td>
 					<td>N/A</td>
 					<td>
-						<button class="btn-edit" id="btn-edit" data-id="1">
+						<button class="btn-edit" id="btn-edit" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-pen-to-square"></i>
 						</button>
-						<button class="btn-delete" id="btn-delete" data-id="1">
+						<button class="btn-delete" id="btn-delete" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-trash-can"></i>
 						</button>
-						<button class="btn-view" id="btn-view" data-id="1">
+						<button class="btn-view" id="btn-view" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-eye"></i>
 						</button>
 					</td>
@@ -193,6 +193,7 @@
 								<textarea rows="2" id="job_description" class="job_description" placeholder="Enter job description">Enter job description and optional disclaimer.</textarea>
 								<span class="err-job_description err-msg"></span>
 							</div>
+						</div>
 					</div>
 				</div>
 				</div>
@@ -204,8 +205,26 @@
 		</div>
 	</div>
 
-	<script>
+	<div id="modal-delete-job" class="modal modal-delete-job">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2>Delete Job</h2>
+				<span class="modal-close">&times;</span>
+			</div>
+			<div class="modal-body">
+				<div class="content">
+					Are you sure you want to delete?
+				</div>
+				<div class="modal-footer">
+					<button class="danger-btn btn-remove">Yes</button>
+					<button class="secondary-btn btn-cancel">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<script>
+		var id = 0;
 		$(document).ready(function() {
 			$('.working_days').select2();
 		})
@@ -220,9 +239,52 @@
             $(".check-all").prop("checked", allOtherCheckboxesChecked);
         });
 
-
 		$(document).on('click', '.btn-add', function() {
 			$('.modal-add-job').show();
+		})
+
+		$(document).on('click', '.btn-delete', function() {
+			id = $(this).data('id')
+			$('.modal-delete-job').show();
+		})
+
+		$(document).on('click', '.btn-remove', function() {
+			var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+        	formData.append('id', parseInt(id));
+
+            // Send an AJAX request to validate the data
+            $.ajax({
+                url: '{{ route('employer.deleteJob') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                    	$('.modal').hide()
+
+                        Swal.fire({
+                          title: 'Job Post Deleted',
+                          text: 'Success',
+                          icon: 'success',
+                          showCancelButton: false,
+                          confirmButtonText: 'OK'
+                        });
+
+                        setTimeout(function() {
+                            window.location.href = '{{url('/employer/jobs')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
 		})
 
 		tinymce.init({

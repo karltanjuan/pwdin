@@ -50,11 +50,23 @@ class EmployerJobController extends Controller
 
         if ($job) { // When user save on database successfully
             return response()->json([
-                'message' => 'Job created created successfully',
+                'message' => 'Job created successfully',
                 'code'    => '200'
             ]);
         }
 
+    }
+
+    public function deleteJob(Request $request){
+        $id = (int) $request->id;
+        $job = Job::where('id', $id)->delete();
+
+        if ($job) {
+            return response()->json([
+                'message' => 'Job deleted successfully',
+                'code'    => '200'
+            ]);
+        }
     }
 
     public function validateJob($request) {

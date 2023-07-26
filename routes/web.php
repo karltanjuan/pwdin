@@ -61,6 +61,7 @@ Route::group(['prefix' => 'employer'], function() {
         Route::get('/jobs', [EmployerJobController::class, 'index'])->name('employer.index');
 
         Route::post('postJob', [EmployerJobController::class, 'postJob'])->name('employer.postJob');
+        Route::post('deleteJob', [EmployerJobController::class, 'deleteJob'])->name('employer.deleteJob');
 
         Route::get('logout', [EmployerAuthController::class, 'logout'])->name('employer.logout');
     });

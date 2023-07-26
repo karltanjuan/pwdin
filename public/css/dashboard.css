@@ -624,6 +624,27 @@ nav.close~.dashboard .top {
     background: #aab;
 }
 
+.danger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    max-width: 200px;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #c62828;
+    transition: all 0.3s linear;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.danger-btn:hover {
+    background: #b71c1c;
+}
+
 .float-right {
     float: right;
 }
