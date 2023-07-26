@@ -15,7 +15,7 @@
 			<tr>
 				<th>
 					<label class="container-checkbox">
-					  <input type="checkbox" checked="checked">
+					  <input class="check-all" type="checkbox">
 					  <span class="checkmark"></span>
 					</label>
 				</th>
@@ -30,32 +30,40 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr class="odd_col">
-				<td>
-					<label class="container-checkbox">
-					  <input type="checkbox" checked="checked">
-					  <span class="checkmark"></span>
-					</label>
-				</td>
-				<td>Data Entry</td>
-				<td><a href="#">35</a></td>
-				<td><a href="#">4</a></td>
-				<td><a href="#">1</a></td>
-				<td>Open</td>
-				<td>07/20/23</td>
-				<td>N/A</td>
-				<td>
-					<button class="btn-edit" id="btn-edit" data-id="1">
-						<i class="fa-regular fa-pen-to-square"></i>
-					</button>
-					<button class="btn-delete" id="btn-delete" data-id="1">
-						<i class="fa-regular fa-trash-can"></i>
-					</button>
-					<button class="btn-view" id="btn-view" data-id="1">
-						<i class="fa-regular fa-eye"></i>
-					</button>
-				</td>
-			</tr>
+			@if (count($jobs) > 0)
+				@foreach ($jobs as $job)
+				<tr class="odd_col">
+					<td>
+						<label class="container-checkbox">
+						  <input type="checkbox">
+						  <span class="checkmark"></span>
+						</label>
+					</td>
+					<td>{{ $job->job_title }}</td>
+					<td><a href="#">35</a></td>
+					<td><a href="#">4</a></td>
+					<td><a href="#">1</a></td>
+					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
+					<td>07/20/23</td>
+					<td>N/A</td>
+					<td>
+						<button class="btn-edit" id="btn-edit" data-id="1">
+							<i class="fa-regular fa-pen-to-square"></i>
+						</button>
+						<button class="btn-delete" id="btn-delete" data-id="1">
+							<i class="fa-regular fa-trash-can"></i>
+						</button>
+						<button class="btn-view" id="btn-view" data-id="1">
+							<i class="fa-regular fa-eye"></i>
+						</button>
+					</td>
+				</tr>
+				@endforeach
+			@else
+				<tr>
+					<td colspan="9" class="text-center">No records found.</td>
+				</tr>
+			@endif
 	</tbody>
 	</table>
 	
@@ -194,15 +202,26 @@
 			$('.working_days').select2();
 		})
 
+		$(".check-all").click(function() {
+            var isChecked = $(this).prop("checked");
+            $("input[type='checkbox']").prop("checked", isChecked);
+        });
+
+        $("input[type='checkbox']:not(.check-all)").click(function() {
+            var allOtherCheckboxesChecked = ($("input[type='checkbox']:not(.check-all)").length === $("input[type='checkbox']:not(.check-all):checked").length);
+            $(".check-all").prop("checked", allOtherCheckboxesChecked);
+        });
+
+
 		$(document).on('click', '.btn-add', function() {
 			$('.modal-add-job').show();
 		})
 
 		tinymce.init({
-	     selector: 'textarea#job_description',
-	     plugins: 'powerpaste advcode table lists checklist emoticons',
-	     toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
-	   });
+			selector: 'textarea#job_description',
+			plugins: 'powerpaste advcode table lists checklist emoticons',
+			toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
+	   	});
 
 		function closeModal() {
             $(".modal").css("display", "none");
@@ -251,23 +270,7 @@
 			formData.append('working_days', $('#working_days').val().join());
 			formData.append('job_description', tinymce.get("job_description").getContent());
 
-
-            // var payload = {
-            // 	'_token': "{{ csrf_token() }}",
-            // 	'job_title': $('#job_title').val(),
-            // 	'career_level': $('#career_level').val(),
-            // 	'job_type': $('#job_type').val(),
-            // 	'job_industry': $('#job_industry').val(),
-            // 	'years_experience': $('#years_experience').val(),
-            // 	'average_processing_time': $('#average_processing_time').val(),
-            // 	'salary': $('#salary').val(),
-            // 	'qualification': $('#qualification').val(),
-            // 	'work_setup': $('#work_setup').val(),
-            // 	'working_days': $('#working_days').val().join(),
-            // 	'job_description': tinymce.get("job_description").getContent(),
-            // }
-
-             // Send an AJAX request to validate the data
+            // Send an AJAX request to validate the data
             $.ajax({
                 url: '{{ route('employer.postJob') }}',
                 type: 'POST',
@@ -277,7 +280,7 @@
                 success: function(response) {
                     if (response.code == "200") {
                     	$('.modal').hide()
-                    	
+
                         Swal.fire({
                           title: 'Job Post Created',
                           text: 'Success',

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('work_setup')->nullable(false);
             $table->tinyInteger('status')->nullable(false); // 1 - Active, 0 - Inactive
             // $table->text('disclaimer')->nullable();
+            $table->date('closed_at')->nullable();
             $table->timestamps();
         });
     }
