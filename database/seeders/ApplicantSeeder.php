@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Employer;
+use App\Models\User;
 
-class EmployerSeeder extends Seeder
+class ApplicantSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,22 +15,29 @@ class EmployerSeeder extends Seeder
     public function run(): void
     {
         date_default_timezone_set('Asia/Manila');
+
         $user = [
             [
-                'username'          => 'employer1',
-                'email'             => 'employer1@gmail.com',
+
+                'username'          => 'benteelador',
+                'email'             => 'benteelador@gmail.com',
                 'password'          => Hash::make('Qwerty123!', ['rounds' => '12']),
-                'contact_person'    => 'Employer John',
+                'first_name'        => 'Ben',
+                'middle_name'       => 'Tee',
+                'last_name'         => 'Lador',
+                'prefix'            => 'Jr.',
+                'birthdate'         => '1990-01-01',
+                'gender'            => 'Male',
                 'mobile_no'         => '09123456789',
-                'company_name'      => 'Cool Company',
-                'address'           => 'BGC Taguig',
+                'education_level'   => 'College',
+                'address'           => '#123 Test Address',
                 'province'          => 'Metro Manila',
-                'city'              => 'Taguig',
-                'zip_code'          => '1634',
+                'city'              => 'Manila',
                 'summary'           => null,
-                'company_logo'      => '123',
-                'business_permit'   => '123',
-                'bir_certificate'   => '123',
+                'zip_code'          => '1234',
+                'profile_photo'     => '',
+                'resume'            => '',
+                'pwd_card'          => '',
                 'status'            => 1,
                 'token'             => null,
                 'token_expired_at'  => null,
@@ -39,7 +46,7 @@ class EmployerSeeder extends Seeder
         ];
 
         foreach ($user as $key => $value) {
-            Employer::create($value);
+            User::create($value);
         }
     }
 }
