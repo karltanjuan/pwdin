@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Applicant Dashboard</title>
-</head>
-<body>
+@extends('applicant.layouts.master')
 
-	<h2>Applicant Dashboard</h2>
-	<a href="{{route('applicant.logout')}}">Logout</a>
-	
-</body>
-</html>
+@section('title', 'Applicant Dashboard')
+
+@section('content')
+    <h1>Dashboard content</h1>
+@endsection

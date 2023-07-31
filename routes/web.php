@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Applicant\AuthController;
+use App\Http\Controllers\Applicant\ApplicantDashboardController;
+use App\Http\Controllers\Applicant\ApplicantJobController;
+
 use App\Http\Controllers\Employer\EmployerAuthController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
 use App\Http\Controllers\Employer\EmployerJobController;
@@ -38,9 +41,10 @@ Route::group(['prefix' => 'applicant'], function() {
     Route::post('postResetPassword', [AuthController::class, 'postResetPassword'])->name('applicant.postResetPassword');
 
     Route::middleware('is_applicant')->group(function () {
-        Route::get('/dashboard', function() {
-            return view('applicant.dashboard');
-        });
+        Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('applicant.dashboard');
+
+        Route::get('/jobs', [ApplicantJobController::class, 'index'])->name('applicant.index');
+        Route::post('getJobsById', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
 
         Route::get('logout', [AuthController::class, 'logout'])->name('applicant.logout');
     });
