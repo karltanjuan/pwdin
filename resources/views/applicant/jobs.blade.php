@@ -1,6 +1,6 @@
-@extends('employer.layouts.master')
+@extends('applicant.layouts.master')
 
-@section('title', 'Employer Job Post')
+@section('title', 'Applicant Job Post')
 
 @section('content')
 	<style>
@@ -47,10 +47,7 @@
 				<tr>
 					<td></td>
 					<td></td>
-					<td></td>
 					<td class="text-center">No records found.</td>
-					<td></td>
-					<td></td>
 					<td></td>
 					<td></td>
 				</tr>
