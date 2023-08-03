@@ -150,5 +150,9 @@
 			"iDisplayLength" : 10,
 			// "order": [[0, 'asc']],
 		});
+
+		$(document).on('click', '.btn-apply', function() {
+			alert(id)
+		})
 	</script>
 @endsection
