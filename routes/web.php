@@ -75,6 +75,7 @@ Route::group(['prefix' => 'employer'], function() {
 
 // Admin/Moderator
 Route::group(['prefix' => 'admin'], function() {
+    
 
 
     Route::get('register', [AdminAuthController::class, 'getRegister'])->name('admin.getRegister');
