@@ -122,6 +122,11 @@
 						<div>Working Days: ${response.working_days}</div>
 						<div>Status: ${status}</div>
 						<div>Job Description: <div>${response.job_description}</div></div>
+						<div class="input-group">
+							<label for="cover_letter">Cover Letter</label>
+							<textarea rows="10" class="cover_letter" id="cover_letter" placeholder="Enter cover letter (300 words max)"></textarea>
+							<span class="err-cover_letter err-msg"></span>
+						</div>
                     `)
                 },
                 error: function(xhr, status, error) {
@@ -152,7 +157,58 @@
 		});
 
 		$(document).on('click', '.btn-apply', function() {
-			alert(id)
+			var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('cover_letter', $('.cover_letter').val())
+        	formData.append('job_id', parseInt(id));
+
+            $.ajax({
+                url: '{{ route('applicant.applyJob') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                    	$('.modal').hide()
+
+                        Swal.fire({
+                          title: 'Application submitted',
+                          text: 'Success',
+                          icon: 'success',
+                          showCancelButton: false,
+                          confirmButtonText: 'OK'
+                        });
+
+                        setTimeout(function() {
+                            window.location.href = '{{url('/applicant/jobs')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
 		})
+
+		var err_counter = 0;
+        function displayErrors(errors) {
+            $('.err-msg').text('');
+            $('.err-msg').siblings('input, select').removeClass('error');
+
+            // loop all the error messages from backend to display on ui
+            $.each(errors, function(field, messages) {
+                var errMsgSelector = '.err-' + field;
+                var inputSelector = '#' + field;
+                $(errMsgSelector).text(messages[0]);
+                $(inputSelector).addClass('error');
+            });
+
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
 	</script>
 @endsection

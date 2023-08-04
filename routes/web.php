@@ -46,6 +46,8 @@ Route::group(['prefix' => 'applicant'], function() {
         Route::get('/jobs', [ApplicantJobController::class, 'index'])->name('applicant.index');
         Route::post('getJobsById', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
 
+        Route::post('applyJob', [ApplicantJobController::class, 'applyJob'])->name('applicant.applyJob');
+
         Route::get('logout', [AuthController::class, 'logout'])->name('applicant.logout');
     });
 });
