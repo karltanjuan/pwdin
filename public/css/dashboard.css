@@ -978,3 +978,20 @@ a {
 .text-center {
     text-align: center;
 }
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.cover_letter {
+    width: 100%;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    border: 1px solid #aaa;
+    padding: 0 15px;
+    margin: 8px 0;
+}
