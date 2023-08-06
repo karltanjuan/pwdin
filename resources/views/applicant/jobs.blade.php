@@ -22,10 +22,12 @@
 		<thead>
 			<tr>
 				<th>Job Title</th>
-				<th>Job Status</th>
 				<th>Company</th>
-				<th>Created</th>
-				<th>Closed</th>
+				<th>Job Status</th>
+				<th>Application Status</th>
+				<th>Date Posted</th>
+				<th>Date Applied</th>
+				<th>Date Updated</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -34,10 +36,17 @@
 				@foreach ($jobs as $job)
 				<tr>
 					<td>{{ $job->job_title }}</td>
-					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
 					<td>{{ $job->employer->company_name }}</td>
-					<td>{{ date('m/d/y', strtotime($job->created_at))}}</td>
-					<td>N/A</td>
+					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
+					<td>{{ count($job->applications) > 0 ? $job->applications[0]->status : '-' }}</td>
+					<td>{{ date('m/d/y H:i A', strtotime($job->created_at))}}</td>
+					@if (count($job->applications) > 0)
+						<td>{{ date('m/d/y H:i A', strtotime($job->applications[0]->created_at))}}</td>
+						<td>{{ date('m/d/y H:i A', strtotime($job->applications[0]->updated_at))}}</td>
+					@else
+						<td>-</td>
+						<td>-</td>
+					@endif
 					<td>
 						<button class="btn-view" id="btn-view" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-eye"></i>
@@ -69,8 +78,7 @@
 				<div class="content">
 				</div>
 				<div class="modal-footer">
-					{{-- check the condition on ajax and models --}}
-					{{-- <button class="primary-btn btn-widthraw">Withdraw</button> --}}
+					<button class="primary-btn btn-withdraw">Withdraw</button>
 					<button class="primary-btn btn-apply">Apply</button>
 					<button class="secondary-btn btn-cancel">Close</button>
 				</div>
@@ -116,6 +124,7 @@
 					const full_address = `${response.employer.address}, ${response.employer.province}, ${response.employer.city}, ${response.employer.zip_code}`
 
                     $('.modal-view-job .content').html(`
+                    	ID: ${response.id}
                     	<div>Company Name: ${response.employer.company_name}</div>
                     	<div>Address: ${full_address}</div>
                     	<div>Job Title: ${response.job_title}</div>
@@ -136,6 +145,15 @@
 							<span class="err-cover_letter err-msg"></span>
 						</div>
                     `)
+
+                    if (response.applications.length > 0 && response.applications[0].status !== 'Withdrawn') {
+					    $('.btn-withdraw').show();
+					    $('.btn-apply').hide();
+					} else {
+						$('.btn-withdraw').hide();
+					    $('.btn-apply').show();
+					}
+
                 },
                 error: function(xhr, status, error) {
                     var result = JSON.parse(xhr.responseText)
@@ -197,6 +215,43 @@
                 },
                 error: function(xhr, status, error) {
                     // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
+		})
+
+		$(document).on('click', '.btn-withdraw', function() {
+			var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+        	formData.append('job_id', parseInt(id));
+
+            $.ajax({
+                url: '{{ route('applicant.withdrawJob') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                    	$('.modal').hide()
+
+                        Swal.fire({
+                          title: 'Application withdraw',
+                          text: 'Success',
+                          icon: 'success',
+                          showCancelButton: false,
+                          confirmButtonText: 'OK'
+                        });
+
+                        setTimeout(function() {
+                            window.location.href = '{{url('/applicant/jobs')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
                     var result = JSON.parse(xhr.responseText)
                     displayErrors(result.errors)
                 }
