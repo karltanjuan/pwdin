@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Application;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function hasApplied(int $job_id): bool
+    {
+        return Application::where('job_id', $job_id)
+                ->where('applicant_id', auth()->id())
+                ->exists();
+    }   
 }

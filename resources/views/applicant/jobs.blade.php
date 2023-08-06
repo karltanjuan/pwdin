@@ -23,6 +23,7 @@
 			<tr>
 				<th>Job Title</th>
 				<th>Job Status</th>
+				<th>Company</th>
 				<th>Created</th>
 				<th>Closed</th>
 				<th>Action</th>
@@ -34,6 +35,7 @@
 				<tr>
 					<td>{{ $job->job_title }}</td>
 					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
+					<td>{{ $job->employer->company_name }}</td>
 					<td>{{ date('m/d/y', strtotime($job->created_at))}}</td>
 					<td>N/A</td>
 					<td>
@@ -67,6 +69,8 @@
 				<div class="content">
 				</div>
 				<div class="modal-footer">
+					{{-- check the condition on ajax and models --}}
+					{{-- <button class="primary-btn btn-widthraw">Withdraw</button> --}}
 					<button class="primary-btn btn-apply">Apply</button>
 					<button class="secondary-btn btn-cancel">Close</button>
 				</div>
@@ -109,7 +113,11 @@
 					  currency: 'PHP', 
 					});
 
+					const full_address = `${response.employer.address}, ${response.employer.province}, ${response.employer.city}, ${response.employer.zip_code}`
+
                     $('.modal-view-job .content').html(`
+                    	<div>Company Name: ${response.employer.company_name}</div>
+                    	<div>Address: ${full_address}</div>
                     	<div>Job Title: ${response.job_title}</div>
 						<div>Career Level: ${response.career_level}</div>
 						<div>Job Type: ${response.job_type}</div>
@@ -124,7 +132,7 @@
 						<div>Job Description: <div>${response.job_description}</div></div>
 						<div class="input-group">
 							<label for="cover_letter">Cover Letter</label>
-							<textarea rows="10" class="cover_letter" id="cover_letter" placeholder="Enter cover letter (300 words max)"></textarea>
+							<textarea rows="10" class="cover_letter" id="cover_letter" placeholder="Enter cover letter (300 characters max)"></textarea>
 							<span class="err-cover_letter err-msg"></span>
 						</div>
                     `)
@@ -200,7 +208,6 @@
             $('.err-msg').text('');
             $('.err-msg').siblings('input, select').removeClass('error');
 
-            // loop all the error messages from backend to display on ui
             $.each(errors, function(field, messages) {
                 var errMsgSelector = '.err-' + field;
                 var inputSelector = '#' + field;
@@ -209,6 +216,10 @@
             });
 
             $("html, body").animate({ scrollTop: 0 }, "slow");
+        }
+
+        function checkApplicationStatus() {
+
         }
 	</script>
 @endsection

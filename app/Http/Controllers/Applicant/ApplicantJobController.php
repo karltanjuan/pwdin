@@ -18,12 +18,12 @@ use Carbon\Carbon;
 class ApplicantJobController extends Controller
 {
     public function index() {
-        $jobs = Job::orderBy('created_at', 'desc')->get();
+        $jobs = Job::orderBy('created_at', 'desc')->with('employer')->get();
         return view('applicant.jobs', compact('jobs'));
     }
 
     public function getJobsById(Request $request) {
-        $jobs = Job::where('id', $request->id)->first();
+        $jobs = Job::where('id', $request->id)->with('employer')->first();
         return response()->json($jobs);
     }
 
