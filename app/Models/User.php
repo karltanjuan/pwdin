@@ -43,11 +43,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function hasApplied(int $job_id): bool
-    {
-        return Application::where('job_id', $job_id)
-                ->where('applicant_id', auth()->id())
-                ->exists();
-    }   
+ 
 }

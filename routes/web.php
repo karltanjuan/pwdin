@@ -48,6 +48,8 @@ Route::group(['prefix' => 'applicant'], function() {
 
         Route::post('applyJob', [ApplicantJobController::class, 'applyJob'])->name('applicant.applyJob');
 
+        Route::post('withdrawJob', [ApplicantJobController::class, 'withdrawJob'])->name('applicant.withdrawJob');
+
         Route::get('logout', [AuthController::class, 'logout'])->name('applicant.logout');
     });
 });

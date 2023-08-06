@@ -18,13 +18,27 @@ use Carbon\Carbon;
 class ApplicantJobController extends Controller
 {
     public function index() {
-        $jobs = Job::orderBy('created_at', 'desc')->with('employer')->get();
+        $jobs = Job::orderBy('created_at', 'desc')
+                    ->with('employer')
+                    ->with(['applications' => function ($query) {
+                        $query->where('applicant_id', auth()->user()->id);
+                    }])
+                    ->get();
+
         return view('applicant.jobs', compact('jobs'));
     }
 
     public function getJobsById(Request $request) {
-        $jobs = Job::where('id', $request->id)->with('employer')->first();
-        return response()->json($jobs);
+        $id = (int)$request->id;
+        $job = Job::where('id', $id)
+                    ->with('employer')
+                    ->with(['applications' => function ($query) use ($id) {
+                        $query->where('job_id', $id)
+                              ->where('applicant_id', auth()->user()->id);
+                    }])
+                    ->first();
+
+        return response()->json($job);
     }
 
     public function applyJob(Request $request){
@@ -42,7 +56,7 @@ class ApplicantJobController extends Controller
         $application->applicant_id = auth()->user()->id; 
         $application->job_id       = $request->job_id;
         $application->cover_letter = $request->cover_letter; 
-        $application->status       = 'Applied'; 
+        $application->status       = config('application.status')[0];
         $application->save();
 
         if ($application) {
@@ -51,7 +65,20 @@ class ApplicantJobController extends Controller
                 'code'    => '200'
             ]);
         }
+    }
 
+    public function withdrawJob(Request $request){
+        $application = Application::where([
+            'job_id'       => $request->job_id,
+            'applicant_id' => auth()->user()->id
+        ])->update(['status' => config('application.status')[1]]);
+
+        if ($application) {
+            return response()->json([
+                'message' => 'Application withdraw successfully',
+                'code'    => '200'
+            ]);
+        }
     }
 
     public function validateApplication($request) {

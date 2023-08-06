@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Job;
-use App\Models\Applicant;
+use App\Models\User;
 
 class Application extends Model 
 {
@@ -31,7 +31,7 @@ class Application extends Model
 
     public function applicant()
     {
-        return $this->belongsTo(Applicant::class, 'applicant_id');
+        return $this->belongsTo(User::class, 'applicant_id');
     }
 
 }
