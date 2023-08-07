@@ -135,7 +135,7 @@ nav .menu-items li.active a {
     position: relative;
 }
 
-nav .menu-items li a ion-icon {
+nav .menu-items li a .fa-icon {
     color: var(--white);
     font-size: 20px;
     min-width: 45px;
@@ -185,12 +185,16 @@ nav .menu-items li.active a .links {
 }
 
 body.dark nav .menu-items li.active a .links,
-body.dark nav .menu-items li.active a ion-icon {
+body.dark nav .menu-items li.active a .fa-icon {
     color: var(--text-color);
 }
 
-nav .menu-items li.active a ion-icon {
+nav .menu-items li.active a .fa-icon {
     color: var(--primary-color);
+}
+
+nav .menu-items .fa-icon {
+    margin-left: 10px;
 }
 
 nav .menu-items .mode {
@@ -312,7 +316,7 @@ nav.close~.dashboard .top {
     outline: none;
 }
 
-.top .searchBox ion-icon {
+.top .searchBox .fa-icon {
     font-size: 15px;
     color: var(--text-color-light);
     padding: 0 15px;
@@ -332,7 +336,7 @@ nav.close~.dashboard .top {
     margin: 60px 0 30px;
 }
 
-.container .title ion-icon {
+.container .title .fa-icon {
     width: 30px;
     height: 30px;
     padding: 5px;
@@ -364,7 +368,7 @@ nav.close~.dashboard .top {
     background-color: var(--box1-color);
 }
 
-.boxes .box ion-icon {
+.boxes .box .fa-icon {
     font-size: 25px;
     color: var(--text-color);
     margin: 5px;
@@ -1002,4 +1006,25 @@ a {
 
 .jobs-table {
     font-size: 14px;
+}
+
+.settings-dropdown-list {
+    display: none;
+}
+
+.settings-dropdown-list > li > a {
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.settings-dropdown-list > li > a,
+.settings-dropdown-list > li > a > .fa-icon,
+.settings-dropdown-list > li > a > .links  {
+    background: #fff;
+    width: 100%;
+    color: var(--primary-color) !important;
+}
+
+.settings-dropdown-list > li > a > .fa-icon {
+    width: 0;
 }
