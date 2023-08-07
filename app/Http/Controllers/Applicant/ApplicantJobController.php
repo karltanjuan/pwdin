@@ -30,6 +30,7 @@ class ApplicantJobController extends Controller
 
     public function getJobsById(Request $request) {
         $id = (int)$request->id;
+        // Laravel Eloquent - handles database queries using OOP
         $job = Job::where('id', $id)
                     ->with('employer')
                     ->with(['applications' => function ($query) use ($id) {

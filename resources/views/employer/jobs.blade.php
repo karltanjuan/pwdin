@@ -35,8 +35,7 @@
 				<th>Hired</th>
 				<th>Rejected</th>
 				<th>Job Status</th>
-				<th>Created</th>
-				<th>Closed</th>
+				<th>Posted</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -56,7 +55,6 @@
 					<td><a href="#">1</a></td>
 					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
 					<td>{{ date('m/d/y', strtotime($job->created_at))}}</td>
-					<td>N/A</td>
 					<td>
 						<button class="btn-edit" id="btn-edit" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-pen-to-square"></i>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('status')->nullable(false);
             $table->timestamps();
 
+            // Foreign keys
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
             $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
         });

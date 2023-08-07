@@ -124,7 +124,6 @@
 					const full_address = `${response.employer.address}, ${response.employer.province}, ${response.employer.city}, ${response.employer.zip_code}`
 
                     $('.modal-view-job .content').html(`
-                    	ID: ${response.id}
                     	<div>Company Name: ${response.employer.company_name}</div>
                     	<div>Address: ${full_address}</div>
                     	<div>Job Title: ${response.job_title}</div>
@@ -139,7 +138,7 @@
 						<div>Working Days: ${response.working_days}</div>
 						<div>Status: ${status}</div>
 						<div>Job Description: <div>${response.job_description}</div></div>
-						<div class="input-group">
+						<div class="input-group cover_letter_container">
 							<label for="cover_letter">Cover Letter</label>
 							<textarea rows="10" class="cover_letter" id="cover_letter" placeholder="Enter cover letter (300 characters max)"></textarea>
 							<span class="err-cover_letter err-msg"></span>
@@ -149,7 +148,9 @@
                     if (response.applications.length > 0 && response.applications[0].status !== 'Withdrawn') {
 					    $('.btn-withdraw').show();
 					    $('.btn-apply').hide();
+					    $('.cover_letter_container').hide()
 					} else {
+						$('.cover_letter_container').show()
 						$('.btn-withdraw').hide();
 					    $('.btn-apply').show();
 					}
