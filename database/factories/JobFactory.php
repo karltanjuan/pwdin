@@ -32,6 +32,7 @@ class JobFactory extends Factory
             'average_processing_time' => $this->faker->numberBetween(1, 30),
             'salary'                  => $this->faker->numberBetween(15000, 100000),
             'working_days'            => implode(',', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
+            'pwd_categories'          => implode(',', ['All', 'Learning']),
             'qualification'           => $this->faker->randomElement(['Grade School', 'High School', "Bachelor's Degree", 'Vocational', 'Post-Graduate', 'Others']),
             'work_setup'              => $this->faker->randomElement(['Onsite', 'Remote', 'Hybrid']),
             'status'                  => $this->faker->boolean,

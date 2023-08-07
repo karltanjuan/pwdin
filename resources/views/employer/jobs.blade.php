@@ -197,6 +197,20 @@
 									<span class="err-working_days err-msg"></span>
 								</div>
 								<div class="input-field">
+									<label>PWD Categories</label>
+									<select class="pwd_categories" id="pwd_categories" name="pwd_categories[]" multiple="multiple">
+										<option value="All">All</option>
+										<option value="Psychosocial">Psychosocial</option>
+										<option value="Mental">Mental</option>
+										<option value="Chronic illness">Chronic illness</option>
+										<option value="Learning">Learning</option>
+										<option value="Visual">Visual</option>
+										<option value="Orthopedic">Orthopedic</option>
+										<option value="Communication">Communication</option>
+									</select>
+									<span class="err-pwd_categories err-msg"></span>
+								</div>
+								<div class="input-field">
 									<label>Status</label>
 									<select class="status" id="status">
 										<option value="1">Open</option>
@@ -267,6 +281,7 @@
 		   	});
 
 			$('.working_days').select2();
+			$('.pwd_categories').select2();
 		})
 
 		$(".check-all").click(function() {
@@ -303,7 +318,9 @@
                     $('.work_setup').val(response.work_setup)
                     $('.working_days').val(response.working_days.split(",").map(item => item.trim()))
                     $('.working_days').trigger('change');
-                    // $('.job_description').val(response.job_description)
+                    $('.pwd_categories').val(response.pwd_categories.split(",").map(item => item.trim()))
+                    $('.pwd_categories').trigger('change');
+
                     tinymce.get('job_description').setContent(response.job_description);
                     $('.status').val(response.status)
 
@@ -329,6 +346,7 @@
 						<div>Educational Attainment: ${response.qualification}</div>
 						<div>Work Setup: ${response.work_setup}</div>
 						<div>Working Days: ${response.working_days}</div>
+						<div>Allowed Disability: ${response.pwd_categories}</div>
 						<div>Status: ${status}</div>
 						<div>Job Description: <div>${response.job_description}</div></div>
                     `)
@@ -355,6 +373,8 @@
             $('.work_setup').val('Onsite')
             $('.working_days').val('')
             $('.working_days').trigger('change');
+            $('.pwd_categories').val('')
+            $('.pwd_categories').trigger('change');
             tinymce.get('job_description').setContent('');
             $('.status').val(1)
 
@@ -468,6 +488,7 @@
 			formData.append('qualification', $('#qualification').val());
 			formData.append('work_setup', $('#work_setup').val());
 			formData.append('working_days', $('#working_days').val().join());
+			formData.append('pwd_categories', $('#pwd_categories').val().join());
 			formData.append('job_description', tinymce.get("job_description").getContent());
 			formData.append('status', $('#status').val());
 

@@ -26,6 +26,7 @@ return new class extends Migration
             // $table->text('benefits')->nullable(false);
             $table->decimal('salary', 10, 2);
             $table->string('working_days')->nullable();
+            $table->string('pwd_categories')->nullable();
             $table->text('qualification')->nullable(false);
             $table->string('work_setup')->nullable(false);
             $table->tinyInteger('status')->nullable(false); // 1 - Active, 0 - Inactive
