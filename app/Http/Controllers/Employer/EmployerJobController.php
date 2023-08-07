@@ -37,23 +37,24 @@ class EmployerJobController extends Controller
         }
 
         // save to database
-        $job = new Job();
-        $job->employer_id               = auth()->guard('employers')->user()->id; //the employer na nakalogin
-        $job->job_title                 = $request->job_title; 
-        $job->career_level              = $request->career_level; 
-        $job->job_type                  = $request->job_type; 
-        $job->job_industry              = $request->job_industry; 
-        $job->years_experience          = $request->years_experience; 
-        $job->average_processing_time   = $request->average_processing_time; 
-        $job->salary                    = $request->salary; 
-        $job->qualification             = $request->qualification; 
-        $job->work_setup                = $request->work_setup; 
-        $job->working_days              = $request->working_days;
-        $job->job_description           = $request->job_description; 
-        $job->status                    = $request->status; // 0 - inactive, 1 - active
+        $job                          = new Job();
+        $job->employer_id             = auth()->guard('employers')->user()->id;
+        $job->job_title               = $request->job_title; 
+        $job->career_level            = $request->career_level; 
+        $job->job_type                = $request->job_type; 
+        $job->job_industry            = $request->job_industry; 
+        $job->years_experience        = $request->years_experience; 
+        $job->average_processing_time = $request->average_processing_time; 
+        $job->salary                  = $request->salary; 
+        $job->qualification           = $request->qualification; 
+        $job->work_setup              = $request->work_setup; 
+        $job->working_days            = $request->working_days;
+        $job->pwd_categories          = $request->pwd_categories;
+        $job->job_description         = $request->job_description; 
+        $job->status                  = $request->status; // 0 - inactive, 1 - active
         $job->save();
 
-        if ($job) { // When user save on database successfully
+        if ($job) {
             return response()->json([
                 'message' => 'Job created successfully',
                 'code'    => '200'
@@ -75,21 +76,22 @@ class EmployerJobController extends Controller
         // save to database
         $job = Job::where('id', $request->id);
         $job->update([
-            'job_title'                 => $request->job_title, 
-            'career_level'              => $request->career_level,
-            'job_type'                  => $request->job_type, 
-            'job_industry'              => $request->job_industry, 
-            'years_experience'          => $request->years_experience, 
-            'average_processing_time'   => $request->average_processing_time, 
-            'salary'                    => $request->salary, 
-            'qualification'             => $request->qualification, 
-            'work_setup'                => $request->work_setup, 
-            'working_days'              => $request->working_days,
-            'job_description'           => $request->job_description, 
-            'status'                    => $request->status // 0 - inactive, 1 - active
+            'job_title'               => $request->job_title, 
+            'career_level'            => $request->career_level,
+            'job_type'                => $request->job_type, 
+            'job_industry'            => $request->job_industry, 
+            'years_experience'        => $request->years_experience, 
+            'average_processing_time' => $request->average_processing_time, 
+            'salary'                  => $request->salary, 
+            'qualification'           => $request->qualification, 
+            'work_setup'              => $request->work_setup, 
+            'working_days'            => $request->working_days,
+            'pwd_categories'          => $request->pwd_categories,
+            'job_description'         => $request->job_description, 
+            'status'                  => $request->status // 0 - inactive, 1 - active
         ]);
 
-        if ($job) { // When user update on database successfully
+        if ($job) {
             return response()->json([
                 'message' => 'Job updated successfully',
                 'code'    => '200'
@@ -112,17 +114,18 @@ class EmployerJobController extends Controller
 
     public function validateJob($request) {
          $rules = [
-            'job_title'                 => 'required|string',
-            'job_description'           => 'required|string',
-            'career_level'              => 'required|string',
-            'job_type'                  => 'required|string',
-            'job_industry'              => 'required|string',
-            'years_experience'          => 'required|numeric',
-            'average_processing_time'   => 'required|string',
-            'salary'                    => 'required|numeric',
-            'qualification'             => 'required|string',
-            'work_setup'                => 'required|string',
-            'working_days'              => 'required|string',
+            'job_title'               => 'required|string',
+            'job_description'         => 'required|string',
+            'career_level'            => 'required|string',
+            'job_type'                => 'required|string',
+            'job_industry'            => 'required|string',
+            'years_experience'        => 'required|numeric',
+            'average_processing_time' => 'required|string',
+            'salary'                  => 'required|numeric',
+            'qualification'           => 'required|string',
+            'work_setup'              => 'required|string',
+            'working_days'            => 'required|string',
+            'pwd_categories'          => 'required|string',
         ];
 
         return $validator = Validator::make($request->all(), $rules);
