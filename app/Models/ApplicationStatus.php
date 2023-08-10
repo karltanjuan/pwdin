@@ -16,6 +16,7 @@ class ApplicationStatus extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'employer_id',
         'name',
     ];
 
