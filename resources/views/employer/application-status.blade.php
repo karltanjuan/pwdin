@@ -20,35 +20,38 @@
                     </label>
                 </th>
                 <th>Name</th>
-                <th>Created</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @if (count($app_status) > 0)
                 @foreach ($app_status as $status)
-                <tr>
-                    <td>
-                        <label class="container-checkbox">
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                    </td>
-                    <td>{{ $status->name }}</td>
-                    <td>{{ date('m/d/y', strtotime($status->created_at))}}</td>
-                    <td>
-                        <button class="btn-edit" id="btn-edit" data-id="{{ $status->id }}">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </button>
-                        <button class="btn-delete" id="btn-delete" data-id="{{ $status->id }}">
-                            <i class="fa-regular fa-trash-can"></i>
-                        </button>
-                    </td>
-                </tr>
+                    @php
+                        $statuses = json_decode($status->name);
+                    @endphp
+                    @foreach ($statuses as $status)
+
+                        <tr>
+                            <td>
+                                <label class="container-checkbox">
+                                  <input type="checkbox">
+                                  <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            <td> {{ $status }} </td>
+                            <td>
+                                <button class="btn-edit" id="btn-edit" data-name="{{ $status }}">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="btn-delete" id="btn-delete" data-name="{{ $status }}">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
                 @endforeach
             @else
                 <tr>
-                    <td></td>
                     <td></td>
                     <td class="text-center">No records found.</td>
                     <td></td>
@@ -108,7 +111,7 @@
     </div>
 
     <script>
-        var id = 0;
+        var name = "";
         $(document).ready(function() {
         })
 
@@ -122,20 +125,20 @@
             $(".check-all").prop("checked", other_checkbox);
         });
 
-        function getAppStatusById(id) {
+        function getAppStatusByName(name) {
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-            formData.append('id', parseInt(id));
+            formData.append('name', name);
 
             // Send an AJAX request to validate the data
-            $.ajax({
-                url: '{{ route('employer.getAppStatusById') }}',
+            $.ajax({    
+                url: '{{ route('employer.getAppStatusByName') }}',
                 type: 'POST',
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    $('.name').val(response.name)
+                    $('.name').val(response.status)
                 },
                 error: function(xhr, status, error) {
                     var result = JSON.parse(xhr.responseText)
@@ -155,20 +158,20 @@
         $(document).on('click', '.btn-edit', function() {
             $('.modal-title').text('Edit Status')
             $('.btn-save').text('Update')
-            id = $(this).data('id')
-            getAppStatusById(id)
+            name = $(this).data('name')
+            getAppStatusByName(name)
             $('.modal-add-status').show();
         })
 
         $(document).on('click', '.btn-delete', function() {
-            id = $(this).data('id')
+            name = $(this).data('name')
             $('.modal-delete-status').show();
         })
 
         $(document).on('click', '.btn-remove', function() {
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-            formData.append('id', parseInt(id));
+            formData.append('name', name);
 
             // Send an AJAX request to validate the data
             $.ajax({
@@ -239,14 +242,14 @@
             // data to be uploaded on ajax
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-            formData.append('id', id);
+            formData.append('old_name', name);
             formData.append('name', $('#name').val());
 
+            var url = '{{ route('employer.saveAppStatus') }}'
+
             if ($(this).text() == "Save") {
-                var url = '{{ route('employer.saveAppStatus') }}'
                 event = "save"
             } else {
-                var url ='{{ route('employer.updateAppStatus') }}'
                 event = "update"
             }
 

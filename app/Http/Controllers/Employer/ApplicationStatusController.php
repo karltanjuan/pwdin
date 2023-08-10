@@ -17,7 +17,8 @@ use Carbon\Carbon;
 class ApplicationStatusController extends Controller
 {
     public function index() {
-        $app_status = ApplicationStatus::orderBy('id', 'asc')->get();
+        $employer_id  = auth()->guard('employers')->user()->id;
+        $app_status = ApplicationStatus::where('employer_id', $employer_id)->get();
         return view('employer.application-status', compact('app_status'));
     }
 
@@ -30,60 +31,77 @@ class ApplicationStatusController extends Controller
             ], 422);
         }
 
-        // save to database
-        $app_status       = new ApplicationStatus();
-        $app_status->name = $request->name; 
-        $app_status->save();
+        // save or update to database
+        $employer_id  = auth()->guard('employers')->user()->id;
+        $status = $request->name;
+        $old_status = $request->old_name;
 
-        if ($app_status) {
-            return response()->json([
-                'message' => 'Status created successfully',
-                'code'    => '200'
-            ]);
+
+        $employer = ApplicationStatus::firstOrNew(['employer_id' => $employer_id]);
+        
+        $statuses = [];
+        if ($employer->name !== null) {
+            $statuses = json_decode($employer->name, true);
         }
 
-    }
+        $is_exist = in_array($status, $statuses);
 
-    public function getAppStatusById(Request $request) {
-        $app_status = ApplicationStatus::where('id', $request->id)->first();
-        return response()->json($app_status);
-    }
-
-    public function updateAppStatus(Request $request){
-
-        $validator = $this->validateAppStatus($request);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
+        if (!$is_exist) {
+            if ($old_status && in_array($old_status, $statuses)) {
+                $statuses[array_search($old_status, $statuses)] = $status;
+            } else {
+                $statuses[] = $status;
+            }
+            $new_status = $statuses;
+        } else {
+            $new_status = $statuses;
         }
+        
+        $employer->name = json_encode($new_status);
+        $employer->save();
 
-        // save to database
-        $app_status = ApplicationStatus::where('id', $request->id);
-        $app_status->update([
-            'name' => $request->name, 
+        return response()->json([
+            'message' => 'Status created successfully',
+            'code'    => '200'
         ]);
+    }
 
-        if ($app_status) {
-            return response()->json([
-                'message' => 'Status updated successfully',
-                'code'    => '200'
-            ]);
+    public function getAppStatusByName(Request $request) {
+        $app_status = ApplicationStatus::whereJsonContains('name', $request->name)->first();
+
+        $response = [];
+        foreach (json_decode($app_status->name) as $status) {
+            if ($status == $request->name) {
+                $response = ['status' => $status];
+            }
         }
 
+        return response()->json($response);
     }
 
     public function deleteAppStatus(Request $request){
-        $id = (int) $request->id;
-        $app_status = ApplicationStatus::where('id', $id)->delete();
+        $statusToDelete = $request->name;
 
-        if ($app_status) {
-            return response()->json([
-                'message' => 'Status deleted successfully',
-                'code'    => '200'
-            ]);
+        $employer_id = auth()->guard('employers')->user()->id;
+        $employer = ApplicationStatus::firstOrNew(['employer_id' => $employer_id]);
+
+        $statuses = [];
+        if ($employer->name !== null) {
+            $statuses = json_decode($employer->name, true);
         }
+
+        $indexToDelete = array_search($statusToDelete, $statuses);
+
+        unset($statuses[$indexToDelete]);
+        $newStatuses = array_values($statuses);
+
+        $employer->name = json_encode($newStatuses);
+        $employer->save();
+
+        return response()->json([
+            'message' => 'Status deleted successfully',
+            'code'    => '200'
+        ]);
     }
 
     public function validateAppStatus($request) {
