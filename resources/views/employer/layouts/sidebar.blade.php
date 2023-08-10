@@ -19,20 +19,19 @@
                     <span class="links">Job Post</span>
                 </a>
             </li>
-            <li class="navList settings-dropdown">
+            <li class="{{ in_array(request()->path(), ['employer/application-status', 'change-password']) ? 'active' : '' }} navList settings-dropdown">
                 <a href="javascript:void(0)">
                     <i class="fa-solid fa-gear fa-icon"></i>
                     <span class="links">Settings</span>
                     <i class="fa-solid fa-caret-right fa-icon"></i>
-                    {{-- <i class="fa-solid fa-caret-down fa-icon"></i> --}}
                 </a>
             </li>
             
             <ul class="settings-dropdown-list">
-                <li class="{{ 'employer/app-status' == request()->path() ? 'active' : '' }} navList">
-                    <a href="{{url('/employer/app-status')}}">
+                <li class="{{ 'employer/application-status' == request()->path() ? 'active' : '' }} navList">
+                    <a href="{{url('/employer/application-status')}}">
                         <i class="fa-solid fa-clipboard-check fa-icon"></i>
-                        <span class="links">App Status</span>
+                        <span class="links">Application Status</span>
                     </a>
                 </li>
             </ul>
