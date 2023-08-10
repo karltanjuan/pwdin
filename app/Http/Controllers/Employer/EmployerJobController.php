@@ -17,7 +17,9 @@ use Carbon\Carbon;
 class EmployerJobController extends Controller
 {
     public function index() {
-        $jobs = Job::orderBy('created_at', 'desc')->get();
+        $jobs = Job::orderBy('created_at', 'desc')
+                ->with('applications')
+                ->get();
         return view('employer.jobs', compact('jobs'));
     }
 

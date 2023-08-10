@@ -35,7 +35,7 @@ class JobFactory extends Factory
             'pwd_categories'          => implode(',', ['All', 'Learning']),
             'qualification'           => $this->faker->randomElement(['Grade School', 'High School', "Bachelor's Degree", 'Vocational', 'Post-Graduate', 'Others']),
             'work_setup'              => $this->faker->randomElement(['Onsite', 'Remote', 'Hybrid']),
-            'status'                  => $this->faker->boolean,
+            'status'                  => 1 //$this->faker->boolean,
         ];
     }
 
