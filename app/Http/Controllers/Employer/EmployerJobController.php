@@ -11,6 +11,7 @@ use Validator;
 use Session;
 use Storage;
 use App\Models\Job;
+use App\Models\Application;
 use Carbon\Carbon;
 
 
@@ -112,6 +113,16 @@ class EmployerJobController extends Controller
                 'code'    => '200'
             ]);
         }
+    }
+
+    public function getApplicants(int $id) {
+        $applicants = Application::where('job_id', $id)
+            ->with('applicant')
+            ->with('job')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('employer.applicants', compact('applicants'));
     }
 
     public function validateJob($request) {

@@ -51,9 +51,13 @@
 					</td>
 					<td>{{ $job->job_title }}</td>
 					<td>
-						<a href="#">
-							{{ count($job->applications)}}
-						</a>
+						@if (count($job->applications) != 0)
+							<a href="{{ url("/employer/jobs/{$job->id}/applicants") }}">
+								{{ count($job->applications)}}
+							</a>
+						@else
+							<span>0</span>
+						@endif
 					</td>
 					<td>
 						{{ count($job->applications->where('status', 'Hired'))}}
