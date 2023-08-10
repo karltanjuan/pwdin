@@ -50,9 +50,18 @@
 						</label>
 					</td>
 					<td>{{ $job->job_title }}</td>
-					<td><a href="#">35</a></td>
-					<td><a href="#">4</a></td>
-					<td><a href="#">1</a></td>
+					<td>
+						<a href="#">
+							{{ count($job->applications)}}
+						</a>
+					</td>
+					<td>
+						{{ count($job->applications->where('status', 'Hired'))}}
+					</td>
+					<td>
+						{{ count($job->applications->where('status', 'Rejected'))}}
+					</td>
+					
 					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
 					<td>{{ date('m/d/y', strtotime($job->created_at))}}</td>
 					<td>
