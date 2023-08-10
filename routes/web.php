@@ -78,8 +78,9 @@ Route::group(['prefix' => 'employer'], function() {
 
         Route::post('saveAppStatus', [ApplicationStatusController::class, 'saveAppStatus'])->name('employer.saveAppStatus');
           Route::post('getAppStatusByName', [ApplicationStatusController::class, 'getAppStatusByName'])->name('employer.getAppStatusByName');
-        // Route::post('updateAppStatus', [ApplicationStatusController::class, 'updateAppStatus'])->name('employer.updateAppStatus');
         Route::post('deleteAppStatus', [ApplicationStatusController::class, 'deleteAppStatus'])->name('employer.deleteAppStatus');
+
+        Route::get('/jobs/{id}/applicants', [EmployerJobController::class, 'getApplicants'])->name('employer.getApplicants');
 
         Route::get('logout', [EmployerAuthController::class, 'logout'])->name('employer.logout');
     });
