@@ -9,6 +9,7 @@ use App\Http\Controllers\Applicant\ApplicantJobController;
 use App\Http\Controllers\Employer\EmployerAuthController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
 use App\Http\Controllers\Employer\EmployerJobController;
+use App\Http\Controllers\Employer\ApplicationStatusController;
 use App\Http\Controllers\Admin\AdminAuthController;
 
 /*
@@ -72,6 +73,13 @@ Route::group(['prefix' => 'employer'], function() {
         Route::post('getJobsById', [EmployerJobController::class, 'getJobsById'])->name('employer.getJobsById');
         Route::post('updateJob', [EmployerJobController::class, 'updateJob'])->name('employer.updateJob');
         Route::post('deleteJob', [EmployerJobController::class, 'deleteJob'])->name('employer.deleteJob');
+
+        Route::get('/application-status', [ApplicationStatusController::class, 'index'])->name('employer.applicationStatus');
+
+        Route::post('saveAppStatus', [ApplicationStatusController::class, 'saveAppStatus'])->name('employer.saveAppStatus');
+          Route::post('getAppStatusById', [ApplicationStatusController::class, 'getAppStatusById'])->name('employer.getAppStatusById');
+        Route::post('updateAppStatus', [ApplicationStatusController::class, 'updateAppStatus'])->name('employer.updateAppStatus');
+        Route::post('deleteAppStatus', [ApplicationStatusController::class, 'deleteAppStatus'])->name('employer.deleteAppStatus');
 
         Route::get('logout', [EmployerAuthController::class, 'logout'])->name('employer.logout');
     });

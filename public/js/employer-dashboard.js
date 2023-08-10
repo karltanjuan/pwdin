@@ -36,3 +36,24 @@ $(document).on('click', '.settings-dropdown', function() {
         $('.settings-dropdown-list').hide()
     }
 })
+
+$(document).ready(function() {
+    var pathname = window.location.pathname.split('/'); 
+    var page = pathname[pathname.length - 1];
+
+    var settings = ['application-status'];
+
+    var $caretIcon = $('.settings-dropdown').find('.fa-caret-right');
+
+    if (settings.includes(page)) {
+        $caretIcon.removeClass('fa-caret-right');
+        $caretIcon.addClass('fa-caret-down');
+
+        $('.settings-dropdown-list').show()
+    } else {
+        $(this).find('.fa-caret-down').addClass('fa-caret-right');
+        $(this).find('.fa-caret-down').removeClass('fa-caret-down');
+
+        $('.settings-dropdown-list').hide()
+    }
+});
