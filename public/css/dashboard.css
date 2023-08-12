@@ -1034,3 +1034,8 @@ a {
     height: 42px;
     border-radius: 5px;
 }
+
+.img-fluid {
+    width: 200px;
+    border-radius: 5px;
+}

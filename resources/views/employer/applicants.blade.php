@@ -305,12 +305,18 @@
                     var application = response.applicants[0]
                     var app_status  = JSON.parse(response.app_status[0].name)
 
+                    var pwd_card = applicant.pwd_card.replace('public', 'storage')
+                    var resume = applicant.resume.replace('public', 'storage')
+                    var profile_photo = applicant.profile_photo.replace('public', 'storage')
+
                     $('.modal-view-applicant .content').html(`
-                        <div>Full Name: ${applicant.first_name} ${applicant.middle_name} ${applicant.last_name} ${applicant.prefix}</div>
-                        <div>PWD Category: ${applicant.id}</div>
-                        <div>PWD Card: <a href='${applicant.pwd_card}' target='_blank'>View and Download</a></div>
-                        <div>Resume: <a href='${applicant.resume}' target='_blank'>View and Download</a></div>
-                        <div>Profile Photo: <img src='${applicant.profile_photo}' alt='Profile Photo'/></div>
+                        <div>Full Name: ${applicant.first_name} ${applicant.middle_name} ${applicant.last_name} ${applicant.prefix !== null ? applicant.prefix : ''}</div>
+                        <div>PWD Category: ${applicant.pwd_categories}</div>
+                        <div>PWD Card: <a href='{{asset('${pwd_card}')}}' target='_blank'>View and Download</a></div>
+                        <div>Resume: <a href='{{asset('${resume}')}}' target='_blank'>View and Download</a></div>
+
+                        <div><p>Profile Photo:</p> <img class="img-fluid" src='{{asset('${profile_photo}')}}' alt='Profile Photo'/></div>
+
                         <div>Education Level: ${applicant.education_level}</div>
                         <div>Mobile Number: ${applicant.mobile_no}</div>
                         <div>Email Address: ${applicant.email}</div>

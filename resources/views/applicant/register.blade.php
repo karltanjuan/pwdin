@@ -8,6 +8,7 @@
     <title>Applicant Registration</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
     <style>
@@ -145,6 +146,21 @@
                             <input class="zip_code" id="zip_code" type="text" placeholder="Enter zip code">
                             <span class="err-zip_code err-msg"></span>
                         </div>
+                        <div class="input-field">
+							<label>PWD Categories</label>
+							<select class="pwd_categories" id="pwd_categories" name="pwd_categories[]" multiple="multiple">
+								<option value="All">All</option>
+								<option value="Psychosocial">Psychosocial</option>
+								<option value="Mental">Mental</option>
+								<option value="Chronic illness">Chronic illness</option>
+								<option value="Learning">Learning</option>
+								<option value="Visual">Visual</option>
+								<option value="Orthopedic">Orthopedic</option>
+								<option value="Communication">Communication</option>
+							</select>
+							<span class="err-pwd_categories err-msg"></span>
+						</div>
+						<div class="input-field"></div>
                     </div>
                 </div>
              </div>
@@ -204,6 +220,7 @@
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
 
@@ -243,6 +260,7 @@
     	// on first load of page
     	$(document).ready(function() {
     		getProvinces()
+    		$('.pwd_categories').select2();
     	})
 
     	// => means anonymous function
@@ -350,6 +368,7 @@
 				formData.append('city', $('#city').val());
 				formData.append('address', $('#address').val());
 				formData.append('zip_code', $('#zip_code').val());
+				formData.append('pwd_categories', $('#pwd_categories').val().join());
 				formData.append('profile_photo', $('#profile_photo')[0].files[0]);
 				formData.append('resume', $('#resume')[0].files[0]);
 				formData.append('pwd_card', $('#pwd_card')[0].files[0]);

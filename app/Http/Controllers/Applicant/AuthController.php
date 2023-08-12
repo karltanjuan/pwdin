@@ -84,6 +84,7 @@ class AuthController extends Controller
         $user->city            = $request->city; // required
         $user->summary         = $request->summary; // maximum 300 words
         $user->zip_code        = $request->zip_code; // validated as 4 digit
+        $user->pwd_categories  = $request->pwd_categories;
         $user->profile_photo   = $profile_path; // validate as jpg, jpeg, or png
         $user->resume          = $resume_path; // validate as pdf only
         $user->pwd_card        = $card_path; // validate as jpg, jpeg, or png
