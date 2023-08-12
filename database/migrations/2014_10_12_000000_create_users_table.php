@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name')->nullable(false);
             $table->string('prefix')->nullable();
-            $table->string('pwd_category')->nullable(false);
+            $table->string('pwd_categories')->nullable();
             $table->date('birthdate')->nullable(false);
             $table->string('gender')->nullable(false);
             $table->string('mobile_no', 12)->nullable();
