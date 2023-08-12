@@ -12,6 +12,7 @@ use Session;
 use Storage;
 use App\Models\Job;
 use App\Models\Application;
+use App\Models\ApplicationStatus;
 use Carbon\Carbon;
 
 
@@ -121,9 +122,53 @@ class EmployerJobController extends Controller
             ->with('job')
             ->orderBy('created_at', 'desc')
             ->get();
-
         return view('employer.applicants', compact('applicants'));
     }
+
+    public function getApplicantById(Request $request) {
+
+        $applicants = Application::where('job_id', (int)$request->job_id)
+            ->where('applicant_id', (int)$request->applicant_id)
+            ->with('applicant')
+            ->with('job')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $app_status = ApplicationStatus::where('employer_id', auth()->guard('employers')->user()->id)->orderBy('id', 'asc')->get();
+
+        $response = [
+            'applicants' => $applicants,
+            'app_status' => $app_status
+        ];
+
+        return response()->json($response);
+    }
+
+
+    public function getAppStatus() {
+        $status = ApplicationStatus::where('employer_id', auth()->guard('employers')->user()->id)
+                    ->orderBy('id', 'asc')
+                    ->get();
+
+        return response()->json($status);
+    }
+
+
+    public function updateAppStatus(Request $request){
+        $application = Application::where('id', (int)$request->id);
+        $application->update([
+            'status' => $request->status
+        ]);
+
+        if ($application) {
+            return response()->json([
+                'message' => 'Application updated successfully',
+                'code'    => '200'
+            ]);
+        }
+
+    }
+
 
     public function validateJob($request) {
          $rules = [

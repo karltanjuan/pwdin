@@ -43,6 +43,32 @@ class ApplicantSeeder extends Seeder
                 'token_expired_at'  => null,
                 'email_verified_at' => null 
             ],
+            [
+
+                'username'          => 'janedeleon',
+                'email'             => 'janedeleon@gmail.com',
+                'password'          => Hash::make('Qwerty123!', ['rounds' => '12']),
+                'first_name'        => 'Jane',
+                'middle_name'       => 'De',
+                'last_name'         => 'Leon',
+                'prefix'            => '',
+                'birthdate'         => '1990-01-01',
+                'gender'            => 'Female',
+                'mobile_no'         => '09123456788',
+                'education_level'   => 'College',
+                'address'           => '#654 Test Address',
+                'province'          => 'Metro Manila',
+                'city'              => 'Taguig',
+                'summary'           => null,
+                'zip_code'          => '1234',
+                'profile_photo'     => '',
+                'resume'            => '',
+                'pwd_card'          => '',
+                'status'            => 1,
+                'token'             => null,
+                'token_expired_at'  => null,
+                'email_verified_at' => null 
+            ],
         ];
 
         foreach ($user as $key => $value) {
