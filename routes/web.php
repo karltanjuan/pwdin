@@ -82,6 +82,12 @@ Route::group(['prefix' => 'employer'], function() {
 
         Route::get('/jobs/{id}/applicants', [EmployerJobController::class, 'getApplicants'])->name('employer.getApplicants');
 
+        Route::post('getAppStatus', [EmployerJobController::class, 'getAppStatus'])->name('employer.getAppStatus');
+
+        Route::post('getApplicantById', [EmployerJobController::class, 'getApplicantById'])->name('employer.getApplicantById');
+
+        Route::post('updateAppStatus', [EmployerJobController::class, 'updateAppStatus'])->name('employer.updateAppStatus');
+
         Route::get('logout', [EmployerAuthController::class, 'logout'])->name('employer.logout');
     });
 });

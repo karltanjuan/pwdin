@@ -1028,3 +1028,9 @@ a {
 .settings-dropdown-list > li > a > .fa-icon {
     width: 0;
 }
+
+.cm-input {
+    width: 200px;
+    height: 42px;
+    border-radius: 5px;
+}

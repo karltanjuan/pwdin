@@ -4,12 +4,12 @@
 
 @section('content')
     <style>
-        .modal-view-job .content > div {
+        .modal-view-applicant .content > div {
             border: 1px solid #333;
             padding: 5px;
         }
 
-        .modal-view-job .content > div:last-child > div {
+        .modal-view-applicant .content > div:last-child > div {
             padding-left: 30px;
         }
     </style>
@@ -31,7 +31,7 @@
                 <th>Education Level</th>
                 <th>Mobile Number</th>
                 <th>Gender</th>
-                <th>Location</th>
+                <th>Address</th>
                 <th>Date Applied</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -57,12 +57,9 @@
                     <td>{{ $app->applicant->gender }}</td>
                     <td>{{ $app->applicant->city }} {{ $app->applicant->province }}</td>
                     <td>{{ date('m/d/y', strtotime($app->created_at))}}</td>
-                    <td>{{ $app->status }}</td> <!-- dropdown status -->
+                    <td>{{ $app->status }}</td>
                     <td>
-                        <button class="btn-edit" id="btn-edit" data-id="{{ $app->id }}">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </button>
-                        <button class="btn-view" id="btn-view" data-id="{{ $app->id }}">
+                        <button class="btn-view" id="btn-view" data-id="{{ $app->applicant->id }}">
                             <i class="fa-regular fa-eye"></i>
                         </button>
                     </td>
@@ -254,10 +251,10 @@
         </div>
     </div>
 
-    <div id="modal-view-job" class="modal modal-view-job">
+    <div id="modal-view-applicant" class="modal modal-view-applicant">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>View Job</h2>
+                <h2>View Applicant</h2>
                 <span class="modal-close">&times;</span>
             </div>
             <div class="modal-body">
@@ -270,17 +267,11 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
         var id = 0;
         $(document).ready(function() {
-            tinymce.init({
-                selector: 'textarea#job_description',
-                plugins: 'powerpaste advcode table lists checklist emoticons',
-                toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
-            });
-
-            $('.working_days').select2();
-            $('.pwd_categories').select2();
+            getAppStatus()
         })
 
         $(".check-all").click(function() {
@@ -293,62 +284,57 @@
             $(".check-all").prop("checked", other_checkbox);
         });
 
-        function getJobsById(id) {
+        function getApplicantById(id) {
+            job_id = "{{ request()->route('id') }}"
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-            formData.append('id', parseInt(id));
+            formData.append('job_id', parseInt(job_id));
+            formData.append('applicant_id', parseInt(id));
 
             // Send an AJAX request to validate the data
             $.ajax({
-                url: '{{ route('employer.getJobsById') }}',
+                url: '{{ route('employer.getApplicantById') }}',
                 type: 'POST',
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    $('.job_title').val(response.job_title)
-                    $('.career_level').val(response.career_level)
-                    $('.job_type').val(response.job_type)
-                    $('.job_industry').val(response.job_industry)
-                    $('.years_experience').val(response.years_experience)
-                    $('.average_processing_time').val(response.average_processing_time)
-                    $('.salary').val(response.salary)
-                    $('.qualification').val(response.qualification)
-                    $('.work_setup').val(response.work_setup)
-                    $('.working_days').val(response.working_days.split(",").map(item => item.trim()))
-                    $('.working_days').trigger('change');
-                    $('.pwd_categories').val(response.pwd_categories.split(",").map(item => item.trim()))
-                    $('.pwd_categories').trigger('change');
 
-                    tinymce.get('job_description').setContent(response.job_description);
-                    $('.status').val(response.status)
+                    var applicant   = response.applicants[0].applicant
+                    var application = response.applicants[0]
+                    var app_status  = JSON.parse(response.app_status[0].name)
 
-                    var status = "Closed";
+                    $('.modal-view-applicant .content').html(`
+                        <div>Full Name: ${applicant.first_name} ${applicant.middle_name} ${applicant.last_name} ${applicant.prefix}</div>
+                        <div>PWD Category: ${applicant.id}</div>
+                        <div>PWD Card: <a href='${applicant.pwd_card}' target='_blank'>View and Download</a></div>
+                        <div>Resume: <a href='${applicant.resume}' target='_blank'>View and Download</a></div>
+                        <div>Profile Photo: <img src='${applicant.profile_photo}' alt='Profile Photo'/></div>
+                        <div>Education Level: ${applicant.education_level}</div>
+                        <div>Mobile Number: ${applicant.mobile_no}</div>
+                        <div>Email Address: ${applicant.email}</div>
+                        <div>Gender: ${applicant.gender}</div>
+                        <div>Date Applied: ${moment(application.created_at).format('LL')}</div>
+                        <div>Birthdate: ${moment(applicant.birthdate).format('LL')}</div>
+                        <div>Full Address: ${applicant.address}, ${applicant.city}, ${applicant.province}, ${applicant.zip_code}</div>
+                        <div>Cover Letter: ${application.cover_letter}</div>
+                        <div>
+                            <span>Update Status:</span>
+                            <select class="status cm-input" id="status" data-id="${application.id}"></select>
+                        </div>
+                    `)
 
-                    if (response.status == 1) {
-                        status = "Open"
-                    }
-
-                    const salary = parseFloat(response.salary).toLocaleString(undefined, {
-                      style: 'currency',
-                      currency: 'PHP', 
+                    var html = ""
+                    $.each(app_status, function(index,val) {
+                        if (application.status == val) {
+                            html += `<option value="${val}" selected>${val}</option>`
+                        } else {
+                            html += `<option value="${val}">${val}</option>`
+                        }
                     });
 
-                    $('.modal-view-job .content').html(`
-                        <div>Job Title: ${response.job_title}</div>
-                        <div>Career Level: ${response.career_level}</div>
-                        <div>Job Type: ${response.job_type}</div>
-                        <div>Industry: ${response.job_industry}</div>
-                        <div>Years of Experience: ${response.years_experience}</div>
-                        <div>Average Processing Days: ${response.average_processing_time}</div>
-                        <div>Salary: ${salary}</div>
-                        <div>Educational Attainment: ${response.qualification}</div>
-                        <div>Work Setup: ${response.work_setup}</div>
-                        <div>Working Days: ${response.working_days}</div>
-                        <div>Allowed Disability: ${response.pwd_categories}</div>
-                        <div>Status: ${status}</div>
-                        <div>Job Description: <div>${response.job_description}</div></div>
-                    `)
+                    $('.status').html(html)
                 },
                 error: function(xhr, status, error) {
                     var result = JSON.parse(xhr.responseText)
@@ -357,18 +343,38 @@
             });
         }
 
-        $(document).on('click', '.btn-edit', function() {
-            $('.modal-title').text('Edit Job')
-            $('.btn-save').text('Update')
-            id = $(this).data('id')
-            getJobsById(id)
-            $('.modal-add-job').show();
-        })
+        function getAppStatus() {
+
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+
+            $.ajax({
+                url: '{{ route('employer.getAppStatus') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    var name = JSON.parse(response[0].name)
+                    var html = ""
+
+                    $.each(name, function(index, value) {
+                        html += `<option>${value}</option>`
+                    });
+
+                    $('.status').html(html)
+
+                },
+                error: function(xhr, status, error) {
+                    
+                }
+            });
+        }
 
         $(document).on('click', '.btn-view', function() {
             id = $(this).data('id')
-            getJobsById(id)
-            $('.modal-view-job').show();
+            getApplicantById(id)
+            $('.modal-view-applicant').show();
         })
 
         function closeModal() {
@@ -402,39 +408,15 @@
         }
 
         
-        $('.btn-save').on('click', function() {
-
-
-
+        $(document).on('change', '.status', function() {
             // data to be uploaded on ajax
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-            formData.append('id', id);
-            formData.append('job_title', $('#job_title').val());
-            formData.append('career_level', $('#career_level').val());
-            formData.append('job_type', $('#job_type').val());
-            formData.append('job_industry',  $('#job_industry').val());
-            formData.append('years_experience', $('#years_experience').val());
-            formData.append('average_processing_time', $('#average_processing_time').val());
-            formData.append('salary',  $('#salary').val());
-            formData.append('qualification', $('#qualification').val());
-            formData.append('work_setup', $('#work_setup').val());
-            formData.append('working_days', $('#working_days').val().join());
-            formData.append('pwd_categories', $('#pwd_categories').val().join());
-            formData.append('job_description', tinymce.get("job_description").getContent());
-            formData.append('status', $('#status').val());
+            formData.append('id', parseInt($(this).data('id')));
+            formData.append('status', $(this).val());
 
-            if ($(this).text() == "Save") {
-                var url = '{{ route('employer.postJob') }}'
-                event = "save"
-            } else {
-                var url ='{{ route('employer.updateJob') }}'
-                event = "update"
-            }
-
-            // Send an AJAX request to validate the data
             $.ajax({
-                url: url,
+                url: '{{ route('employer.updateAppStatus') }}',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -443,15 +425,8 @@
                     if (response.code == "200") {
                         $('.modal').hide()
 
-                        var modal_title = ""
-                        if (event == "save") {
-                            modal_title = 'Job Post Created'
-                        } else {
-                            modal_title = 'Job Post Updated'
-                        }
-
                         Swal.fire({
-                          title: modal_title,
+                          title: 'Application Status Updated',
                           text: 'Success',
                           icon: 'success',
                           showCancelButton: false,
@@ -459,7 +434,7 @@
                         });
 
                         setTimeout(function() {
-                            window.location.href = '{{url('/employer/jobs')}}'
+                            window.location.href = '{{url('/employer/jobs/')}}/{{request()->route('id')}}/applicants'
                         }, 2000)
                     } else {
                         displayErrors(JSON.parse(response.errors));
