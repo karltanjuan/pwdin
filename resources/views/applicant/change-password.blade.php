@@ -19,11 +19,11 @@
             cursor: pointer;
         }   
     </style>
-
-    <div class="head-container">
-        <h1>Change Password</h1>
-        <p><b>Note</b>: Strong password should be 8 characters long or more.</p>
-    </div> 
+    <div class="content-0">
+        <div class="head-container">
+            <h1>Change Password</h1>
+            <p><b>Note</b>: Strong password should be 8 characters long or more.</p>
+        </div> 
 
         <div id="form">
             <div class="form first" id="form-first">
@@ -60,6 +60,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
         <script>
             var state1 = false;
@@ -111,65 +112,65 @@
               }
             }
 
-        var err_counter = 0;
-        function displayErrors(errors) {
-            $('.err-msg').text('');
-            $('.error').css('border', 'none')
-            $('.err-msg').siblings('input, select').removeClass('error');
+            var err_counter = 0;
+            function displayErrors(errors) {
+                $('.err-msg').text('');
+                $('.error').css('border', 'none')
+                $('.err-msg').siblings('input, select').removeClass('error');
 
-            // loop all the error messages from backend to display on ui
-            $.each(errors, function(field, messages) {
-                console.log(field)
-                var errMsgSelector = '.err-' + field;
-                var inputSelector = '#' + field;
-                $(errMsgSelector).text(messages[0]);
-                $(inputSelector).addClass('error');
-            });
+                // loop all the error messages from backend to display on ui
+                $.each(errors, function(field, messages) {
+                    console.log(field)
+                    var errMsgSelector = '.err-' + field;
+                    var inputSelector = '#' + field;
+                    $(errMsgSelector).text(messages[0]);
+                    $(inputSelector).addClass('error');
+                });
 
-            // $("html, body").animate({ scrollTop: 0 }, "slow");
-        }
+                // $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
 
         
-        $('.btn-update').on('click', function() {
-            // prepare the data to be submitted on backend
-            var formData = new FormData();
-            formData.append('_token', "{{ csrf_token() }}");
-            formData.append('current_password', $('#current_password').val());
-            formData.append('new_password', $('#new_password').val());
-            formData.append('password_confirmation', $('#password_confirmation').val());
+            $('.btn-update').on('click', function() {
+                // prepare the data to be submitted on backend
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('current_password', $('#current_password').val());
+                formData.append('new_password', $('#new_password').val());
+                formData.append('password_confirmation', $('#password_confirmation').val());
 
-            $.ajax({
-                url: '{{ route('applicant.updatePassword') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
+                $.ajax({
+                    url: '{{ route('applicant.updatePassword') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
 
-                        Swal.fire({
-                          title: 'Password change successfully',
-                          text: '',
-                          icon: 'info',
-                          showCancelButton: false,
-                          confirmButtonText: 'OK'
-                        })
+                            Swal.fire({
+                              title: 'Password change successfully',
+                              text: '',
+                              icon: 'info',
+                              showCancelButton: false,
+                              confirmButtonText: 'OK'
+                            })
 
-                        setTimeout(function() {
-                            window.location.href = '{{url('/applicant/change-password')}}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                            setTimeout(function() {
+                                window.location.href = '{{url('/applicant/change-password')}}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
-    
-        })
+                });
+        
+            })
 
         </script>
 @endsection
