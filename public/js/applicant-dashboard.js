@@ -18,3 +18,41 @@ navLinks.forEach(function (element){
         })
     })
 })
+
+$(document).on('click', '.settings-dropdown', function() {
+
+    var $caretIcon = $(this).find('.fa-caret-right');
+    
+    if ($caretIcon.hasClass('fa-caret-right')) {
+        $caretIcon.removeClass('fa-caret-right');
+        $caretIcon.addClass('fa-caret-down');
+
+        $('.settings-dropdown-list').show()
+    } else {
+        $(this).find('.fa-caret-down').addClass('fa-caret-right');
+        $(this).find('.fa-caret-down').removeClass('fa-caret-down');
+
+        $('.settings-dropdown-list').hide()
+    }
+})
+
+$(document).ready(function() {
+    var pathname = window.location.pathname.split('/'); 
+    var page = pathname[pathname.length - 1];
+
+    var settings = ['profile-info', 'change-password'];
+
+    var $caretIcon = $('.settings-dropdown').find('.fa-caret-right');
+
+    if (settings.includes(page)) {
+        $caretIcon.removeClass('fa-caret-right');
+        $caretIcon.addClass('fa-caret-down');
+
+        $('.settings-dropdown-list').show()
+    } else {
+        $(this).find('.fa-caret-down').addClass('fa-caret-right');
+        $(this).find('.fa-caret-down').removeClass('fa-caret-down');
+
+        $('.settings-dropdown-list').hide()
+    }
+});

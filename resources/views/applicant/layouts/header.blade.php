@@ -1,10 +1,14 @@
 <div class="top">
-	<ion-icon class="navToggle" name="menu-outline"></ion-icon>
-	<div class="searchBox">
-		<ion-icon name="search-outline"></ion-icon>
-		<input type="text" placeholder="Search">
-	</div>
+	<i class="navToggle fa-solid fa-bars fa-icon"></i>
+	<p>{{auth()->user()->first_name}} {{auth()->user()->middle_name}} {{auth()->user()->last_name}}</p>
 	<a class="profile" href="javascript:void(0)">
-		<ion-icon name="person-outline"></ion-icon>
+		@if (auth()->user()->profile_photo != null)
+			@php
+				$profile_photo = str_replace('public', 'storage', auth()->user()->profile_photo);
+			@endphp
+			<img src="{{asset($profile_photo)}}" alt="Profile Photo">
+		@else
+			<i class="fa-regular fa-user fa-icon"></i>
+		@endif
 	</a>
 </div>

@@ -1020,7 +1020,7 @@ a {
 .settings-dropdown-list > li > a,
 .settings-dropdown-list > li > a > .fa-icon,
 .settings-dropdown-list > li > a > .links  {
-    background: #fff;
+    background: #333;
     width: 100%;
     color: var(--primary-color) !important;
 }
@@ -1038,4 +1038,8 @@ a {
 .img-fluid {
     width: 200px;
     border-radius: 5px;
+}
+
+.swal2-styled.swal2-confirm {
+    background: rgba(22, 185, 236, 1) !important;
 }

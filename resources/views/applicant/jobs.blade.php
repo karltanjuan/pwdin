@@ -1,6 +1,6 @@
 @extends('applicant.layouts.master')
 
-@section('title', 'Applicant Job Post')
+@section('title', 'Applicant - Job List')
 
 @section('content')
 	<style>
