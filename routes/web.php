@@ -6,6 +6,7 @@ use App\Http\Controllers\Applicant\AuthController;
 use App\Http\Controllers\Applicant\ApplicantDashboardController;
 use App\Http\Controllers\Applicant\ApplicantJobController;
 use App\Http\Controllers\Applicant\ApplicantPasswordController;
+use App\Http\Controllers\Applicant\ApplicantPWDCardController;
 use App\Http\Controllers\Employer\EmployerAuthController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
 use App\Http\Controllers\Employer\EmployerJobController;
@@ -50,6 +51,10 @@ Route::group(['prefix' => 'applicant'], function() {
         Route::post('applyJob', [ApplicantJobController::class, 'applyJob'])->name('applicant.applyJob');
 
         Route::post('withdrawJob', [ApplicantJobController::class, 'withdrawJob'])->name('applicant.withdrawJob');
+
+        Route::get('/pwd-card', [ApplicantPWDCardController::class, 'getChangePWDCard'])->name('applicant.getChangePWDCard');
+        Route::post('/update-pwd-card', [ApplicantPWDCardController::class, 'updatePWDCard'])->name('applicant.updatePWDCard');
+
 
         Route::get('/change-password', [ApplicantPasswordController::class, 'getChangePassword'])->name('applicant.getChangePassword');
         Route::post('/update-password', [ApplicantPasswordController::class, 'updatePassword'])->name('applicant.updatePassword');

@@ -1040,6 +1040,11 @@ a {
     border-radius: 5px;
 }
 
+.img-flow-50 {
+    width: 50%;
+    border-radius: 5px;
+}
+
 .swal2-styled.swal2-confirm {
     background: rgba(22, 185, 236, 1) !important;
 }
