@@ -1,6 +1,6 @@
 @extends('applicant.layouts.master')
 
-@section('title', 'Applicant Change PWD Card')
+@section('title', 'Applicant Change Resume')
 
 @section('content')
     <style>
@@ -8,23 +8,23 @@
     </style>
         <div class="content-0">
             <div class="head-container">
-                <h1>Change PWD Card</h1>
+                <h1>Change Resume</h1>
             </div>
             <div id="form">
                 <div class="form second" id="form-second">
                     <div class="details ID">
                         <div class="fields">
                             <div class="input-field">
-                                <label>Upload PWD ID card / Recent medical records</label>
-                                <input class="pwd_card" id="pwd_card" type="file" accept=".png,.jpeg,.jpg">
-                                <span class="err-pwd_card err-msg"></span>
+                                <label>Upload CV</label>
+                                <input class="resume" id="resume" type="file" accept=".pdf">
+                                <span class="err-resume err-msg"></span>
                             </div>
                             @php
-                                $pwd_card = str_replace('public', 'storage', auth()->user()->pwd_card);
+                                $resume = str_replace('public', 'storage', auth()->user()->resume);
                             @endphp
-                            <img class="img-flow-50 img-preview" src="{{asset($pwd_card)}}" alt="PWD Card">
+                            <a href="{{asset($resume)}}" target="_blank">View Resume</a>
                             <br><br>
-                            <button class="primary-btn btn-update">Save PWD Card</button>
+                            <button class="primary-btn btn-update">Save Resume</button>
                         </div>
                     </div>
                 </div>
@@ -47,29 +47,15 @@
                 });
             }
 
-            $('.pwd_card').on('change', function(event) {
-                const selectedImage = event.target.files[0];
-                
-                if (selectedImage) {
-                    const reader = new FileReader();
-                    
-                    reader.onload = function(e) {
-                        $('.img-preview').attr('src', e.target.result);
-                    };
-                    
-                    reader.readAsDataURL(selectedImage);
-                }
-            });
-
         
             $('.btn-update').on('click', function() {
                 var formData = new FormData();
                 formData.append('_token', "{{ csrf_token() }}");
-                formData.append('old_file', '{{auth()->user()->pwd_card}}');
-                formData.append('pwd_card', $('#pwd_card')[0].files[0]);
+                formData.append('old_file', '{{auth()->user()->resume}}');
+                formData.append('resume', $('#resume')[0].files[0]);
 
                 $.ajax({
-                    url: '{{ route('applicant.updatePWDCard') }}',
+                    url: '{{ route('applicant.updateResume') }}',
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -78,15 +64,15 @@
                         if (response.code == "200") {
 
                             Swal.fire({
-                              title: 'PWD Card change successfully',
+                              title: 'Resume change successfully',
                               text: '',
-                              icon: 'info',
+                              icon: 'success',
                               showCancelButton: false,
                               confirmButtonText: 'OK'
                             })
 
                             setTimeout(function() {
-                                window.location.href = '{{url('/applicant/pwd-card')}}'
+                                window.location.href = '{{url('/applicant/resume')}}'
                             }, 2000)
                         } else {
                             displayErrors(JSON.parse(response.errors));
