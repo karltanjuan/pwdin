@@ -19,6 +19,7 @@
                       <span class="checkmark"></span>
                     </label>
                 </th>
+                <th>Order</th>
                 <th>Name</th>
                 <th>Action</th>
             </tr>
@@ -37,6 +38,12 @@
                                   <input type="checkbox">
                                   <span class="checkmark"></span>
                                 </label>
+                            </td>
+                            <td>
+                                <button>
+                                    <i class="fa-solid fa-bars"></i>
+                                </button>
+                                <span>0</span>
                             </td>
                             <td> {{ $status }} </td>
                             <td>

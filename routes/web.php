@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Applicant\AuthController;
 use App\Http\Controllers\Applicant\ApplicantDashboardController;
 use App\Http\Controllers\Applicant\ApplicantJobController;
-
+use App\Http\Controllers\Applicant\ApplicantPasswordController;
 use App\Http\Controllers\Employer\EmployerAuthController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
 use App\Http\Controllers\Employer\EmployerJobController;
@@ -51,6 +51,9 @@ Route::group(['prefix' => 'applicant'], function() {
 
         Route::post('withdrawJob', [ApplicantJobController::class, 'withdrawJob'])->name('applicant.withdrawJob');
 
+        Route::get('/change-password', [ApplicantPasswordController::class, 'getChangePassword'])->name('applicant.getChangePassword');
+        Route::post('/update-password', [ApplicantPasswordController::class, 'updatePassword'])->name('applicant.updatePassword');
+
         Route::get('logout', [AuthController::class, 'logout'])->name('applicant.logout');
     });
 });
@@ -80,7 +83,7 @@ Route::group(['prefix' => 'employer'], function() {
           Route::post('getAppStatusByName', [ApplicationStatusController::class, 'getAppStatusByName'])->name('employer.getAppStatusByName');
         Route::post('deleteAppStatus', [ApplicationStatusController::class, 'deleteAppStatus'])->name('employer.deleteAppStatus');
 
-        Route::get('/jobs/{id}/applicants', [EmployerJobController::class, 'getApplicants'])->name('employer.getApplicants');
+        Route::get('/jobs/{id}/applicants', [EmployerJobController::class, 'getApplicants'])->name('employer.getApplicants'); // dynamic id
 
         Route::post('getAppStatus', [EmployerJobController::class, 'getAppStatus'])->name('employer.getAppStatus');
 
@@ -94,9 +97,6 @@ Route::group(['prefix' => 'employer'], function() {
 
 // Admin/Moderator
 Route::group(['prefix' => 'admin'], function() {
-    
-
-
     Route::get('register', [AdminAuthController::class, 'getRegister'])->name('admin.getRegister');
     Route::post('postRegister', [AdminAuthController::class, 'postRegister'])->name('admin.postRegister');
     
