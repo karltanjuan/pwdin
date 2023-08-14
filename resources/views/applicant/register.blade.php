@@ -182,7 +182,7 @@
                           </div>
 
                           <div class="input-field">
-                            <label>Profile Pricture</label>
+                            <label>Profile Picture</label>
                             <input class="profile_photo" id="profile_photo" type="file" accept=".png,.jpeg,.jpg">
                             <span class="err-profile_photo err-msg"></span>
                           </div>

@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'pwd_categories'
+        // 'pwd_categories'
     ];
 
     /**
