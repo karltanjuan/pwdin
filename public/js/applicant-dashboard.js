@@ -40,7 +40,7 @@ $(document).ready(function() {
     var pathname = window.location.pathname.split('/'); 
     var page = pathname[pathname.length - 1];
 
-    var settings = ['profile-info', 'pwd-card', 'change-password'];
+    var settings = ['profile-info', 'resume', 'pwd-card', 'change-password'];
 
     var $caretIcon = $('.settings-dropdown').find('.fa-caret-right');
 

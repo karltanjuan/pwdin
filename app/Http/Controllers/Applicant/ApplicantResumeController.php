@@ -48,7 +48,7 @@ class ApplicantResumeController extends Controller
                 ]);
         
         return response()->json([
-            'message' => 'PWD Card updated successfully',
+            'message' => 'Resume updated successfully',
             'code'    => '200'
         ]);
     }
