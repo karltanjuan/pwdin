@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>PWDIn - Applicant Reset Password</title>
+		<title>PWDIn - Employer Reset Password</title>
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 		<link rel="stylesheet" href="{{asset('css/admin.css')}}">
@@ -13,7 +13,7 @@
 			<div class="container">
 				<div class="col-left">
 					<div class="login-text">
-						<h2>Applicant</h2>
+						<h2>Employer</h2>
 						<img class="pwdin-logo" src="{{asset('img/logo.png')}}" alt="PWDIn Logo">
 					</div>
 				</div>
@@ -110,7 +110,7 @@
 
 	        // Send an AJAX request to validate the data
 	        $.ajax({
-	            url: '{{ route('applicant.postResetPassword') }}',
+	            url: '{{ route('employer.postResetPassword') }}',
 	            type: 'POST',
 	            data: formData,
 	            processData: false,
@@ -130,7 +130,7 @@
 						})
 
 						setTimeout(function() {
-                            window.location.href = '{{url('/applicant/login')}}'
+                            window.location.href = '{{url('/employer/login')}}'
                         }, 2000)
 	                } else {
 	                    displayErrors(JSON.parse(response.errors));

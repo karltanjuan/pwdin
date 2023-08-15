@@ -200,14 +200,13 @@ class AuthController extends Controller
             return redirect('applicant/dashboard');
         }
 
-        // return view('applicant.forgot-password');
+        return view('applicant.forgot-password');
         
     }
 
     public function postForgotPassword(Request $request)
     {
-    
-        $validator = $this->validateForgotPasswordApplicant($request);
+        $validator = $this->validateForgotPassword($request);
         $response = response()->json(['message' => 'Email address not found', 'code' => '422']);
 
         if ($validator->fails()) {
@@ -277,7 +276,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Reset password emailed successfully. Kindly check your inbox.', 'code' => '200']);        
     }
 
-    public function validateForgotPasswordApplicant($request) {
+    public function validateForgotPassword($request) {
         return Validator::make($request->all(), [ 
             'email' => 'required|email',
         ]);
@@ -313,14 +312,13 @@ class AuthController extends Controller
             ]);
         }
 
-        $validator = $this->validateResetPasswordApplicant($request);
+        $validator = $this->validateResetPassword($request);
 
-        if (!$validator->passes()) {
+        if ($validator->fails()) {
             return response()->json([
-                'error' => $validator->errors()->all(),
-                'code'  => '422'
-            ]);
-        }   
+                'errors' => $validator->errors(),
+            ], 422);
+        } 
 
         $user = User::where('id', $user->id)
                     ->update([
@@ -336,7 +334,7 @@ class AuthController extends Controller
         
     }
 
-    public function validateResetPasswordApplicant(Request $request) {
+    public function validateResetPassword(Request $request) {
         return Validator::make($request->all(), [
             'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
             'password_confirmation' => ['required', 'same:new_password']
