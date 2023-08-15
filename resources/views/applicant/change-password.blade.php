@@ -151,7 +151,7 @@
                             Swal.fire({
                               title: 'Password change successfully',
                               text: '',
-                              icon: 'info',
+                              icon: 'success',
                               showCancelButton: false,
                               confirmButtonText: 'OK'
                             })

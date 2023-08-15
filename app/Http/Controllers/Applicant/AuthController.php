@@ -62,7 +62,7 @@ class AuthController extends Controller
         $profile_path = "";
         if ($request->file('profile_photo')) {
             $profile_file = $request->file('profile_photo');
-            $profile_path = uniqid().md5(1).'_'.$card_file->getClientOriginalName();
+            $profile_path = uniqid().md5(1).'_'.$profie_file->getClientOriginalName();
             $profile_path = $request->file('profile_photo')->storeAs('public/applicant/profile_photo', $profile_path);
         }
 

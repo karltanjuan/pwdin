@@ -22,6 +22,11 @@
                                 $user = auth()->user();
                             @endphp
                             <div class="input-field">
+                                <label>Profile Picture</label>
+                                <input class="profile_photo" id="profile_photo" type="file" accept=".png,.jpeg,.jpg">
+                                <span class="err-profile_photo err-msg"></span>
+                            </div>
+                            <div class="input-field">
                                 <label>Username</label>
                                 <input id="username" class="username" type="text" placeholder="Enter username" value="{{$user->username}}"/>
                                 <span class="err-username err-msg"></span>
@@ -132,6 +137,8 @@
             </div>
         </div>
 
+
+
         <script>
 
             $(document).ready(function() {
@@ -139,20 +146,31 @@
                 $('.pwd_categories').select2();
 
                 var pwd_categories = `{{auth()->user()->pwd_categories}}`;
-                console.log(pwd_categories)
                 $('.pwd_categories').val(pwd_categories.split(",").map(item => item.trim()))
                 $('.pwd_categories').trigger('change');
+
+                $('.province').val('{{auth()->user()->province}}')
+                setTimeout(function() {
+                    province_code = $('.province>option:selected').data('key')
+                    console.log(province_code)
+                    getCities(province_code)
+                }, 500)
             })
 
             function getProvinces() {
                 fetch('{{asset('/json/provinces.json')}}')
-                .then(response => response.json()) // convert string to json
-                .then(data => { // data is the parameter
-                    // var html = "<option selected disabled>Please select</option>";
+                .then(response => response.json()) 
+                .then(data => {
                     var html = "";
                     var selected = "";
                     $.each(data, function(index, item) {
-                        var selected = (index === 0) ? "selected" : "";
+
+                        // var selected = (index === 0) ? "selected" : "";
+                        var selected = ""
+                        if (item.name == '{{auth()->user()->province}}') {
+                            selected = 'selected'
+                        }
+
                         html += `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
                     });
 
@@ -182,7 +200,11 @@
 
                     var html = "";
                     $.each(filtered_cities, function(index, item) {
-                        html += `<option value="${item.name}">${item.name}</option>`
+                        var selected = ""
+                        if (item.name == '{{auth()->user()->city}}') {
+                            selected = "selected"
+                        }
+                        html += `<option ${selected} value="${item.name}">${item.name}</option>`
                     });
 
                     $('.city').html(html);
@@ -192,16 +214,13 @@
                 });
             }
 
-
             var err_counter = 0;
             function displayErrors(errors) {
                 $('.err-msg').text('');
-                $('.error').css('border', 'none')
+                // $('.error').css('border', 'none')
                 $('.err-msg').siblings('input, select').removeClass('error');
 
-                // loop all the error messages from backend to display on ui
                 $.each(errors, function(field, messages) {
-                    console.log(field)
                     var errMsgSelector = '.err-' + field;
                     var inputSelector = '#' + field;
                     $(errMsgSelector).text(messages[0]);
@@ -210,6 +229,62 @@
 
                 $("html, body").animate({ scrollTop: 0 }, "slow");
             }
+
+            $('.btn-update').on('click', function() {
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('old_file', '{{auth()->user()->profile_photo}}');
+                formData.append('profile_photo', $('#profile_photo')[0].files[0]);
+                formData.append('username', $('#username').val());
+                formData.append('email', $('#email').val());
+                formData.append('mobile_no', $('#mobile_no').val());
+                formData.append('birthdate', $('#birthdate').val());
+                formData.append('first_name', $('#first_name').val());
+                formData.append('middle_name', $('#middle_name').val());
+                formData.append('last_name', $('#last_name').val());
+                formData.append('prefix', $('#prefix').val());
+                formData.append('gender', $('#gender').val());
+                formData.append('education_level', $('#education_level').val());
+                formData.append('province', $('#province').val());
+                formData.append('city', $('#city').val());
+                formData.append('address', $('#address').val());
+                formData.append('zip_code', $('#zip_code').val());
+                formData.append('pwd_categories', $('#pwd_categories').val().join());
+
+                $.ajax({
+                    url: '{{ route('applicant.updateProfileInfo') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            Swal.fire({
+                              title: 'Profile information updated successfully',
+                              text: '',
+                              icon: 'success',
+                              showCancelButton: false,
+                              confirmButtonText: 'OK'
+                            });
+                            
+                            setTimeout(function() {
+                                    window.location.href = '{{url('/applicant/profile-info')}}'
+                                }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                    }
+                });
+           
+    
+        })
+
+
 
 
         </script>
