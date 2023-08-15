@@ -41,7 +41,7 @@ Route::group(['prefix' => 'applicant'], function() {
     Route::get('forgot-password', [AuthController::class, 'getForgotPassword'])->name('applicant.getForgotPassword');
     Route::post('postForgotPassword', [AuthController::class, 'postForgotPassword'])->name('applicant.postForgotPassword');
 
-    Route::get('reset-password', [AuthController::class, 'getResetPassword'])->name('applicant.getResetPassword');
+    Route::get('reset-password/{token}', [AuthController::class, 'getResetPassword'])->name('applicant.getResetPassword');
     Route::post('postResetPassword', [AuthController::class, 'postResetPassword'])->name('applicant.postResetPassword');
 
     Route::middleware('is_applicant')->group(function () {
@@ -80,6 +80,13 @@ Route::group(['prefix' => 'employer'], function() {
 
     Route::get('register', [EmployerAuthController::class, 'getRegister'])->name('employer.getRegister');
     Route::post('postRegister', [EmployerAuthController::class, 'postRegister'])->name('employer.postRegister');
+
+
+    Route::get('forgot-password', [EmployerAuthController::class, 'getForgotPassword'])->name('employer.getForgotPassword');
+    Route::post('postForgotPassword', [EmployerAuthController::class, 'postForgotPassword'])->name('employer.postForgotPassword');
+
+    Route::get('reset-password/{token}', [EmployerAuthController::class, 'getResetPassword'])->name('employer.getResetPassword');
+    Route::post('postResetPassword', [EmployerAuthController::class, 'postResetPassword'])->name('employer.postResetPassword');
 
     Route::middleware('is_employer')->group(function () {
         Route::get('/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.dashboard');

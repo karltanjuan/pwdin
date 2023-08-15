@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>PWDIn - Applicant Forgot Password</title>
+		<title>PWDIn - Employer Forgot Password</title>
 
 		<link rel="stylesheet" href="{{asset('css/admin.css')}}">
 	</head>
@@ -12,7 +12,7 @@
 			<div class="container">
 				<div class="col-left">
 					<div class="login-text">
-						<h2>Applicant</h2>
+						<h2>Employer</h2>
 						<img class="pwdin-logo" src="{{asset('img/logo.png')}}" alt="PWDIn Logo">
 					</div>
 				</div>
@@ -62,7 +62,7 @@
 
 	        // Send an AJAX request to validate the data
 	        $.ajax({
-	            url: '{{ route('applicant.postForgotPassword') }}',
+	            url: '{{ route('employer.postForgotPassword') }}',
 	            type: 'POST',
 	            data: formData,
 	            processData: false,
@@ -82,7 +82,7 @@
 						})
 
 						setTimeout(function() {
-                            window.location.href = '{{url('/applicant/login')}}'
+                            window.location.href = '{{url('/employer/login')}}'
                         }, 2000)
 	                } else {
 	                    displayErrors(JSON.parse(response.errors));

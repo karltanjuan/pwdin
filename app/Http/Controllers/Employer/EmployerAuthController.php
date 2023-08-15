@@ -8,6 +8,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PendingEmployerEmail;
+use App\Mail\EmployerForgotPasswordEmail;
 use Validator;
 use Session;
 use Storage;
@@ -172,6 +173,159 @@ class EmployerAuthController extends Controller
             'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
         ]);
     }
+
+
+    public function getforgotPassword()
+    {
+        if (auth()->guard('employers')->check()) {
+            return redirect('employer/dashboard');
+        }
+
+        return view('employer.forgot-password');
+        
+    }
+
+    public function postforgotPassword(Request $request)
+    {
+        $validator = $this->validateForgotPassword($request);
+
+        $response = response()->json(['errors' => [
+            'email' => ['Email address not found']]
+            ], 422);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $user = Employer::where('email', $request->email)
+                ->first();
+
+        if (!$user) {
+            return $response;
+        }
+
+        $token = $user->username.md5(rand(1, 10) . microtime());
+        $token_expired_at = Carbon::now()->addDay(1)->format("Y-m-d");
+
+        $user_token = Employer::where('email', $request->email)
+                      ->update([
+                        'token'            => $token,
+                        'token_expired_at' => $token_expired_at
+                      ]);
+
+        $agent = $_SERVER['HTTP_USER_AGENT'];
+        $operating_system = "";
+        $browser = "";
+
+        if (preg_match('/linux/i', $agent)) {
+            $operating_system = 'Linux OS';
+        } elseif (preg_match('/macintosh|mac os x|mac_powerpc/i', $agent)) {
+            $operating_system = 'Mac OS';
+        } elseif (preg_match('/windows|win32|win98|win95|win16/i', $agent)) {
+            $operating_system = 'Windows OS';
+        } elseif (preg_match('/ubuntu/i', $operating_system)) {
+            $operating_system = 'Ubuntu OS';
+        }
+
+        if(preg_match('/MSIE/i',$agent) && !preg_match('/Opera/i',$agent)){
+            $browser = 'Internet Explorer';
+        }elseif(preg_match('/Firefox/i',$agent)){
+            $browser = 'Mozilla Firefox';
+        }elseif(preg_match('/OPR/i',$agent)){
+            $browser = 'Opera';
+        }elseif(preg_match('/Chrome/i',$agent) && !preg_match('/Edge/i',$agent)){
+            $browser = 'Google Chrome';
+        }elseif(preg_match('/Safari/i',$agent) && !preg_match('/Edge/i',$agent)){
+            $browser = 'Apple Safari';
+        }elseif(preg_match('/Netscape/i',$agent)){
+            $browser = 'Netscape';
+        }elseif(preg_match('/Edge/i',$agent)){
+            $browser = 'Edge';
+        }elseif(preg_match('/Trident/i',$agent)){
+            $browser = 'Internet Explorer';
+        }
+
+        Mail::to($request->email)
+            ->send(new EmployerForgotPasswordEmail(
+                $user->username,
+                $request->email,
+                $token,
+                $operating_system,
+                $browser
+            )
+        );
+
+        return response()->json(['message' => 'Reset password emailed successfully. Kindly check your inbox.', 'code' => '200']);        
+
+    }
+
+    public function validateForgotPassword($request) {
+        return Validator::make($request->all(), [ 
+            'email' => 'required|email',
+        ]);
+    }
+
+    public function getResetPassword($token)
+    {
+        if (auth()->guard('employers')->check()) {
+            return redirect('employer/dashboard');
+        }
+
+        $token = Employer::where('token', $token)
+                ->where('token_expired_at', '>', date('Y-m-d'))
+                ->first();
+
+        if (!$token) {
+            return view('employer.reset-password-expired');
+        }
+
+        return view('employer.reset-password');
+    }
+
+    public function postResetPassword(Request $request)
+    {
+        $user = Employer::where('token', $request->reset_token)
+                ->where('token_expired_at', '>', date('Y-m-d'))
+                ->first();
+
+        if (!$user) {
+            return response()->json([
+                'error' => ['Token link is expired.'],
+                'code'  => '422'
+            ]);
+        }
+
+        $validator = $this->validateResetPassword($request);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $user = Employer::where('id', $user->id)
+                    ->update([
+                        'password'          => Hash::make($request->new_password, ['rounds' => 12]),
+                        'token'             => null,
+                        'token_expired_at'  => null
+                    ]);
+        
+        return response()->json([
+            'message' => 'Password reset successfully',
+            'code'    => '200'
+        ]);
+        
+    }
+
+    public function validateResetPassword(Request $request) {
+        return Validator::make($request->all(), [
+            'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
+            'password_confirmation' => ['required', 'same:new_password']
+        ]);
+    }
+
 
      public function logout()
     {

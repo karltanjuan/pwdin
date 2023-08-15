@@ -45,7 +45,7 @@
                             </span>
                             <span class="err-password err-msg"></span>
                             <br><br>
-                            <a href="javascript:void(0)" class="forgot-pass">Forgot Password</a>
+                            <a href="{{url('employer/forgot-password')}}" class="forgot-pass">Forgot Password</a>
                             <br>
                             <button type="button" class="btn-login">Log In Employer</button>
                         </div>
