@@ -212,7 +212,6 @@
 								<div class="input-field">
 									<label>PWD Categories</label>
 									<select class="pwd_categories" id="pwd_categories" name="pwd_categories[]" multiple="multiple">
-										<option value="All">All</option>
 										<option value="Psychosocial">Psychosocial</option>
 										<option value="Mental">Mental</option>
 										<option value="Chronic illness">Chronic illness</option>
