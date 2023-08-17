@@ -23,16 +23,24 @@
     <div class="content-0">
         <div class="head-container">
             <h1>Company Information</h1>
+            @php
+                $user = auth()->guard('employers')->user();
+            @endphp
         </div>
 
         <div class="content">
+            @if (auth()->guard('employers')->user()->company_logo != null)
+                @php
+                $company_logo = str_replace('public', 'storage', auth()->guard('employers')->user()->company_logo);
+                @endphp
+                <img class="company-logo-info" src="{{asset($company_logo)}}" alt="Company Logo">
+            @else
+                <img class="company-logo-info" src="{{asset($company_logo)}}" alt="Company Logo">
+            @endif
             <div id="form">
                 <div class="form first" id="form-first">
                     <div class="details personal">
                         <div class="fields">
-                            @php
-                                $user = auth()->guard('employers')->user();
-                            @endphp
                             <div class="input-field">
                                 <label>Company Logo</label>
                                 <input class="company_logo" id="company_logo" type="file" accept=".png,.jpeg,.jpg">
@@ -91,10 +99,10 @@
                             </div>
                             <div class="input-field"></div>
                         </div>
+
                         <button class="primary-btn btn-update">Save Company</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -108,7 +116,6 @@
                 $('.province').val('{{auth()->guard('employers')->user()->province}}')
                 setTimeout(function() {
                     province_code = $('.province>option:selected').data('key')
-                    console.log(province_code)
                     getCities(province_code)
                 }, 500)
             })

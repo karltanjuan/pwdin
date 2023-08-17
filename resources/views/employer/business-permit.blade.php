@@ -21,9 +21,17 @@
                             </div>
                             @php
                                 $business_permit = str_replace('public', 'storage', auth()->guard('employers')->user()->business_permit);
+
+                                $path = pathinfo($business_permit);
                             @endphp
-                            <img class="img-flow-50 img-preview" src="{{asset($business_permit)}}" alt="Business Permit">
-                            <br><br>
+
+                            <div class="preview-container">
+                                @if ($path['extension'] == "pdf")
+                                    <a href="{{asset($business_permit)}}" target="_blank">View and Download</a>
+                                @else
+                                    <img class="img-flow-50 img-preview" src="{{asset($business_permit)}}" alt="Business Permit">
+                                @endif
+                            </div>
                             <button class="primary-btn btn-update">Save Business Permit</button>
                         </div>
                     </div>
@@ -49,15 +57,22 @@
 
             $('.business_permit').on('change', function(event) {
                 const selectedImage = event.target.files[0];
+                var extension = selectedImage.name.split('.').pop().toLowerCase();
+
+                if (extension != "pdf") {
+                    $('.preview-container').html(`<img class="img-flow-50 img-preview" alt="Business Permit"/>`)
                 
-                if (selectedImage) {
-                    const reader = new FileReader();
-                    
-                    reader.onload = function(e) {
-                        $('.img-preview').attr('src', e.target.result);
-                    };
-                    
-                    reader.readAsDataURL(selectedImage);
+                    if (selectedImage) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            $('.img-preview').attr('src', e.target.result);
+                        };
+                        
+                        reader.readAsDataURL(selectedImage);
+                    }
+                } else {
+                    $('.img-preview').hide()
                 }
             });
 

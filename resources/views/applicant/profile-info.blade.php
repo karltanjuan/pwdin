@@ -14,6 +14,14 @@
         </div>
 
         <div class="content">
+            @if (auth()->user()->profile_photo != null)
+                @php
+                $profile_photo = str_replace('public', 'storage', auth()->user()->profile_photo);
+                @endphp
+                <img class="profile-photo-info" src="{{asset($profile_photo)}}" alt="Profile Photo">
+            @else
+                <img class="profile-photo-info" src="{{asset($profile_photo)}}" alt="Profile Photo">
+            @endif
             <div id="form">
                 <div class="form first" id="form-first">
                     <div class="details personal">
@@ -22,7 +30,7 @@
                                 $user = auth()->user();
                             @endphp
                             <div class="input-field">
-                                <label>Profile Picture</label>
+                                <label>Profile Photo</label>
                                 <input class="profile_photo" id="profile_photo" type="file" accept=".png,.jpeg,.jpg">
                                 <span class="err-profile_photo err-msg"></span>
                             </div>
