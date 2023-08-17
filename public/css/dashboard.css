@@ -1049,3 +1049,11 @@ a {
 .swal2-styled.swal2-confirm {
     background: rgba(22, 185, 236, 1) !important;
 }
+
+.company-logo-info,
+.profile-photo-info {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #333;
+    border-radius: 5px;
+}

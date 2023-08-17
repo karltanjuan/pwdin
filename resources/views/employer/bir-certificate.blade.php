@@ -21,9 +21,19 @@
                             </div>
                             @php
                                 $bir_certificate = str_replace('public', 'storage', auth()->guard('employers')->user()->bir_certificate);
+
+                                $path = pathinfo($bir_certificate);
                             @endphp
-                            <img class="img-flow-50 img-preview" src="{{asset($bir_certificate)}}" alt="BIR Certificate">
-                            <br><br>
+                            
+
+                            <div class="preview-container">
+                                @if ($path['extension'] == "pdf")
+                                    <a href="{{asset($bir_certificate)}}" target="_blank">View and Download</a>
+                                @else
+                                    <img class="img-flow-50 img-preview" src="{{asset($bir_certificate)}}" alt="BIR Certificat">
+                                @endif
+                            </div>
+                            
                             <button class="primary-btn btn-update">Save BIR Certificate</button>
                         </div>
                     </div>
@@ -49,15 +59,22 @@
 
             $('.bir_certificate').on('change', function(event) {
                 const selectedImage = event.target.files[0];
+                var extension = selectedImage.name.split('.').pop().toLowerCase();
+
+                if (extension != "pdf") {
+                    $('.preview-container').html(`<img class="img-flow-50 img-preview" alt="BIR Certificate"/>`)
                 
-                if (selectedImage) {
-                    const reader = new FileReader();
-                    
-                    reader.onload = function(e) {
-                        $('.img-preview').attr('src', e.target.result);
-                    };
-                    
-                    reader.readAsDataURL(selectedImage);
+                    if (selectedImage) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            $('.img-preview').attr('src', e.target.result);
+                        };
+                        
+                        reader.readAsDataURL(selectedImage);
+                    }
+                } else {
+                    $('.img-preview').hide()
                 }
             });
 
