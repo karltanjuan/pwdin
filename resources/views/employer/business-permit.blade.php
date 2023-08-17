@@ -1,6 +1,6 @@
-@extends('applicant.layouts.master')
+@extends('employer.layouts.master')
 
-@section('title', 'Applicant Change PWD Card')
+@section('title', 'Employer Change Business Permit')
 
 @section('content')
     <style>
@@ -8,23 +8,23 @@
     </style>
         <div class="content-0">
             <div class="head-container">
-                <h1>Change PWD Card</h1>
+                <h1>Change Business Permit</h1>
             </div>
             <div id="form">
                 <div class="form second" id="form-second">
                     <div class="details ID">
                         <div class="fields">
                             <div class="input-field">
-                                <label>Upload PWD ID card / Recent medical records</label>
-                                <input class="pwd_card" id="pwd_card" type="file" accept=".png,.jpeg,.jpg">
-                                <span class="err-pwd_card err-msg"></span>
+                                <label>Upload Business Permit</label>
+                                <input class="business_permit" id="business_permit" type="file" accept=".pdf,.png,.jpeg,.jpg">
+                                <span class="err-business_permit err-msg"></span>
                             </div>
                             @php
-                                $pwd_card = str_replace('public', 'storage', auth()->user()->pwd_card);
+                                $business_permit = str_replace('public', 'storage', auth()->guard('employers')->user()->business_permit);
                             @endphp
-                            <img class="img-flow-50 img-preview" src="{{asset($pwd_card)}}" alt="PWD Card">
+                            <img class="img-flow-50 img-preview" src="{{asset($business_permit)}}" alt="Business Permit">
                             <br><br>
-                            <button class="primary-btn btn-update">Save PWD Card</button>
+                            <button class="primary-btn btn-update">Save Business Permit</button>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                 });
             }
 
-            $('.pwd_card').on('change', function(event) {
+            $('.business_permit').on('change', function(event) {
                 const selectedImage = event.target.files[0];
                 
                 if (selectedImage) {
@@ -65,11 +65,11 @@
             $('.btn-update').on('click', function() {
                 var formData = new FormData();
                 formData.append('_token', "{{ csrf_token() }}");
-                formData.append('old_file', '{{auth()->user()->pwd_card}}');
-                formData.append('pwd_card', $('#pwd_card')[0].files[0]);
+                formData.append('old_file', '{{auth()->guard('employers')->user()->business_permit}}');
+                formData.append('business_permit', $('#business_permit')[0].files[0]);
 
                 $.ajax({
-                    url: '{{ route('applicant.updatePWDCard') }}',
+                    url: '{{ route('employer.updateBusinessPermit') }}',
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -78,7 +78,7 @@
                         if (response.code == "200") {
 
                             Swal.fire({
-                              title: 'PWD Card change successfully',
+                              title: 'Business Permit change successfully',
                               text: '',
                               icon: 'success',
                               showCancelButton: false,
@@ -86,7 +86,7 @@
                             })
 
                             setTimeout(function() {
-                                window.location.href = '{{url('/applicant/pwd-card')}}'
+                                window.location.href = '{{url('/employer/business-permit')}}'
                             }, 2000)
                         } else {
                             displayErrors(JSON.parse(response.errors));

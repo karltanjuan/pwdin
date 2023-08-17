@@ -28,10 +28,34 @@
             </li>
             
             <ul class="settings-dropdown-list">
-                <li class="{{ 'employer/application-status' == request()->path() ? 'active' : '' }} navList">
+                <li>
                     <a href="{{url('/employer/application-status')}}">
                         <i class="fa-solid fa-clipboard-check fa-icon"></i>
                         <span class="links">Application Status</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/employer/company-info')}}">
+                        <i class="fa-solid fa-circle-info fa-icon"></i>
+                        <span class="links">Company Info</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/employer/business-permit')}}">
+                        <i class="fa-solid fa-file fa-icon"></i>
+                        <span class="links">Business Permit</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="{{url('/employer/bir-certificate')}}">
+                        <i class="fa-solid fa-certificate fa-icon"></i>
+                        <span class="links">BIR Certificate</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{url('/employer/change-password')}}">
+                        <i class="fa-solid fa-key fa-icon"></i>
+                        <span class="links">Change Password</span>
                     </a>
                 </li>
             </ul>

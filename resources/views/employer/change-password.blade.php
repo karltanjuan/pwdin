@@ -1,6 +1,6 @@
-@extends('applicant.layouts.master')
+@extends('employer.layouts.master')
 
-@section('title', 'Applicant Change Password')
+@section('title', 'Employer Change Password')
 
 @section('content')
     <style>
@@ -136,7 +136,7 @@
                 formData.append('password_confirmation', $('#password_confirmation').val());
 
                 $.ajax({
-                    url: '{{ route('applicant.updatePassword') }}',
+                    url: '{{ route('employer.updatePassword') }}',
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -153,7 +153,7 @@
                             })
 
                             setTimeout(function() {
-                                window.location.href = '{{url('/applicant/change-password')}}'
+                                window.location.href = '{{url('/employer/change-password')}}'
                             }, 2000)
                         } else {
                             displayErrors(JSON.parse(response.errors));
