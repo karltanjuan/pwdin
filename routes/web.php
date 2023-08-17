@@ -13,6 +13,10 @@ use App\Http\Controllers\Employer\EmployerAuthController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
 use App\Http\Controllers\Employer\EmployerJobController;
 use App\Http\Controllers\Employer\ApplicationStatusController;
+use App\Http\Controllers\Employer\CompanyInfoController;
+use App\Http\Controllers\Employer\EmployerPasswordController;
+use App\Http\Controllers\Employer\BusinessPermitController;
+use App\Http\Controllers\Employer\BIRCertificateController;
 use App\Http\Controllers\Admin\AdminAuthController;
 
 /*
@@ -57,13 +61,11 @@ Route::group(['prefix' => 'applicant'], function() {
         Route::get('/profile-info', [ApplicantProfileInfoController::class, 'getProfileInfo'])->name('applicant.getProfileInfo');
         Route::post('/update-profile', [ApplicantProfileInfoController::class, 'updateProfileInfo'])->name('applicant.updateProfileInfo');
 
-
         Route::get('/resume', [ApplicantResumeController::class, 'getResume'])->name('applicant.getResume');
         Route::post('/update-resume', [ApplicantResumeController::class, 'updateResume'])->name('applicant.updateResume');
 
         Route::get('/pwd-card', [ApplicantPWDCardController::class, 'getChangePWDCard'])->name('applicant.getChangePWDCard');
         Route::post('/update-pwd-card', [ApplicantPWDCardController::class, 'updatePWDCard'])->name('applicant.updatePWDCard');
-
 
         Route::get('/change-password', [ApplicantPasswordController::class, 'getChangePassword'])->name('applicant.getChangePassword');
         Route::post('/update-password', [ApplicantPasswordController::class, 'updatePassword'])->name('applicant.updatePassword');
@@ -111,6 +113,18 @@ Route::group(['prefix' => 'employer'], function() {
         Route::post('getApplicantById', [EmployerJobController::class, 'getApplicantById'])->name('employer.getApplicantById');
 
         Route::post('updateAppStatus', [EmployerJobController::class, 'updateAppStatus'])->name('employer.updateAppStatus');
+
+        Route::get('/company-info', [CompanyInfoController::class, 'getCompanyInfo'])->name('employer.getCompanyInfo');
+        Route::post('/update-company', [CompanyInfoController::class, 'updateCompanyInfo'])->name('employer.updateCompanyInfo');
+
+        Route::get('/business-permit', [BusinessPermitController::class, 'getBusinessPermit'])->name('employer.getBusinessPermit');
+        Route::post('/update-business-permit', [BusinessPermitController::class, 'updateBusinessPermit'])->name('employer.updateBusinessPermit');
+
+        Route::get('/bir-certificate', [BIRCertificateController::class, 'getBIRCertificate'])->name('employer.getBIRCertificate');
+        Route::post('/update-bir-certificate', [BIRCertificateController::class, 'updateBIRCertificate'])->name('employer.updateBIRCertificate');
+
+        Route::get('/change-password', [EmployerPasswordController::class, 'getChangePassword'])->name('employer.getChangePassword');
+        Route::post('/update-password', [EmployerPasswordController::class, 'updatePassword'])->name('employer.updatePassword');
 
         Route::get('logout', [EmployerAuthController::class, 'logout'])->name('employer.logout');
     });

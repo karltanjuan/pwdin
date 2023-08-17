@@ -41,7 +41,7 @@ $(document).ready(function() {
     var pathname = window.location.pathname.split('/'); 
     var page = pathname[pathname.length - 1];
 
-    var settings = ['application-status'];
+    var settings = ['application-status', 'company-info', 'business-permit', 'bir-certificate', 'change-password'];
 
     var $caretIcon = $('.settings-dropdown').find('.fa-caret-right');
 

@@ -1043,6 +1043,7 @@ a {
 .img-flow-50 {
     width: 50%;
     border-radius: 5px;
+    border: 1px solid #333;
 }
 
 .swal2-styled.swal2-confirm {

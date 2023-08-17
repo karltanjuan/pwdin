@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Applicant;
+namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
@@ -10,19 +10,19 @@ use Validator;
 use Session;
 use Storage;
 use Hash;
-use App\Models\User;
+use App\Models\Employer;
 use Carbon\Carbon;
 
 
-class ApplicantPasswordController extends Controller
+class EmployerPasswordController extends Controller
 {
     public function getChangePassword() {
-        return view('applicant.change-password');
+        return view('employer.change-password');
     }
 
     public function updatePassword(Request $request) {
 
-        $user = User::where('id', auth()->user()->id)->first();
+        $user = Employer::where('id', auth()->guard('employers')->user()->id)->first();
 
         if ($user && !Hash::check($request->current_password, $user->password)) {
              return response()->json([
@@ -40,7 +40,7 @@ class ApplicantPasswordController extends Controller
             ], 422);
         }
    
-        $user = User::where('id', auth()->user()->id)
+        $user = Employer::where('id', auth()->guard('employers')->user()->id)
                 ->update([
                     'password' => Hash::make($request->new_password, ['rounds' => 12]),
                 ]);
