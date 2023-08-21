@@ -13,12 +13,6 @@
     <table class="status-table">
         <thead>
             <tr>
-                <th>
-                    <label class="container-checkbox">
-                      <input class="check-all" type="checkbox">
-                      <span class="checkmark"></span>
-                    </label>
-                </th>
                 <th>Order</th>
                 <th>Name</th>
                 <th>Action</th>
@@ -33,12 +27,6 @@
                     @foreach ($statuses as $status)
 
                         <tr>
-                            <td>
-                                <label class="container-checkbox">
-                                  <input type="checkbox">
-                                  <span class="checkmark"></span>
-                                </label>
-                            </td>
                             <td>
                                 <button>
                                     <i class="fa-solid fa-bars"></i>

@@ -21,12 +21,6 @@
     <table class="applicants-table">
         <thead>
             <tr>
-                <th>
-                    <label class="container-checkbox">
-                      <input class="check-all" type="checkbox">
-                      <span class="checkmark"></span>
-                    </label>
-                </th>
                 <th>Full Name</th>
                 <th>Education Level</th>
                 <th>Mobile Number</th>
@@ -40,13 +34,7 @@
         <tbody>
             @if (count($applicants) > 0)
                 @foreach ($applicants as $app)
-                <tr class="odd_col">
-                    <td>
-                        <label class="container-checkbox">
-                          <input type="checkbox">
-                          <span class="checkmark"></span>
-                        </label>
-                    </td>
+                <tr>
                     <td>
                         {{ $app->applicant->first_name }}
                         {{ $app->applicant->middle_name }}
@@ -71,7 +59,6 @@
                     <td></td>
                     <td></td>
                     <td class="text-center">No records found.</td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -266,6 +253,24 @@
         </div>
     </div>
 
+    <div id="modal-confirm-application" class="modal modal-confirm-application">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Update Application</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    Are you sure you want to continue?
+                </div>
+                <div class="modal-footer">
+                    <button class="primary-btn btn-update">Yes</button>
+                    <button class="secondary-btn btn-cancel">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
         var id = 0;
@@ -412,13 +417,21 @@
             $("html, body").animate({ scrollTop: 0 }, "slow");
         }
 
-        
+        var global_status = "";
+        var global_id = 0;
         $(document).on('change', '.status', function() {
-            // data to be uploaded on ajax
+            global_id = parseInt($(this).data('id'));
+            global_status = $(this).val();
+
+            $('#modal-confirm-application').show()
+        })
+
+        $(document).on('click', '.btn-update', function() {
+             // data to be uploaded on ajax
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-            formData.append('id', parseInt($(this).data('id')));
-            formData.append('status', $(this).val());
+            formData.append('id', global_id);
+            formData.append('status', global_status);
 
             $.ajax({
                 url: '{{ route('employer.updateAppStatus') }}',
@@ -451,7 +464,6 @@
                     displayErrors(result.errors)
                 }
             });
-   
         })
     </script>
 @endsection

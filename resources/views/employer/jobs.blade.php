@@ -24,12 +24,6 @@
 	<table class="jobs-table">
 		<thead>
 			<tr>
-				<th>
-					<label class="container-checkbox">
-					  <input class="check-all" type="checkbox">
-					  <span class="checkmark"></span>
-					</label>
-				</th>
 				<th>Job Title</th>
 				<th>Total Candidates</th>
 				<th>Hired</th>
@@ -42,13 +36,7 @@
 		<tbody>
 			@if (count($jobs) > 0)
 				@foreach ($jobs as $job)
-				<tr class="odd_col">
-					<td>
-						<label class="container-checkbox">
-						  <input type="checkbox">
-						  <span class="checkmark"></span>
-						</label>
-					</td>
+				<tr>
 					<td>{{ $job->job_title }}</td>
 					<td>
 						@if (count($job->applications) != 0)
@@ -88,7 +76,6 @@
 					<td></td>
 					<td></td>
 					<td class="text-center">No records found.</td>
-					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>
