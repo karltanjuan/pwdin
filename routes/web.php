@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\Applicant\AuthController;
 use App\Http\Controllers\Applicant\ApplicantDashboardController;
 use App\Http\Controllers\Applicant\ApplicantJobController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Applicant\ApplicantResumeController;
 use App\Http\Controllers\Applicant\ApplicantPWDCardController;
 use App\Http\Controllers\Applicant\ApplicantProfileInfoController;
 use App\Http\Controllers\Applicant\ApplicantPasswordController;
+
 use App\Http\Controllers\Employer\EmployerAuthController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
 use App\Http\Controllers\Employer\EmployerJobController;
@@ -17,7 +19,11 @@ use App\Http\Controllers\Employer\CompanyInfoController;
 use App\Http\Controllers\Employer\EmployerPasswordController;
 use App\Http\Controllers\Employer\BusinessPermitController;
 use App\Http\Controllers\Employer\BIRCertificateController;
+
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminInfoController;
+use App\Http\Controllers\Admin\AdminPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -145,9 +151,13 @@ Route::group(['prefix' => 'admin'], function() {
     Route::post('postResetPassword', [AdminAuthController::class, 'postResetPassword'])->name('admin.postResetPassword');
 
     Route::middleware('is_admin')->group(function () {
-        Route::get('/dashboard', function() {
-            return view('admin.dashboard');
-        });
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+        Route::get('/profile-info', [AdminInfoController::class, 'getAdminInfo'])->name('admin.getAdminInfo');
+        Route::post('/update-admin', [AdminInfoController::class, 'updateAdminInfo'])->name('admin.updateAdminInfo');
+
+        Route::get('/change-password', [AdminPasswordController::class, 'getChangePassword'])->name('admin.getChangePassword');
+        Route::post('/update-password', [AdminPasswordController::class, 'updatePassword'])->name('admin.updatePassword');
 
         Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
