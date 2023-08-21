@@ -22,7 +22,7 @@ use App\Http\Controllers\Employer\BIRCertificateController;
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
-// use App\Http\Controllers\Admin\AdminJobController;
+use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\AdminEmployerController;
 use App\Http\Controllers\Admin\AdminApplicantController;
 use App\Http\Controllers\Admin\AdminInfoController;
@@ -156,7 +156,9 @@ Route::group(['prefix' => 'admin'], function() {
     Route::middleware('is_admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-
+        Route::get('/jobs', [AdminJobController::class, 'getJobs'])->name('admin.getJobs');
+        Route::post('getJobsById', [AdminJobController::class, 'getJobsById'])->name('admin.getJobsById');
+        Route::post('updateJob', [AdminJobController::class, 'updateJob'])->name('admin.updateJob');
 
         Route::get('/applicants', [AdminApplicantController::class, 'getApplicants'])->name('admin.getApplicants');
         Route::post('/getApplicantById', [AdminApplicantController::class, 'getApplicantById'])->name('admin.getApplicantById');
