@@ -1,148 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Admin Dashboard</title>
+@extends('admin.layouts.master')
 
-	<!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+@section('title', 'Admin Dashboard')
 
-	<link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
-</head>
-<body>
+@section('content')
+    <style>
+        .dashboard-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-	<nav>
-        <div class="logo">
-            <div class="logo-image">
-                <img class="pwdin-logo" src="{{asset('img/logo.png')}}" alt="PWDIn Logo">
-            </div>
-            <div class="logo-name">
-                PWDin
-            </div>
+        .card {
+            flex: 1;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .card h3 {
+            font-size: 40px;
+        }
+
+        .card1 { background-color: #FF7043; }
+        .card2 { background-color: #4CAF50; }
+        .card3 { background-color: #F44336; }
+        .card4 { background-color: #2196F3; }
+        .card5 { background-color: #9C27B0; }
+        .card6 { background-color: #FFC107; }
+        .card7 { background-color: #3F51B5; }
+        .card8 { background-color: #00BCD4; }
+        .card9 { background-color: #8BC34A; }
+        .card10 { background-color: #E91E63; }
+        .card11 { background-color: #795548; }
+        .card12 { background-color: #607D8B; }
+    </style>
+
+    <h1>Dashboard</h1>
+    <br>
+    <div class="dashboard-container">
+        <div class="card card4">
+            <h3>{{$total_jobs}} <i class="fa-solid fa-briefcase"></i></h3>
+            <p>Jobs</p>
         </div>
-
-        <div class="menu-items">
-            <ul class="navLinks">
-                <li class="navList active">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="home-outline"></ion-icon>
-                        <span class="links">Dashboard</span>
-                    </a>
-                </li>
-                <li class="navList">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="folder-outline"></ion-icon>
-                        <span class="links">Jobs</span>
-                    </a>
-                </li>
-                <li class="navList">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="analytics-outline"></ion-icon>
-                        <span class="links">Employers</span>
-                    </a>
-                </li>
-                <li class="navList">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="heart-outline"></ion-icon>
-                        <span class="links">Applicants</span>
-                    </a>
-                </li>
-                <li class="navList">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="heart-outline"></ion-icon>
-                        <span class="links">Messages</span>
-                    </a>
-                </li>
-                <li class="navList">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                        <span class="links">Blogs</span>
-                    </a>
-                </li>
-                <li class="navList">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="people-outline"></ion-icon>
-                        <span class="links">Users</span>
-                    </a>
-                </li>
-                <li class="navList">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="settings-outline"></ion-icon>
-                        <span class="links">Settings</span>
-                    </a>
-                </li>
-            </ul>
-            <ul class="bottom-link">
-                <li class="mode">
-                    <a href="javascript:void(0)">
-                        <ion-icon name="moon-outline"></ion-icon>
-                        <span class="links">Dark Mode</span>
-                        <div class="darkToggle">
-                            <span class="switch"></span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{url('/admin/logout')}}">
-                        <ion-icon name="log-out-outline"></ion-icon>
-                        <span class="links">Logout</span>
-                    </a>
-                </li>
-            </ul>
+        <div class="card card1">
+            <h3>{{$total_applicants}} <i class="fa-solid fa-people-line"></i></h3>
+            <p>Applicants</p>
         </div>
-    </nav>
-
-    <section class="dashboard">
-        <div class="top">
-            <ion-icon class="navToggle" name="menu-outline"></ion-icon>
-            <div class="searchBox">
-                <ion-icon name="search-outline"></ion-icon>
-                <input type="text" placeholder="Search">
-            </div>
-            <a class="profile" href="javascript:void(0)">
-                <ion-icon name="person-outline"></ion-icon>
-            </a>
+        <div class="card card2">
+            <h3>{{$total_hired}} <i class="fa-solid fa-handshake"></i></h3>
+            <p>Hired</p>
         </div>
-        <div class="container">
-            <div class="overview">
-                <div class="title">
-                    <ion-icon name="speedometer"></ion-icon>
-                    <span class="text">Dashboard</span>
-                </div>
-                <div class="boxes">
-                    <div class="box box1">
-                        <ion-icon name="eye-outline"></ion-icon>
-                        <span class="text">Total Jobs</span>
-                        <span class="number">678</span>
-                    </div>
-                    <div class="box box2">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                        <span class="text">Total Employers</span>
-                        <span class="number">430</span>
-                    </div>
-                    <div class="box box3">
-                        <ion-icon name="arrow-redo-outline"></ion-icon>
-                        <span class="text">Total Applicants</span>
-                        <span class="number">780</span>
-                    </div>
-                </div>
-            </div>
-            <div class="activity">
-                <div class="title">
-                    <ion-icon name="time-outline"></ion-icon>
-                    <span class="text">Recent Jobs</span>
-                </div>
-                <div class="activity-data">
-                   
-                </div>
-            </div>
+        <div class="card card3">
+            <h3>{{$total_rejected}} <i class="fa-solid fa-face-frown"></i></h3>
+            <p>Rejected</p>
         </div>
-    </section>
+        <div class="card card5">
+            <h3>{{$total_jobs_open}} <i class="fa-solid fa-book-open"></i></h3>
+            <p>Job Open</p>
+        </div>
+        <div class="card card6">
+            <h3>{{$total_jobs_closed}} <i class="fa-solid fa-book"></i></h3>
+            <p>Job Closed</p>
+        </div>
+    </div>
+    <div class="dashboard-container">
+        <div class="card card7">
+            <h3>{{$total_employer_approved}} <i class="fa-solid fa-thumbs-up"></i></h3>
+            <p>Approved Employer</p>
+        </div>
+        <div class="card card8">
+            <h3>{{$total_employer_pending}} <i class="fa-solid fa-clock-rotate-left"></i></h3>
+            <p>Pending Employer</p>
+        </div>
+        <div class="card card9">
+            <h3>{{$total_employer_rejected}} <i class="fa-solid fa-circle-xmark"></i></h3>
+            <p>Rejected Employer</p>
+        </div>
+        <div class="card card10">
+            <h3>{{$total_applicant_approved}} <i class="fa-solid fa-person-circle-check fa-icon"></i></h3>
+            <p>Approved Applicant</p>
+        </div>
+        <div class="card card11">
+            <h3>{{$total_applicant_pending}} <i class="fa-solid fa-hourglass-start fa-icon"></i></h3>
+            <p>Pending Applicant</p>
+        </div>
+         <div class="card card12">
+            <h3>{{$total_applicant_rejected}} <i class="fa-solid fa-face-sad-tear"></i></h3>
+            <p>Rejected Applicant</p>
+        </div>
+    </div>
+    <div class="dashboard-container">
+        <div class="card">
+            <div class="pwd-chart" id="pwd-chart"></div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#pwd-chart").empty();
 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-	<script src="{{asset('js/admin-dashboard.js')}}"></script>
-	
-</body>
-</html>
+            var pwd_categories = {!! json_encode($category_result) !!}
+
+            Morris.Bar({
+                element: 'pwd-chart',
+                data: pwd_categories,
+                xkey: ['category'],
+                ykeys: ['count'],
+                labels: ['PWD Categories Applied'],
+                parseTime: false,
+                hideHover: 'false',
+                xLabelAngle: 60,
+                resize: true,
+                barColors: ['#428bca', '#d9534f', '#5cb85c', '#f0ad4e', '#5bc0de', '#337ab7']
+            });
+        })
+    </script>
+@endsection
