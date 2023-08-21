@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{url('/admin/profile-info')}}">
+                    <a href="{{url('/admin/users')}}">
                         <i class="fa-solid fa-user-secret fa-icon"></i>
                         <span class="links">Users</span>
                     </a>

@@ -22,8 +22,12 @@ use App\Http\Controllers\Employer\BIRCertificateController;
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+// use App\Http\Controllers\Admin\AdminJobController;
+use App\Http\Controllers\Admin\AdminEmployerController;
+use App\Http\Controllers\Admin\AdminApplicantController;
 use App\Http\Controllers\Admin\AdminInfoController;
 use App\Http\Controllers\Admin\AdminPasswordController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -100,7 +104,6 @@ Route::group(['prefix' => 'employer'], function() {
         Route::get('/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.dashboard');
 
         Route::get('/jobs', [EmployerJobController::class, 'index'])->name('employer.index');
-
         Route::post('postJob', [EmployerJobController::class, 'postJob'])->name('employer.postJob');
         Route::post('getJobsById', [EmployerJobController::class, 'getJobsById'])->name('employer.getJobsById');
         Route::post('updateJob', [EmployerJobController::class, 'updateJob'])->name('employer.updateJob');
@@ -152,6 +155,16 @@ Route::group(['prefix' => 'admin'], function() {
 
     Route::middleware('is_admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+
+
+        Route::get('/applicants', [AdminApplicantController::class, 'getApplicants'])->name('admin.getApplicants');
+        Route::post('/getApplicantById', [AdminApplicantController::class, 'getApplicantById'])->name('admin.getApplicantById');
+        Route::post('/updateApplicantApproval', [AdminApplicantController::class, 'updateApplicantApproval'])->name('admin.updateApplicantApproval');
+
+        Route::get('/employers', [AdminEmployerController::class, 'getEmployers'])->name('admin.getEmployers');
+        Route::post('/getEmployerById', [AdminEmployerController::class, 'getEmployerById'])->name('admin.getEmployerById');
+        Route::post('/updateEmployerApproval', [AdminEmployerController::class, 'updateEmployerApproval'])->name('admin.updateEmployerApproval');
 
         Route::get('/profile-info', [AdminInfoController::class, 'getAdminInfo'])->name('admin.getAdminInfo');
         Route::post('/update-admin', [AdminInfoController::class, 'updateAdminInfo'])->name('admin.updateAdminInfo');
