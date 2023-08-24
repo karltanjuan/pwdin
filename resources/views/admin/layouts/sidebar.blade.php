@@ -54,7 +54,7 @@
                 </li>
                 <li>
                     <a href="{{url('/admin/users')}}">
-                        <i class="fa-solid fa-user-secret fa-icon"></i>
+                        <i class="fa-solid fa-users-gear fa-icon"></i>
                         <span class="links">Users</span>
                     </a>
                 </li>

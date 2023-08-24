@@ -36,6 +36,14 @@
         .card10 { background-color: #E91E63; }
         .card11 { background-color: #795548; }
         .card12 { background-color: #607D8B; }
+
+        .w-50 {
+            width: 50%;
+        }
+
+        .color-dark {
+            color: #333;
+        }
     </style>
 
     <h1>Dashboard</h1>
@@ -54,7 +62,7 @@
             <p>Hired</p>
         </div>
         <div class="card card3">
-            <h3>{{$total_rejected}} <i class="fa-solid fa-face-frown"></i></h3>
+            <h3>{{$total_rejected}} <i class="fa-solid fa-rectangle-xmark"></i></h3>
             <p>Rejected</p>
         </div>
         <div class="card card5">
@@ -88,13 +96,17 @@
             <p>Pending Applicant</p>
         </div>
          <div class="card card12">
-            <h3>{{$total_applicant_rejected}} <i class="fa-solid fa-face-sad-tear"></i></h3>
+            <h3>{{$total_applicant_rejected}} <i class="fa-regular fa-circle-xmark"></i></h3>
             <p>Rejected Applicant</p>
         </div>
     </div>
     <div class="dashboard-container">
         <div class="card">
             <div class="pwd-chart" id="pwd-chart"></div>
+        </div>
+        <div class="card">
+            <h4 class="color-dark">Applicant Gender</h4>
+            <div class="gender-chart" id="gender-chart"></div>
         </div>
     </div>
     
@@ -103,6 +115,7 @@
     <script>
         $(document).ready(function() {
             $("#pwd-chart").empty();
+            $('#gender-chart').empty();
 
             var pwd_categories = {!! json_encode($category_result) !!}
 
@@ -117,6 +130,18 @@
                 xLabelAngle: 60,
                 resize: true,
                 barColors: ['#428bca', '#d9534f', '#5cb85c', '#f0ad4e', '#5bc0de', '#337ab7']
+            });
+
+            var male_count = {!! json_encode($total_male) !!}
+            var female_count = {!! json_encode($total_female) !!}
+            var m = "#1E90FF", f = "#FF69B4"; 
+
+            new Morris.Donut ({
+                element: 'gender-chart',
+                data: [
+                    {label: "\xa0 \xa0Male\xa0 \xa0", value: male_count, color: m},
+                    {label: "\xa0Female\xa0", value: female_count, color: f}
+                ]
             });
         })
     </script>
