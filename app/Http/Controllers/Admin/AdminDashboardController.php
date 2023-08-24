@@ -87,6 +87,14 @@ class AdminDashboardController extends Controller
             $category_result[] = ['category' => $category, 'count' => $count];
         }
 
+        $total_male = Application::whereHas('applicant', function ($query) use ($id) {
+                    $query->where('gender', 'Male');
+                  })->count();
+
+        $total_female = Application::whereHas('applicant', function ($query) use ($id) {
+                    $query->where('gender', 'Female');
+                  })->count();
+
         return view('admin.dashboard', compact(
             'total_applicants',
             'total_hired',
@@ -101,6 +109,8 @@ class AdminDashboardController extends Controller
             'total_applicant_approved',
             'total_applicant_pending',
             'total_applicant_rejected',
+            'total_male',
+            'total_female'
 
         ));
     }
