@@ -34,8 +34,6 @@
                 $profile_photo = str_replace('public', 'storage', auth()->guard('admins')->user()->profile_photo);
                 @endphp
                 <img class="company-logo-info" src="{{asset($profile_photo)}}" alt="Company Logo">
-            @else
-                <img class="company-logo-info" src="{{asset($profile_photo)}}" alt="Company Logo">
             @endif
             <div id="form">
                 <div class="form first" id="form-first">

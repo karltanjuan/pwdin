@@ -144,7 +144,6 @@ class EmployerJobController extends Controller
         return response()->json($response);
     }
 
-
     public function getAppStatus() {
         $status = ApplicationStatus::where('employer_id', auth()->guard('employers')->user()->id)
                     ->orderBy('id', 'asc')
