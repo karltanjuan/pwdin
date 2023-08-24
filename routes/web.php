@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\AdminEmployerController;
 use App\Http\Controllers\Admin\AdminApplicantController;
 use App\Http\Controllers\Admin\AdminInfoController;
 use App\Http\Controllers\Admin\AdminPasswordController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 
 /*
@@ -173,6 +174,12 @@ Route::group(['prefix' => 'admin'], function() {
 
         Route::get('/change-password', [AdminPasswordController::class, 'getChangePassword'])->name('admin.getChangePassword');
         Route::post('/update-password', [AdminPasswordController::class, 'updatePassword'])->name('admin.updatePassword');
+
+        Route::get('/users', [AdminUserController::class, 'getUsers'])->name('admin.getUsers');
+        Route::post('/getUserById', [AdminUserController::class, 'getUserById'])->name('admin.getUserById');
+        Route::post('saveUser', [AdminUserController::class, 'saveUser'])->name('admin.saveUser');
+        Route::post('updateUser', [AdminUserController::class, 'updateUser'])->name('admin.updateUser');
+        Route::post('deleteUser', [AdminUserController::class, 'deleteUser'])->name('admin.deleteUser');
 
         Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
