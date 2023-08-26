@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\AdminApplicantController;
 use App\Http\Controllers\Admin\AdminInfoController;
 use App\Http\Controllers\Admin\AdminPasswordController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminBlogController;
 
 
 /*
@@ -180,6 +181,12 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('saveUser', [AdminUserController::class, 'saveUser'])->name('admin.saveUser');
         Route::post('updateUser', [AdminUserController::class, 'updateUser'])->name('admin.updateUser');
         Route::post('deleteUser', [AdminUserController::class, 'deleteUser'])->name('admin.deleteUser');
+
+        Route::get('/blogs', [AdminBlogController::class, 'getBlogs'])->name('admin.getBlogs');
+        Route::post('/getBlogById', [AdminBlogController::class, 'getBlogById'])->name('admin.getBlogById');
+        Route::post('saveBlog', [AdminBlogController::class, 'saveBlog'])->name('admin.saveBlog');
+        Route::post('updateBlog', [AdminBlogController::class, 'updateBlog'])->name('admin.updateBlog');
+        Route::post('deleteBlog', [AdminBlogController::class, 'deleteBlog'])->name('admin.deleteBlog');
 
         Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
