@@ -36,7 +36,7 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->errors(),
-            ], 422);
+            ], 422); // 422 - Unprocessable Entity
         }
 
         // resume upload
@@ -109,6 +109,7 @@ class AuthController extends Controller
     }
 
     public function validateRegisterApplicant($request) {
+        // Laravel provides validation rules for each form inputs
         $rules = [
             'username'              => 'required|unique:users',
             'email'                 => 'required|email|unique:users',

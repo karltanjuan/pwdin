@@ -14,6 +14,7 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
+        // This is an associative array (key-value pair)
         $user = [
             [
                 'first_name'        => 'John',
@@ -50,7 +51,11 @@ class AdminSeeder extends Seeder
         ];
   
         foreach ($user as $key => $value) {
+            // class::method($param);
+            // double colon means static method in PHP
             Admin::create($value);
         }
+
+        // command: php artisan db:seed --class=AdminSeeder
     }
 }

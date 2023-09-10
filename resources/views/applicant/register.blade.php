@@ -336,8 +336,8 @@
 			$.each(errors, function(field, messages) {
 				var errMsgSelector = '.err-' + field;
 				var inputSelector = '#' + field;
-				$(errMsgSelector).text(messages[0]);
-				$(inputSelector).addClass('error');
+				$(errMsgSelector).text(messages[0]); //actual error message
+				$(inputSelector).addClass('error'); // border red
 			});
 
 			$("html, body").animate({ scrollTop: 0 }, "slow");
@@ -393,6 +393,8 @@
 									window.location.href = '{{url('/')}}'
 								}, 2000)
 		                } else {
+		                	// 422 or another error
+		                	// JSON.parse converts string to js object
 		                    displayErrors(JSON.parse(response.errors));
 		                }
 		            },
