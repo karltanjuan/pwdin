@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable(false);
             $table->string('slug')->nullable(false);
             $table->string('excerpt')->nullable(false);
-            $table->string('body')->nullable(false);
+            $table->text('body')->nullable(false);
             $table->timestamps();
         });
     }
