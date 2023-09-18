@@ -44,6 +44,18 @@ use App\Http\Controllers\Admin\AdminBlogController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Generate all database seeder
+Route::get('/generate-seeder', function () {
+    if (!session()->has('seeder_executed')) {
+        Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
+        session(['seeder_executed' => true]);
+        dd('Seeder uploaded');
+    } else {
+        dd('Seeder already uploaded');
+    }
+});
+
+
 // Applicant
 /* prefix is use to reduce redudancy on the route url */
 Route::group(['prefix' => 'applicant'], function() {
