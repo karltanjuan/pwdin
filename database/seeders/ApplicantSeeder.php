@@ -39,6 +39,7 @@ class ApplicantSeeder extends Seeder
                 'resume'            => '',
                 'pwd_card'          => '',
                 'status'            => 1,
+                'pwd_categories'    => 'Learning,Visual',
                 'token'             => null,
                 'token_expired_at'  => null,
                 'email_verified_at' => null 
@@ -65,6 +66,7 @@ class ApplicantSeeder extends Seeder
                 'resume'            => '',
                 'pwd_card'          => '',
                 'status'            => 1,
+                'pwd_categories'    => 'Learning,Visual',
                 'token'             => null,
                 'token_expired_at'  => null,
                 'email_verified_at' => null 

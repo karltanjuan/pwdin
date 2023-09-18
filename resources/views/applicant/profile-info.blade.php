@@ -19,8 +19,6 @@
                 $profile_photo = str_replace('public', 'storage', auth()->user()->profile_photo);
                 @endphp
                 <img class="profile-photo-info" src="{{asset($profile_photo)}}" alt="Profile Photo">
-            @else
-                <img class="profile-photo-info" src="{{asset($profile_photo)}}" alt="Profile Photo">
             @endif
             <div id="form">
                 <div class="form first" id="form-first">

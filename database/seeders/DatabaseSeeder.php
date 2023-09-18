@@ -21,9 +21,12 @@ class DatabaseSeeder extends Seeder
         // ]);
         
         Artisan::call('migrate');
+        Artisan::call('optimize:clear');
+        Artisan::call('storage:link');
         Artisan::call('db:seed', ['--class' => 'AdminSeeder']);
         Artisan::call('db:seed', ['--class' => 'EmployerSeeder']);
         Artisan::call('db:seed', ['--class' => 'JobSeeder']);
+        Artisan::call('db:seed', ['--class' => 'AppStatusSeeder']);
         Artisan::call('db:seed', ['--class' => 'ApplicantSeeder']);
     }
 }
