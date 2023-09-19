@@ -46,13 +46,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Generate all database seeder
 Route::get('/generate-seeder', function () {
-    if (!session()->has('seeder_executed')) {
-        Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
-        session(['seeder_executed' => true]);
-        dd('Seeder uploaded');
-    } else {
-        dd('Seeder already uploaded');
-    }
+    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
+    dd('Seeder uploaded');
 });
 
 

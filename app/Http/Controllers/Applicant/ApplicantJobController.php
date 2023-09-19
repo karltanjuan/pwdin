@@ -18,11 +18,19 @@ use Carbon\Carbon;
 class ApplicantJobController extends Controller
 {
     public function index() {
+        $pwd_categories = auth()->user()->pwd_categories;
+        $pwd_categories_arr = explode(',', $pwd_categories);
+
         $jobs = Job::orderBy('created_at', 'desc')
                     ->with('employer')
                     ->with(['applications' => function ($query) {
                         $query->where('applicant_id', auth()->user()->id);
                     }])
+                    ->where(function ($query) use ($pwd_categories_arr) {
+                        foreach ($pwd_categories_arr as $category) {
+                            $query->orWhere('pwd_categories', 'LIKE', "%$category%");
+                        }
+                    })
                     ->get();
 
         return view('applicant.jobs', compact('jobs'));
