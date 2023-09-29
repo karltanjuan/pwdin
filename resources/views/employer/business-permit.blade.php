@@ -26,7 +26,7 @@
                             @endphp
 
                             <div class="preview-container">
-                                @if ($path['extension'] == "pdf")
+                                @if (isset($path['extension']) && $path['extension'] == "pdf")
                                     <a href="{{asset($business_permit)}}" target="_blank">View and Download</a>
                                 @else
                                     <img class="img-flow-50 img-preview" src="{{asset($business_permit)}}" alt="Business Permit">

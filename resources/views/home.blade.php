@@ -201,7 +201,7 @@
     <!-- Footer -->
      <div class="footer">
                 <div class="footer-bottom">
-                    &copy; PWDIn.com | Designed by Irene Domingo & Abigail Larupay
+                    &copy; PWDIN. All Right Reserved {{ date('Y') }}
                 </div>
             </div> 
 

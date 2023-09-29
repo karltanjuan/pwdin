@@ -31,6 +31,7 @@ class ApplicantJobController extends Controller
                             $query->orWhere('pwd_categories', 'LIKE', "%$category%");
                         }
                     })
+                    ->where('status', 1)
                     ->get();
 
         return view('applicant.jobs', compact('jobs'));

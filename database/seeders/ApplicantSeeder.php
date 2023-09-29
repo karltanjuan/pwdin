@@ -16,6 +16,9 @@ class ApplicantSeeder extends Seeder
     {
         date_default_timezone_set('Asia/Manila');
 
+        $pwd_categories = ['Psychosocial', 'Mental', 'Chronic illness', 'Learning', 'Visual', 'Orthopedic', 'Communication'];
+        $pwd_category = $pwd_categories[array_rand($pwd_categories)];
+
         $user = [
             [
 
@@ -39,7 +42,7 @@ class ApplicantSeeder extends Seeder
                 'resume'            => '',
                 'pwd_card'          => '',
                 'status'            => 1,
-                'pwd_categories'    => 'Learning,Visual',
+                'pwd_categories'    => $pwd_category,
                 'token'             => null,
                 'token_expired_at'  => null,
                 'email_verified_at' => null 
@@ -66,7 +69,7 @@ class ApplicantSeeder extends Seeder
                 'resume'            => '',
                 'pwd_card'          => '',
                 'status'            => 1,
-                'pwd_categories'    => 'Learning,Visual',
+                'pwd_categories'    => $pwd_category,
                 'token'             => null,
                 'token_expired_at'  => null,
                 'email_verified_at' => null 

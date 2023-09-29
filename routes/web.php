@@ -45,7 +45,7 @@ use App\Http\Controllers\Admin\AdminBlogController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Generate all database seeder
-Route::get('/generate-seeder', function () {
+Route::get('/seeder', function () {
     Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
     dd('Seeder uploaded');
 });

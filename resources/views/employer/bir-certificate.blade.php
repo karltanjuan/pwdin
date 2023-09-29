@@ -27,7 +27,7 @@
                             
 
                             <div class="preview-container">
-                                @if ($path['extension'] == "pdf")
+                                @if (isset($path['extension']) && $path['extension'] == "pdf")
                                     <a href="{{asset($bir_certificate)}}" target="_blank">View and Download</a>
                                 @else
                                     <img class="img-flow-50 img-preview" src="{{asset($bir_certificate)}}" alt="BIR Certificat">

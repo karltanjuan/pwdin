@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('pwd_categories')->nullable();
             $table->text('qualification')->nullable(false);
             $table->string('work_setup')->nullable(false);
-            $table->tinyInteger('status')->nullable(false); // 1 - Active, 0 - Inactive
+            $table->tinyInteger('status')->nullable(false); // 0 - Pending Payment, 1 - Active, 2 - Inactive, 3 - Disabled
             // $table->text('disclaimer')->nullable();
             $table->date('closed_at')->nullable();
             $table->timestamps();

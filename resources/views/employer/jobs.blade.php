@@ -53,8 +53,17 @@
 					<td>
 						{{ count($job->applications->where('status', 'Rejected'))}}
 					</td>
-					
-					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
+					<td>
+						@if($job->status === 0)
+							<span>Pending Payment</span>
+						@elseif($job->status === 1)
+							<span>Active</span>
+						@elseif($job->status === 2)
+							<span>Inactive</span>
+						@elseif($job->status === 3)
+							<span>Closed</span>
+						@endif
+					</td>
 					<td>{{ date('m/d/y', strtotime($job->created_at))}}</td>
 					<td>
 						<button class="btn-edit" id="btn-edit" data-id="{{ $job->id }}">
