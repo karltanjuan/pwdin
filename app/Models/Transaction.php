@@ -9,6 +9,15 @@ class Transaction extends Model
 {
     use HasFactory;
 
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'status',
+    ];
+
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);
