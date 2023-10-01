@@ -15,6 +15,7 @@ class Transaction extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'invoice_id',
         'status',
     ];
 

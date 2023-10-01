@@ -13,6 +13,8 @@ use Storage;
 use App\Models\Job;
 use App\Models\Application;
 use App\Models\ApplicationStatus;
+use App\Models\Invoice;
+use App\Models\Transaction;
 use Carbon\Carbon;
 
 
@@ -165,9 +167,7 @@ class EmployerJobController extends Controller
                 'code'    => '200'
             ]);
         }
-
     }
-
 
     public function validateJob($request) {
          $rules = [

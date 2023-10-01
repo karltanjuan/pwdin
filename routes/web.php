@@ -20,6 +20,7 @@ use App\Http\Controllers\Employer\CompanyInfoController;
 use App\Http\Controllers\Employer\EmployerPasswordController;
 use App\Http\Controllers\Employer\BusinessPermitController;
 use App\Http\Controllers\Employer\BIRCertificateController;
+use App\Http\Controllers\Employer\InvoiceController;
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -119,6 +120,8 @@ Route::group(['prefix' => 'employer'], function() {
         Route::post('getJobsById', [EmployerJobController::class, 'getJobsById'])->name('employer.getJobsById');
         Route::post('updateJob', [EmployerJobController::class, 'updateJob'])->name('employer.updateJob');
         Route::post('deleteJob', [EmployerJobController::class, 'deleteJob'])->name('employer.deleteJob');
+
+        Route::post('createInvoice', [InvoiceController::class, 'createInvoice'])->name('employer.createInvoice');
 
         Route::get('/application-status', [ApplicationStatusController::class, 'index'])->name('employer.applicationStatus');
 

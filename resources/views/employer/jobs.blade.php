@@ -453,15 +453,34 @@
 		$(document).on('click', '.btn-pay', function() {
 			id = $(this).data('id')
 			Swal.fire({
-				title: 'Redirecting to payment service',
-				// text: 'Info',
+				title: 'Please wait',
+				text: 'Creating invoice and redirecting you to payment service provider.',
 				icon: 'info',
 				showCancelButton: false,
 				confirmButtonText: 'OK'
 			});
 
 			setTimeout(function() {
-				window.location.href = 'https://checkout.paymongo.com/cs_hwrnHF1WNBw9mowURuSx2g8e_client_HiEctbHjotvTRie1ktxa82T4#cGtfdGVzdF9yV2NCejRQOEdaaGFYWTF0SkFxdjZoZ0Q='
+				// Create invoice and transactions
+				var formData = new FormData();
+				formData.append('_token', "{{ csrf_token() }}");
+				formData.append('job_id', parseInt(id));
+
+				// Send an AJAX request to validate the data
+				$.ajax({
+					url: '{{ route('employer.createInvoice') }}',
+					type: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function(response) {
+						window.location.href = response.data.attributes.checkout_url
+					},
+					error: function(xhr, status, error) {
+						var result = JSON.parse(xhr.responseText)
+						console.log(result)
+					}
+				});
 			}, 2000)
 		})
 

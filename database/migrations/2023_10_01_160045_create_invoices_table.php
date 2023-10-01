@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable(false);
             $table->tinyInteger('quantity')->nullable(false);
             $table->string('currency')->nullable(false);
-            $table->decimal('total_amount', 10, 2)->nullable(false);
+            $table->string('total_amount')->nullable(false);
             $table->string('payment_method')->nullablse(false);
             $table->timestamps();
         });
