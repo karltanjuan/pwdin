@@ -14,7 +14,6 @@ use App\Models\Job;
 use App\Models\Application;
 use Carbon\Carbon;
 
-
 class ApplicantJobController extends Controller
 {
     public function index() {
@@ -33,7 +32,7 @@ class ApplicantJobController extends Controller
                     })
                     ->where('status', 1)
                     ->get();
-
+                    
         return view('applicant.jobs', compact('jobs'));
     }
 
@@ -77,11 +76,13 @@ class ApplicantJobController extends Controller
         }
     }
 
-    public function withdrawJob(Request $request){
+    public function withdrawJob(Request $request) {
+        $job_id = (int) $request->job_id;
+
         $application = Application::where([
-            'job_id'       => $request->job_id,
+            'job_id'       => $job_id,
             'applicant_id' => auth()->user()->id
-        ])->update(['status' => config('application.status')[1]]);
+        ])->update(['status' => 'Withdrawn']);
 
         if ($application) {
             return response()->json([

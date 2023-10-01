@@ -10,21 +10,19 @@ Make sure you have the following software installed on your system:
 
 - PHP (version 8.1 or higher)
 - Composer
-- Node.js (version 8 or higher)
-- NPM
 - MySQL (or any other supported database)
 
 ## Setup Instructions
 
 1. Open your terminal and navigate to your Laravel project directory:
-2. Install the project dependencies using Composer:
-3. Install the frontend dependencies using NPM:
-4. Optimize and clear the Laravel application cache:
-5. Create a new database with the name "pwdin" in your MySQL (or your preferred database system). You can use a GUI tool or the command line to create the database.
-6. Run the database migrations to create the required tables:
-7. Start the development server:
+2. Install the project dependencies using Composer: (composer install)
+3. Optimize and clear the Laravel application cache: (php artisan optimize:clear)
+4. Create a new database with the name "pwdin" in your MySQL (or your preferred database system). You can use a GUI tool or the command line to create the database.
+5. Start the development server: (php artisan serve)
 
 This will start the server on `http://localhost:8000` by default. You can access your Laravel application using this URL in your web browser.
+
+6. Navigate to `http://localhost:8000/seeder` to generate the database migrations and factory faker data.
 
 ## Additional Configuration
 

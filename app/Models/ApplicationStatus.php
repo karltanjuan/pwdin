@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Employer;
 
 class ApplicationStatus extends Model 
 {
@@ -19,5 +20,10 @@ class ApplicationStatus extends Model
         'employer_id',
         'name',
     ];
+
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class, 'employer_id');
+    }
 
 }

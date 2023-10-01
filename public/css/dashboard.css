@@ -1050,10 +1050,18 @@ a {
     background: rgba(22, 185, 236, 1) !important;
 }
 
+.logo-container {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
 .company-logo-info,
 .profile-photo-info {
     width: 200px;
-    height: 200px;
+    height: auto;
     border: 1px solid #333;
     border-radius: 5px;
+    display: block;
 }

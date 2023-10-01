@@ -127,15 +127,15 @@
 
 	                	Swal.fire({
 						  title: 'Login Successful',
-						  text: 'Please wait...',
+						  text: 'Redirecting to dashboard...',
 						  icon: 'success',
 						  showCancelButton: false,
 						  confirmButtonText: 'OK'
 						})
 
                         setTimeout(function() {
-                            window.location.href = '{{url('/applicant/dashboard')}}'
-                        }, 2000)
+                            window.location.href = '{{url('/applicant/jobs')}}'
+                        }, 1000)
 	                } else {
 	                    displayErrors(JSON.parse(response.errors));
 	                }

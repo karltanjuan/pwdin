@@ -128,7 +128,7 @@
                 parseTime: false,
                 hideHover: 'false',
                 xLabelAngle: 60,
-                resize: true,
+                resize: false,
                 barColors: ['#428bca', '#d9534f', '#5cb85c', '#f0ad4e', '#5bc0de', '#337ab7']
             });
 

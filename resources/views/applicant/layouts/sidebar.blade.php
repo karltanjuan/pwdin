@@ -7,10 +7,16 @@
     </div>
     <div class="menu-items">
         <ul class="navLinks">
-            <li class="{{ 'applicant/dashboard' == request()->path() ? 'active' : '' }} navList">
+            {{-- <li class="{{ 'applicant/dashboard' == request()->path() ? 'active' : '' }} navList">
                 <a href="{{url('/applicant/dashboard')}}">
                     <i class="fa-solid fa-gauge fa-icon"></i>
                     <span class="links">Dashboard</span>
+                </a>
+            </li> --}}
+             <li class="{{ 'applicant/applied-jobs' == request()->path() ? 'active' : '' }} navList">
+                <a href="{{url('/applicant/applied-jobs')}}">
+                    <i class="fa-solid fa-book-open fa-icon"></i>
+                    <span class="links">Applied Jobs</span>
                 </a>
             </li>
             <li class="{{ 'applicant/jobs' == request()->path() ? 'active' : '' }} navList">

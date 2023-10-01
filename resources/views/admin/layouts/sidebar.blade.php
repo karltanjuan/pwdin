@@ -31,12 +31,12 @@
                     <span class="links">Applicants</span>
                 </a>
             </li>
-            <li class="{{ 'admin/blogs' == request()->path() ? 'active' : '' }} navList">
+            {{-- <li class="{{ 'admin/blogs' == request()->path() ? 'active' : '' }} navList">
                 <a href="{{url('/admin/blogs')}}">
                     <i class="fa-solid fa-comment fa-icon"></i>
                     <span class="links">Blogs</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="{{ in_array(request()->path(), ['admin/change-password']) ? 'active' : '' }} navList settings-dropdown">
                 <a href="javascript:void(0)">
                     <i class="fa-solid fa-gear fa-icon"></i>

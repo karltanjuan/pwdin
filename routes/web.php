@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Applicant\AuthController;
 use App\Http\Controllers\Applicant\ApplicantDashboardController;
 use App\Http\Controllers\Applicant\ApplicantJobController;
+use App\Http\Controllers\Applicant\ApplicantAppliedJobController;
 use App\Http\Controllers\Applicant\ApplicantResumeController;
 use App\Http\Controllers\Applicant\ApplicantPWDCardController;
 use App\Http\Controllers\Applicant\ApplicantProfileInfoController;
@@ -68,13 +69,14 @@ Route::group(['prefix' => 'applicant'], function() {
     Route::post('postResetPassword', [AuthController::class, 'postResetPassword'])->name('applicant.postResetPassword');
 
     Route::middleware('is_applicant')->group(function () {
-        Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('applicant.dashboard');
+        // Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('applicant.dashboard');
+
+        Route::get('/applied-jobs', [ApplicantAppliedJobController::class, 'getAppliedJobs'])->name('applicant.getAppliedJobs');
+        Route::post('getAppliedJobsById', [ApplicantAppliedJobController::class, 'getAppliedJobsById'])->name('applicant.getAppliedJobsById');
 
         Route::get('/jobs', [ApplicantJobController::class, 'index'])->name('applicant.index');
         Route::post('getJobsById', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
-
         Route::post('applyJob', [ApplicantJobController::class, 'applyJob'])->name('applicant.applyJob');
-
         Route::post('withdrawJob', [ApplicantJobController::class, 'withdrawJob'])->name('applicant.withdrawJob');
 
         Route::get('/profile-info', [ApplicantProfileInfoController::class, 'getProfileInfo'])->name('applicant.getProfileInfo');
@@ -189,11 +191,11 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('updateUser', [AdminUserController::class, 'updateUser'])->name('admin.updateUser');
         Route::post('deleteUser', [AdminUserController::class, 'deleteUser'])->name('admin.deleteUser');
 
-        Route::get('/blogs', [AdminBlogController::class, 'getBlogs'])->name('admin.getBlogs');
-        Route::post('/getBlogById', [AdminBlogController::class, 'getBlogById'])->name('admin.getBlogById');
-        Route::post('saveBlog', [AdminBlogController::class, 'saveBlog'])->name('admin.saveBlog');
-        Route::post('updateBlog', [AdminBlogController::class, 'updateBlog'])->name('admin.updateBlog');
-        Route::post('deleteBlog', [AdminBlogController::class, 'deleteBlog'])->name('admin.deleteBlog');
+        // Route::get('/blogs', [AdminBlogController::class, 'getBlogs'])->name('admin.getBlogs');
+        // Route::post('/getBlogById', [AdminBlogController::class, 'getBlogById'])->name('admin.getBlogById');
+        // Route::post('saveBlog', [AdminBlogController::class, 'saveBlog'])->name('admin.saveBlog');
+        // Route::post('updateBlog', [AdminBlogController::class, 'updateBlog'])->name('admin.updateBlog');
+        // Route::post('deleteBlog', [AdminBlogController::class, 'deleteBlog'])->name('admin.deleteBlog');
 
         Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });

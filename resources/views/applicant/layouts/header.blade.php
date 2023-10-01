@@ -1,6 +1,6 @@
 <div class="top">
 	<i class="navToggle fa-solid fa-bars fa-icon"></i>
-	<p>{{auth()->user()->first_name}} {{auth()->user()->middle_name}} {{auth()->user()->last_name}}</p>
+	{{-- <p>{{auth()->user()->first_name}} {{auth()->user()->middle_name}} {{auth()->user()->last_name}}</p> --}}
 	<a class="profile" href="javascript:void(0)">
 		@if (auth()->user()->profile_photo != null)
 			@php

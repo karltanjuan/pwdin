@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\ApplicationStatus;
 
 class Employer extends Model implements Authenticatable
 {
@@ -85,5 +86,10 @@ class Employer extends Model implements Authenticatable
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    public function application_statuses()
+    {
+        return $this->hasOne(ApplicationStatus::class);
     }
 }

@@ -105,7 +105,7 @@
 
 	                	Swal.fire({
 						  title: 'Login Successful',
-						  text: 'Please wait...',
+						  text: 'Redirecting to dashboard...',
 						  icon: 'success',
 						  showCancelButton: false,
 						  confirmButtonText: 'OK'
@@ -113,7 +113,7 @@
 
 						setTimeout(function() {
                             window.location.href = '{{url('/admin/dashboard')}}'
-                        }, 2000)
+                        }, 1000)
 	                } else {
 	                    displayErrors(JSON.parse(response.errors));
 	                }

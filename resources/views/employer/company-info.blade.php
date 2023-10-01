@@ -29,14 +29,17 @@
         </div>
 
         <div class="content">
-            @if (auth()->guard('employers')->user()->company_logo != null)
-                @php
-                $company_logo = str_replace('public', 'storage', auth()->guard('employers')->user()->company_logo);
-                @endphp
-                <img class="company-logo-info" src="{{asset($company_logo)}}" alt="Company Logo">
-            @else
-                <img class="company-logo-info" src="{{asset($company_logo)}}" alt="Company Logo">
-            @endif
+            <div class="logo-container">
+                @if (auth()->guard('employers')->user()->company_logo != null)
+                    @php
+                    $company_logo = str_replace('public', 'storage', auth()->guard('employers')->user()->company_logo);
+                    @endphp
+                    
+                    <img class="company-logo-info" src="{{asset($company_logo)}}" alt="Company Logo">
+                @else
+                    <img class="company-logo-info" src="{{asset($company_logo)}}" alt="Company Logo">
+                @endif
+            </div>
             <div id="form">
                 <div class="form first" id="form-first">
                     <div class="details personal">
