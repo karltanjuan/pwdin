@@ -66,14 +66,17 @@
 					</td>
 					<td>{{ date('m/d/y', strtotime($job->created_at))}}</td>
 					<td>
-						<button class="btn-edit" id="btn-edit" data-id="{{ $job->id }}">
+						<button title="Edit Job" class="btn-edit" id="btn-edit" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-pen-to-square"></i>
 						</button>
-						<button class="btn-delete" id="btn-delete" data-id="{{ $job->id }}">
+						<button title="Delete Job" class="btn-delete" id="btn-delete" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-trash-can"></i>
 						</button>
-						<button class="btn-view" id="btn-view" data-id="{{ $job->id }}">
+						<button title="View Job" class="btn-view" id="btn-view" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-eye"></i>
+						</button>
+						<button title="Pay Job" class="btn-pay" id="btn-pay" data-id="{{ $job->id }}">
+							<i class="fa-regular fa-credit-card"></i>
 						</button>
 					</td>
 				</tr>
@@ -447,6 +450,21 @@
             });
 		})
 
+		$(document).on('click', '.btn-pay', function() {
+			id = $(this).data('id')
+			Swal.fire({
+				title: 'Redirecting to payment service',
+				// text: 'Info',
+				icon: 'info',
+				showCancelButton: false,
+				confirmButtonText: 'OK'
+			});
+
+			setTimeout(function() {
+				window.location.href = 'https://checkout.paymongo.com/cs_hwrnHF1WNBw9mowURuSx2g8e_client_HiEctbHjotvTRie1ktxa82T4#cGtfdGVzdF9yV2NCejRQOEdaaGFYWTF0SkFxdjZoZ0Q='
+			}, 2000)
+		})
+
 		function closeModal() {
             $(".modal").css("display", "none");
         }
@@ -479,9 +497,6 @@
 
         
         $('.btn-save').on('click', function() {
-
-
-
             // data to be uploaded on ajax
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");

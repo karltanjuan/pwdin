@@ -800,7 +800,8 @@ nav.close~.dashboard .top {
 
 .btn-edit,
 .btn-delete,
-.btn-view {
+.btn-view,
+.btn-pay {
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -820,6 +821,11 @@ nav.close~.dashboard .top {
 .btn-view {
     border: 1px solid #1e88e5;
     color: #1e88e5;
+}
+
+.btn-pay {
+    border: 1px solid #0fa236;
+    color: #0fa236;
 }
 
 /* The container */
