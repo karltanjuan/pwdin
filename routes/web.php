@@ -21,6 +21,7 @@ use App\Http\Controllers\Employer\EmployerPasswordController;
 use App\Http\Controllers\Employer\BusinessPermitController;
 use App\Http\Controllers\Employer\BIRCertificateController;
 use App\Http\Controllers\Employer\InvoiceController;
+use App\Http\Controllers\Employer\TransactionRedirectController;
 
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -105,7 +106,6 @@ Route::group(['prefix' => 'employer'], function() {
     Route::get('register', [EmployerAuthController::class, 'getRegister'])->name('employer.getRegister');
     Route::post('postRegister', [EmployerAuthController::class, 'postRegister'])->name('employer.postRegister');
 
-
     Route::get('forgot-password', [EmployerAuthController::class, 'getForgotPassword'])->name('employer.getForgotPassword');
     Route::post('postForgotPassword', [EmployerAuthController::class, 'postForgotPassword'])->name('employer.postForgotPassword');
 
@@ -122,6 +122,8 @@ Route::group(['prefix' => 'employer'], function() {
         Route::post('deleteJob', [EmployerJobController::class, 'deleteJob'])->name('employer.deleteJob');
 
         Route::post('createInvoice', [InvoiceController::class, 'createInvoice'])->name('employer.createInvoice');
+
+        Route::get('/transaction-message/{job_id}', [TransactionRedirectController::class, 'transactionMessage'])->name('transactionMessage');
 
         Route::get('/application-status', [ApplicationStatusController::class, 'index'])->name('employer.applicationStatus');
 

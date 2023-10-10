@@ -22,8 +22,7 @@ class InvoiceController extends Controller
 {
     public function createInvoice(Request $request) {
         $job_id = (int) $request->job_id;
-
-        $job = Job::where('id', $job_id)->first();
+        $job    = Job::where('id', $job_id)->first();
 
         try {
             DB::beginTransaction();
@@ -53,7 +52,7 @@ class InvoiceController extends Controller
             $send_email_receipt    = true;
             $show_description      = true;
             $show_line_items       = true;
-            $cancel_url            = "https://google.com";
+            $cancel_url            = env('APP_URL').'/employer/jobs';
             $description           = $invoice->description;
             $currency              = $invoice->currency;
             $amount                = $invoice->total_amount;
@@ -62,7 +61,7 @@ class InvoiceController extends Controller
             $line_item_name        = $invoice->product_name;
             $payment_methods_types = ["card", "gcash", "paymaya", "dob", "dob_ubp", "grab_pay"];
             $reference_number      = $invoice->reference_number;
-            $success_url           = "http://localhost:8000/employer/jobs";
+            $success_url           = env('APP_URL')."/employer/transaction-message/{$job->id}";
 
             $payload = [
                 "data" => [
@@ -101,6 +100,14 @@ class InvoiceController extends Controller
 
             $response_content = $response->getBody()->getContents();
             $response_data    = json_decode($response_content, true);
+
+            dd($response_data);
+
+            $update_transaction = Transaction::where('id', $transaction->id)->update([
+                'checkout_session_id' => 1,
+                'updated_at'          => date('Y-m-d H:  i: s')
+            ]);
+
 
             return response()->json($response_data, 200);
 
