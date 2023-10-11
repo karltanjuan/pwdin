@@ -16,7 +16,7 @@ use Carbon\Carbon;
 
 class ApplicantJobController extends Controller
 {
-    public function index() {
+    public function index($type = null) {
         $pwd_categories = auth()->user()->pwd_categories;
         $pwd_categories_arr = explode(',', $pwd_categories);
 
@@ -25,13 +25,24 @@ class ApplicantJobController extends Controller
                     ->with(['applications' => function ($query) {
                         $query->where('applicant_id', auth()->user()->id);
                     }])
-                    ->where(function ($query) use ($pwd_categories_arr) {
-                        foreach ($pwd_categories_arr as $category) {
-                            $query->orWhere('pwd_categories', 'LIKE', "%$category%");
-                        }
-                    })
-                    ->where('status', 1)
-                    ->get();
+                    ->where('status', 1);
+                    // ->where(function ($query) use ($pwd_categories_arr) {
+                    //     foreach ($pwd_categories_arr as $category) {
+                    //         $query->orWhere('pwd_categories', 'LIKE', "%$category%");
+                    //     }
+                    // })
+                    // ->get();
+
+
+        if ($type == "all") {
+            $jobs = $jobs->get();
+        } else {
+            $jobs = $jobs->where(function ($query) use ($pwd_categories_arr) {
+                foreach ($pwd_categories_arr as $category) {
+                    $query->orWhere('pwd_categories', 'LIKE', "%$category%");
+                }
+            })->get();
+        }
                     
         return view('applicant.jobs', compact('jobs'));
     }

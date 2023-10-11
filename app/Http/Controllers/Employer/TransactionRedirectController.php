@@ -40,7 +40,7 @@ class TransactionRedirectController extends Controller
         if (isset($response_data['data']['attributes']['payments'])) {
             $data    = $response_data['data']['attributes']['payments'][0]['attributes'];
             $status  = ucfirst(strtolower($data['status']));
-            $paid_at = date('Y/m/d H:i:s A', $data['paid_at']);
+            $paid_at = date('Y/m/d H:i:s', $data['paid_at']);
         } else {
             $status  = 'Pending';
             $paid_at = null;
@@ -48,7 +48,7 @@ class TransactionRedirectController extends Controller
 
         $response = (object) [
             'status'  => $status,
-            'paid_at' => $paid_at
+            'paid_at' => Carbon::parse($paid_at)->format('F d, Y h:i A'),
         ];
 
         try {

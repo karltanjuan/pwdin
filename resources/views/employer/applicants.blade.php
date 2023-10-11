@@ -335,7 +335,7 @@
                         </div>
                     `)
 
-                    var html = ""
+                    var html = "<option disabled selected>Please select</option>"
                     $.each(app_status, function(index,val) {
                         if (application.status == val) {
                             html += `<option value="${val}" selected>${val}</option>`

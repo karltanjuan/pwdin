@@ -156,6 +156,11 @@
                                     <div class="step-indicator">{{ $key_counter++ }}</div>
                                     <div class="step-label">Applied</div>
                                 </div>
+                            @else
+                                <div class="progress-step">
+                                    <div class="step-indicator">{{ $key_counter++ }}</div>
+                                    <div class="step-label">Applied</div>
+                                </div>
                             @endif
 
                             @foreach($statuses as $status)

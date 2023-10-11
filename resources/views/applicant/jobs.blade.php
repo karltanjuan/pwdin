@@ -15,9 +15,9 @@
 	</style>
 
     <div class="head-container">
-    	<h1>Job List</h1>
+    	<h1 class="title-label">Available Jobs for Me</h1>
     </div>	
-
+	<button class="primary-btn btn-filter-all">View All Jobs</button>
 	<table class="jobs-table">
 		<thead>
 			<tr>
@@ -259,6 +259,18 @@
             });
 		})
 
+		$(document).on('click', '.btn-filter-all', function() {
+			location.href = "{{url('applicant/jobs/all')}}"
+
+			// if ($(this).text() == "View All Jobs") {
+			// 	$('.title-label').text('All Jobs Available')
+			// 	location.href = "{{url('applicant/jobs')}}"
+			// } else {
+			// 	$('.title-label').text('Available Jobs for Me')
+				
+			// }
+        })
+		
 		var err_counter = 0;
         function displayErrors(errors) {
             $('.err-msg').text('');
