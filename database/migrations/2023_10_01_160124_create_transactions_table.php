@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('invoice_id');
             $table->foreign('invoice_id')->references('id')->on('invoices');
+            $table->string('checkout_session_id');
             $table->string('status');
             $table->timestamps();
         });

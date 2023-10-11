@@ -42,8 +42,9 @@ class InvoiceController extends Controller
             ]);
 
             $transaction = Transaction::create([
-                'invoice_id' => $invoice->id,
-                'status'     => 'Pending'
+                'invoice_id'          => $invoice->id,
+                'checkout_session_id' => '',
+                'status'              => 'Pending'
             ]);
             
             DB::commit();
@@ -98,16 +99,14 @@ class InvoiceController extends Controller
                 ],
             ]);
 
-            $response_content = $response->getBody()->getContents();
-            $response_data    = json_decode($response_content, true);
-
-            dd($response_data);
+            $response_content    = $response->getBody()->getContents();
+            $response_data       = json_decode($response_content, true);
+            $checkout_session_id = $response_data['data']['id'];
 
             $update_transaction = Transaction::where('id', $transaction->id)->update([
-                'checkout_session_id' => 1,
-                'updated_at'          => date('Y-m-d H:  i: s')
+                'checkout_session_id' => $checkout_session_id,
+                'updated_at'          => date('Y-m-d H:i:s')
             ]);
-
 
             return response()->json($response_data, 200);
 
