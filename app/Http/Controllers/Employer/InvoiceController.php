@@ -37,13 +37,14 @@ class InvoiceController extends Controller
                 'description'      => strip_tags($job->job_description),
                 'quantity'         => 1,
                 'currency'         => 'PHP',
-                'total_amount'     => 200000,
-                'payment_method'   => 'cash'
+                'total_amount'     => 200000, // 2000 pesos
+                'payment_method'   => ''
             ]);
 
             $transaction = Transaction::create([
                 'invoice_id'          => $invoice->id,
                 'checkout_session_id' => '',
+                'transaction_details' => '',
                 'status'              => 'Pending'
             ]);
             
@@ -105,6 +106,7 @@ class InvoiceController extends Controller
 
             $update_transaction = Transaction::where('id', $transaction->id)->update([
                 'checkout_session_id' => $checkout_session_id,
+                'transaction_details' => json_encode($response_data), // For transaction history reference
                 'updated_at'          => date('Y-m-d H:i:s')
             ]);
 
