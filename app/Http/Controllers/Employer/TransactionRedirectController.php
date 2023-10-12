@@ -36,7 +36,7 @@ class TransactionRedirectController extends Controller
         $response_content    = $response->getBody()->getContents();
         $response_data       = json_decode($response_content, true);
 
-        if (isset($response_data['data']['attributes']['payments'])) {
+        if (isset($response_data['data']['attributes']['payments'][0])) {
             $data    = $response_data['data']['attributes']['payments'][0]['attributes'];
             $payment_method_used = $response_data['data']['attributes']['payments'][0]['payment_method_used'];
             $status  = ucfirst(strtolower($data['status']));
