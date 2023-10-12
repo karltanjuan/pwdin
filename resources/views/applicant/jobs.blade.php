@@ -124,10 +124,14 @@
                         status = "Open"
                     }
 
-                    const salary = parseFloat(response.salary).toLocaleString(undefined, {
+                    let salary = parseFloat(response.salary).toLocaleString(undefined, {
                         style: 'currency',
                         currency: 'PHP',
                     });
+
+                    if (response.hide_salary === 1){
+                        salary = '*'.repeat(salary.toString().length);
+                    }
 
                     const full_address =
                         `${response.employer.address}, ${response.employer.province}, ${response.employer.city}, ${response.employer.zip_code}`

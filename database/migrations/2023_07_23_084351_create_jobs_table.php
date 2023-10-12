@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('average_processing_time')->nullable(false);
             // $table->text('benefits')->nullable(false);
             $table->decimal('salary', 10, 2);
+            $table->tinyInteger('hide_salary')->nullable(false);
             $table->string('working_days')->nullable();
             $table->string('pwd_categories')->nullable();
             $table->text('qualification')->nullable(false);
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->date('closed_at')->nullable();
             $table->timestamps();
         });
+        
     }
 
     /**

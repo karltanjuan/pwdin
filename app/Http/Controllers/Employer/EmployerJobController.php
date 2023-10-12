@@ -17,7 +17,6 @@ use App\Models\Invoice;
 use App\Models\Transaction;
 use Carbon\Carbon;
 
-
 class EmployerJobController extends Controller
 {
     public function index() {
@@ -52,6 +51,8 @@ class EmployerJobController extends Controller
         $job->years_experience        = $request->years_experience; 
         $job->average_processing_time = $request->average_processing_time; 
         $job->salary                  = $request->salary; 
+        //gawa ni gail eyy
+        $job->hide_salary             = $request->hide_salary;
         $job->qualification           = $request->qualification; 
         $job->work_setup              = $request->work_setup; 
         $job->working_days            = $request->working_days;
@@ -70,7 +71,7 @@ class EmployerJobController extends Controller
     }
 
     public function updateJob(Request $request){
-
+        
         $validator = $this->validateJob($request);
 
         if ($validator->fails()) {
@@ -78,6 +79,8 @@ class EmployerJobController extends Controller
                 'errors' => $validator->errors(),
             ], 422);
         }
+
+        $hide_salary = ($request->hide_salary === "true") ? 1 : 0;
 
         // save to database
         $job = Job::where('id', $request->id);
@@ -88,7 +91,8 @@ class EmployerJobController extends Controller
             'job_industry'            => $request->job_industry, 
             'years_experience'        => $request->years_experience, 
             'average_processing_time' => $request->average_processing_time, 
-            'salary'                  => $request->salary, 
+            'salary'                  => $request->salary,
+            'hide_salary'             => $hide_salary, 
             'qualification'           => $request->qualification, 
             'work_setup'              => $request->work_setup, 
             'working_days'            => $request->working_days,

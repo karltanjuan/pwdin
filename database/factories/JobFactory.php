@@ -31,6 +31,7 @@ class JobFactory extends Factory
             'job_industry'            => $this->faker->randomElement(['Accounting/Finance', 'Admin/Human Resources', 'Sales/Marketing', 'Arts/Media/Communication', 'Services', 'Hotel/Restaurant', 'Education/Training', 'Computer/Information Technology', 'Engineering', 'Manufacturing', 'uilding/Construction', 'Sciences', 'Healtcare', 'Journalist/Editors', 'General Work', 'Publishing', 'Others']),
             'average_processing_time' => $this->faker->numberBetween(1, 30),
             'salary'                  => $this->faker->numberBetween(15000, 100000),
+            'hide_salary'             => $this->faker->numberBetween(0, 1),
             'working_days'            => implode(',', ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']),
             'pwd_categories'          => $this->faker->randomElement(['Psychosocial', 'Mental', 'Chronic illness', 'Learning', 'Visual', 'Orthopedic', 'Communication']),
             'qualification'           => $this->faker->randomElement(['Grade School', 'High School', "Bachelor's Degree", 'Vocational', 'Post-Graduate', 'Others']),
