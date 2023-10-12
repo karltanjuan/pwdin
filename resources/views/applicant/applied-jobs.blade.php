@@ -114,6 +114,11 @@
             padding: 5px;
             border-radius: 10px;
         }
+
+        .rejected {
+            background: red;
+
+        }
 	</style>
 
     <div class="head-container">
@@ -150,6 +155,16 @@
                             $statuses = json_decode($job->employer->application_statuses->name); 
                             $key_counter = 1;
                         @endphp
+
+                        @php
+                            $rejected = '';
+                            if ($job->applications[0]->is_rejected === 1) {
+                                $rejected = 'rejected';
+
+                            }
+                        @endphp
+
+                        
                         <div class="progress-bar">
                             @if ($app_status == "Applied")
                                 <div class="progress-step current-status">
@@ -164,7 +179,7 @@
                             @endif
 
                             @foreach($statuses as $status)
-                                <div class="progress-step {{ $app_status == $status ? 'current-status' : '' }}">
+                                <div class="progress-step {{ $app_status == $status ? 'current-status' : '' }} {{ $app_status == $status && $job->applications[0]->is_rejected === 1 ? 'rejected' : '' }}">
                                     <div class="step-indicator">{{ $key_counter++ }}</div>
                                     <div class="step-label">{{ $status }}</div>
                                 </div>
@@ -178,6 +193,9 @@
                             @endif
                         </div>
                     </div>
+                    @if($job->applications[0]->is_rejected === 1)
+                        <p>Rejected Reason: <b>{{ $job->applications[0]->rejected_reason }}</b></p>
+                    @endif
                     {{-- add dropdown arrow to view more details --}}
                     @if ($app_status != "Withdrawn")
                         <button class="primary-btn btn-withdraw" data-id="{{$job->applications[0]->job_id}}">Withdraw</button>

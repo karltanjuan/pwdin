@@ -77,6 +77,8 @@ class ApplicantJobController extends Controller
         $application->job_id       = $request->job_id;
         $application->cover_letter = $request->cover_letter; 
         $application->status       = config('application.status')[0];
+        $application->is_rejected  = 0;
+        $application->rejected_reason = "";
         $application->save();
 
         if ($application) {

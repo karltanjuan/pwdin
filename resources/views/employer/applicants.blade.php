@@ -261,7 +261,10 @@
             </div>
             <div class="modal-body">
                 <div class="content">
-                    Are you sure you want to continue?
+                    <p>Are you sure you want to continue?</p>
+                    <br>
+                    <input type="text" class="rejected_reason cm-input" id="rejected_reason" placeholder="Enter reason"/>
+                    <span class="err-rejected_reason err-msg"></span>
                 </div>
                 <div class="modal-footer">
                     <button class="primary-btn btn-update">Yes</button>
@@ -276,6 +279,8 @@
         var id = 0;
         $(document).ready(function() {
             getAppStatus()
+
+            $('.rejected_reason').hide()
         })
 
         $(".check-all").click(function() {
@@ -423,15 +428,39 @@
             global_id = parseInt($(this).data('id'));
             global_status = $(this).val();
 
+            $('.rejected_reason').hide()
+            if (global_status == "Rejected") {
+                $('.rejected_reason').show()
+            }
+
+            $('.err-rejected_reason').hide().text('')
             $('#modal-confirm-application').show()
         })
 
+        var is_rejected = 0;
+
         $(document).on('click', '.btn-update', function() {
-             // data to be uploaded on ajax
+            $('.err-rejected_reason').hide().text('')
+                
+            if (global_status == "Rejected") {
+                if ($('.rejected_reason').val() == "") {
+                    $('.rejected_reason').addClass('error')
+                    $('.err-rejected_reason').show().text('Rejected reason field is required.')
+                    return false;
+                }
+
+                is_rejected = 1;
+            }
+
+
+
+            //data to be uploaded on ajax
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('id', global_id);
             formData.append('status', global_status);
+            formData.append('rejected_reason', $('.rejected_reason').val());
+            formData.append('is_rejected', is_rejected);
 
             $.ajax({
                 url: '{{ route('employer.updateAppStatus') }}',

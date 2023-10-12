@@ -21,7 +21,9 @@ class Application extends Model
         'job_id',
         'applicant_id',
         'cover_letter',
-        'status'
+        'status',
+        'is_rejected',
+        'rejected_reason'
     ];
 
     public function job()

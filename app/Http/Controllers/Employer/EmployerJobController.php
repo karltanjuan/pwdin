@@ -160,10 +160,22 @@ class EmployerJobController extends Controller
 
 
     public function updateAppStatus(Request $request){
+
+        $update_data = [
+            'status' => $request->status,
+            'is_rejected' => (int)$request->is_rejected,
+            'rejected_reason' => $request->rejected_reason ?? '',
+        ];    
+
+        if ($request->status == "Rejected") {
+            $update_data = [
+                'is_rejected' => (int)$request->is_rejected,
+                'rejected_reason' => $request->rejected_reason ?? '',
+            ];    
+        }
+
         $application = Application::where('id', (int)$request->id);
-        $application->update([
-            'status' => $request->status
-        ]);
+        $application->update($update_data);
 
         if ($application) {
             return response()->json([

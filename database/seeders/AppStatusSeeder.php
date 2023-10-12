@@ -19,7 +19,7 @@ class AppStatusSeeder extends Seeder
         $status = [
            [
                 'employer_id' => 1,
-                'name' => json_encode(['Initial Interview', 'Exam', 'Final Interview', 'Hired']),
+                'name' => json_encode(['Initial Interview', 'Exam', 'Final Interview', 'Hired', 'Rejected']),
            ]
         ];
 

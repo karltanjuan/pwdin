@@ -172,7 +172,9 @@
 								<div class="input-field">
 									<label>Salary</label>
 									<input class="salary" id="salary" type="number" placeholder="Enter salary">
-									<span class="err-salary err-msg"></span>
+									<!--gawa ni gail eyy -->
+									<input type="checkbox" class="hide_salary" name="hide_salary" id="hide_salary" value="0" {{ $job->hide_salary ? 'checked' : '' }}>
+									<label for="hide_salary">Hide Salary</label>
 								</div>
 								<div class="input-field">
 									<label>Educational Attainment</label>
@@ -325,6 +327,11 @@
                     $('.years_experience').val(response.years_experience)
                     $('.average_processing_time').val(response.average_processing_time)
                     $('.salary').val(response.salary)
+					
+					if (response.hide_salary === 1){
+						$('.hide_salary').prop("checked", true)
+					}
+
                     $('.qualification').val(response.qualification)
                     $('.work_setup').val(response.work_setup)
                     $('.working_days').val(response.working_days.split(",").map(item => item.trim()))
@@ -527,6 +534,7 @@
 			formData.append('years_experience', $('#years_experience').val());
 			formData.append('average_processing_time', $('#average_processing_time').val());
 			formData.append('salary',  $('#salary').val());
+			formData.append('hide_salary', $('#hide_salary').prop('checked'));
 			formData.append('qualification', $('#qualification').val());
 			formData.append('work_setup', $('#work_setup').val());
 			formData.append('working_days', $('#working_days').val().join());
