@@ -27,11 +27,11 @@ class ApplicantAppliedJobController extends Controller
                     ->whereHas('applications', function ($query) {
                         $query->where('applicant_id', auth()->user()->id);
                     })
-                    ->where(function ($query) use ($pwd_categories_arr) {
-                        foreach ($pwd_categories_arr as $category) {
-                            $query->orWhere('pwd_categories', 'LIKE', "%$category%");
-                        }
-                    })
+                    // ->where(function ($query) use ($pwd_categories_arr) {
+                    //     foreach ($pwd_categories_arr as $category) {
+                    //         $query->orWhere('pwd_categories', 'LIKE', "%$category%");
+                    //     }
+                    // })
                     // ->where('status', 1)
                     ->get();
 
