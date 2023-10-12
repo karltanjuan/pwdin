@@ -17,6 +17,8 @@ return new class extends Migration
             $table->bigInteger('applicant_id')->unsigned();
             $table->text('cover_letter')->nullable(true);
             $table->string('status')->nullable(false);
+            $table->tinyInteger('is_rejected')->nullable(false);
+            $table->string('rejected_reason')->nullable(false);
             $table->timestamps();
 
             // Foreign keys
