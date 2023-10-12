@@ -3,105 +3,113 @@
 @section('title', 'Applicant - Job List')
 
 @section('content')
-	<style>
-		.modal-view-job .content > div {
-			border: 1px solid #333;
-			padding: 5px;
-		}
+    <style>
+        .modal-view-job .content>div {
+            border: 1px solid #333;
+            padding: 5px;
+        }
 
-		.modal-view-job .content > div:last-child > div {
-			padding-left: 30px;
-		}
-	</style>
+        .modal-view-job .content>div:last-child>div {
+            padding-left: 30px;
+        }
+    </style>
 
     <div class="head-container">
-    	<h1 class="title-label">Available Jobs for Me</h1>
-    </div>	
-	<button class="primary-btn btn-filter-all">View All Jobs</button>
-	<table class="jobs-table">
-		<thead>
-			<tr>
-				<th>Job Title</th>
-				<th>Company</th>
-				<th>Job Status</th>
-				<th>Application Status</th>
-				<th>Date Posted</th>
-				<th>Date Applied</th>
-				<th>Date Updated</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			@if (count($jobs) > 0)
-				@foreach ($jobs as $job)
-				<tr>
-					<td>{{ $job->job_title }}</td>
-					<td>{{ $job->employer->company_name }}</td>
-					<td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
-					<td>{{ count($job->applications) > 0 ? $job->applications[0]->status : '-' }}</td>
-					<td>{{ date('m/d/y H:i A', strtotime($job->created_at))}}</td>
-					@if (count($job->applications) > 0)
-						<td>{{ date('m/d/y H:i A', strtotime($job->applications[0]->created_at))}}</td>
-						<td>{{ date('m/d/y H:i A', strtotime($job->applications[0]->updated_at))}}</td>
-					@else
-						<td>-</td>
-						<td>-</td>
-					@endif
-					<td>
-						<button class="btn-view" id="btn-view" data-id="{{ $job->id }}">
-							<i class="fa-regular fa-eye"></i>
-						</button>
-					</td>
-				</tr>
-				@endforeach
-			@else
-				<tr>
-					<td></td>
-					<td></td>
-					<td class="text-center">No records found.</td>
-					<td></td>
-					<td></td>
-				</tr>
-			@endif
-	</tbody>
-	</table>
-	
-	<!-- modal -->
+        <h1 class="title-label">Available Jobs for Me</h1>
+    </div>
+    <a href="javascript:void(0)" class="primary-btn btn-filter-all">View All Jobs</a>
+    <table class="jobs-table">
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Job Status</th>
+                <th>Application Status</th>
+                <th>Date Posted</th>
+                <th>Date Applied</th>
+                <th>Date Updated</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (count($jobs) > 0)
+                @foreach ($jobs as $job)
+                    <tr>
+                        <td>{{ $job->job_title }}</td>
+                        <td>{{ $job->employer->company_name }}</td>
+                        <td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
+                        <td>{{ count($job->applications) > 0 ? $job->applications[0]->status : '-' }}</td>
+                        <td>{{ date('m/d/y H:i A', strtotime($job->created_at)) }}</td>
+                        @if (count($job->applications) > 0)
+                            <td>{{ date('m/d/y H:i A', strtotime($job->applications[0]->created_at)) }}</td>
+                            <td>{{ date('m/d/y H:i A', strtotime($job->applications[0]->updated_at)) }}</td>
+                        @else
+                            <td>-</td>
+                            <td>-</td>
+                        @endif
+                        <td>
+                            <button class="btn-view" id="btn-view" data-id="{{ $job->id }}">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center">No records found.</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @endif
+        </tbody>
+    </table>
 
-	<div id="modal-view-job" class="modal modal-view-job">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h2>View Job</h2>
-				<span class="modal-close">&times;</span>
-			</div>
-			<div class="modal-body">
-				<div class="content">
-				</div>
-				<div class="modal-footer">
-					<button class="primary-btn btn-withdraw">Withdraw</button>
-					<button class="primary-btn btn-apply">Apply</button>
-					<button class="secondary-btn btn-cancel">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- modal -->
 
-	<script>
-		var id = 0;
-		$(document).ready(function() {
-			tinymce.init({
-				selector: 'textarea#job_description',
-				plugins: 'powerpaste advcode table lists checklist emoticons',
-				toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
-		   	});
+    <div id="modal-view-job" class="modal modal-view-job">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>View Job</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                </div>
+                <div class="modal-footer">
+                    <button class="primary-btn btn-withdraw">Withdraw</button>
+                    <button class="primary-btn btn-apply">Apply</button>
+                    <button class="secondary-btn btn-cancel">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-			$('.working_days').select2();
-		})
+    <script>
+        var id = 0;
+        $(document).ready(function() {
+            tinymce.init({
+                selector: 'textarea#job_description',
+                plugins: 'powerpaste advcode table lists checklist emoticons',
+                toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
+            });
+
+            $('.working_days').select2();
+
+            if (window.location.href.includes('/all')) {
+                $('.title-label').text('All Available Jobs')
+                $('.btn-filter-all').text('Related Jobs').attr('href', '{{ url('/applicant/jobs') }}')
+            } else {
+                $('.title-label').text('Available Jobs for Me')
+                $('.btn-filter-all').text('View All Jobs').attr('href', '{{ url('/applicant/jobs/all') }}')
+            }
+        })
 
         function getJobsById(id) {
-        	var formData = new FormData();
+            var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-        	formData.append('id', parseInt(id));
+            formData.append('id', parseInt(id));
 
             // Send an AJAX request to validate the data
             $.ajax({
@@ -113,15 +121,16 @@
                 success: function(response) {
                     var status = "Closed";
                     if (response.status == 1) {
-                    	status = "Open"
+                        status = "Open"
                     }
 
                     const salary = parseFloat(response.salary).toLocaleString(undefined, {
-					  style: 'currency',
-					  currency: 'PHP', 
-					});
+                        style: 'currency',
+                        currency: 'PHP',
+                    });
 
-					const full_address = `${response.employer.address}, ${response.employer.province}, ${response.employer.city}, ${response.employer.zip_code}`
+                    const full_address =
+                        `${response.employer.address}, ${response.employer.province}, ${response.employer.city}, ${response.employer.zip_code}`
 
                     $('.modal-view-job .content').html(`
                     	<div>Company Name: ${response.employer.company_name}</div>
@@ -146,14 +155,14 @@
                     `)
 
                     if (response.applications.length > 0 && response.applications[0].status !== 'Withdrawn') {
-					    $('.btn-withdraw').show();
-					    $('.btn-apply').hide();
-					    $('.cover_letter_container').hide()
-					} else {
-						$('.cover_letter_container').show()
-						$('.btn-withdraw').hide();
-					    $('.btn-apply').show();
-					}
+                        $('.btn-withdraw').show();
+                        $('.btn-apply').hide();
+                        $('.cover_letter_container').hide()
+                    } else {
+                        $('.cover_letter_container').show()
+                        $('.btn-withdraw').hide();
+                        $('.btn-apply').show();
+                    }
 
                 },
                 error: function(xhr, status, error) {
@@ -163,13 +172,13 @@
             });
         }
 
-		$(document).on('click', '.btn-view', function() {
-			id = $(this).data('id')
-			getJobsById(id)
-			$('.modal-view-job').show();
-		})
+        $(document).on('click', '.btn-view', function() {
+            id = $(this).data('id')
+            getJobsById(id)
+            $('.modal-view-job').show();
+        })
 
-		function closeModal() {
+        function closeModal() {
             $(".modal").css("display", "none");
         }
 
@@ -177,17 +186,17 @@
             closeModal()
         })
 
-		var datatable_job = $('.jobs-table').DataTable({
-			"lengthChange": false,
-			"iDisplayLength" : 10,
-			// "order": [[0, 'asc']],
-		});
+        var datatable_job = $('.jobs-table').DataTable({
+            "lengthChange": false,
+            "iDisplayLength": 10,
+            // "order": [[0, 'asc']],
+        });
 
-		$(document).on('click', '.btn-apply', function() {
-			var formData = new FormData();
+        $(document).on('click', '.btn-apply', function() {
+            var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('cover_letter', $('.cover_letter').val())
-        	formData.append('job_id', parseInt(id));
+            formData.append('job_id', parseInt(id));
 
             $.ajax({
                 url: '{{ route('applicant.applyJob') }}',
@@ -197,18 +206,18 @@
                 contentType: false,
                 success: function(response) {
                     if (response.code == "200") {
-                    	$('.modal').hide()
+                        $('.modal').hide()
 
                         Swal.fire({
-                          title: 'Application submitted',
-                          text: 'Success',
-                          icon: 'success',
-                          showCancelButton: false,
-                          confirmButtonText: 'OK'
+                            title: 'Application submitted',
+                            text: 'Success',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: 'OK'
                         });
 
                         setTimeout(function() {
-                            window.location.href = '{{url('/applicant/jobs')}}'
+                            window.location.href = '{{ url('/applicant/jobs') }}'
                         }, 2000)
                     } else {
                         displayErrors(JSON.parse(response.errors));
@@ -220,12 +229,12 @@
                     displayErrors(result.errors)
                 }
             });
-		})
+        })
 
-		$(document).on('click', '.btn-withdraw', function() {
-			var formData = new FormData();
+        $(document).on('click', '.btn-withdraw', function() {
+            var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-        	formData.append('job_id', parseInt(id));
+            formData.append('job_id', parseInt(id));
 
             $.ajax({
                 url: '{{ route('applicant.withdrawJob') }}',
@@ -235,18 +244,18 @@
                 contentType: false,
                 success: function(response) {
                     if (response.code == "200") {
-                    	$('.modal').hide()
+                        $('.modal').hide()
 
                         Swal.fire({
-                          title: 'Application withdraw',
-                          text: 'Success',
-                          icon: 'success',
-                          showCancelButton: false,
-                          confirmButtonText: 'OK'
+                            title: 'Application withdraw',
+                            text: 'Success',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: 'OK'
                         });
 
                         setTimeout(function() {
-                            window.location.href = '{{url('/applicant/jobs')}}'
+                            window.location.href = '{{ url('/applicant/jobs') }}'
                         }, 2000)
                     } else {
                         displayErrors(JSON.parse(response.errors));
@@ -257,21 +266,14 @@
                     displayErrors(result.errors)
                 }
             });
-		})
-
-		$(document).on('click', '.btn-filter-all', function() {
-			location.href = "{{url('applicant/jobs/all')}}"
-
-			// if ($(this).text() == "View All Jobs") {
-			// 	$('.title-label').text('All Jobs Available')
-			// 	location.href = "{{url('applicant/jobs')}}"
-			// } else {
-			// 	$('.title-label').text('Available Jobs for Me')
-				
-			// }
         })
-		
-		var err_counter = 0;
+
+        $(document).on('click', '.btn-filter-all', function() {
+            location.href = "{{ url('applicant/jobs/all') }}"
+        })
+
+        var err_counter = 0;
+
         function displayErrors(errors) {
             $('.err-msg').text('');
             $('.err-msg').siblings('input, select').removeClass('error');
@@ -283,11 +285,13 @@
                 $(inputSelector).addClass('error');
             });
 
-            $("html, body").animate({ scrollTop: 0 }, "slow");
+            $("html, body").animate({
+                scrollTop: 0
+            }, "slow");
         }
 
         function checkApplicationStatus() {
 
         }
-	</script>
+    </script>
 @endsection

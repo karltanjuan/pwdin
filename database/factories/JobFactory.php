@@ -35,7 +35,7 @@ class JobFactory extends Factory
             'pwd_categories'          => $this->faker->randomElement(['Psychosocial', 'Mental', 'Chronic illness', 'Learning', 'Visual', 'Orthopedic', 'Communication']),
             'qualification'           => $this->faker->randomElement(['Grade School', 'High School', "Bachelor's Degree", 'Vocational', 'Post-Graduate', 'Others']),
             'work_setup'              => $this->faker->randomElement(['Onsite', 'Remote', 'Hybrid']),
-            'status'                  => 0, // 0 - Pending Payment, 1 - Active, 2 - Inactive, 3 - Closed
+            'status'                  => 1, // 0 - Pending Payment, 1 - Active, 2 - Inactive, 3 - Closed
         ];
     }
 
