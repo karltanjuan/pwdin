@@ -121,9 +121,9 @@ Route::group(['prefix' => 'employer'], function() {
         Route::post('updateJob', [EmployerJobController::class, 'updateJob'])->name('employer.updateJob');
         Route::post('deleteJob', [EmployerJobController::class, 'deleteJob'])->name('employer.deleteJob');
 
+        Route::get('subscription', [InvoiceController::class, 'getSubscription'])->name('employer.getSubscription');
         Route::post('createInvoice', [InvoiceController::class, 'createInvoice'])->name('employer.createInvoice');
-
-        Route::get('/transaction-message/{job_id}', [TransactionRedirectController::class, 'transactionMessage'])->name('transactionMessage');
+        Route::get('/transaction-message/{employer_id}', [TransactionRedirectController::class, 'transactionMessage'])->name('transactionMessage');
 
         Route::get('/application-status', [ApplicationStatusController::class, 'index'])->name('employer.applicationStatus');
 

@@ -19,6 +19,12 @@
                     <span class="links">Job Post</span>
                 </a>
             </li>
+            <li class="{{ 'employer/subscription' == request()->path() ? 'active' : '' }} navList">
+                <a href="{{url('/employer/subscription')}}">
+                <i class="fa-regular fa-credit-card fa-icon"></i>
+                    <span class="links">Subscription</span>
+                </a>
+            </li>
             <li class="{{ in_array(request()->path(), ['employer/application-status', 'change-password']) ? 'active' : '' }} navList settings-dropdown">
                 <a href="javascript:void(0)">
                     <i class="fa-solid fa-gear fa-icon"></i>

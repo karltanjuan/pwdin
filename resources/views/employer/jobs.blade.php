@@ -75,9 +75,9 @@
 						<button title="View Job" class="btn-view" id="btn-view" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-eye"></i>
 						</button>
-						<button title="Pay Job" class="btn-pay" id="btn-pay" data-id="{{ $job->id }}">
+						<!-- <button title="Pay Job" class="btn-pay" id="btn-pay" data-id="{{ $job->id }}">
 							<i class="fa-regular fa-credit-card"></i>
-						</button>
+						</button> -->
 					</td>
 				</tr>
 				@endforeach
