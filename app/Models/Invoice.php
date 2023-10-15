@@ -16,15 +16,20 @@ class Invoice extends Model
      */
     protected $fillable = [
         'reference_number',
-        'job_id',
-        'customer_id',
+        'employer_id',
         'product_name',
         'description',
         'quantity',
         'currency',
         'total_amount',
-        'payment_method'
+        'payment_method',
+        'subscription_expired_at',
     ];
+
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class);
+    }
 
     public function transaction()
     {

@@ -11,7 +11,7 @@ use Auth;
 use Validator;
 use Session;
 use Storage;
-use App\Models\Job;
+use App\Models\Employer;
 use App\Models\Application;
 use App\Models\ApplicationStatus;
 use App\Models\Invoice;
@@ -20,9 +20,22 @@ use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
+    public function getSubscription() {
+        $invoice = Invoice::where('employer_id', auth()->guard('employers')->user()->id)->pluck('subscription_expired_at')[0];
+
+        $subscription_expired_at = Carbon::parse($invoice);
+
+        $is_expired = 1;
+        if (Carbon::now()->isBefore($subscription_expired_at)) {
+            $is_expire = 0;
+        }
+
+        return view('employer.subscription', compact('is_expire'));
+    }
+
     public function createInvoice(Request $request) {
-        $job_id = (int) $request->job_id;
-        $job    = Job::where('id', $job_id)->first();
+        $employer_id = auth()->guard('employers')->user()->id;
+        $employer = Employer::where('id', $employer_id)->first();
 
         try {
             DB::beginTransaction();
@@ -30,15 +43,15 @@ class InvoiceController extends Controller
             $reference_no = self::generateReferenceNo();
 
             $invoice = Invoice::create([
-                'reference_number' => $reference_no,
-                'job_id'           => $job->id,
-                'customer_id'      => $job->employer_id,
-                'product_name'     => $job->job_title,
-                'description'      => strip_tags($job->job_description),
-                'quantity'         => 1,
-                'currency'         => 'PHP',
-                'total_amount'     => 200000, // 2000 pesos
-                'payment_method'   => ''
+                'reference_number'        => $reference_no,
+                'employer_id'             => $employer_id,
+                'product_name'            => 'pwdIn 1 Year Subscription',
+                'description'             => 'pwdIn 1 Year Subscription',
+                'quantity'                => 1,
+                'currency'                => 'PHP',
+                'total_amount'            => 400000, // 4000 pesos
+                'payment_method'          => '',
+                'subscription_expired_at' => Carbon::now()->addYear()->toDateTimeString()
             ]);
 
             $transaction = Transaction::create([
@@ -58,12 +71,12 @@ class InvoiceController extends Controller
             $description           = $invoice->description;
             $currency              = $invoice->currency;
             $amount                = $invoice->total_amount;
-            $line_item_description = "Job Post";
+            $line_item_description = "pwdIn 1 Year Subscription";
             $quantity              = 1;
             $line_item_name        = $invoice->product_name;
             $payment_methods_types = ["card", "gcash", "paymaya", "dob", "dob_ubp", "grab_pay"];
             $reference_number      = $invoice->reference_number;
-            $success_url           = env('APP_URL')."/employer/transaction-message/{$job->id}";
+            $success_url           = env('APP_URL')."/employer/transaction-message/{$employer_id}";
 
             $payload = [
                 "data" => [
@@ -116,14 +129,6 @@ class InvoiceController extends Controller
             DB::rollBack();
             return response()->json(['error' => 'Transaction failed: ' . $e->getMessage()], 500);
         }
-
-        // if ($job) {
-        //     return response()->json([
-        //         'message' => 'Job created successfully',
-        //         'code'    => '200'
-        //     ]);
-        // }
-
     }
 
     public static function generateReferenceNo() {

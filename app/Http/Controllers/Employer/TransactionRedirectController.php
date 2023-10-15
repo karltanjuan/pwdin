@@ -17,9 +17,9 @@ use Carbon\Carbon;
 
 class TransactionRedirectController extends Controller
 {
-    public function transactionMessage($job_id) {
-        $transaction = Transaction::with(['invoice' => function ($query) use ($job_id) {
-            $query->where('job_id', $job_id);
+    public function transactionMessage($employer_id) {
+        $transaction = Transaction::with(['invoice' => function ($query) use ($employer_id) {
+            $query->where('employer_id', $employer_id);
         }])->first();
 
         // Retrieve Paymongo checkout session
@@ -55,7 +55,7 @@ class TransactionRedirectController extends Controller
         try {
             $updated_at = date('Y-m-d H:i:s');
 
-            $invoice = Invoice::where('job_id', $job_id)->update([
+            $invoice = Invoice::where('employer_id', $employer_id)->update([
                 'payment_method' => $payment_method_used,
                 'updated_at'     => $updated_at
             ]);
@@ -66,13 +66,13 @@ class TransactionRedirectController extends Controller
                 'updated_at'          => $updated_at
             ]);
 
-            $job_status = $status == "Paid" ? 1 : 0;
+            // $job_status = $status == "Paid" ? 1 : 0;
     
-            $job = Job::find($job_id);
-            $job->update([
-                'status'     => $job_status,
-                'updated_at' => $updated_at
-            ]);
+            // $job = Job::find($job_id);
+            // $job->update([
+            //     'status'     => $job_status,
+            //     'updated_at' => $updated_at
+            // ]);
     
         } catch (Exception $e) {
             DB::rollBack();

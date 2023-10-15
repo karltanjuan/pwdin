@@ -14,14 +14,17 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('reference_number')->unique();
-            $table->integer('job_id')->nullable(false);
-            $table->integer('customer_id')->nullable(false);
+            $table->bigInteger('employer_id')->unsigned(); // customer_id
             $table->string('product_name')->nullable(false);
             $table->text('description')->nullable(false);
             $table->tinyInteger('quantity')->nullable(false);
             $table->string('currency')->nullable(false);
             $table->string('total_amount')->nullable(false);
             $table->string('payment_method')->nullablse(false);
+            $table->datetime('subscription_expired_at')->nullable(false);
+
+            $table->foreign('employer_id')->references('id')->on('employers');
+
             $table->timestamps();
         });
     }

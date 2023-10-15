@@ -45,7 +45,14 @@
                     <td>{{ $app->applicant->gender }}</td>
                     <td>{{ $app->applicant->city }} {{ $app->applicant->province }}</td>
                     <td>{{ date('m/d/y', strtotime($app->created_at))}}</td>
-                    <td>{{ $app->status }}</td>
+                    <td>
+                        <!-- gawa ni gail eyy-->
+                        @if($app->is_rejected === 1) 
+                            <span>Rejected</span>
+                        @else 
+                            {{ $app->status }}
+                        @endif
+                    </td>
                     <td>
                         <button class="btn-view" id="btn-view" data-id="{{ $app->applicant->id }}">
                             <i class="fa-regular fa-eye"></i>
@@ -263,6 +270,7 @@
                 <div class="content">
                     <p>Are you sure you want to continue?</p>
                     <br>
+                    <!-- gawa ni gail eyy; lahat ng may word na rejected aralin-->
                     <input type="text" class="rejected_reason cm-input" id="rejected_reason" placeholder="Enter reason"/>
                     <span class="err-rejected_reason err-msg"></span>
                 </div>
@@ -279,7 +287,7 @@
         var id = 0;
         $(document).ready(function() {
             getAppStatus()
-
+            //sa unang load ng rejection, nakahide 
             $('.rejected_reason').hide()
         })
 
@@ -424,6 +432,8 @@
 
         var global_status = "";
         var global_id = 0;
+        //gawa ni gail eyy 
+        // eto ung sa para sa dropdown
         $(document).on('change', '.status', function() {
             global_id = parseInt($(this).data('id'));
             global_status = $(this).val();
@@ -434,6 +444,7 @@
             }
 
             $('.err-rejected_reason').hide().text('')
+            // v are u sure you want to continue pop-up
             $('#modal-confirm-application').show()
         })
 
@@ -441,7 +452,7 @@
 
         $(document).on('click', '.btn-update', function() {
             $('.err-rejected_reason').hide().text('')
-                
+            //if walang nalagay na reason, error (use case)
             if (global_status == "Rejected") {
                 if ($('.rejected_reason').val() == "") {
                     $('.rejected_reason').addClass('error')
@@ -453,12 +464,12 @@
             }
 
 
-
             //data to be uploaded on ajax
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('id', global_id);
             formData.append('status', global_status);
+            //dito pinapasa ung data
             formData.append('rejected_reason', $('.rejected_reason').val());
             formData.append('is_rejected', is_rejected);
 

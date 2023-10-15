@@ -36,14 +36,14 @@ class AdminJobController extends Controller
 
         $closed_at = NULL;
 
-        if ($request->status == 0) {
+        if ($request->status == 2) {
             $closed_at = date('Y-m-d H:i:s');
             
         }
 
         $job = Job::where('id', (int)$request->id);
         $job->update([
-                'status' => $request->status, // 0 - inactive, 1 - active, 2 - take down
+                'status' => $request->status, // 0 - inactive, 1 - active, 2 - disabled
                 'closed_at' => $closed_at,
         ]);
 

@@ -22,7 +22,7 @@ class Application extends Model
         'applicant_id',
         'cover_letter',
         'status',
-        'is_rejected',
+        'is_rejected', //value is 1 and 0 in db
         'rejected_reason'
     ];
 
