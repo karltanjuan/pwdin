@@ -1,153 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{{asset('css/login.css')}}">
-    <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
-    <title>PWDIn Login</title>
-</head>
-<body>
-    <div class="grid-fluid">
-        <div class="row">
-            <div class="col-tab-12">
-                <!-- Navbar -->
-                <nav class="navbar">
-                    <a href="#">
-                        <img src="{{asset('img/logo.png')}}" class="logo"/>
-                    </a>
-                    <div class="navbar-buttons">
-                        <a href="home">Home</a>
-                        <a href="job_seeker">Job Seekers</a>
-                        <a href="employer">Employers</a>
-                        <a href="about_us">About Us</a>
-                    </div>
-                </nav>
-            </div>
-        </div>
-        <!--main container-->
-        <div class="row">
-            <div class="col-tab-7">
-                <!-- Form -->
-                <div class="form-container">
-                    <div class="login-container">
-                        <p class="welcome">Welcome To</p>
-                        <img src="{{asset('img/logo2.png')}}" class="logo2" alt="">
-                        <div class="form-group-inputs">
-                            <input type="text" id="email" class="email" placeholder="Enter email address"/>
-                           	<span class="err-email err-msg"></span>
-                            <input type="password" id="password" class="password" placeholder="Enter password"/>
-                            <span class="show eye-icon-position">
-                                <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i> 
-                            </span>
-                            <span class="err-password err-msg"></span>
-                            <br><br>
-                            <a href="{{url('applicant/forgot-password')}}" class="forgot-pass">Forgot Password</a>
-                            <br>
-                            <button type="button" class="btn-login">Log In Applicant</button>
-                        </div>
-                    </div>
-                    <!--Register container-->
-                    <div class="register-container">
-                        <img src="{{asset('img/or.png')}}" class="or" alt="or">
-                        <p class="welcome">Register As</p>
-                        <input type="button" class="register-candidate" value="Candidate">
-                        <input type="button" class="register-employer" value="Employer">
-                    </div>
-                </div>
-            </div>
-            <div class="col-tab-5">
-                <!--Image container-->
-                <div class="image-container">
-                    <!-- <img src="./asset/img/quote1.png" class="quotes" alt=""> -->
-                </div>
-            </div>
-        </div>
-    </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-
-        var state1 = false;
-        let hide1 = $("#show1");
-
-        function toggle1() {
-          if (state1) {
-            $("#password").attr("type", "password");
-            hide1.css("color", "#D0CECE");
-            hide1.removeClass("la-eye-slash").addClass("la-eye");
-            state1 = false;
-          } else {
-            $("#password").attr("type", "text");
-            hide1.css("color", "#1976D2");
-            hide1.removeClass("la-eye").addClass("la-eye-slash");
-            state1 = true;
-          }
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
         }
 
-    	var err_counter = 0;
-		function displayErrors(errors) {
-			$('.err-msg').text('');
-			$('.err-msg').siblings('input, select').removeClass('error');
+        .h-custom {
+            height: calc(100% - 73px);
+        }
 
-			// loop all the error messages from backend to display on ui
-			$.each(errors, function(field, messages) {
-				var errMsgSelector = '.err-' + field;
-				var inputSelector = '#' + field;
-				$(errMsgSelector).text(messages[0]);
-				$(inputSelector).addClass('error');
-			});
-		}
+        @media (max-width: 450px) {
+            .h-custom {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
 
-		
-    	$('.btn-login').on('click', function() {
-    		// prepare the data to be submitted on backend
-    		var formData = new FormData();
-			formData.append('_token', "{{ csrf_token() }}");
-			formData.append('email', $('#email').val());
-			formData.append('password', $('#password').val());
+<body>
 
-	        // Send an AJAX request to validate the data
-	        $.ajax({
-	            url: '{{ route('applicant.postLogin') }}',
-	            type: 'POST',
-	            data: formData,
-	            processData: false,
-	            contentType: false,
-	            success: function(response) {
-	                if (response.code == "200") {
-                        
-                        $('input').removeClass('error')
-                        $('.err-msg').hide()
+    <section class="vh-100">
+        <div class="container-fluid h-custom">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                        class="img-fluid" alt="Sample image">
+                    <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit nulla
+                        dicta ipsa ipsam delectus
+                        dolorum harum provident vel architecto, molestiae earum perferendis praesentium, consequuntur
+                        perspiciatis minima in assumenda qui odio!</p>
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form>
+                        <h1>Applicant Login</h1>
+                        <div class="divider d-flex align-items-center my-4">
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Email address</label>
+                            <input type="email" id="form3Example3" class="form-control form-control-lg"
+                                placeholder="Enter email address" />
+                        </div>
 
-	                	Swal.fire({
-						  title: 'Login Successful',
-						  text: 'Redirecting to dashboard...',
-						  icon: 'success',
-						  showCancelButton: false,
-						  confirmButtonText: 'OK'
-						})
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="form3Example4">Password</label>
+                            <input type="password" id="form3Example4" class="form-control form-control-lg"
+                                placeholder="Enter password" />
+                        </div>
 
-                        setTimeout(function() {
-                            window.location.href = '{{url('/applicant/jobs')}}'
-                        }, 1000)
-	                } else {
-	                    displayErrors(JSON.parse(response.errors));
-	                }
-	            },
-	            error: function(xhr, status, error) {
-	                // Handle the AJAX request error
-	                var result = JSON.parse(xhr.responseText)
-	                displayErrors(result.errors)
-	            }
-	        });
-    
-    	})
-    </script>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- Checkbox -->
+                            <div class="form-check mb-0">
+                                <input class="form-check-input me-2" type="checkbox" value=""
+                                    id="form2Example3" />
+                                <label class="form-check-label" for="form2Example3">
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="#!" class="text-body">Forgot password?</a>
+                        </div>
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="button" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+                                    class="link-danger">Register</a></p>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
+
 </html>
