@@ -1,7 +1,7 @@
 /********** Template CSS **********/
 :root {
-    --primary: #00B074;
-    --secondary: #2B9BFF;
+    --secondary: #00B074;
+    --primary: #2B9BFF;
     --light: #EFFDF5;
     --dark: #2B3940;
 }
@@ -390,4 +390,31 @@
     margin-right: 0;
     padding-right: 0;
     border-right: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.nav-pills .nav-item .active {
+    border-bottom: 2px solid #0d6efd;
+}
+
+.testimonial-carousel .owl-item.center .testimonial-item {
+    background: #0d6efd!important;
+}
+
+.pwdin-logo {
+    width: 50px;
+    height: auto;
+    /* transform: scaleX(-1); */
+}
+
+h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-family: "Inter",sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #2B3940;
 }
