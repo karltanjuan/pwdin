@@ -97,3 +97,18 @@ toastr.options = {
     showMethod: 'fadeIn',
     hideMethod: 'fadeOut'
 };
+
+
+var err_counter = 0;
+function displayErrors(errors) {
+    $('.err-msg').text('');
+    $('.err-msg').siblings('input, select').removeClass('error');
+
+    // loop all the error messages from backend to display on ui
+    $.each(errors, function(field, messages) {
+        var errMsgSelector = '.err-' + field;
+        var inputSelector = '#' + field;
+        $(errMsgSelector).text(messages[0]);
+        $(inputSelector).addClass('error');
+    });
+}

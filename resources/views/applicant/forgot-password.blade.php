@@ -1,102 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>PWDIn - Applicant Forgot Password</title>
 
-		<link rel="stylesheet" href="{{asset('css/admin.css')}}">
-	</head>
-	<body>
-		<div class="wrapper">
-			<div class="container">
-				<div class="col-left">
-					<div class="login-text">
-						<h2>Applicant</h2>
-						<img class="pwdin-logo" src="{{asset('img/logo.png')}}" alt="PWDIn Logo">
-					</div>
-				</div>
-				<div class="col-right">
-					<div class="login-form">
-						<h2>Forgot Password</h2>
-							<p>
-								<label>Email Address<span>*</span></label>
-								<input type="text" class="email" id="email" placeholder="Enter email address" required>
-								<span class="err-email err-msg"></span>
-							</p>
-							<p>
-								<input class="btn-send" type="button" value="Send" />
-							</p>
-					</div>
-				</div>
-			</div>
-			<div class="credit">
-				<p>PWDIn. All rights reserved &copy; {{date('Y')}}</p>
-			</div>
-		</div>
+<head>
+    <meta charset="utf-8">
+    <title>pwdIn</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Favicon -->
+    {{-- <link href="img/favicon.ico" rel="icon"> --}}
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"> --}}
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"> --}}
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+        integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Template Stylesheet -->
+    <link href="{{ asset('css/homepage.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid bg-white p-0">
+
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+                <img class="img-fluid w-10 rounded pwdin-logo" src="{{ asset('img/pwdin_logo.png') }}" alt="pwdIn Logo">
+                <span>&nbsp;</span>
+                <h1 class="m-0 text-primary">pwdIn</h1>
+            </a>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
+                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
+                </div>
+                <a href="{{ url('/choose-account') }}"
+                    class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </nav>
+        <!-- Navbar End -->
+
+        <section class="vh-100">
+            <div class="container-fluid h-custom">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-md-9 col-lg-6 col-xl-5">
+                        <img src="{{ url('/img/forgot_password.jpg') }}" class="img-fluid" alt="Sample image">
+                        <p class="text-justify"></p>
+                        </p>
+                    </div>
+                    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                        <form>
+                            <h1>Forgot Password?</h1>
+                            <div class="divider d-flex align-items-center my-4">
+                            </div>
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="form3Example3">Email address</label>
+                                <input type="email" id="email" class="form-control form-control-lg email"
+                                    placeholder="Enter email address" />
+                                <span class="err-email err-msg"></span>
+                            </div>
+
+                            <div class="text-center text-lg-start mt-4 pt-2">
+                                <button type="button" class="btn-send btn btn-primary btn-lg"
+                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Send</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}
+        </section>
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Template Javascript -->
+    <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
-    	var err_counter = 0;
-		function displayErrors(errors) {
-			$('.err-msg').text('');
-			$('.err-msg').siblings('input, select').removeClass('error');
+        $('.btn-send').on('click', function() {
+            // prepare the data to be submitted on backend
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('email', $('#email').val());
 
-			// loop all the error messages from backend to display on ui
-			$.each(errors, function(field, messages) {
-				var errMsgSelector = '.err-' + field;
-				var inputSelector = '#' + field;
-				$(errMsgSelector).text(messages[0]);
-				$(inputSelector).addClass('error');
-			});
-		}
+            // Send an AJAX request to validate the data
+            $.ajax({
+                url: '{{ route('applicant.postForgotPassword') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
 
-		
-    	$('.btn-send').on('click', function() {
-    		// prepare the data to be submitted on backend
-    		var formData = new FormData();
-			formData.append('_token', "{{ csrf_token() }}");
-			formData.append('email', $('#email').val());
-
-	        // Send an AJAX request to validate the data
-	        $.ajax({
-	            url: '{{ route('applicant.postForgotPassword') }}',
-	            type: 'POST',
-	            data: formData,
-	            processData: false,
-	            contentType: false,
-	            success: function(response) {
-	                if (response.code == "200") {
-                        
                         $('input').removeClass('error')
                         $('.err-msg').hide()
 
-	                	Swal.fire({
-						  title: 'Reset password sent to email',
-						  text: 'Check your email inbox',
-						  icon: 'info',
-						  showCancelButton: false,
-						  confirmButtonText: 'OK'
-						})
+                        toastr.info('Reset password sent to email', 'Check your email inbox')
 
-						setTimeout(function() {
-                            window.location.href = '{{url('/applicant/login')}}'
+                        setTimeout(function() {
+                            window.location.href = '{{ url('/applicant/login') }}'
                         }, 2000)
-	                } else {
-	                    displayErrors(JSON.parse(response.errors));
-	                }
-	            },
-	            error: function(xhr, status, error) {
-	                // Handle the AJAX request error
-	                var result = JSON.parse(xhr.responseText)
-	                displayErrors(result.errors)
-	            }
-	        });
-    
-    	})
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
+
+        })
     </script>
-		
-	</body>
+
+</body>
+
 </html>
