@@ -81,7 +81,7 @@
                     </div>
                     <a href="#" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="{{ url('/applicant/login') }}"
+                <a href="{{ url('/choose-account') }}"
                     class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i
                         class="fa fa-arrow-right ms-3"></i></a>
             </div>
