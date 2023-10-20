@@ -18,19 +18,23 @@
         rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"> --}}
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"> --}}
 
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+        integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Template Stylesheet -->
@@ -53,26 +57,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="#" class="dropdown-item">Job List</a>
-                            <a href="#" class="dropdown-item">Job Detail</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="category.html" class="dropdown-item">Job Category</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404</a>
-                        </div>
-                    </div>
-                    <a href="#" class="nav-item nav-link">Contact</a>
+                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
+                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="{{ url('/applicant/login') }}"
+                <a href="{{ url('/choose-account') }}"
                     class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i
                         class="fa fa-arrow-right ms-3"></i></a>
             </div>
@@ -83,14 +72,13 @@
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                            class="img-fluid" alt="Sample image">
+                        <img src="{{ url('/img/applicant_login.jpg') }}" class="img-fluid" alt="Sample image">
                         <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit nulla
                             dicta ipsa ipsam delectus
                             dolorum harum provident vel architecto, molestiae earum perferendis praesentium,
                             consequuntur
                             perspiciatis minima in assumenda qui odio!</p>
-                        <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
+                        </p>
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form>
@@ -100,40 +88,40 @@
                             <!-- Email input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="form3Example3">Email address</label>
-                                <input type="email" id="form3Example3" class="form-control form-control-lg"
+                                <input type="email" id="email" class="form-control form-control-lg email"
                                     placeholder="Enter email address" />
+                                <span class="err-email err-msg"></span>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-3">
                                 <label class="form-label" for="form3Example4">Password</label>
-                                <input type="password" id="form3Example4" class="form-control form-control-lg"
+                                <input type="password" id="password" class="form-control form-control-lg password"
                                     placeholder="Enter password" />
+                                <span class="show eye-icon-position">
+                                    <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i>
+                                </span>
+                                <span class="err-password err-msg"></span>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center">
-                                <!-- Checkbox -->
-                                <div class="form-check mb-0">
-                                    <input class="form-check-input me-2" type="checkbox" value=""
-                                        id="form2Example3" />
-                                    <label class="form-check-label" for="form2Example3">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <a href="#!" class="text-body">Forgot password?</a>
+                                <p class="small fw-bold pt-1 mb-0">Don't have an account? <a
+                                        href="{{ url('/applicant/register') }}" class="link-danger">Register</a></p>
+                                <a href="{{ url('applicant/forgot-password') }}" class="text-body">Forgot
+                                    password?</a>
                             </div>
 
                             <div class="text-center text-lg-start mt-4 pt-2">
-                                <button type="button" class="btn btn-primary btn-lg"
+                                <button type="button" class="btn-login btn btn-primary btn-lg"
                                     style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                                <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a
-                                        href="{{ url('/applicant/register') }}" class="link-danger">Register</a></p>
                             </div>
 
                         </form>
                     </div>
                 </div>
             </div>
+
+            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}
         </section>
 
         <!-- Back to Top -->
@@ -147,9 +135,86 @@
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>
+
+    <script>
+        var state1 = false;
+        let hide1 = $("#show1");
+
+        function toggle1() {
+            if (state1) {
+                $("#password").attr("type", "password");
+                hide1.css("color", "#D0CECE");
+                hide1.removeClass("la-eye-slash").addClass("la-eye");
+                state1 = false;
+            } else {
+                $("#password").attr("type", "text");
+                hide1.css("color", "#1976D2");
+                hide1.removeClass("la-eye").addClass("la-eye-slash");
+                state1 = true;
+            }
+        }
+
+        var err_counter = 0;
+
+        function displayErrors(errors) {
+            $('.err-msg').text('');
+            $('.err-msg').siblings('input, select').removeClass('error');
+
+            // loop all the error messages from backend to display on ui
+            $.each(errors, function(field, messages) {
+                var errMsgSelector = '.err-' + field;
+                var inputSelector = '#' + field;
+                $(errMsgSelector).text(messages[0]);
+                $(inputSelector).addClass('error');
+            });
+        }
+
+
+        $('.btn-login').on('click', function() {
+            // prepare the data to be submitted on backend
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('email', $('#email').val());
+            formData.append('password', $('#password').val());
+
+            // Send an AJAX request to validate the data
+            $.ajax({
+                url: '{{ route('applicant.postLogin') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+
+                        $('input').removeClass('error')
+                        $('.err-msg').hide()
+
+                        toastr.success('Redirecting to dashboard...', 'Login Successful');
+
+                        setTimeout(function() {
+                            window.location.href =
+                                '{{ url('/applicant/jobs') }}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
+
+        })
+    </script>
 
 </body>
 

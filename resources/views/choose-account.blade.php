@@ -53,9 +53,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <div class="nav-item dropdown">
+                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
+                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
+                    {{-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="#" class="dropdown-item">Job List</a>
@@ -69,10 +69,10 @@
                             <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                             <a href="404.html" class="dropdown-item">404</a>
                         </div>
-                    </div>
-                    <a href="#" class="nav-item nav-link">Contact</a>
+                    </div> --}}
+                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="{{ url('/applicant/login') }}"
+                <a href="{{ url('/choose-account') }}"
                     class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i
                         class="fa fa-arrow-right ms-3"></i></a>
             </div>
@@ -87,8 +87,12 @@
                         <p class="text-center">Unlock your future: Whether you're the dream employer or the ideal
                             candidate!"</p>
                     </div>
+
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <h1 class="text-center">Login As</h1>
+                        <h1 class="text-center">
+                            <span>Login As</span>
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        </h1>
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0">Or</p>
                         </div>

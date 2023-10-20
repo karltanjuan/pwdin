@@ -23,7 +23,7 @@ class AuthController extends Controller
     public function getRegister()
     {
         if (auth()->check()) {
-            return redirect('applicant/dashboard');
+            return redirect('applicant/jobs');
         }
 
         return view('applicant.register');
@@ -140,7 +140,7 @@ class AuthController extends Controller
     public function getLogin()
     {
         if (auth()->check()) {
-            return redirect('applicant/dashboard');
+            return redirect('applicant/jobs');
         }
 
         return view('applicant.login');
@@ -286,7 +286,7 @@ class AuthController extends Controller
     public function getResetPassword($token)
     {
         if (auth()->check()) {
-            return redirect('applicant/dashboard');
+            return redirect('applicant/jobs');
         }
 
         $token = User::where('token', $token)

@@ -436,3 +436,21 @@ h6 {
         height: 100%;
     }
 }
+
+.err-msg {
+    color: red;
+    font-size: 12px;
+    display: flex;
+}
+
+.error {
+    border: 1px solid red !important;
+}
+
+.eye-icon-position,
+.eye-icon-position2 {
+    display: block;
+    margin-top: -35px;
+    float: right;
+    margin-right: 10px;
+}
