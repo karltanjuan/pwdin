@@ -85,18 +85,18 @@
                         <div class="divider d-flex align-items-center my-4">
                         </div>
                         <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="email">Email address</label>
+                        <div class="form-outline mb-4 form-floating">
                             <input type="email" id="email" class="form-control form-control-lg email"
                                 placeholder="Enter email address" />
+                                <label class="form-label" for="email">Email address</label>
                             <span class="err-email err-msg"></span>
                         </div>
 
                         <!-- Password input -->
-                        <div class="form-outline mb-3">
-                            <label class="form-label" for="password">Password</label>
+                        <div class="form-outline mb-3 form-floating">
                             <input type="password" id="password" class="form-control form-control-lg password"
                                 placeholder="Enter password" />
+                            <label class="form-label" for="password">Password</label>
                             <span class="show eye-icon-position">
                                 <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
                             </span>

@@ -81,10 +81,10 @@
                         <div class="divider d-flex align-items-center my-4">
                         </div>
                         <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="form3Example3">Email address</label>
+                        <div class="form-outline mb-4 form-floating">
                             <input type="email" id="email" class="form-control form-control-lg email"
                                 placeholder="Enter email address" />
+                            <label class="form-label" for="email">Email address</label>
                             <span class="err-email err-msg"></span>
                         </div>
 

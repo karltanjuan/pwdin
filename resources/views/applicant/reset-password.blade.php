@@ -82,10 +82,10 @@
                         </div>
                         
                         <!-- New password input -->
-                        <div class="form-outline mb-3">
-                            <label class="form-label" for="new_password">New Password</label>
+                        <div class="form-outline mb-3 form-floating">
                             <input type="password" id="new_password" class="form-control form-control-lg new_password"
                                 placeholder="Enter new password" />
+                            <label class="form-label" for="new_password">New Password</label>
                             <span class="show eye-icon-position">
                                 <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i>
                             </span>
@@ -93,10 +93,10 @@
                         </div>
 
                         <!-- Confirm password input -->
-                        <div class="form-outline mb-3">
-                            <label class="form-label" for="password_confirmation">Confirm Password</label>
+                        <div class="form-outline mb-3 form-floating">
                             <input type="password" id="password_confirmation" class="form-control form-control-lg password_confirmation"
                                 placeholder="Enter password confirmation" />
+                            <label class="form-label" for="password_confirmation">Confirm Password</label>
                             <span class="show eye-icon-position">
                                 <i class="las la-eye fs-5" id="show2" onclick="toggle2()"></i>
                             </span>
