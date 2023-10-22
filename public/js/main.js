@@ -112,3 +112,53 @@ function displayErrors(errors) {
         $(inputSelector).addClass('error');
     });
 }
+
+var state1 = false;
+var state2 = false;
+var state3 = false;
+
+let hide1 = $("#show1");
+let hide2 = $("#show2");
+let hide3 = $("#show3");
+
+function toggle1() {
+  if (state1) {
+    $("#new_password").attr("type", "password");
+    hide1.css("color", "#D0CECE");
+    hide1.removeClass("la-eye-slash").addClass("la-eye");
+    state1 = false;
+  } else {
+    $("#new_password").attr("type", "text");
+    hide1.css("color", "#1976D2");
+    hide1.removeClass("la-eye").addClass("la-eye-slash");
+    state1 = true;
+  }
+}
+
+function toggle2() {
+  if (state2) {
+    $("#password_confirmation").attr("type", "password");
+    hide2.css("color", "#D0CECE");
+    hide2.removeClass("la-eye-slash").addClass("la-eye");
+    state2 = false;
+  } else {
+    $("#password_confirmation").attr("type", "text");
+    hide2.css("color", "#1976D2");
+    hide2.removeClass("la-eye").addClass("la-eye-slash");
+    state2 = true;
+  }
+}
+
+function toggle3() {
+    if (state3) {
+      $("#password").attr("type", "password");
+      hide3.css("color", "#D0CECE");
+      hide3.removeClass("la-eye-slash").addClass("la-eye");
+      state3 = false;
+    } else {
+      $("#password").attr("type", "text");
+      hide3.css("color", "#1976D2");
+      hide3.removeClass("la-eye").addClass("la-eye-slash");
+      state3 = true;
+    }
+  }

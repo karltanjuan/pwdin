@@ -87,7 +87,7 @@
                             </div>
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <label class="form-label" for="form3Example3">Email address</label>
+                                <label class="form-label" for="email">Email address</label>
                                 <input type="email" id="email" class="form-control form-control-lg email"
                                     placeholder="Enter email address" />
                                 <span class="err-email err-msg"></span>
@@ -95,11 +95,11 @@
 
                             <!-- Password input -->
                             <div class="form-outline mb-3">
-                                <label class="form-label" for="form3Example4">Password</label>
+                                <label class="form-label" for="password">Password</label>
                                 <input type="password" id="password" class="form-control form-control-lg password"
                                     placeholder="Enter password" />
                                 <span class="show eye-icon-position">
-                                    <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i>
+                                    <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
                                 </span>
                                 <span class="err-password err-msg"></span>
                             </div>
@@ -143,39 +143,6 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
-        var state1 = false;
-        let hide1 = $("#show1");
-
-        function toggle1() {
-            if (state1) {
-                $("#password").attr("type", "password");
-                hide1.css("color", "#D0CECE");
-                hide1.removeClass("la-eye-slash").addClass("la-eye");
-                state1 = false;
-            } else {
-                $("#password").attr("type", "text");
-                hide1.css("color", "#1976D2");
-                hide1.removeClass("la-eye").addClass("la-eye-slash");
-                state1 = true;
-            }
-        }
-
-        var err_counter = 0;
-
-        function displayErrors(errors) {
-            $('.err-msg').text('');
-            $('.err-msg').siblings('input, select').removeClass('error');
-
-            // loop all the error messages from backend to display on ui
-            $.each(errors, function(field, messages) {
-                var errMsgSelector = '.err-' + field;
-                var inputSelector = '#' + field;
-                $(errMsgSelector).text(messages[0]);
-                $(inputSelector).addClass('error');
-            });
-        }
-
-
         $('.btn-login').on('click', function() {
             // prepare the data to be submitted on backend
             var formData = new FormData();
