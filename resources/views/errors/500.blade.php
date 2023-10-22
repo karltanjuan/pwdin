@@ -72,14 +72,14 @@
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">
-                        <img src="{{ url('/img/token_expired.jpg') }}" class="img-fluid" alt="Token Expired">
+                        <img src="{{ url('/img/500.jpg') }}" class="img-fluid" alt="Token Expired">
                         <p class="text-justify"></p>
                         </p>
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <h1 class="text-danger">Token link is expired.</h1>
-                        <div class="divider d-flex align-items-center my-4">
-                        </div>
+                        <h1>500 Server Error</h1>
+                        <div class="divider d-flex align-items-center my-4"></div>
+                        <p>Sorry, something went wrong on the server.</p>
                         <div class="text-center text-lg-start mt-4 pt-2">
                             <a href="{{url('/')}}" class="btn-send btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Back to home</a>
