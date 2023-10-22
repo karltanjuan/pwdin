@@ -208,7 +208,7 @@ class AuthController extends Controller
     public function postForgotPassword(Request $request)
     {
         $validator = $this->validateForgotPassword($request);
-        $response = response()->json(['message' => 'Email address not found', 'code' => '422']);
+        $response = response()->json(['errors' => ['email' => ['Email address not found']]], 422);
 
         if ($validator->fails()) {
             return response()->json([
