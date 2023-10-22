@@ -81,42 +81,39 @@
                         </p>
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form>
-                            <h1>Applicant Login</h1>
-                            <div class="divider d-flex align-items-center my-4">
-                            </div>
-                            <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="email">Email address</label>
-                                <input type="email" id="email" class="form-control form-control-lg email"
-                                    placeholder="Enter email address" />
-                                <span class="err-email err-msg"></span>
-                            </div>
+                        <h1>Applicant Login</h1>
+                        <div class="divider d-flex align-items-center my-4">
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="email">Email address</label>
+                            <input type="email" id="email" class="form-control form-control-lg email"
+                                placeholder="Enter email address" />
+                            <span class="err-email err-msg"></span>
+                        </div>
 
-                            <!-- Password input -->
-                            <div class="form-outline mb-3">
-                                <label class="form-label" for="password">Password</label>
-                                <input type="password" id="password" class="form-control form-control-lg password"
-                                    placeholder="Enter password" />
-                                <span class="show eye-icon-position">
-                                    <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
-                                </span>
-                                <span class="err-password err-msg"></span>
-                            </div>
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input type="password" id="password" class="form-control form-control-lg password"
+                                placeholder="Enter password" />
+                            <span class="show eye-icon-position">
+                                <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
+                            </span>
+                            <span class="err-password err-msg"></span>
+                        </div>
 
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="small fw-bold pt-1 mb-0">Don't have an account? <a
-                                        href="{{ url('/applicant/register') }}" class="link-danger">Register</a></p>
-                                <a href="{{ url('applicant/forgot-password') }}" class="text-body">Forgot
-                                    password?</a>
-                            </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="small fw-bold pt-1 mb-0">Don't have an account? <a
+                                    href="{{ url('/applicant/register') }}" class="link-danger">Register</a></p>
+                            <a href="{{ url('applicant/forgot-password') }}" class="text-body">Forgot
+                                password?</a>
+                        </div>
 
-                            <div class="text-center text-lg-start mt-4 pt-2">
-                                <button type="button" class="btn-login btn btn-primary btn-lg"
-                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-                            </div>
-
-                        </form>
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="button" class="btn-login btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,7 +122,9 @@
         </section>
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </a>
     </div>
 
     <!-- JavaScript Libraries -->

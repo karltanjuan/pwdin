@@ -77,24 +77,21 @@
                         </p>
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form>
-                            <h1>Forgot Password?</h1>
-                            <div class="divider d-flex align-items-center my-4">
-                            </div>
-                            <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="form3Example3">Email address</label>
-                                <input type="email" id="email" class="form-control form-control-lg email"
-                                    placeholder="Enter email address" />
-                                <span class="err-email err-msg"></span>
-                            </div>
+                        <h1>Forgot Password?</h1>
+                        <div class="divider d-flex align-items-center my-4">
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example3">Email address</label>
+                            <input type="email" id="email" class="form-control form-control-lg email"
+                                placeholder="Enter email address" />
+                            <span class="err-email err-msg"></span>
+                        </div>
 
-                            <div class="text-center text-lg-start mt-4 pt-2">
-                                <button type="button" class="btn-send btn btn-primary btn-lg"
-                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Send</button>
-                            </div>
-
-                        </form>
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="button" class="btn-send btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Send</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,7 +100,9 @@
         </section>
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </a>
     </div>
 
     <!-- JavaScript Libraries -->

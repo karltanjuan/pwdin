@@ -33,6 +33,10 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/homepage.css') }}" rel="stylesheet">
 </head>
@@ -91,7 +95,6 @@
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <h1 class="text-center">
                             <span>Login As</span>
-                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
                         </h1>
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0">Or</p>
@@ -112,7 +115,9 @@
         </section>
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -122,6 +127,9 @@
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
     <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>

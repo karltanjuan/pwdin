@@ -77,39 +77,36 @@
                         </p>
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <form>
-                            <h1>Reset Password</h1>
-                            <div class="divider d-flex align-items-center my-4">
-                            </div>
-                            
-                            <!-- New password input -->
-                            <div class="form-outline mb-3">
-                                <label class="form-label" for="new_password">New Password</label>
-                                <input type="password" id="new_password" class="form-control form-control-lg new_password"
-                                    placeholder="Enter new password" />
-                                <span class="show eye-icon-position">
-                                    <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i>
-                                </span>
-                                <span class="err-new_password err-msg"></span>
-                            </div>
+                        <h1>Reset Password</h1>
+                        <div class="divider d-flex align-items-center my-4">
+                        </div>
+                        
+                        <!-- New password input -->
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="new_password">New Password</label>
+                            <input type="password" id="new_password" class="form-control form-control-lg new_password"
+                                placeholder="Enter new password" />
+                            <span class="show eye-icon-position">
+                                <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i>
+                            </span>
+                            <span class="err-new_password err-msg"></span>
+                        </div>
 
-                            <!-- Confirm password input -->
-                            <div class="form-outline mb-3">
-                                <label class="form-label" for="password_confirmation">Confirm Password</label>
-                                <input type="password" id="password_confirmation" class="form-control form-control-lg password_confirmation"
-                                    placeholder="Enter password confirmation" />
-                                <span class="show eye-icon-position">
-                                    <i class="las la-eye fs-5" id="show2" onclick="toggle2()"></i>
-                                </span>
-                                <span class="err-password_confirmation err-msg"></span>
-                            </div>
+                        <!-- Confirm password input -->
+                        <div class="form-outline mb-3">
+                            <label class="form-label" for="password_confirmation">Confirm Password</label>
+                            <input type="password" id="password_confirmation" class="form-control form-control-lg password_confirmation"
+                                placeholder="Enter password confirmation" />
+                            <span class="show eye-icon-position">
+                                <i class="las la-eye fs-5" id="show2" onclick="toggle2()"></i>
+                            </span>
+                            <span class="err-password_confirmation err-msg"></span>
+                        </div>
 
-                            <div class="text-center text-lg-start mt-4 pt-2">
-                                <button type="button" class="btn-reset btn btn-primary btn-lg"
-                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Reset</button>
-                            </div>
-
-                        </form>
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="button" class="btn-reset btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Reset</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,7 +115,9 @@
         </section>
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </a>
     </div>
 
     <!-- JavaScript Libraries -->
