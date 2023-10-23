@@ -325,7 +325,7 @@
 
                         <div class="text-center text-lg-start mt-4 pt-2 mb-5">
                             <button type="button" class="btn-register btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;" tabindex="22">Register</button>
                         </div>
                     </div>
                     <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>

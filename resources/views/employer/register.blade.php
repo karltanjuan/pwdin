@@ -97,7 +97,7 @@
                                 <!-- Usename input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="username" class="form-control form-control-lg username"
-                                        placeholder="Enter username" tab-index="1" />
+                                        placeholder="Enter username" tabindex="1" />
                                     <label class="form-label" for="username">Username</label>
                                     <span class="err-username err-msg"></span>
                                 </div>
@@ -105,7 +105,7 @@
                                 <!-- Password input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="password" id="password" class="form-control form-control-lg password"
-                                        placeholder="Enter password" />
+                                        placeholder="Enter password" tabindex="4"/>
                                     <label class="form-label" for="password">Password</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
@@ -117,24 +117,24 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="company_name"
                                         class="form-control form-control-lg company_name"
-                                        placeholder="Enter company name" tab-index="1" />
+                                        placeholder="Enter company name" tabindex="7" />
                                     <label class="form-label" for="company_name">Compay Name</label>
                                     <span class="err-company_name err-msg"></span>
                                 </div>
 
                                 <!-- Zip code input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="zip_code"
-                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" />
+                                    <input type="text" id="zip_code" class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="10"/>
                                     <label class="form-label" for="zip_code">Zip Code</label>
                                     <span class="err-zip_code err-msg"></span>
                                 </div>
                             </div>
+                            
                             <div class="col-md-4">
                                 <!-- Email input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="email" id="email" class="form-control form-control-lg email"
-                                        placeholder="Enter email address" tab-index="2" />
+                                        placeholder="Enter email address" tabindex="2"/>
                                     <label class="form-label" for="email">Email address</label>
                                     <span class="err-email err-msg"></span>
                                 </div>
@@ -143,7 +143,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="password" id="password_confirmation"
                                         class="form-control form-control-lg password_confirmation"
-                                        placeholder="Enter password confirmation" />
+                                        placeholder="Enter password confirmation" tabindex="5"/>
                                     <label class="form-label" for="password_confirmation">Confirm Password</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
@@ -153,7 +153,7 @@
 
                                 <!-- Province -->
                                 <div class="form-floating mb-4">
-                                    <select class="province form-select" id="province"></select>
+                                    <select class="province form-select" id="province" tabindex="8"></select>
                                     <span class="err-province err-msg"></span>
                                     <label for="province">Province</label>
                                 </div>
@@ -161,7 +161,7 @@
                                 <!-- Address input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="address" class="form-control form-control-lg address"
-                                        placeholder="Enter address" />
+                                        placeholder="Enter address" tabindex="11"/>
                                     <label class="form-label" for="address">Address</label>
                                     <span class="err-address err-msg"></span>
                                 </div>
@@ -173,7 +173,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="number" id="mobile_no"
                                         class="form-control form-control-lg mobile_no"
-                                        placeholder="Enter mobile number" tab-index="3" />
+                                        placeholder="Enter mobile number" tabindex="3" />
                                     <label class="form-label" for="mobile_no">Mobile Number</label>
                                     <span class="err-mobile_no err-msg"></span>
                                 </div>
@@ -182,15 +182,14 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="contact_person"
                                         class="form-control form-control-lg contact_person"
-                                        placeholder="Enter last name" />
+                                        placeholder="Enter last name" tabindex="6"/>
                                     <label class="form-label" for="contact_person">Contact Person</label>
                                     <span class="err-last_name err-msg"></span>
                                 </div>
 
-
                                 <!-- City -->
                                 <div class="form-floating mb-4">
-                                    <select class="city form-select" id="city"></select>
+                                    <select class="city form-select" id="city" tabindex="9"></select>
                                     <span class="err-city err-msg"></span>
                                     <label for="city">City</label>
                                 </div>
@@ -205,7 +204,7 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <input type="file" class="form-control form-control-lg company_logo"
-                                        id="company_logo" accept=".png,.jpeg,.jpg">
+                                        id="company_logo" accept=".png,.jpeg,.jpg" tabindex="12" />
                                     <label class="input-group-text" for="company_logo">Upload Company Logo</label>
                                 </div>
                                 <span class="err-company_logo err-msg mb-4"></span>
@@ -213,7 +212,7 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <input type="file" class="form-control form-control-lg business_permit"
-                                        id="business_permit" accept=".png,.jpeg,.jpg">
+                                        id="business_permit" accept=".png,.jpeg,.jpg" tabindex="13" />
                                     <label class="input-group-text" for="business_permit">Upload Business
                                         Permit</label>
                                 </div>
@@ -222,7 +221,7 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <input type="file" class="form-control form-control-lg bir_certificate"
-                                        id="bir_certificate" accept=".png,.jpeg,.jpg">
+                                        id="bir_certificate" accept=".png,.jpeg,.jpg" tabindex="14" />
                                     <label class="input-group-text" for="bir_certificate">Upload BIR
                                         Certificate</label>
                                 </div>
@@ -231,7 +230,7 @@
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input accept-agreement" id="accept-agreement" type="checkbox">
+                            <input class="form-check-input accept-agreement" id="accept-agreement" type="checkbox" tabindex="15" />
                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal"
                                 style="cursor:pointer;">
                                 <label class="form-check-label" for="accept-agreement">I certify that I have read and
@@ -242,12 +241,12 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                             <p class="small fw-bold pt-1 mb-0">Already have an account? <a
-                                    href="{{ url('/applicant/login') }}" class="link-danger">Login</a></p>
+                                    href="{{ url('/applicant/login') }}" class="link-danger" tabindex="16">Login</a></p>
                         </div>
 
                         <div class="text-center text-lg-start mt-4 pt-2 mb-5">
                             <button type="button" class="btn-register btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;" tabindex="17">Register</button>
                         </div>
                     </div>
                     <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
