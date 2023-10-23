@@ -107,7 +107,7 @@
                                 <!-- Usename input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="username" class="form-control form-control-lg username"
-                                        placeholder="Enter username" tab-index="1" />
+                                        placeholder="Enter username" tabindex="1" />
                                     <label class="form-label" for="username">Username</label>
                                     <span class="err-username err-msg"></span>
                                 </div>
@@ -115,7 +115,7 @@
                                 <!-- Password input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="password" id="password" class="form-control form-control-lg password"
-                                        placeholder="Enter password" />
+                                        placeholder="Enter password" tabindex="4"/>
                                     <label class="form-label" for="password">Password</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
@@ -127,7 +127,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="first_name"
                                         class="form-control form-control-lg first_name"
-                                        placeholder="Enter first name" />
+                                        placeholder="Enter first name" tabindex="7"/>
                                     <label class="form-label" for="first_name">First Name</label>
                                     <span class="err-first_name err-msg"></span>
                                 </div>
@@ -135,14 +135,14 @@
                                 <!-- Prefix input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="prefix" class="form-control form-control-lg prefix"
-                                        placeholder="Enter prefix" />
+                                        placeholder="Enter prefix" tabindex="10"/>
                                     <label class="form-label" for="prefix">Prefix</label>
                                     <span class="err-prefix err-msg"></span>
                                 </div>
 
                                 <!-- Province -->
                                 <div class="form-floating mb-4">
-                                    <select class="province form-select" id="province"></select>
+                                    <select class="province form-select" id="province" tabindex="13"></select>
                                     <span class="err-province err-msg"></span>
                                     <label for="province">Province</label>
                                 </div>
@@ -150,7 +150,7 @@
                                 <!-- Zip code input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="zip_code"
-                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" />
+                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="16"/>
                                     <label class="form-label" for="zip_code">Zip Code</label>
                                     <span class="err-zip_code err-msg"></span>
                                 </div>
@@ -159,7 +159,7 @@
                                 <!-- Email input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="email" id="email" class="form-control form-control-lg email"
-                                        placeholder="Enter email address" tab-index="2" />
+                                        placeholder="Enter email address" tabindex="2" />
                                     <label class="form-label" for="email">Email address</label>
                                     <span class="err-email err-msg"></span>
                                 </div>
@@ -168,7 +168,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="password" id="password_confirmation"
                                         class="form-control form-control-lg password_confirmation"
-                                        placeholder="Enter password confirmation" />
+                                        placeholder="Enter password confirmation" tabindex="5"/>
                                     <label class="form-label" for="password_confirmation">Confirm Password</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
@@ -180,14 +180,14 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="middle_name"
                                         class="form-control form-control-lg middle_name"
-                                        placeholder="Enter middle name" />
+                                        placeholder="Enter middle name" tabindex="8"/>
                                     <label class="form-label" for="middle_name">Middle Name</label>
                                     <span class="err-middle_name err-msg"></span>
                                 </div>
 
                                 <!-- Gender -->
                                 <div class="form-floating mb-4">
-                                    <select class="gender form-select" id="gender">
+                                    <select class="gender form-select" id="gender" tabindex="11">
                                         {{-- <option disabled selected>Select gender</option> --}}
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -199,14 +199,14 @@
 
                                 <!-- City -->
                                 <div class="form-floating mb-4">
-                                    <select class="city form-select" id="city"></select>
+                                    <select class="city form-select" id="city"tabindex="14"></select>
                                     <span class="err-city err-msg"></span>
                                     <label for="city">City</label>
                                 </div>
 
                                 <!-- PWD Categories -->
                                 <div class="form-outline mb-4 form-floating">
-                                    <select class="pwd_categories form-select form-control form-control-lg"
+                                    <select class="pwd_categories form-select form-control form-control-lg" tabindex="17"
                                         id="pwd_categories" name="pwd_categories[]" multiple="multiple">
                                         <option value="Psychosocial">Psychosocial</option>
                                         <option value="Mental">Mental</option>
@@ -228,7 +228,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="number" id="mobile_no"
                                         class="form-control form-control-lg mobile_no"
-                                        placeholder="Enter mobile number" tab-index="3" />
+                                        placeholder="Enter mobile number" tabindex="3" />
                                     <label class="form-label" for="mobile_no">Mobile Number</label>
                                     <span class="err-mobile_no err-msg"></span>
                                 </div>
@@ -237,7 +237,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="date" id="birthdate"
                                         class="form-control form-control-lg birthdate"
-                                        placeholder="Enter birthdate" />
+                                        placeholder="Enter birthdate" tabindex="6"/>
                                     <label class="form-label" for="birthdate">Date of Birth</label>
                                     <span class="err-birthdate err-msg"></span>
                                 </div>
@@ -246,14 +246,14 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="last_name"
                                         class="form-control form-control-lg last_name"
-                                        placeholder="Enter last name" />
+                                        placeholder="Enter last name" tabindex="9"/>
                                     <label class="form-label" for="last_name">Last Name</label>
                                     <span class="err-last_name err-msg"></span>
                                 </div>
 
                                 <!-- Education Level -->
                                 <div class="form-floating mb-4">
-                                    <select class="form-select education_level" id="education_level">
+                                    <select class="form-select education_level" id="education_level" tabindex="12">
                                         <option value="None">None</option>
                                         <option value="Elementary">Elementary</option>
                                         <option value="High School">High School</option>
@@ -270,7 +270,7 @@
                                 <!-- Address input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="address" class="form-control form-control-lg address"
-                                        placeholder="Enter address" />
+                                        placeholder="Enter address" tabindex="15"/>
                                     <label class="form-label" for="address">Address</label>
                                     <span class="err-address err-msg"></span>
                                 </div>
@@ -284,7 +284,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="input-group">
-                                    <input type="file" class="form-control form-control-lg resume" id="resume"
+                                    <input type="file" class="form-control form-control-lg resume" id="resume" tabindex="18"
                                         accept=".pdf">
                                     <label class="input-group-text" for="resume">Upload CV</label>
                                 </div>
@@ -293,14 +293,14 @@
                             <div class="col-md-12">
                                 <div class="input-group ">
                                     <input type="file" class="form-control form-control-lg pwd_card"
-                                        id="pwd_card" accept=".png,.jpeg,.jpg">
+                                        id="pwd_card" accept=".png,.jpeg,.jpg" tabindex="19">
                                     <label class="input-group-text" for="pwd_card">Upload PWD ID card</label>
                                 </div>
                                 <span class="err-pwd_card err-msg mb-4"></span>
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group">
-                                    <input type="file" class="form-control form-control-lg profile_photo"
+                                    <input type="file" class="form-control form-control-lg profile_photo" tabindex="20"
                                         id="profile_photo" accept=".png,.jpeg,.jpg">
                                     <label class="input-group-text" for="profile_photo">Upload Profile Picture</label>
                                 </div>
@@ -310,7 +310,7 @@
 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input accept-agreement" id="accept-agreement" type="checkbox">
-                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal"
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal" tabindex="21"
                                 style="cursor:pointer;">
                                 <label class="form-check-label" for="accept-agreement">I certify that I have read and
                                     accept to PWDIn’s Terms of Use and Privacy Statement </label>
