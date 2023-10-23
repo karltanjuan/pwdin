@@ -1,5 +1,0 @@
-Add additional column is_rejected, and rejected_reason (true/false) to application table
-
-If employer rejected the application
-    then stop tracking from the applicant side
-    then show the rejected reason
