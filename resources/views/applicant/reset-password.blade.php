@@ -80,7 +80,7 @@
                         <h1>Reset Password</h1>
                         <div class="divider d-flex align-items-center my-4">
                         </div>
-                        
+
                         <!-- New password input -->
                         <div class="form-outline mb-3 form-floating">
                             <input type="password" id="new_password" class="form-control form-control-lg new_password"
@@ -94,7 +94,8 @@
 
                         <!-- Confirm password input -->
                         <div class="form-outline mb-3 form-floating">
-                            <input type="password" id="password_confirmation" class="form-control form-control-lg password_confirmation"
+                            <input type="password" id="password_confirmation"
+                                class="form-control form-control-lg password_confirmation"
                                 placeholder="Enter password confirmation" />
                             <label class="form-label" for="password_confirmation">Confirm Password</label>
                             <span class="show eye-icon-position">
@@ -111,7 +112,7 @@
                 </div>
             </div>
 
-            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}
+            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
         </section>
 
         <!-- Back to Top -->
@@ -135,44 +136,44 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
-    	$('.btn-reset').on('click', function() {
-    		// prepare the data to be submitted on backend
-    		var formData = new FormData();
-			formData.append('_token', "{{ csrf_token() }}");
-			formData.append('reset_token', '{{ app('request')->segment(3) }}');
-			formData.append('new_password', $('#new_password').val());
-			formData.append('password_confirmation', $('#password_confirmation').val());
+        $('.btn-reset').on('click', function() {
+            // prepare the data to be submitted on backend
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('reset_token', '{{ app('request')->segment(3) }}');
+            formData.append('new_password', $('#new_password').val());
+            formData.append('password_confirmation', $('#password_confirmation').val());
 
-	        // Send an AJAX request to validate the data
-	        $.ajax({
-	            url: '{{ route('applicant.postResetPassword') }}',
-	            type: 'POST',
-	            data: formData,
-	            processData: false,
-	            contentType: false,
-	            success: function(response) {
-	                if (response.code == "200") {
-                        
+            // Send an AJAX request to validate the data
+            $.ajax({
+                url: '{{ route('applicant.postResetPassword') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+
                         $('input').removeClass('error')
                         $('.err-msg').hide()
 
                         toastr.success('Password reset successfully', 'Redirecting to login...')
 
-						setTimeout(function() {
-                            window.location.href = '{{url('/applicant/login')}}'
+                        setTimeout(function() {
+                            window.location.href = '{{ url('/applicant/login') }}'
                         }, 2000)
-	                } else {
-	                    displayErrors(JSON.parse(response.errors));
-	                }
-	            },
-	            error: function(xhr, status, error) {
-	                // Handle the AJAX request error
-	                var result = JSON.parse(xhr.responseText)
-	                displayErrors(result.errors)
-	            }
-	        });
-    
-    	})
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
+
+        })
     </script>
 
 </body>

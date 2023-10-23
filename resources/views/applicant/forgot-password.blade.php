@@ -96,7 +96,7 @@
                 </div>
             </div>
 
-            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}
+            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
         </section>
 
         <!-- Back to Top -->

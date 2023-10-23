@@ -43,11 +43,11 @@
 
     <style>
         .eye-icon-position,
-		.eye-icon-position2 {
-		    /* position: absolute; */
-		    /* margin-left: 270px; */
-		    margin-top: -40px;
-		}
+        .eye-icon-position2 {
+            /* position: absolute; */
+            /* margin-left: 270px; */
+            margin-top: -40px;
+        }
 
         .select2-container--default .select2-selection--multiple {
             padding-bottom: 32px;
@@ -56,7 +56,6 @@
         a {
             cursor: pointer;
         }
-        
     </style>
 </head>
 
@@ -108,8 +107,8 @@
                                 <!-- Usename input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="username" class="form-control form-control-lg username"
-                                        placeholder="Enter username" tab-index="1"/>
-                                        <label class="form-label" for="username">Username</label>
+                                        placeholder="Enter username" tab-index="1" />
+                                    <label class="form-label" for="username">Username</label>
                                     <span class="err-username err-msg"></span>
                                 </div>
 
@@ -126,9 +125,10 @@
 
                                 <!-- First name input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="first_name" class="form-control form-control-lg first_name"
+                                    <input type="text" id="first_name"
+                                        class="form-control form-control-lg first_name"
                                         placeholder="Enter first name" />
-                                        <label class="form-label" for="first_name">First Name</label>
+                                    <label class="form-label" for="first_name">First Name</label>
                                     <span class="err-first_name err-msg"></span>
                                 </div>
 
@@ -136,7 +136,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="prefix" class="form-control form-control-lg prefix"
                                         placeholder="Enter prefix" />
-                                        <label class="form-label" for="prefix">Prefix</label>
+                                    <label class="form-label" for="prefix">Prefix</label>
                                     <span class="err-prefix err-msg"></span>
                                 </div>
 
@@ -149,8 +149,8 @@
 
                                 <!-- Zip code input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="zip_code" class="form-control form-control-lg zip_code"
-                                        placeholder="Enter zip code" />
+                                    <input type="text" id="zip_code"
+                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" />
                                     <label class="form-label" for="zip_code">Zip Code</label>
                                     <span class="err-zip_code err-msg"></span>
                                 </div>
@@ -159,14 +159,15 @@
                                 <!-- Email input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="email" id="email" class="form-control form-control-lg email"
-                                        placeholder="Enter email address"  tab-index="2"/>
-                                        <label class="form-label" for="email">Email address</label>
+                                        placeholder="Enter email address" tab-index="2" />
+                                    <label class="form-label" for="email">Email address</label>
                                     <span class="err-email err-msg"></span>
                                 </div>
 
                                 <!-- Confirm password input -->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="password" id="password_confirmation" class="form-control form-control-lg password_confirmation"
+                                    <input type="password" id="password_confirmation"
+                                        class="form-control form-control-lg password_confirmation"
                                         placeholder="Enter password confirmation" />
                                     <label class="form-label" for="password_confirmation">Confirm Password</label>
                                     <span class="show eye-icon-position">
@@ -177,7 +178,8 @@
 
                                 <!-- Middle name input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="middle_name" class="form-control form-control-lg middle_name"
+                                    <input type="text" id="middle_name"
+                                        class="form-control form-control-lg middle_name"
                                         placeholder="Enter middle name" />
                                     <label class="form-label" for="middle_name">Middle Name</label>
                                     <span class="err-middle_name err-msg"></span>
@@ -204,7 +206,8 @@
 
                                 <!-- PWD Categories -->
                                 <div class="form-outline mb-4 form-floating">
-                                    <select class="pwd_categories form-select form-control form-control-lg" id="pwd_categories" name="pwd_categories[]" multiple="multiple">
+                                    <select class="pwd_categories form-select form-control form-control-lg"
+                                        id="pwd_categories" name="pwd_categories[]" multiple="multiple">
                                         <option value="Psychosocial">Psychosocial</option>
                                         <option value="Mental">Mental</option>
                                         <option value="Chronic illness">Chronic illness</option>
@@ -217,31 +220,34 @@
                                     <label for="pwd_categories">PWD Categories</label>
                                 </div>
 
-                                
+
                             </div>
 
                             <div class="col-md-4">
                                 <!-- Mobile number input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="number" id="mobile_no" class="form-control form-control-lg mobile_no"
-                                        placeholder="Enter mobile number"  tab-index="3"/>
-                                        <label class="form-label" for="mobile_no">Mobile Number</label>
+                                    <input type="number" id="mobile_no"
+                                        class="form-control form-control-lg mobile_no"
+                                        placeholder="Enter mobile number" tab-index="3" />
+                                    <label class="form-label" for="mobile_no">Mobile Number</label>
                                     <span class="err-mobile_no err-msg"></span>
                                 </div>
 
                                 <!-- Birthdate input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="date" id="birthdate" class="form-control form-control-lg birthdate"
+                                    <input type="date" id="birthdate"
+                                        class="form-control form-control-lg birthdate"
                                         placeholder="Enter birthdate" />
-                                        <label class="form-label" for="birthdate">Date of Birth</label>
+                                    <label class="form-label" for="birthdate">Date of Birth</label>
                                     <span class="err-birthdate err-msg"></span>
                                 </div>
 
                                 <!-- Last name input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="last_name" class="form-control form-control-lg last_name"
+                                    <input type="text" id="last_name"
+                                        class="form-control form-control-lg last_name"
                                         placeholder="Enter last name" />
-                                        <label class="form-label" for="last_name">Last Name</label>
+                                    <label class="form-label" for="last_name">Last Name</label>
                                     <span class="err-last_name err-msg"></span>
                                 </div>
 
@@ -256,9 +262,9 @@
                                         <option value="Bachelor's degree">Bachelor's Degree</option>
                                         <option value="Master's degree">Master's Degree</option>
                                         <option value="Doctorate">Doctorate</option>
-                                      </select>
-                                      <span class="err-education_level err-msg"></span>
-                                      <label for="education_level">Education Level</label>
+                                    </select>
+                                    <span class="err-education_level err-msg"></span>
+                                    <label for="education_level">Education Level</label>
                                 </div>
 
                                 <!-- Address input-->
@@ -276,23 +282,26 @@
                         <h3>Identity Details</h3>
 
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="input-group mb-4">
-                                    <input type="file" class="form-control form-control-lg resume" id="resume" accept=".pdf"> 
+                                    <input type="file" class="form-control form-control-lg resume" id="resume"
+                                        accept=".pdf">
                                     <label class="input-group-text" for="resume">Upload CV</label>
                                     <span class="err-resume err-msg"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="input-group mb-4">
-                                    <input type="file" class="form-control form-control-lg pwd_card" id="pwd_card" accept=".png,.jpeg,.jpg"> 
+                                    <input type="file" class="form-control form-control-lg pwd_card"
+                                        id="pwd_card" accept=".png,.jpeg,.jpg">
                                     <label class="input-group-text" for="pwd_card">Upload PWD ID card</label>
                                     <span class="err-pwd_card err-msg"></span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <div class="input-group mb-4">
-                                    <input type="file" class="form-control form-control-lg profile_photo" id="profile_photo" accept=".png,.jpeg,.jpg">
+                                    <input type="file" class="form-control form-control-lg profile_photo"
+                                        id="profile_photo" accept=".png,.jpeg,.jpg">
                                     <label class="input-group-text" for="profile_photo">Profile Picture</label>
                                     <span class="err-profile_photo err-msg"></span>
                                 </div>
@@ -301,8 +310,10 @@
 
                         <div class="form-check form-check-inline">
                             <input class="form-check-input accept-agreement" id="accept-agreement" type="checkbox">
-                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal" style="cursor:pointer;">
-                                <label class="form-check-label" for="accept-agreement">I certify that I have read and accept to PWDIn’s Terms of Use and Privacy Statement </label>
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal"
+                                style="cursor:pointer;">
+                                <label class="form-check-label" for="accept-agreement">I certify that I have read and
+                                    accept to PWDIn’s Terms of Use and Privacy Statement </label>
                             </a>
                             <p class="err-agreement text-danger"></p>
                         </div>
@@ -312,40 +323,45 @@
                                     href="{{ url('/applicant/login') }}" class="link-danger">Login</a></p>
                         </div>
 
-                        <div class="text-center text-lg-start mt-4 pt-2">
+                        <div class="text-center text-lg-start mt-4 pt-2 mb-5">
                             <button type="button" class="btn-register btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}
         </section>
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
             <i class="fa fa-angle-up" aria-hidden="true"></i>
         </a>
+
+        <div class="fixed-bottom">
+            <p class="text-center mt-5">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
+        </div>
     </div>
 
     {{-- Modals --}}
 
-    <div class="modal fade" id="agreement-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agreementModal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Terms and Conditions</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="agreement-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="agreementModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Terms and Conditions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi vel praesentium expedita quas
+                        qui iste sit, iusto hic? Odio, atque possimus quae sunt nostrum, molestiae sed quod maiores
+                        impedit ipsa!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-agree btn-primary">Understood</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi vel praesentium expedita quas qui iste sit, iusto hic? Odio, atque possimus quae sunt nostrum, molestiae sed quod maiores impedit ipsa!</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-agree btn-primary">Understood</button>
-        </div>
-        </div>
-    </div>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -364,58 +380,59 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
-    	$(document).ready(function() {
-    		getProvinces()
-    		$('.pwd_categories').select2();
-    	})
+        $(document).ready(function() {
+            getProvinces()
+            $('.pwd_categories').select2();
+        })
 
-    	function getProvinces() {
-			fetch('{{asset('/json/provinces.json')}}')
-			.then(response => response.json()) // convert string to json
-			.then(data => { // data is the parameter
-				// var html = "<option selected disabled>Please select</option>";
-				var html = "";
-				var selected = "";
-				$.each(data, function(index, item) {
-					var selected = (index === 0) ? "selected" : "";
-					html += `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
-				});
+        function getProvinces() {
+            fetch('{{ asset('/json/provinces.json') }}')
+                .then(response => response.json()) // convert string to json
+                .then(data => { // data is the parameter
+                    // var html = "<option selected disabled>Please select</option>";
+                    var html = "";
+                    var selected = "";
+                    $.each(data, function(index, item) {
+                        var selected = (index === 0) ? "selected" : "";
+                        html +=
+                            `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
+                    });
 
-				$('.province').html(html);
+                    $('.province').html(html);
 
-				province_code = $('.province>option:first:selected').data('key')
-				getCities(province_code)
-			})
-			.catch(error => {
-				console.log('Error:', error);
-			});
-    	}
+                    province_code = $('.province>option:first:selected').data('key')
+                    getCities(province_code)
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                });
+        }
 
-    	$('.province').on('change', function() {
-    		province_code = $(this).find('option:selected').data('key') // data-key attribute
+        $('.province').on('change', function() {
+            province_code = $(this).find('option:selected').data('key') // data-key attribute
 
-    		getCities(province_code)
-    	})
+            getCities(province_code)
+        })
 
-    	function getCities(province_code) {
-    		// only select city by province code
-    		fetch('{{asset('/json/cities.json')}}')
-			.then(response => response.json()) 
-			.then(data => {
-				// compare province_code with city.province then return matching results
-				var filtered_cities = $(data).filter((index, city) => city.province === province_code).toArray();
+        function getCities(province_code) {
+            // only select city by province code
+            fetch('{{ asset('/json/cities.json') }}')
+                .then(response => response.json())
+                .then(data => {
+                    // compare province_code with city.province then return matching results
+                    var filtered_cities = $(data).filter((index, city) => city.province === province_code).toArray();
 
-				var html = "";
-				$.each(filtered_cities, function(index, item) {
-					html += `<option value="${item.name}">${item.name}</option>`
-				});
+                    var html = "";
+                    $.each(filtered_cities, function(index, item) {
+                        html += `<option value="${item.name}">${item.name}</option>`
+                    });
 
-				$('.city').html(html);
-			})
-			.catch(error => {
-				console.log('Error:', error);
-			});
-    	}
+                    $('.city').html(html);
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                });
+        }
 
         $(document).on('click', '.btn-agree', function() {
             $('.accept-agreement').prop('checked', true)
@@ -424,73 +441,74 @@
 
 
         $(document).on('click', '.modal-close', function() {
-        	closeModal()
+            closeModal()
         })
 
-    	$('.btn-register').on('click', function() {
+        $('.btn-register').on('click', function() {
 
-    		if ($('#accept-agreement').is(':checked')) {	
-    			$('.err-agreement').hide()
-	    		// prepare the data to be submitted on backend
-	    		var formData = new FormData();
-				formData.append('_token', "{{ csrf_token() }}"); // for browser request
-				formData.append('username', $('#username').val());
-				formData.append('email', $('#email').val());
-				formData.append('mobile_no', $('#mobile_no').val());
-				formData.append('password', $('#password').val());
-				formData.append('password_confirmation', $('#password_confirmation').val());
-				formData.append('birthdate', $('#birthdate').val());
-				formData.append('first_name', $('#first_name').val());
-				formData.append('middle_name', $('#middle_name').val());
-				formData.append('last_name', $('#last_name').val());
-				formData.append('prefix', $('#prefix').val());
-				formData.append('gender', $('#gender').val());
-				formData.append('education_level', $('#education_level').val());
-				formData.append('province', $('#province').val());
-				formData.append('city', $('#city').val());
-				formData.append('address', $('#address').val());
-				formData.append('zip_code', $('#zip_code').val());
-				formData.append('pwd_categories', $('#pwd_categories').val().join());
-				formData.append('profile_photo', $('#profile_photo')[0].files[0]);
-				formData.append('resume', $('#resume')[0].files[0]);
-				formData.append('pwd_card', $('#pwd_card')[0].files[0]);
+            if ($('#accept-agreement').is(':checked')) {
+                $('.err-agreement').hide()
+                // prepare the data to be submitted on backend
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}"); // for browser request
+                formData.append('username', $('#username').val());
+                formData.append('email', $('#email').val());
+                formData.append('mobile_no', $('#mobile_no').val());
+                formData.append('password', $('#password').val());
+                formData.append('password_confirmation', $('#password_confirmation').val());
+                formData.append('birthdate', $('#birthdate').val());
+                formData.append('first_name', $('#first_name').val());
+                formData.append('middle_name', $('#middle_name').val());
+                formData.append('last_name', $('#last_name').val());
+                formData.append('prefix', $('#prefix').val());
+                formData.append('gender', $('#gender').val());
+                formData.append('education_level', $('#education_level').val());
+                formData.append('province', $('#province').val());
+                formData.append('city', $('#city').val());
+                formData.append('address', $('#address').val());
+                formData.append('zip_code', $('#zip_code').val());
+                formData.append('pwd_categories', $('#pwd_categories').val().join());
+                formData.append('profile_photo', $('#profile_photo')[0].files[0]);
+                formData.append('resume', $('#resume')[0].files[0]);
+                formData.append('pwd_card', $('#pwd_card')[0].files[0]);
 
-		        // Send an AJAX request to validate the data
-		        $.ajax({
-		            url: '{{ route('applicant.postRegister') }}',
-		            type: 'POST',
-		            data: formData,
-		            processData: false,
-		            contentType: false,
-		            success: function(response) {
-		                if (response.code == "200") {
-                            toastr.info('Registration Pending', 'Please anticipate a verification process for your account that may take up to three days.')
-							
-							setTimeout(function() {
-									window.location.href = '{{url('/')}}'
-								}, 2000)
-		                } else {
-		                	// 422 or another error
-		                	// JSON.parse converts string to js object
-		                    displayErrors(JSON.parse(response.errors));
-		                }
-		            },
-		            error: function(xhr, status, error) {
-		                // Handle the AJAX request error
-		                var result = JSON.parse(xhr.responseText)
-		                displayErrors(result.errors)
-		            }
-		        });
-		    } else {
-		    	$('.err-agreement').show().text('Please read the terms and condition to continue')
-		    }
-    
-    	})
+                // Send an AJAX request to validate the data
+                $.ajax({
+                    url: '{{ route('applicant.postRegister') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            toastr.info('Registration Pending',
+                                'Please anticipate a verification process for your account that may take up to three days.'
+                            )
 
-		function closeModal() {
-			$(".modal").css("display", "none");
-		}
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/') }}'
+                            }, 2000)
+                        } else {
+                            // 422 or another error
+                            // JSON.parse converts string to js object
+                            displayErrors(JSON.parse(response.errors));
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                    }
+                });
+            } else {
+                $('.err-agreement').show().text('Please read the terms and condition to continue')
+            }
 
+        })
+
+        function closeModal() {
+            $(".modal").css("display", "none");
+        }
     </script>
 
 </body>

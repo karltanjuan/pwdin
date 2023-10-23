@@ -81,14 +81,14 @@
                         <div class="divider d-flex align-items-center my-4">
                         </div>
                         <div class="text-center text-lg-start mt-4 pt-2">
-                            <a href="{{url('/')}}" class="btn-send btn btn-primary btn-lg"
+                            <a href="{{ url('/') }}" class="btn-send btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Back to home</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}
+            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
         </section>
 
         <!-- Back to Top -->

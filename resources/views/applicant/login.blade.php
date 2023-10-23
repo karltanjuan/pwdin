@@ -88,7 +88,7 @@
                         <div class="form-outline mb-4 form-floating">
                             <input type="email" id="email" class="form-control form-control-lg email"
                                 placeholder="Enter email address" />
-                                <label class="form-label" for="email">Email address</label>
+                            <label class="form-label" for="email">Email address</label>
                             <span class="err-email err-msg"></span>
                         </div>
 
@@ -118,7 +118,7 @@
                 </div>
             </div>
 
-            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}
+            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
         </section>
 
         <!-- Back to Top -->
