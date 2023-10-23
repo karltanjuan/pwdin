@@ -72,7 +72,7 @@
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">
-                        <img src="{{ url('/img/forgot_password.jpg') }}" class="img-fluid" alt="Sample image">
+                        <img src="{{ url('/img/forgot_password.jpg') }}" class="img-fluid" alt="Forgot Password">
                         <p class="text-justify"></p>
                         </p>
                     </div>
