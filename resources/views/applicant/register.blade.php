@@ -328,6 +328,7 @@
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
                         </div>
                     </div>
+                    <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
                 </div>
             </div>
         </section>
@@ -336,10 +337,6 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
             <i class="fa fa-angle-up" aria-hidden="true"></i>
         </a>
-
-        <div class="fixed-bottom">
-            <p class="text-center mt-5">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
-        </div>
     </div>
 
     {{-- Modals --}}
