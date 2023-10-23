@@ -458,3 +458,9 @@ h6 {
 .register-img {
     width: 300px;
 }
+
+.display-3 {
+    font-weight: bold;
+    font-size: 4rem;
+    line-height: 1.2;
+}

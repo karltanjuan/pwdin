@@ -49,6 +49,10 @@ Route::get('/bs', function() {
     return view('bs');
 });
 
+Route::get('/ad', function() {
+    return view('joblist');
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/choose-account', [HomeController::class, 'chooseAccount'])->name('chooseAccount');
 

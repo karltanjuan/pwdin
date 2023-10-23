@@ -38,7 +38,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Template Stylesheet -->
-    <link href="{{ asset('css/homepage.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
     <style>
         .eye-icon-position,
