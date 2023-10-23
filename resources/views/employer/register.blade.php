@@ -2,233 +2,327 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Employer Registration</title>
+    <meta charset="utf-8">
+    <title>pwdIn</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <!-- Favicon -->
+    {{-- <link href="img/favicon.ico" rel="icon"> --}}
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"> --}}
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"> --}}
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css"
+        integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Template Stylesheet -->
+    <link href="{{ asset('css/homepage.css') }}" rel="stylesheet">
 
     <style>
         .eye-icon-position,
         .eye-icon-position2 {
-            position: absolute;
-            margin-left: 270px;
-            margin-top: 35px;
+            /* position: absolute; */
+            /* margin-left: 270px; */
+            margin-top: -40px;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            padding-bottom: 32px;
+        }
+
+        a {
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <!--navbar-->
-    <nav class="navbar"> 
-            <a href="{{url('/')}}">
-                <img src="{{asset('img/logo.png')}}" class="logo" alt="PWD 
-            Logo"/>
+    <div class="container-fluid bg-white p-0">
+
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <a href="/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+                <img class="img-fluid w-10 rounded pwdin-logo" src="{{ asset('img/pwdin_logo.png') }}" alt="pwdIn Logo">
+                <span>&nbsp;</span>
+                <h1 class="m-0 text-primary">pwdIn</h1>
             </a>
-        </a> 
-        <div class="navbar-buttons">  
-            <a href="home">Home</a>
-            <a href="job_seeker">Job Seekers</a>
-            <a href="employer">Employers</a>
-            <a href="about_us">About Us</a>
-        </div>
-    </nav>
- 
-    <div class="login-container">
-        <header>Employer Registration</header>
-
-        <div id="form">
-            <div class="form first" id="form-first">
-                <div class="details personal">
-                    <span class="title">Personal Details</span>
-                    <div class="fields">
-                        <div class="input-field">
-                            <label>Username</label>
-                            <input id="username" class="username" type="text" placeholder="Enter username"/>
-                            <span class="err-username err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Email Address</label>
-                            <input id="email" class="email" type="text" placeholder="Enter email address"/>
-                            <span class="err-email err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Mobile Number</label>
-                            <input id="mobile_no" class="mobile_no" type="number" placeholder="Enter mobile number"/>
-                            <span class="err-mobile_no err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Password</label>
-                            <input id="password" class="password" type="password" placeholder="Enter password"/>
-                             <span class="show eye-icon-position">
-                                <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i> 
-                            </span>
-                            <span class="err-password err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Confirm Password</label>
-                            <input id="password_confirmation" class="password_confirmation" type="password" placeholder="Enter confirm password"/>
-                            <span class="show eye-icon-position2">
-                                <i class="las la-eye fs-5" id="show2" onclick="toggle2()"></i> 
-                            </span>
-                            <span class="err-password_confirmation err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Contact Person</label>
-                            <input id="contact_person" class="contact_person" type="text" placeholder="Enter contact person"/>
-                            <span class="err-contact_person err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Company Name</label>
-                            <input id="company_name" class="company_name" type="text" placeholder="Enter company name"/>
-                            <span class="err-company_name err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Province</label>
-                            <select class="province" id="province"></select>
-                            <span class="err-province err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>City</label>
-                            <select class="city" id="city">
-                                {{-- <option selected disabled>Please select</option> --}}
-                            </select>
-                            <span class="err-city err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Zip Code</label>
-                            <input class="zip_code" id="zip_code" type="text" placeholder="Enter zip code">
-                            <span class="err-zip_code err-msg"></span>
-                        </div>
-                        <div class="input-field">
-                            <label>Address</label>
-                            <input class="adress" id="address" type="text" placeholder="Enter complete address">
-                            <span class="err-address err-msg"></span>
-                        </div>
-                        <div class="input-field"></div>
-                    </div>
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto p-4 p-lg-0">
+                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
+                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
-             </div>
-             <div class="form second" id="form-second">
-                 <div class="identity-details">
-                    <span class="title">Identity Details</span>
+                <a href="{{ url('/choose-account') }}"
+                    class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i
+                        class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </nav>
+        <!-- Navbar End -->
 
-                    <div class="fields">
-                        <div class="input-field">
-                            <label>Company Logo</label>
-                            <input class="company_logo" id="company_logo" type="file" accept=".png,.jpeg,.jpg">
-                            <span class="err-company_logo err-msg"></span>
-                          </div>
+        <section class="vh-100">
+            <div class="container h-custom">
+                <div class="row d-flex justify-content-center h-100 mt-5">
+                    <div class="col-md-12">
+                        <h1>Employer Registration</h1>
+                        <div class="divider d-flex align-items-center my-4"></div>
+                        <h3>Personal Details</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <!-- Usename input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="username" class="form-control form-control-lg username"
+                                        placeholder="Enter username" tab-index="1" />
+                                    <label class="form-label" for="username">Username</label>
+                                    <span class="err-username err-msg"></span>
+                                </div>
 
-                          <div class="input-field">
-                            <label>Upload Business Permit</label>
-                            <input class="business_permit" id="business_permit" type="file" accept=".pdf,.png,.jpeg,.jpg">
-                            <span class="err-business_permit err-msg"></span>
-                          </div>
+                                <!-- Password input -->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="password" id="password" class="form-control form-control-lg password"
+                                        placeholder="Enter password" />
+                                    <label class="form-label" for="password">Password</label>
+                                    <span class="show eye-icon-position">
+                                        <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
+                                    </span>
+                                    <span class="err-password err-msg"></span>
+                                </div>
 
-                          <div class="input-field">
-                            <label>Upload BIR Certificate</label>
-                            <input class="bir_certificate" id="bir_certificate" type="file" accept=".pdf,.png,.jpeg,.jpg">
-                            <span class="err-bir_certificate err-msg"></span>
-                          </div>
-                        <div class="input-field terms_condition">
-                            <input class="accept-agreement" id="accept-agreement" type="checkbox">
-                            <a href="javascript:void(0)" class="read-agreement" id="read-agreement">
-                                <label>I certify that I have read and accept to PWDIn’s Terms of Use and Privacy Statement </label>
+                                <!-- Company name input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="company_name"
+                                        class="form-control form-control-lg company_name"
+                                        placeholder="Enter company name" tab-index="1" />
+                                    <label class="form-label" for="company_name">Compay Name</label>
+                                    <span class="err-company_name err-msg"></span>
+                                </div>
+
+                                <!-- Zip code input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="zip_code"
+                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" />
+                                    <label class="form-label" for="zip_code">Zip Code</label>
+                                    <span class="err-zip_code err-msg"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Email input -->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="email" id="email" class="form-control form-control-lg email"
+                                        placeholder="Enter email address" tab-index="2" />
+                                    <label class="form-label" for="email">Email address</label>
+                                    <span class="err-email err-msg"></span>
+                                </div>
+
+                                <!-- Confirm password input -->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="password" id="password_confirmation"
+                                        class="form-control form-control-lg password_confirmation"
+                                        placeholder="Enter password confirmation" />
+                                    <label class="form-label" for="password_confirmation">Confirm Password</label>
+                                    <span class="show eye-icon-position">
+                                        <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
+                                    </span>
+                                    <span class="err-password_confirmation err-msg"></span>
+                                </div>
+
+                                <!-- Province -->
+                                <div class="form-floating mb-4">
+                                    <select class="province form-select" id="province"></select>
+                                    <span class="err-province err-msg"></span>
+                                    <label for="province">Province</label>
+                                </div>
+
+                                <!-- Address input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="address" class="form-control form-control-lg address"
+                                        placeholder="Enter address" />
+                                    <label class="form-label" for="address">Address</label>
+                                    <span class="err-address err-msg"></span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Mobile number input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="number" id="mobile_no"
+                                        class="form-control form-control-lg mobile_no"
+                                        placeholder="Enter mobile number" tab-index="3" />
+                                    <label class="form-label" for="mobile_no">Mobile Number</label>
+                                    <span class="err-mobile_no err-msg"></span>
+                                </div>
+
+                                <!-- Contact person input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="contact_person"
+                                        class="form-control form-control-lg contact_person"
+                                        placeholder="Enter last name" />
+                                    <label class="form-label" for="contact_person">Contact Person</label>
+                                    <span class="err-last_name err-msg"></span>
+                                </div>
+
+
+                                <!-- City -->
+                                <div class="form-floating mb-4">
+                                    <select class="city form-select" id="city"></select>
+                                    <span class="err-city err-msg"></span>
+                                    <label for="city">City</label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="divider d-flex align-items-center my-4"></div>
+                        <h3>Identity Details</h3>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input type="file" class="form-control form-control-lg company_logo"
+                                        id="company_logo" accept=".png,.jpeg,.jpg">
+                                    <label class="input-group-text" for="company_logo">Upload Company Logo</label>
+                                </div>
+                                <span class="err-company_logo err-msg mb-4"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input type="file" class="form-control form-control-lg business_permit"
+                                        id="business_permit" accept=".png,.jpeg,.jpg">
+                                    <label class="input-group-text" for="business_permit">Upload Business
+                                        Permit</label>
+                                </div>
+                                <span class="err-business_permit err-msg mb-4"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input type="file" class="form-control form-control-lg bir_certificate"
+                                        id="bir_certificate" accept=".png,.jpeg,.jpg">
+                                    <label class="input-group-text" for="bir_certificate">Upload BIR
+                                        Certificate</label>
+                                </div>
+                                <span class="err-bir_certificate err-msg mb-4"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input accept-agreement" id="accept-agreement" type="checkbox">
+                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal"
+                                style="cursor:pointer;">
+                                <label class="form-check-label" for="accept-agreement">I certify that I have read and
+                                    accept to PWDIn’s Terms of Use and Privacy Statement </label>
                             </a>
-                            <p class="err-agreement"></p>
+                            <p class="err-agreement text-danger"></p>
                         </div>
 
-                    <button class="nextBtn btn-submit">Submit</button>
-                  </div> 
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="small fw-bold pt-1 mb-0">Already have an account? <a
+                                    href="{{ url('/applicant/login') }}" class="link-danger">Login</a></p>
+                        </div>
+
+                        <div class="text-center text-lg-start mt-4 pt-2 mb-5">
+                            <button type="button" class="btn-register btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+                        </div>
+                    </div>
+                    <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    {{-- Modals --}}
+
+    <div class="modal fade" id="agreement-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="agreementModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Terms and Conditions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi vel praesentium expedita quas
+                        qui iste sit, iusto hic? Odio, atque possimus quae sunt nostrum, molestiae sed quod maiores
+                        impedit ipsa!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-agree btn-primary">Understood</button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-     <!-- The modal -->
-    <div id="agreement-modal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Terms and Conditions</h2>
-                <span class="modal-close">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi vel praesentium expedita quas qui iste sit, iusto hic? Odio, atque possimus quae sunt nostrum, molestiae sed quod maiores impedit ipsa!</p>
-            </div>
-            <div class="modal-footer">
-                <button class="primary-btn btn-agree">Agree</button>
-            </div>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Template Javascript -->
+    <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
-
-        var state1 = false;
-        var state2 = false;
-        let hide1 = $("#show1");
-        let hide2 = $("#show2");
-
-        function toggle1() {
-          if (state1) {
-            $("#password").attr("type", "password");
-            hide1.css("color", "#D0CECE");
-            hide1.removeClass("la-eye-slash").addClass("la-eye");
-            state1 = false;
-          } else {
-            $("#password").attr("type", "text");
-            hide1.css("color", "#1976D2");
-            hide1.removeClass("la-eye").addClass("la-eye-slash");
-            state1 = true;
-          }
-        }
-
-        function toggle2() {
-          if (state2) {
-            $("#password_confirmation").attr("type", "password");
-            hide2.css("color", "#D0CECE");
-            hide2.removeClass("la-eye-slash").addClass("la-eye");
-            state2 = false;
-          } else {
-            $("#password_confirmation").attr("type", "text");
-            hide2.css("color", "#1976D2");
-            hide2.removeClass("la-eye").addClass("la-eye-slash");
-            state2 = true;
-          }
-        }
-
-        // on first load of page
         $(document).ready(function() {
             getProvinces()
         })
 
-        // => means anonymous function
-
         function getProvinces() {
-            fetch('{{asset('/json/provinces.json')}}')
-            .then(response => response.json()) // convert string to json
-            .then(data => { // data is the parameter
-                // var html = "<option selected disabled>Please select</option>";
-                var html = "";
-                var selected = "";
-                $.each(data, function(index, item) {
-                    var selected = (index === 0) ? "selected" : "";
-                    html += `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
+            fetch('{{ asset('/json/provinces.json') }}')
+                .then(response => response.json()) // convert string to json
+                .then(data => { // data is the parameter
+                    // var html = "<option selected disabled>Please select</option>";
+                    var html = "";
+                    var selected = "";
+                    $.each(data, function(index, item) {
+                        var selected = (index === 0) ? "selected" : "";
+                        html +=
+                            `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
+                    });
+
+                    $('.province').html(html);
+
+                    province_code = $('.province>option:first:selected').data('key')
+                    getCities(province_code)
+                })
+                .catch(error => {
+                    console.log('Error:', error);
                 });
-
-                $('.province').html(html);
-
-                province_code = $('.province>option:first:selected').data('key')
-                getCities(province_code)
-            })
-            .catch(error => {
-                console.log('Error:', error);
-            });
         }
 
         $('.province').on('change', function() {
@@ -239,22 +333,22 @@
 
         function getCities(province_code) {
             // only select city by province code
-            fetch('{{asset('/json/cities.json')}}')
-            .then(response => response.json()) 
-            .then(data => {
-                // compare province_code with city.province then return matching results
-                var filtered_cities = $(data).filter((index, city) => city.province === province_code).toArray();
+            fetch('{{ asset('/json/cities.json') }}')
+                .then(response => response.json())
+                .then(data => {
+                    // compare province_code with city.province then return matching results
+                    var filtered_cities = $(data).filter((index, city) => city.province === province_code).toArray();
 
-                var html = "";
-                $.each(filtered_cities, function(index, item) {
-                    html += `<option value="${item.name}">${item.name}</option>`
+                    var html = "";
+                    $.each(filtered_cities, function(index, item) {
+                        html += `<option value="${item.name}">${item.name}</option>`
+                    });
+
+                    $('.city').html(html);
+                })
+                .catch(error => {
+                    console.log('Error:', error);
                 });
-
-                $('.city').html(html);
-            })
-            .catch(error => {
-                console.log('Error:', error);
-            });
         }
 
 
@@ -264,34 +358,12 @@
 
         $(document).on('click', '.btn-agree', function() {
             $('.accept-agreement').prop('checked', true)
-            $('.modal').hide()
+            $('.modal').modal('hide')
         })
 
+        $('.btn-register').on('click', function() {
 
-        $(document).on('click', '.modal-close', function() {
-            closeModal()
-        })
-
-        var err_counter = 0;
-        function displayErrors(errors) {
-            $('.err-msg').text('');
-            $('.err-msg').siblings('input, select').removeClass('error');
-
-            // loop all the error messages from backend to display on ui
-            $.each(errors, function(field, messages) {
-                var errMsgSelector = '.err-' + field;
-                var inputSelector = '#' + field;
-                $(errMsgSelector).text(messages[0]);
-                $(inputSelector).addClass('error');
-            });
-
-            $("html, body").animate({ scrollTop: 0 }, "slow");
-        }
-
-        
-        $('.btn-submit').on('click', function() {
-
-            if ($('#accept-agreement').is(':checked')) {    
+            if ($('#accept-agreement').is(':checked')) {
                 $('.err-agreement').hide()
                 // prepare the data to be submitted on backend
                 var formData = new FormData();
@@ -320,16 +392,13 @@
                     contentType: false,
                     success: function(response) {
                         if (response.code == "200") {
-                            Swal.fire({
-                              title: 'Registration Pending',
-                              text: 'Please anticipate a verification process for your account that may take up to three days.',
-                              icon: 'info',
-                              showCancelButton: false,
-                              confirmButtonText: 'OK'
-                            });
+                            toastr.info('Registration Pending',
+                                'Please anticipate a verification process for your account that may take up to three days.'
+                            )
+
 
                             setTimeout(function() {
-                                window.location.href = '{{url('/')}}'
+                                window.location.href = '{{ url('/') }}'
                             }, 2000)
                         } else {
                             displayErrors(JSON.parse(response.errors));
@@ -344,14 +413,10 @@
             } else {
                 $('.err-agreement').show().text('Please read the terms and condition to continue')
             }
-    
+
         })
-
-        function closeModal() {
-            $(".modal").css("display", "none");
-        }
-
     </script>
+
 </body>
 
 </html>

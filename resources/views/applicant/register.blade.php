@@ -99,7 +99,7 @@
                         </p>
                     </div> --}}
                     <div class="col-md-12">
-                        <h1>Applicant Register</h1>
+                        <h1>Applicant Registration</h1>
                         <div class="divider d-flex align-items-center my-4"></div>
                         <h3>Personal Details</h3>
                         <div class="row">
@@ -283,28 +283,28 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="input-group mb-4">
+                                <div class="input-group">
                                     <input type="file" class="form-control form-control-lg resume" id="resume"
                                         accept=".pdf">
                                     <label class="input-group-text" for="resume">Upload CV</label>
-                                    <span class="err-resume err-msg"></span>
                                 </div>
+                                <span class="err-resume err-msg mb-4"></span>
                             </div>
                             <div class="col-md-12">
-                                <div class="input-group mb-4">
+                                <div class="input-group ">
                                     <input type="file" class="form-control form-control-lg pwd_card"
                                         id="pwd_card" accept=".png,.jpeg,.jpg">
                                     <label class="input-group-text" for="pwd_card">Upload PWD ID card</label>
-                                    <span class="err-pwd_card err-msg"></span>
                                 </div>
+                                <span class="err-pwd_card err-msg mb-4"></span>
                             </div>
                             <div class="col-md-12">
-                                <div class="input-group mb-4">
+                                <div class="input-group">
                                     <input type="file" class="form-control form-control-lg profile_photo"
                                         id="profile_photo" accept=".png,.jpeg,.jpg">
-                                    <label class="input-group-text" for="profile_photo">Profile Picture</label>
-                                    <span class="err-profile_photo err-msg"></span>
+                                    <label class="input-group-text" for="profile_photo">Upload Profile Picture</label>
                                 </div>
+                                <span class="err-profile_photo err-msg mb-4"></span>
                             </div>
                         </div>
 
