@@ -3,26 +3,26 @@
 @section('title', 'Applicant - Job List')
 
 @section('content')
-    <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
+    <h1 class="text-center mb-5 wow fadeInUp title-label" data-wow-delay="0.1s">Available Jobs for Me</h1>
     <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
-        <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+        <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5 job-types">
             <li class="nav-item">
-                <a class="d-flex align-items-center text-start mx-3 me-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
+                <a class="d-flex align-items-center text-start mx-3 me-0 pb-3 active" data-bs-toggle="pill" href="#tab-1" data-type="internship">
                     <h6 class="mt-n1 mb-0">Internship</h6>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-2">
+                <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-2" data-type="contract">
                     <h6 class="mt-n1 mb-0">Contract</h6>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+                <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3" data-type="part-time">
                     <h6 class="mt-n1 mb-0">Part Time</h6>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-4">
+                <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-4" data-type="full-time">
                     <h6 class="mt-n1 mb-0">Full Time</h6>
                 </a>
             </li>
@@ -139,4 +139,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).on('click', '.job-types > .nav-item > a', function() {
+            let job_type = $(this).data('type')
+            window.location.href = `{{url('applicant/jobs/${job_type}/related')}}`
+        })
+    </script>
 @endsection
