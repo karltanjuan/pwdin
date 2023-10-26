@@ -53,17 +53,17 @@
         <!-- Navbar End -->
 
 
-        <!-- Header End -->
+        <!-- Header Start -->
         @include('applicant.layouts.header')
         <!-- Header End -->
 
 
-        <!-- Jobs Start -->
+        <!-- Content Start -->
         <div class="container">
             @yield('content')
         </div>
         {{-- </div> --}}
-        <!-- Jobs End -->
+        <!-- Content End -->
 
 
         <!-- Footer Start -->
@@ -84,6 +84,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>

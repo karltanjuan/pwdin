@@ -16,7 +16,7 @@ use Carbon\Carbon;
 
 class ApplicantJobController extends Controller
 {
-    public function index($type = 'Internship', $related = 'related') {
+    public function index($type = null, $related = 'related') {
         $pwd_categories = auth()->user()->pwd_categories;
         $pwd_categories_arr = explode(',', $pwd_categories);
 
@@ -25,14 +25,10 @@ class ApplicantJobController extends Controller
                     ->with(['applications' => function ($query) {
                         $query->where('applicant_id', auth()->user()->id);
                     }])
-                    ->where('status', 1)
-                    ->where('job_type', ucwords($type));
-                    // ->where(function ($query) use ($pwd_categories_arr) {
-                    //     foreach ($pwd_categories_arr as $category) {
-                    //         $query->orWhere('pwd_categories', 'LIKE', "%$category%");
-                    //     }
-                    // })
-                    // ->get();
+                    ->where('status', 1);
+
+        $jobs = $type !== null ? $jobs->where('job_type', ucwords($type)) : $jobs;
+
 
         if ($related == "related") {
             // related pwd categories
@@ -50,6 +46,17 @@ class ApplicantJobController extends Controller
     }
 
     public function getJobs(Request $request) {
+        
+        $request->related = $request->related ?? "related";
+
+        if ($request->type == 'null') {
+            $request->type = null;
+        }
+
+        if ($request->search_query == 'null') {
+            $request->search_query = null;
+        }
+
         $pwd_categories = auth()->user()->pwd_categories;
         $pwd_categories_arr = explode(',', $pwd_categories);
 
@@ -58,8 +65,10 @@ class ApplicantJobController extends Controller
                     ->with(['applications' => function ($query) {
                         $query->where('applicant_id', auth()->user()->id);
                     }])
-                    ->where('status', 1)
-                    ->where('job_type', ucwords($request->type));
+                    ->where('status', 1);
+        
+        $jobs = $request->type !== null ? $jobs->where('job_type', ucwords($request->type)) : $jobs;
+        $jobs = $request->search_query !== null ? $jobs->where('job_title', 'like', '%'.$request->search_query.'%') : $jobs;
 
         if ($request->related == "related") {
             // related pwd categories
