@@ -49,6 +49,33 @@ class ApplicantJobController extends Controller
         return view('applicant.jobs', compact('jobs'));
     }
 
+    public function getJobs(Request $request) {
+        $pwd_categories = auth()->user()->pwd_categories;
+        $pwd_categories_arr = explode(',', $pwd_categories);
+
+        $jobs = Job::orderBy('created_at', 'desc')
+                    ->with('employer')
+                    ->with(['applications' => function ($query) {
+                        $query->where('applicant_id', auth()->user()->id);
+                    }])
+                    ->where('status', 1)
+                    ->where('job_type', ucwords($request->type));
+
+        if ($request->related == "related") {
+            // related pwd categories
+            $jobs = $jobs->where(function ($query) use ($pwd_categories_arr) {
+                foreach ($pwd_categories_arr as $category) {
+                    $query->orWhere('pwd_categories', 'LIKE', "%$category%");
+                }
+            })->get();
+        } else {
+            // all pwd categories
+            $jobs = $jobs->get();
+        }
+                    
+        return response()->json($jobs);
+    }
+
     public function getJobsById(Request $request) {
         $id = (int)$request->id;
         // Laravel Eloquent - handles database queries using OOP
