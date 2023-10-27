@@ -123,6 +123,14 @@
             filterJobs(data_type, related, query);
         })
 
+        $(document).on('keypress', '.query', function(e) {
+            if (e.keyCode === 13) {
+                query = $(this).val();
+                filterJobs(data_type, related, query);
+            }
+        })
+
+
         $(document).on('click', '.btn-search', function() {
             query = $('.query').val();
             filterJobs(data_type, related, query);
