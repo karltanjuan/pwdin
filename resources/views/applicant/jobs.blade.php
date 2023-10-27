@@ -33,7 +33,7 @@
             </li>
         </ul>
 
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-md-4">
                 <select class="btn-filter form-select" id="btn-filter">  
                     <option disabled selected>View all jobs or view related jobs</option>
@@ -42,7 +42,7 @@
                 </select>
             </div>
             <div class="col-md-8">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <input type="text" class="form-control query" placeholder="Search jobs"/>
                     <button class="btn btn-outline-primary btn-search" type="button" id="btn-search">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -52,94 +52,57 @@
         </div>
 
         <div class="tab-content">
-            <div id="tab-1" class="tab-pane fade show p-0 active">
-                @if (count($jobs) > 0)
-                    @foreach ($jobs as $job)
-                        <div class="job-item p-4 mb-4">
-                            <div class="row g-4">
-                                <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                    @php  
-                                        $company_logo = str_replace('public', 'storage', $job->employer->company_logo) ;
-                                    @endphp
-                                    <img class="flex-shrink-0 img-fluid border rounded" src="{{ asset($company_logo) }}" alt="" style="width: 80px; height: 80px;">
-                                    <div class="text-start ps-4">
-                                        <h5 class="mb-0">{{ $job->job_title }}</h5>
-                                        <p>{{ $job->employer->company_name }}</p>
-                                        <span class="text-truncate me-3">
-                                            <i class="fa fa-map-marker-alt text-primary me-2"></i>
-                                            {{ $job->employer->address }},
-                                            {{ $job->employer->province }},
-                                            {{ $job->employer->city }}
-                                        </span>
-                                        <span class="text-truncate me-3">
-                                            <i class="far fa-clock text-primary me-2"></i>
-                                            {{ $job->job_type }}
-                                        </span>
-                                        <span class="text-truncate me-0">
-                                            <i class="far fa-money-bill-alt text-primary me-2"></i>
-                                            
-                                            @if($job->hide_salary === 1)
-                                                &#8369;{{ str_repeat("*", strlen(number_format($job->salary, 2, '.', ''))) }}
-                                            @else
-                                                &#8369;{{ number_format($job->salary, 2, '.', ',') }}
-                                            @endif
-                                        </span>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                                    <div class="d-flex mb-3">
-                                        {{-- <a class="btn btn-light btn-square me-3" href=""><i
-                                                class="far fa-heart text-primary"></i></a> --}}
-                                        <a class="btn btn-primary" href="">Apply Now</a>
-                                    </div>
-                                    <small class="text-truncate">
-                                        <i class="far fa-calendar-alt text-primary me-2"></i>
-                                        Date Posted: {{ date('m/d/Y', strtotime($job->created_at)) }}
-                                    </small>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    <a class="btn btn-primary py-3 px-5" href="">Browse More Jobs</a>
-                @else
-                    <h4 class="text-center">No jobs available at the moment.</h4>
-                @endif
-            </div>
+            <div id="tab-1" class="tab-pane fade show p-0 active"></div>
+            <div id="pagination" class="d-flex justify-content-center my-4"></div>
         </div>
     </div>
     <script>
+        let page      = 1;
         let data_type = null;
         let related   = 'related';
         let query     = null;
 
+        $(document).ready(function() {
+            // Initial function to load and display jobs
+            filterJobs(null, 'related', null);
+        });
+
+        $(document).on('click', '#pagination .page-link', function() {
+            page      = $(this).data('page');
+            // data_type = $('#pagination').data('type');
+            // related   = $('#pagination').data('related');
+            // query     = $('#pagination').data('query');
+
+            filterJobs(data_type, related, query, page);
+        });
+
         $(document).on('click', '.job-types', function() {
             data_type = $(this).data('type');
-            filterJobs(data_type, related, query);
+            filterJobs(data_type, related, query, page = 1);
         })
 
         $(document).on('change', '.btn-filter', function() {
             related = $(this).val();
-            filterJobs(data_type, related, query);
+            filterJobs(data_type, related, query, page = 1);
         })
 
         $(document).on('keypress', '.query', function(e) {
             if (e.keyCode === 13) {
                 query = $(this).val();
-                filterJobs(data_type, related, query);
+                filterJobs(data_type, related, query, page = 1);
             }
         })
 
-
         $(document).on('click', '.btn-search', function() {
             query = $('.query').val();
-            filterJobs(data_type, related, query);
+            filterJobs(data_type, related, query, page);
         })
 
-        function filterJobs(data_type, related, query) {
+        function filterJobs(data_type, related, query, page = 1) {
             var formData = new FormData();
 
             formData.append('_token', "{{ csrf_token() }}");
+            formData.append('page', page);
             formData.append('type', data_type);
             formData.append('related', related)
             formData.append('search_query', query)
@@ -153,8 +116,8 @@
                 contentType: false,
                 success: function(response) {
                     let html = ''
-                    if (response.length > 0) {
-                        $.each(response, function(index, val) {
+                    if (response.data.length > 0) {
+                        $.each(response.data, function(index, val) {
 
                             let salary = parseFloat(val.salary).toLocaleString(undefined, {
                                 style: 'currency',
@@ -203,8 +166,17 @@
                                 </div>
                             </div>`
                         })
+
+                        getPagination(response)
+
                     } else {
-                        html += `<h4 class="text-center">No ${data_type} jobs available at the moment.</h4>`
+                        if (data_type === null) {
+                            html += `<h4 class="text-center">No jobs available at the moment.</h4>`
+                        } else {
+                            html += `<h4 class="text-center">No ${data_type} jobs available at the moment.</h4>`
+                        }
+
+                        $('#pagination').empty();
                     }
 
                     $('#tab-1').html(html)
@@ -213,6 +185,27 @@
                     console.log(error)
                 }
             });
+        }
+
+        function getPagination(response) {
+            let pagination_html = '<ul class="pagination">';
+            
+            pagination_html += '<li class="page-item">';
+            pagination_html += '<a class="page-link" data-page="1" href="javascript:void(0)">First</a>';
+            pagination_html += '</li>';
+            
+            for (let page = 1; page <= response.last_page; page++) {
+                pagination_html += '<li class="page-item ' + (response.current_page === page ? 'active' : '') + '">';
+                pagination_html += '<a class="page-link" data-page="' + page + '" href="javascript:void(0)">' + page + '</a>';
+                pagination_html += '</li>';
+            }
+
+            pagination_html += '<li class="page-item">';
+            pagination_html += '<a class="page-link" data-page="' + response.last_page + '" href="javascript:void(0)">Last</a>';
+            pagination_html += '</li>';
+            pagination_html += '</ul>';
+
+            $('#pagination').html(pagination_html);
         }
     </script>
 @endsection
