@@ -86,9 +86,9 @@ class ApplicantJobController extends Controller
         return response()->json($jobs);
     }
 
-    public function getJobsById(Request $request) {
-        $id = (int)$request->id;
-        // Laravel Eloquent - handles database queries using OOP
+    public function getJobsById($id) {
+        $id = (int)$id;
+
         $job = Job::where('id', $id)
                     ->with('employer')
                     ->with(['applications' => function ($query) use ($id) {
@@ -96,8 +96,9 @@ class ApplicantJobController extends Controller
                               ->where('applicant_id', auth()->user()->id);
                     }])
                     ->first();
-
-        return response()->json($job);
+        
+        return view('applicant.job-details', compact('job'));
+        // return response()->json($job);
     }
 
     public function applyJob(Request $request){

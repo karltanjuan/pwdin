@@ -87,7 +87,8 @@ Route::group(['prefix' => 'applicant'], function() {
 
         Route::get('/jobs/{type?}/{related?}', [ApplicantJobController::class, 'index'])->name('applicant.index');
         Route::post('/jobs', [ApplicantJobController::class, 'getJobs'])->name('applicant.getJobs');
-        Route::post('getJobsById', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
+        Route::get('job-details/{id}', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
+        // Route::post('getJobsById', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
         Route::post('applyJob', [ApplicantJobController::class, 'applyJob'])->name('applicant.applyJob');
         Route::post('withdrawJob', [ApplicantJobController::class, 'withdrawJob'])->name('applicant.withdrawJob');
 

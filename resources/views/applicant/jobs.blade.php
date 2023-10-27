@@ -1,6 +1,9 @@
 @extends('applicant.layouts.master')
 
 @section('title', 'Applicant - Job List')
+@section('cover_page')
+    <li class="breadcrumb-item text-white active">Job List</li>
+@endsection
 
 @section('content')
     <h1 class="text-center mb-5 wow fadeInUp title-label" data-wow-delay="0.1s">Available Jobs for Me</h1>
@@ -129,6 +132,7 @@
                                 salary = `<span>&#8369; ${salary}<span>`
                             }
 
+                            // Add dynamic company logo here...
                             html += `<div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
@@ -156,7 +160,7 @@
                                     <div
                                         class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-primary" href="">Apply Now</a>
+                                            <a class="btn btn-primary" href="{{url('/applicant/job-details/${val.id}')}}">Apply Now</a>
                                         </div>
                                         <small class="text-truncate">
                                             <i class="far fa-calendar-alt text-primary me-2"></i>
