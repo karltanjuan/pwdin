@@ -59,6 +59,8 @@
             <div id="pagination" class="d-flex justify-content-center my-4"></div>
         </div>
     </div>
+
+    @include('applicant.layouts.scripts')
     <script>
         let page      = 1;
         let data_type = null;
@@ -66,16 +68,11 @@
         let query     = null;
 
         $(document).ready(function() {
-            // Initial function to load and display jobs
             filterJobs(null, 'related', null);
         });
 
         $(document).on('click', '#pagination .page-link', function() {
-            page      = $(this).data('page');
-            // data_type = $('#pagination').data('type');
-            // related   = $('#pagination').data('related');
-            // query     = $('#pagination').data('query');
-
+            page = $(this).data('page');
             filterJobs(data_type, related, query, page);
         });
 
@@ -137,15 +134,16 @@
                                 job_status = "Withdraw"
                             } 
 
-                            // Add dynamic company logo here...
+                            let company_logo = val.employer.company_logo.replace('public', 'storage')
                             html += `<div class="job-item p-4 mb-4">
                                 <div class="row g-4">
                                     <div class="col-sm-12 col-md-8 d-flex align-items-center">
                                         <img class="flex-shrink-0 img-fluid border rounded"
-                                            src="{{ asset('/img/com-logo-1.jpg') }}" alt=""
+                                            src="{{url('/')}}/${company_logo}" alt=""
                                             style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3">${val.job_title}</h5>
+                                            <h5 class="mb-0">${val.job_title}</h5>
+                                            <p class="mb-3">${val.employer.company_name}<p>
                                             <span class="text-truncate me-3">
                                                 <i class="fa fa-map-marker-alt text-primary me-2"></i>
                                                 ${val.employer.address},

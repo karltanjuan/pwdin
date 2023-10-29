@@ -16,30 +16,51 @@ use Carbon\Carbon;
 
 class ApplicantAppliedJobController extends Controller
 {
-    public function getAppliedJobs() {
-        $pwd_categories = auth()->user()->pwd_categories;
-        $pwd_categories_arr = explode(',', $pwd_categories);
+    public function index() {
+        // $pwd_categories = auth()->user()->pwd_categories;
+        // $pwd_categories_arr = explode(',', $pwd_categories);
 
-        $jobs = Job::orderBy('created_at', 'desc')
-                    ->with(['employer' => function ($query) {
-                        $query->with('application_statuses');
-                    }])
-                    ->whereHas('applications', function ($query) {
-                        $query->where('applicant_id', auth()->user()->id);
-                    })
-                    // ->where(function ($query) use ($pwd_categories_arr) {
-                    //     foreach ($pwd_categories_arr as $category) {
-                    //         $query->orWhere('pwd_categories', 'LIKE', "%$category%");
-                    //     }
-                    // })
-                    // ->where('status', 1)
-                    ->get();
+        // $jobs = Job::orderBy('created_at', 'desc')
+        //             ->with(['employer' => function ($query) {
+        //                 $query->with('application_statuses');
+        //             }])
+        //             ->whereHas('applications', function ($query) {
+        //                 $query->where('applicant_id', auth()->user()->id);
+        //             })
+        //             ->get();
 
-        return view('applicant.applied-jobs', compact('jobs'));
+        // return view('applicant.applied-jobs', compact('jobs'));
+        return view('applicant.applied-jobs');
     }
 
-    public function getAppliedJobsById(Request $request) {
-        $id  = (int)$request->id;
+    public function postAppliedJobs(Request $request) {
+        if ($request->search_query == 'null') {
+            $request->search_query = null;
+        }
+        
+        $jobs = Job::orderBy('created_at', 'desc')
+            ->with(['employer' => function ($query) {
+                $query->with('application_statuses');
+            }])
+            ->with(['applications' => function ($query) {
+                $query->where('applicant_id', auth()->user()->id);
+            }])
+            ->whereHas('applications', function ($query) {
+                $query->where('applicant_id', auth()->user()->id);
+            })
+            ->where('status', 1);
+        
+        $jobs = $jobs->when($request->search_query !== null, function ($query) use ($request) {
+            return $query->where('job_title', 'like', '%' . $request->search_query . '%');
+        })->paginate(10);
+        
+        return response()->json($jobs);
+        
+
+    }
+
+    public function getAppliedJobsById($id) {
+        $id  = (int)$id;
 
         $job = Job::where('id', $id)
                     ->with('employer')
@@ -49,7 +70,7 @@ class ApplicantAppliedJobController extends Controller
                     }])
                     ->first();
 
-        return response()->json($job);
+        return view('applicant.applied-job-details', compact('job'));
     }
 
 }

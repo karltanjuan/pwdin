@@ -46,8 +46,7 @@ class ApplicantJobController extends Controller
         return view('applicant.jobs');
     }
 
-    public function getJobs(Request $request) {
-        
+    public function getJobs(Request $request) {  
         $request->related = $request->related ?? "related";
 
         if ($request->type == 'null') {

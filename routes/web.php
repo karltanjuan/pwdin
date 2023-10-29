@@ -82,8 +82,9 @@ Route::group(['prefix' => 'applicant'], function() {
     Route::middleware('is_applicant')->group(function () {
         // Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('applicant.dashboard');
 
-        Route::get('/applied-jobs', [ApplicantAppliedJobController::class, 'getAppliedJobs'])->name('applicant.getAppliedJobs');
-        Route::post('getAppliedJobsById', [ApplicantAppliedJobController::class, 'getAppliedJobsById'])->name('applicant.getAppliedJobsById');
+        Route::get('/applied-jobs', [ApplicantAppliedJobController::class, 'index'])->name('applicant.getAppliedJobs');
+        Route::post('/applied-jobs', [ApplicantAppliedJobController::class, 'postAppliedJobs'])->name('applicant.postAppliedJobs');
+        Route::post('/applied-jobs-details/{id}', [ApplicantAppliedJobController::class, 'getAppliedJobsById'])->name('applicant.getAppliedJobsById');
 
         Route::get('/jobs/{type?}/{related?}', [ApplicantJobController::class, 'index'])->name('applicant.index');
         Route::post('/jobs', [ApplicantJobController::class, 'getJobs'])->name('applicant.getJobs');

@@ -161,4 +161,4 @@ function toggle3() {
       hide3.removeClass("la-eye").addClass("la-eye-slash");
       state3 = true;
     }
-  }
+}
