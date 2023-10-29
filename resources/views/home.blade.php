@@ -87,7 +87,7 @@
                 @if(auth()->check())
                     <a href="{{ url('/applicant/jobs') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>
                 @elseif(auth()->guard('employers')->check())
-                    <a href="{{ url('/employer/jobs') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="{{ url('/employer/dashboard') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>
                 @else
                     <a href="{{ url('/choose-account') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i class="fa fa-arrow-right ms-3"></i></a>
                 @endif
