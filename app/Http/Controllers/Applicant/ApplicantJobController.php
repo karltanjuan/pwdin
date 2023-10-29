@@ -111,15 +111,22 @@ class ApplicantJobController extends Controller
             ], 422);
         }
 
-        // save to database
-        $application = new Application();
-        $application->applicant_id = auth()->user()->id; 
-        $application->job_id       = $request->job_id;
-        $application->cover_letter = $request->cover_letter; 
-        $application->status       = config('application.status')[0];
-        $application->is_rejected  = 0;
-        $application->rejected_reason = "";
-        $application->save();
+        $application_data = [
+            'applicant_id'    => auth()->user()->id,
+            'job_id'          => $request->job_id,
+            'cover_letter'    => $request->cover_letter,
+            'status'          => config('application.status')[0],
+            'is_rejected'     => 0,
+            'rejected_reason' => ""
+        ];
+        
+        $application = Application::updateOrCreate(
+            [
+                'job_id'       => $request->job_id,
+                'applicant_id' => auth()->user()->id
+            ],
+            $application_data
+        );
 
         if ($application) {
             return response()->json([

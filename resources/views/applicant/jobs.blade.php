@@ -132,6 +132,11 @@
                                 salary = `<span>&#8369; ${salary}<span>`
                             }
 
+                            let job_status = "Apply Now";
+                            if (val.applications.length > 0 && val.applications[0].status !== 'Withdrawn') {
+                                job_status = "Withdraw"
+                            } 
+
                             // Add dynamic company logo here...
                             html += `<div class="job-item p-4 mb-4">
                                 <div class="row g-4">
@@ -160,7 +165,7 @@
                                     <div
                                         class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
-                                            <a class="btn btn-primary" href="{{url('/applicant/job-details/${val.id}')}}">Apply Now</a>
+                                            <a class="btn btn-primary btn-apply" href="{{url('/applicant/job-details/${val.id}')}}">${job_status}</a>
                                         </div>
                                         <small class="text-truncate">
                                             <i class="far fa-calendar-alt text-primary me-2"></i>
@@ -184,6 +189,7 @@
                     }
 
                     $('#tab-1').html(html)
+                    
                 },
                 error: function(xhr, status, error) {
                     console.log(error)
