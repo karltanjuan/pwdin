@@ -1,301 +1,219 @@
 @extends('applicant.layouts.master')
 
 @section('title', 'Applicant - Job List')
+@section('cover_page')
+    <li class="breadcrumb-item text-white active">Job List</li>
+@endsection
 
 @section('content')
-    <style>
-        .modal-view-job .content>div {
-            border: 1px solid #333;
-            padding: 5px;
-        }
+    <h1 class="text-center mb-5 wow fadeInUp title-label" data-wow-delay="0.1s">Available Jobs for Me</h1>
+    <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+        <span>Filter by Job Type:</span>
+        <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-3">
+            <li class="nav-item">
+                <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
+                    href="#tab-1" data-type="internship">
+                    <h6 class="mt-n1 mb-0">Internship</h6>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
+                    href="#tab-2" data-type="contract">
+                    <h6 class="mt-n1 mb-0">Contract</h6>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
+                    href="#tab-3" data-type="part-time">
+                    <h6 class="mt-n1 mb-0">Part Time</h6>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="job-types d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-4"
+                    data-type="full-time">
+                    <h6 class="mt-n1 mb-0">Full Time</h6>
+                </a>
+            </li>
+        </ul>
 
-        .modal-view-job .content>div:last-child>div {
-            padding-left: 30px;
-        }
-    </style>
-
-    <div class="head-container">
-        <h1 class="title-label">Available Jobs for Me</h1>
-    </div>
-    <a href="javascript:void(0)" class="primary-btn btn-filter-all">View All Jobs</a>
-    <table class="jobs-table">
-        <thead>
-            <tr>
-                <th>Job Title</th>
-                <th>Company</th>
-                <th>Job Status</th>
-                <th>Application Status</th>
-                <th>Date Posted</th>
-                <th>Date Applied</th>
-                <th>Date Updated</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (count($jobs) > 0)
-                @foreach ($jobs as $job)
-                    <tr>
-                        <td>{{ $job->job_title }}</td>
-                        <td>{{ $job->employer->company_name }}</td>
-                        <td>{{ $job->status == 1 ? 'Open' : 'Close' }}</td>
-                        <td>{{ count($job->applications) > 0 ? $job->applications[0]->status : '-' }}</td>
-                        <td>{{ date('m/d/y H:i A', strtotime($job->created_at)) }}</td>
-                        @if (count($job->applications) > 0)
-                            <td>{{ date('m/d/y H:i A', strtotime($job->applications[0]->created_at)) }}</td>
-                            <td>{{ date('m/d/y H:i A', strtotime($job->applications[0]->updated_at)) }}</td>
-                        @else
-                            <td>-</td>
-                            <td>-</td>
-                        @endif
-                        <td>
-                            <button class="btn-view" id="btn-view" data-id="{{ $job->id }}">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
-                @endforeach
-            @else
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td class="text-center">No records found.</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            @endif
-        </tbody>
-    </table>
-
-    <!-- modal -->
-
-    <div id="modal-view-job" class="modal modal-view-job">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>View Job</h2>
-                <span class="modal-close">&times;</span>
+        <div class="row mb-5">
+            <div class="col-md-4">
+                <select class="btn-filter form-select" id="btn-filter">  
+                    <option disabled selected>View all jobs or view related jobs</option>
+                    <option value="related">Related Jobs</option>
+                    <option value="all">All Jobs</option>
+                </select>
             </div>
-            <div class="modal-body">
-                <div class="content">
-                </div>
-                <div class="modal-footer">
-                    <button class="primary-btn btn-withdraw">Withdraw</button>
-                    <button class="primary-btn btn-apply">Apply</button>
-                    <button class="secondary-btn btn-cancel">Close</button>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input type="text" class="form-control query" placeholder="Search jobs"/>
+                    <button class="btn btn-outline-primary btn-search" type="button" id="btn-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                 </div>
             </div>
         </div>
+
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade show p-0 active"></div>
+            <div id="pagination" class="d-flex justify-content-center my-4"></div>
+        </div>
     </div>
 
+    @include('applicant.layouts.scripts')
     <script>
-        var id = 0;
+        let page      = 1;
+        let data_type = null;
+        let related   = 'related';
+        let query     = null;
+
         $(document).ready(function() {
-            tinymce.init({
-                selector: 'textarea#job_description',
-                plugins: 'powerpaste advcode table lists checklist emoticons',
-                toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
-            });
+            filterJobs(null, 'related', null);
+        });
 
-            $('.working_days').select2();
+        $(document).on('click', '#pagination .page-link', function() {
+            page = $(this).data('page');
+            filterJobs(data_type, related, query, page);
+        });
 
-            if (window.location.href.includes('/all')) {
-                $('.title-label').text('All Available Jobs')
-                $('.btn-filter-all').text('Related Jobs').attr('href', '{{ url('/applicant/jobs') }}')
-            } else {
-                $('.title-label').text('Available Jobs for Me')
-                $('.btn-filter-all').text('View All Jobs').attr('href', '{{ url('/applicant/jobs/all') }}')
+        $(document).on('click', '.job-types', function() {
+            data_type = $(this).data('type');
+            filterJobs(data_type, related, query, page = 1);
+        })
+
+        $(document).on('change', '.btn-filter', function() {
+            related = $(this).val();
+            filterJobs(data_type, related, query, page = 1);
+        })
+
+        $(document).on('keypress', '.query', function(e) {
+            if (e.keyCode === 13) {
+                query = $(this).val();
+                filterJobs(data_type, related, query, page = 1);
             }
         })
 
-        function getJobsById(id) {
+        $(document).on('click', '.btn-search', function() {
+            query = $('.query').val();
+            filterJobs(data_type, related, query, page);
+        })
+
+        function filterJobs(data_type, related, query, page = 1) {
             var formData = new FormData();
+
             formData.append('_token', "{{ csrf_token() }}");
-            formData.append('id', parseInt(id));
+            formData.append('page', page);
+            formData.append('type', data_type);
+            formData.append('related', related)
+            formData.append('search_query', query)
 
             // Send an AJAX request to validate the data
             $.ajax({
-                url: '{{ route('applicant.getJobsById') }}',
+                url: '{{ route('applicant.getJobs') }}',
                 type: 'POST',
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    var status = "Closed";
-                    if (response.status == 1) {
-                        status = "Open"
-                    }
+                    let html = ''
+                    if (response.data.length > 0) {
+                        $.each(response.data, function(index, val) {
 
-                    let salary = parseFloat(response.salary).toLocaleString(undefined, {
-                        style: 'currency',
-                        currency: 'PHP',
-                    });
+                            let salary = parseFloat(val.salary).toLocaleString(undefined, {
+                                style: 'currency',
+                                currency: 'PHP',
+                            });
 
-                    if (response.hide_salary === 1){
-                        salary = '*'.repeat(salary.toString().length);
-                    }
+                            if (val.hide_salary === 1){
+                                salary = '*'.repeat(salary.toString().length);
+                                salary = `<span>&#8369; ${salary}<span>`
+                            }
 
-                    const full_address =
-                        `${response.employer.address}, ${response.employer.province}, ${response.employer.city}, ${response.employer.zip_code}`
+                            let job_status = "Apply Now";
+                            if (val.applications.length > 0 && val.applications[0].status !== 'Withdrawn') {
+                                job_status = "Withdraw"
+                            } 
 
-                    $('.modal-view-job .content').html(`
-                    	<div>Company Name: ${response.employer.company_name}</div>
-                    	<div>Address: ${full_address}</div>
-                    	<div>Job Title: ${response.job_title}</div>
-						<div>Career Level: ${response.career_level}</div>
-						<div>Job Type: ${response.job_type}</div>
-						<div>Industry: ${response.job_industry}</div>
-						<div>Years of Experience: ${response.years_experience}</div>
-						<div>Average Processing Days: ${response.average_processing_time}</div>
-						<div>Salary: ${salary}</div>
-						<div>Educational Attainment: ${response.qualification}</div>
-						<div>Work Setup: ${response.work_setup}</div>
-						<div>Working Days: ${response.working_days}</div>
-						<div>Status: ${status}</div>
-						<div>Job Description: <div>${response.job_description}</div></div>
-						<div class="input-group cover_letter_container">
-							<label for="cover_letter">Cover Letter</label>
-							<textarea rows="10" class="cover_letter" id="cover_letter" placeholder="Enter cover letter (300 characters max)"></textarea>
-							<span class="err-cover_letter err-msg"></span>
-						</div>
-                    `)
+                            let company_logo = val.employer.company_logo.replace('public', 'storage')
+                            html += `<div class="job-item p-4 mb-4">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid border rounded"
+                                            src="{{url('/')}}/${company_logo}" alt=""
+                                            style="width: 80px; height: 80px;">
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-0">${val.job_title}</h5>
+                                            <p class="mb-3">${val.employer.company_name}<p>
+                                            <span class="text-truncate me-3">
+                                                <i class="fa fa-map-marker-alt text-primary me-2"></i>
+                                                ${val.employer.address},
+                                                ${val.employer.province},
+                                                ${val.employer.city}
+                                            </span>
+                                            <span class="text-truncate me-3">
+                                                <i class="far fa-clock text-primary me-2"></i>
+                                                ${val.job_type}
+                                            </span>
+                                            <span class="text-truncate me-0">
+                                                <i class="far fa-money-bill-alt text-primary me-2"></i>
+                                                ${salary}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div class="d-flex mb-3">
+                                            <a class="btn btn-primary btn-apply" href="{{url('/applicant/job-details/${val.id}')}}">${job_status}</a>
+                                        </div>
+                                        <small class="text-truncate">
+                                            <i class="far fa-calendar-alt text-primary me-2"></i>
+                                            Date Posted ${moment(val.created_at).format('M/D/YYYY')}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>`
+                        })
 
-                    if (response.applications.length > 0 && response.applications[0].status !== 'Withdrawn') {
-                        $('.btn-withdraw').show();
-                        $('.btn-apply').hide();
-                        $('.cover_letter_container').hide()
+                        getPagination(response)
+
                     } else {
-                        $('.cover_letter_container').show()
-                        $('.btn-withdraw').hide();
-                        $('.btn-apply').show();
+                        if (data_type === null) {
+                            html += `<h4 class="text-center">No jobs available at the moment.</h4>`
+                        } else {
+                            html += `<h4 class="text-center">No ${data_type} jobs available at the moment.</h4>`
+                        }
+
+                        $('#pagination').empty();
                     }
 
+                    $('#tab-1').html(html)
+                    
                 },
                 error: function(xhr, status, error) {
-                    var result = JSON.parse(xhr.responseText)
-                    console.log(result.errors)
+                    console.log(error)
                 }
             });
         }
 
-        $(document).on('click', '.btn-view', function() {
-            id = $(this).data('id')
-            getJobsById(id)
-            $('.modal-view-job').show();
-        })
+        function getPagination(response) {
+            let pagination_html = '<ul class="pagination">';
+            
+            pagination_html += '<li class="page-item">';
+            pagination_html += '<a class="page-link" data-page="1" href="javascript:void(0)">First</a>';
+            pagination_html += '</li>';
+            
+            for (let page = 1; page <= response.last_page; page++) {
+                pagination_html += '<li class="page-item ' + (response.current_page === page ? 'active' : '') + '">';
+                pagination_html += '<a class="page-link" data-page="' + page + '" href="javascript:void(0)">' + page + '</a>';
+                pagination_html += '</li>';
+            }
 
-        function closeModal() {
-            $(".modal").css("display", "none");
-        }
+            pagination_html += '<li class="page-item">';
+            pagination_html += '<a class="page-link" data-page="' + response.last_page + '" href="javascript:void(0)">Last</a>';
+            pagination_html += '</li>';
+            pagination_html += '</ul>';
 
-        $(document).on('click', '.modal-close, .btn-cancel', function() {
-            closeModal()
-        })
-
-        var datatable_job = $('.jobs-table').DataTable({
-            "lengthChange": false,
-            "iDisplayLength": 10,
-            // "order": [[0, 'asc']],
-        });
-
-        $(document).on('click', '.btn-apply', function() {
-            var formData = new FormData();
-            formData.append('_token', "{{ csrf_token() }}");
-            formData.append('cover_letter', $('.cover_letter').val())
-            formData.append('job_id', parseInt(id));
-
-            $.ajax({
-                url: '{{ route('applicant.applyJob') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        $('.modal').hide()
-
-                        Swal.fire({
-                            title: 'Application submitted',
-                            text: 'Success',
-                            icon: 'success',
-                            showCancelButton: false,
-                            confirmButtonText: 'OK'
-                        });
-
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/applicant/jobs') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
-        })
-
-        $(document).on('click', '.btn-withdraw', function() {
-            var formData = new FormData();
-            formData.append('_token', "{{ csrf_token() }}");
-            formData.append('job_id', parseInt(id));
-
-            $.ajax({
-                url: '{{ route('applicant.withdrawJob') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        $('.modal').hide()
-
-                        Swal.fire({
-                            title: 'Application withdraw',
-                            text: 'Success',
-                            icon: 'success',
-                            showCancelButton: false,
-                            confirmButtonText: 'OK'
-                        });
-
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/applicant/jobs') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
-                    }
-                },
-                error: function(xhr, status, error) {
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
-        })
-
-        $(document).on('click', '.btn-filter-all', function() {
-            location.href = "{{ url('applicant/jobs/all') }}"
-        })
-
-        var err_counter = 0;
-
-        function displayErrors(errors) {
-            $('.err-msg').text('');
-            $('.err-msg').siblings('input, select').removeClass('error');
-
-            $.each(errors, function(field, messages) {
-                var errMsgSelector = '.err-' + field;
-                var inputSelector = '#' + field;
-                $(errMsgSelector).text(messages[0]);
-                $(inputSelector).addClass('error');
-            });
-
-            $("html, body").animate({
-                scrollTop: 0
-            }, "slow");
-        }
-
-        function checkApplicationStatus() {
-
+            $('#pagination').html(pagination_html);
         }
     </script>
 @endsection

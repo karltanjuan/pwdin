@@ -1,301 +1,231 @@
 @extends('applicant.layouts.master')
 
 @section('title', 'Applicant - Applied Jobs')
+@section('cover_page')
+    <li class="breadcrumb-item text-white active">Applied Jobs</li>
+@endsection
 
 @section('content')
-	<style>
-		.modal-view-job .content > div {
-			border: 1px solid #333;
-			padding: 5px;
-		}
-
-		.modal-view-job .content > div:last-child > div {
-			padding-left: 30px;
-		}
-
-        .job-container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .job-card {
-            border-radius: 5px;
-            background: rgb(229, 228, 228);
-            /* display: block; */
-            margin-bottom: 10px;
-            margin-right: 10px;
-            padding: 10px;
-            width: 100%;
-        }
-
-        .btn-withdraw {
-            display: inline-block;
-            float: right;
-        }
-
-        .company_logo {
-            width: 150px;
-            height: auto;
-            float: right;
-            margin-top: -55px;
-            border-radius: 5px;
-        }
-
-        .progress-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 20px;
-            background: #cacaca;
-            border-left: 5px dashed #333;
-            margin-bottom: 10px;
-            margin-top: 10px;
-        }
-
-        /* Style for each progress step */
-        .progress-step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-            position: relative;
-            width: 200px; /* Adjust the width as needed */
-            padding: 3px;
-            border: 2px solid #333;
-            border-right: none;
-        }
-
-        .progress-step::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: -12px;
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 10px solid #333;
-            transform: translateY(-50%);
-        }
-
-        .progress-step:last-child::before {
-            content: none;
-        }
-
-        .step-label {
-            font-size: 11px;
-        }
-
-        .step-indicator {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: #ccc;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            background-color: #007bff;
-            color: white;
-        }
-
-        .current-status {
-            background: #333;
-            color: #fff;
-        }
-
-        .current-status > .step-indicator {
-            background: green;
-        }
-
-        .bg-withdrawn {
-            background: rgb(220, 134, 22);
-            color: #fff;
-            padding: 5px;
-            border-radius: 10px;
-        }
-
-        .rejected {
-            background: red;
-
-        }
-	</style>
-
-    <div class="head-container">
-    	<h1>Applied Jobs</h1>
-    </div>
-
-    @if (count($jobs) > 0)
-        <div class="job-container">
-            @foreach ($jobs as $job)
-                <div class="job-card">
-                    <h3 class="job-title">{{ $job->job_title }}</h3>
-                    <p class="company"><i>{{ $job->employer->company_name }}</i></p>
-                    @php  $company_logo = str_replace('public', 'storage', $job->employer->company_logo) @endphp
-                    <img class="company_logo" src="{{asset($company_logo)}}" alt="Company Logo"/>
-                    <h5 class="date-applied">
-                        <span>Date Applied: {{ date('m/d/y H:i A', strtotime($job->applications[0]->created_at))}}</span>
-                    </h5>
-                    <div class="job-status">
-                        <p>Job Status: <span>{{ $job->status == 1 ? 'Open' : 'Close' }}</span></p>
-                    </div>
-
-                    @php 
-                        $app_status = $job->applications[0]->status
-                    @endphp
-
-                    <div class="application-status">
-                        <p>
-                            <span>Application Status: </span>
-                            {{-- <span class="{{ $app_status == "Withdrawn" ? 'bg-withdrawn' : '' }}">
-                                {{ count($job->applications) > 0 ? $app_status : '-' }}
-                            </span> --}}
-                        </p>
-                        @php
-                            $statuses = json_decode($job->employer->application_statuses->name); 
-                            $key_counter = 1;
-                        @endphp
-
-                        @php
-                            $rejected = '';
-                            if ($job->applications[0]->is_rejected === 1) {
-                                $rejected = 'rejected';
-
-                            }
-                        @endphp
-
-                        
-                        <div class="progress-bar">
-                            @if ($app_status == "Applied")
-                                <div class="progress-step current-status">
-                                    <div class="step-indicator">{{ $key_counter++ }}</div>
-                                    <div class="step-label">Applied</div>
-                                </div>
-                            @else
-                                <div class="progress-step">
-                                    <div class="step-indicator">{{ $key_counter++ }}</div>
-                                    <div class="step-label">Applied</div>
-                                </div>
-                            @endif
-
-                            @foreach($statuses as $status)
-                                <div class="progress-step {{ $app_status == $status ? 'current-status' : '' }} {{ $app_status == $status && $job->applications[0]->is_rejected === 1 ? 'rejected' : '' }}">
-                                    <div class="step-indicator">{{ $key_counter++ }}</div>
-                                    <div class="step-label">{{ $status }}</div>
-                                </div>
-                            @endforeach
-
-                            @if ($app_status == "Withdrawn")
-                                <div class="progress-step current-status">
-                                    <div class="step-indicator">{{ $key_counter++ }}</div>
-                                    <div class="step-label">Withdrawn</div>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    @if($job->applications[0]->is_rejected === 1)
-                        <p>Rejected Reason: <b>{{ $job->applications[0]->rejected_reason }}</b></p>
-                    @endif
-                    {{-- add dropdown arrow to view more details --}}
-                    @if ($app_status != "Withdrawn")
-                        <button class="primary-btn btn-withdraw" data-id="{{$job->applications[0]->job_id}}">Withdraw</button>
-                    @endif
+    <h1 class="text-center mb-5 wow fadeInUp title-label" data-wow-delay="0.1s">Applied Jobs</h1>
+    <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" class="form-control query" placeholder="Search jobs"/>
+                    <button class="btn btn-outline-primary btn-search" type="button" id="btn-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
                 </div>
-            @endforeach
+            </div>
         </div>
-    @else
-        <div class="text-center">
-            <h3>You haven't applied to any jobs yet.</h3>
-            <a href="{{url('applicant/jobs')}}">Click here</a>
-            <span> to browse and apply for new opportunities.</span>
+
+        <div class="tab-content">
+            <div id="tab-1" class="tab-pane fade show p-0 active"></div>
+            <div id="pagination" class="d-flex justify-content-center my-4"></div>
         </div>
-    @endif
-	
-	
-	<!-- modal -->
-	<div id="modal-view-job" class="modal modal-view-job">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h2>View Job</h2>
-				<span class="modal-close">&times;</span>
-			</div>
-			<div class="modal-body">
-				<div class="content">
-				</div>
-				<div class="modal-footer">
-					<button class="primary-btn btn-withdraw">Withdraw</button>
-					<button class="primary-btn btn-apply">Apply</button>
-					<button class="secondary-btn btn-cancel">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+    </div>
+    @include('applicant.layouts.scripts')
+    <script>
+        let page  = 1;
+        let query = null;
 
-	<script>
-		var id = 0;
-		$(document).ready(function() {
-		})
+        $(document).ready(function() {
+            filterJobs(null, page = 1);
+        });
 
-		function closeModal() {
-            $(".modal").css("display", "none");
-        }
+        $(document).on('click', '#pagination .page-link', function() {
+            page = $(this).data('page');
+            filterJobs(query, page);
+        });
 
-        $(document).on('click', '.modal-close, .btn-cancel', function() {
-            closeModal()
+        $(document).on('keypress', '.query', function(e) {
+            if (e.keyCode === 13) {
+                query = $(this).val();
+                filterJobs(query, page = 1);
+            }
         })
 
-		$(document).on('click', '.btn-withdraw', function() {
-			var formData = new FormData();
-            id = parseInt($(this).data('id'))
+        $(document).on('click', '.btn-search', function() {
+            query = $('.query').val();
+            filterJobs(query, page = 1);
+        })
+
+        function filterJobs( query, page = 1) {
+            var formData = new FormData();
 
             formData.append('_token', "{{ csrf_token() }}");
-        	formData.append('job_id', id);
+            formData.append('page', page);
+            formData.append('search_query', query)
 
+            // Send an AJAX request to validate the data
             $.ajax({
-                url: '{{ route('applicant.withdrawJob') }}',
+                url: '{{ route('applicant.postAppliedJobs') }}',
                 type: 'POST',
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function(response) {
-                    if (response.code == "200") {
-                    	$('.modal').hide()
+                    let html = ''
+                    if (response.data.length > 0) {
+                        $.each(response.data, function(index, val) {
 
-                        Swal.fire({
-                          title: 'Application withdraw',
-                          text: 'Success',
-                          icon: 'success',
-                          showCancelButton: false,
-                          confirmButtonText: 'OK'
-                        });
+                            let salary = parseFloat(val.salary).toLocaleString(undefined, {
+                                style: 'currency',
+                                currency: 'PHP',
+                            });
 
-                        setTimeout(function() {
-                            window.location.href = '{{url('/applicant/applied-jobs')}}'
-                        }, 2000)
+                            if (val.hide_salary === 1){
+                                salary = '*'.repeat(salary.toString().length);
+                                salary = `<span>&#8369; ${salary}<span>`
+                            }
+
+                            let job_status = "Apply Again";
+                            if (val.applications.length > 0 && val.applications[0].status !== 'Withdrawn') {
+                                job_status = "Withdraw"
+                            } 
+
+                            let company_logo = val.employer.company_logo.replace('public', 'storage')
+                            let job_vacancy  = val.status == 1 ? 'Open' : 'Closed';
+
+                            let rejected_reason = ''
+                            let rejected = ''
+                            if (val.applications[0].is_rejected === 1) {
+                                rejected_reason = `<i class="fa-regular fa-circle-xmark text-primary me-2"></i> Rejected Reason: <b>${val.applications[0].rejected_reason}<b>`
+
+                                rejected = 'rejected'
+                            }
+
+                            let statuses    = JSON.parse(val.employer.application_statuses.name);
+                            let key_counter = 1;
+                            let status_html = ''
+                            let app_status = val.applications[0].status
+
+                            status_html += `<div class="btn-group" role="group">`
+
+                            if (app_status == "Applied") {
+                                status_html += `<button type="button" class="btn ${val.applications[0].is_rejected === 1 ? 'btn-danger' : 'btn-secondary'}">
+                                    <span class="badge bg-warning text-dark">${key_counter++}</span>
+                                    Applied <i class="fa-solid fa-caret-right"></i>
+                                </button>`
+                            } else {
+                                status_html += `<button type="button" class="btn btn-outline-secondary">
+                                    <span class="badge bg-warning text-dark">${key_counter++}</span>
+                                    Applied <i class="fa-solid fa-caret-right"></i>
+                                </button>`
+                            }
+
+                            $.each(statuses, function(index, status) {
+                                status_html += `<button type="button" class="btn ${app_status == status ? 'btn-secondary' : 'btn-outline-secondary'} ${app_status == status && val.applications[0].is_rejected === 1 ? 'btn-danger' : 'btn-outline-dark' }">
+                                    <span class="badge bg-warning text-dark">${key_counter++}</span>
+                                    ${status} <i class="fa-solid fa-caret-right"></i>
+                                </button>`
+                            })
+
+                            if (app_status == "Withdrawn") {
+                                status_html += `<button type="button" class="btn btn-secondary">
+                                    <span class="badge bg-warning text-dark">${key_counter++}</span>
+                                    Withdrawn
+                                </button>`
+                            }
+                        
+                            status_html += `</div>`
+
+                            html += `<div class="job-item p-4 mb-4">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                        <img class="flex-shrink-0 img-fluid border rounded"
+                                            src="{{url('/')}}/${company_logo}" alt=""
+                                            style="width: 80px; height: 80px;">
+                                        <div class="text-start ps-4">
+                                            <h5 class="mb-0">${val.job_title}</h5>
+                                            <p class="mb-3">${val.employer.company_name}<p>
+                                            <span class="text-truncate me-3">
+                                                <i class="fa fa-map-marker-alt text-primary me-2"></i>
+                                                ${val.employer.address},
+                                                ${val.employer.province},
+                                                ${val.employer.city}
+                                            </span>
+                                            <span class="text-truncate me-3">
+                                                <i class="far fa-clock text-primary me-2"></i>
+                                                ${val.job_type}
+                                            </span>
+                                            <span class="text-truncate me-0">
+                                                <i class="far fa-money-bill-alt text-primary me-2"></i>
+                                                ${salary}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                        <div class="d-flex mb-3">
+                                            <a class="btn btn-primary btn-apply" href="{{url('/applicant/job-details/${val.id}')}}">${job_status}</a>
+                                        </div>
+                                        <small class="text-truncate">
+                                            <i class="far fa-calendar-alt text-primary me-2"></i>
+                                            Date Posted ${moment(val.created_at).format('M/D/YYYY')}
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <hr>
+                                        <p>
+                                            <span class="text-truncate me-3">
+                                                <i class="far fa-calendar-alt text-primary me-2"></i>
+                                                Date Applied: ${moment(val.applications[0].created_at).format('M/D/YYYY')}
+                                            </span>
+                                            <span class="text-truncate me-3">
+                                                <i class="fa-solid fa-circle-info text-primary me-2"></i>
+                                                Job Status: ${job_vacancy}
+                                            </span>
+                                            <span class="text-truncate me-3">
+                                                ${rejected_reason}
+                                            </span>
+                                        </p>
+                                        <div class="application-status">
+                                            <p>Application Status</p>
+                                            ${status_html}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>`
+                        })
+
+                        getPagination(response)
+
                     } else {
-                        displayErrors(JSON.parse(response.errors));
+                        html += `<h4 class="text-center">No applied jobs available at the moment.</h4>`
+
+                        $('#pagination').empty();
                     }
+
+                    $('#tab-1').html(html)
+                    
                 },
                 error: function(xhr, status, error) {
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
+                    console.log(error)
                 }
             });
-		})
-
-		var err_counter = 0;
-        function displayErrors(errors) {
-            $('.err-msg').text('');
-            $('.err-msg').siblings('input, select').removeClass('error');
-
-            $.each(errors, function(field, messages) {
-                var errMsgSelector = '.err-' + field;
-                var inputSelector = '#' + field;
-                $(errMsgSelector).text(messages[0]);
-                $(inputSelector).addClass('error');
-            });
-
-            $("html, body").animate({ scrollTop: 0 }, "slow");
         }
-	</script>
+
+        function getPagination(response) {
+            let pagination_html = '<ul class="pagination">';
+            
+            pagination_html += '<li class="page-item">';
+            pagination_html += '<a class="page-link" data-page="1" href="javascript:void(0)">First</a>';
+            pagination_html += '</li>';
+            
+            for (let page = 1; page <= response.last_page; page++) {
+                pagination_html += '<li class="page-item ' + (response.current_page === page ? 'active' : '') + '">';
+                pagination_html += '<a class="page-link" data-page="' + page + '" href="javascript:void(0)">' + page + '</a>';
+                pagination_html += '</li>';
+            }
+
+            pagination_html += '<li class="page-item">';
+            pagination_html += '<a class="page-link" data-page="' + response.last_page + '" href="javascript:void(0)">Last</a>';
+            pagination_html += '</li>';
+            pagination_html += '</ul>';
+
+            $('#pagination').html(pagination_html);
+        }
+    </script>
 @endsection

@@ -1,172 +1,100 @@
 @extends('applicant.layouts.master')
 
-@section('title', 'Applicant Change Password')
+@section('title', 'Applicant - Change Password')
+@section('cover_page')
+    <li class="breadcrumb-item text-white active">Settings</li>
+    <li class="breadcrumb-item text-white active">Change Password</li>
+@endsection
 
 @section('content')
     <style>
-        .input-field {
-            position: relative;
-            display: inline-block;
+        .eye-icon-position {
+            margin-top: -40px;
         }
-
-        .eye-icon-position1,
-        .eye-icon-position2,
-        .eye-icon-position3 {
-            position: absolute;
-            top: 60%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }   
     </style>
-    <div class="content-0">
-        <div class="head-container">
-            <h1>Change Password</h1>
-            <p><b>Note</b>: Strong password should be 8 characters long or more.</p>
-        </div> 
 
-        <div id="form">
-            <div class="form first" id="form-first">
-                <div class="details personal">
-                    <div class="fields">
-                        <div class="input-field">
-                            <label>Current Password</label>
-                            <input id="current_password" class="current_password" type="password" placeholder="Enter current password">
-                            <span class="show eye-icon-position1">
-                                <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i> 
-                            </span>
-                        </div>
+    <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">Change Password</h1>
+    <p class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s"><b>Note</b>: Strong password should be 8 characters long or more.</p>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <!-- Current password input -->
+                    <div class="form-outline mb-3 form-floating">
+                        <input type="password" id="current_password" class="form-control form-control-lg current_password"
+                            placeholder="Enter current password" />
+                        <label class="form-label" for="current_password">Current Password</label>
+                        <span class="show eye-icon-position">
+                            <i class="las la-eye fs-5" id="show4" onclick="toggle4()"></i>
+                        </span>
                         <span class="err-current_password err-msg"></span>
-                        <div class="input-field">
-                            <label>New Password</label>
-                            <input id="new_password" class="new_password" type="password" placeholder="Enter new password">
-                            <span class="show eye-icon-position2">
-                                <i class="las la-eye fs-5" id="show2" onclick="toggle2()"></i> 
-                            </span>
-                        </div>
+                    </div>
+
+                    <!-- New password input -->
+                    <div class="form-outline mb-3 form-floating">
+                        <input type="password" id="new_password" class="form-control form-control-lg new_password"
+                            placeholder="Enter new password" />
+                        <label class="form-label" for="new_password">New Password</label>
+                        <span class="show eye-icon-position">
+                            <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i>
+                        </span>
                         <span class="err-new_password err-msg"></span>
-                        <div class="input-field">
-                            <label>Confirm Password</label>
-                            <input id="password_confirmation" class="password_confirmation" type="password" placeholder="Enter password confirmation">
-                            <span class="show eye-icon-position3">
-                                <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i> 
-                            </span>
-                        </div>
+                    </div>
+
+                    <!-- Confirm password input -->
+                    <div class="form-outline mb-3 form-floating">
+                        <input type="password" id="password_confirmation"
+                            class="form-control form-control-lg password_confirmation"
+                            placeholder="Enter password confirmation" />
+                        <label class="form-label" for="password_confirmation">Confirm Password</label>
+                        <span class="show eye-icon-position">
+                            <i class="las la-eye fs-5" id="show2" onclick="toggle2()"></i>
+                        </span>
                         <span class="err-password_confirmation err-msg"></span>
                     </div>
 
-                    <button class="primary-btn btn-update">Save Password</button>
-                    
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="button" class="btn-update btn btn-primary btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Save Password</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    @include('applicant.layouts.scripts')
 
-        <script>
-            var state1 = false;
-            var state2 = false;
-            var state3 = false;
-            let hide1 = $("#show1");
-            let hide2 = $("#show2");
-            let hide3 = $("#show3");
+    <script>
+        $('.btn-update').on('click', function() {
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('current_password', $('#current_password').val());
+            formData.append('new_password', $('#new_password').val());
+            formData.append('password_confirmation', $('#password_confirmation').val());
 
-            function toggle1() {
-              if (state1) {
-                $("#current_password").attr("type", "password");
-                hide1.css("color", "#D0CECE");
-                hide1.removeClass("la-eye-slash").addClass("la-eye");
-                state1 = false;
-              } else {
-                $("#current_password").attr("type", "text");
-                hide1.css("color", "#1976D2");
-                hide1.removeClass("la-eye").addClass("la-eye-slash");
-                state1 = true;
-              }
-            }
-
-            function toggle2() {
-              if (state2) {
-                $("#new_password").attr("type", "password");
-                hide2.css("color", "#D0CECE");
-                hide2.removeClass("la-eye-slash").addClass("la-eye");
-                state2 = false;
-              } else {
-                $("#new_password").attr("type", "text");
-                hide2.css("color", "#1976D2");
-                hide2.removeClass("la-eye").addClass("la-eye-slash");
-                state2 = true;
-              }
-            }
-
-            function toggle3() {
-              if (state3) {
-                $("#password_confirmation").attr("type", "password");
-                hide3.css("color", "#D0CECE");
-                hide3.removeClass("la-eye-slash").addClass("la-eye");
-                state3 = false;
-              } else {
-                $("#password_confirmation").attr("type", "text");
-                hide3.css("color", "#1976D2");
-                hide3.removeClass("la-eye").addClass("la-eye-slash");
-                state3 = true;
-              }
-            }
-
-            var err_counter = 0;
-            function displayErrors(errors) {
-                $('.err-msg').text('');
-                $('.error').css('border', 'none')
-                $('.err-msg').siblings('input, select').removeClass('error');
-
-                $.each(errors, function(field, messages) {
-                    var errMsgSelector = '.err-' + field;
-                    var inputSelector = '#' + field;
-                    $(errMsgSelector).text(messages[0]);
-                    $(inputSelector).addClass('error');
-                });
-            }
-
-        
-            $('.btn-update').on('click', function() {
-                // prepare the data to be submitted on backend
-                var formData = new FormData();
-                formData.append('_token', "{{ csrf_token() }}");
-                formData.append('current_password', $('#current_password').val());
-                formData.append('new_password', $('#new_password').val());
-                formData.append('password_confirmation', $('#password_confirmation').val());
-
-                $.ajax({
-                    url: '{{ route('applicant.updatePassword') }}',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (response.code == "200") {
-
-                            Swal.fire({
-                              title: 'Password change successfully',
-                              text: '',
-                              icon: 'success',
-                              showCancelButton: false,
-                              confirmButtonText: 'OK'
-                            })
-
-                            setTimeout(function() {
-                                window.location.href = '{{url('/applicant/change-password')}}'
-                            }, 2000)
-                        } else {
-                            displayErrors(JSON.parse(response.errors));
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle the AJAX request error
-                        var result = JSON.parse(xhr.responseText)
-                        displayErrors(result.errors)
+            $.ajax({
+                url: '{{ route('applicant.updatePassword') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        toastr.success('Password change successfully', 'Success')
+                  
+                        setTimeout(function() {
+                            window.location.href = '{{url('/applicant/change-password')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
                     }
-                });
-        
-            })
-
-        </script>
+                },
+                error: function(xhr, status, error) {
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
+        })
+    </script>
 @endsection

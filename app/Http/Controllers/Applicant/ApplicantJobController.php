@@ -16,7 +16,47 @@ use Carbon\Carbon;
 
 class ApplicantJobController extends Controller
 {
-    public function index($type = null) {
+    public function index($type = null, $related = 'related') {
+        // $pwd_categories = auth()->user()->pwd_categories;
+        // $pwd_categories_arr = explode(',', $pwd_categories);
+
+        // $jobs = Job::orderBy('created_at', 'desc')
+        //             ->with('employer')
+        //             ->with(['applications' => function ($query) {
+        //                 $query->where('applicant_id', auth()->user()->id);
+        //             }])
+        //             ->where('status', 1);
+
+        // $jobs = $type !== null ? $jobs->where('job_type', ucwords($type)) : $jobs;
+
+
+        // if ($related == "related") {
+        //     // related pwd categories
+        //     $jobs = $jobs->where(function ($query) use ($pwd_categories_arr) {
+        //         foreach ($pwd_categories_arr as $category) {
+        //             $query->orWhere('pwd_categories', 'LIKE', "%$category%");
+        //         }
+        //     })->paginate(2);
+        // } else {
+        //     // all pwd categories
+        //     $jobs = $jobs->paginate(2);
+        // }
+                    
+        // return view('applicant.jobs', compact('jobs'));
+        return view('applicant.jobs');
+    }
+
+    public function getJobs(Request $request) {  
+        $request->related = $request->related ?? "related";
+
+        if ($request->type == 'null') {
+            $request->type = null;
+        }
+
+        if ($request->search_query == 'null') {
+            $request->search_query = null;
+        }
+
         $pwd_categories = auth()->user()->pwd_categories;
         $pwd_categories_arr = explode(',', $pwd_categories);
 
@@ -26,30 +66,28 @@ class ApplicantJobController extends Controller
                         $query->where('applicant_id', auth()->user()->id);
                     }])
                     ->where('status', 1);
-                    // ->where(function ($query) use ($pwd_categories_arr) {
-                    //     foreach ($pwd_categories_arr as $category) {
-                    //         $query->orWhere('pwd_categories', 'LIKE', "%$category%");
-                    //     }
-                    // })
-                    // ->get();
+        
+        $jobs = $request->type !== null ? $jobs->where('job_type', ucwords($request->type)) : $jobs;
+        $jobs = $request->search_query !== null ? $jobs->where('job_title', 'like', '%'.$request->search_query.'%') : $jobs;
 
-
-        if ($type == "all") {
-            $jobs = $jobs->get();
-        } else {
+        if ($request->related == "related") {
+            // related pwd categories
             $jobs = $jobs->where(function ($query) use ($pwd_categories_arr) {
                 foreach ($pwd_categories_arr as $category) {
                     $query->orWhere('pwd_categories', 'LIKE', "%$category%");
                 }
-            })->get();
+            })->paginate(10);
+        } else {
+            // all pwd categories
+            $jobs = $jobs->paginate(10);
         }
                     
-        return view('applicant.jobs', compact('jobs'));
+        return response()->json($jobs);
     }
 
-    public function getJobsById(Request $request) {
-        $id = (int)$request->id;
-        // Laravel Eloquent - handles database queries using OOP
+    public function getJobsById($id) {
+        $id = (int)$id;
+
         $job = Job::where('id', $id)
                     ->with('employer')
                     ->with(['applications' => function ($query) use ($id) {
@@ -57,8 +95,9 @@ class ApplicantJobController extends Controller
                               ->where('applicant_id', auth()->user()->id);
                     }])
                     ->first();
-
-        return response()->json($job);
+        
+        return view('applicant.job-details', compact('job'));
+        // return response()->json($job);
     }
 
     public function applyJob(Request $request){
@@ -71,15 +110,22 @@ class ApplicantJobController extends Controller
             ], 422);
         }
 
-        // save to database
-        $application = new Application();
-        $application->applicant_id = auth()->user()->id; 
-        $application->job_id       = $request->job_id;
-        $application->cover_letter = $request->cover_letter; 
-        $application->status       = config('application.status')[0];
-        $application->is_rejected  = 0;
-        $application->rejected_reason = "";
-        $application->save();
+        $application_data = [
+            'applicant_id'    => auth()->user()->id,
+            'job_id'          => $request->job_id,
+            'cover_letter'    => $request->cover_letter,
+            'status'          => config('application.status')[0],
+            'is_rejected'     => 0,
+            'rejected_reason' => ""
+        ];
+        
+        $application = Application::updateOrCreate(
+            [
+                'job_id'       => $request->job_id,
+                'applicant_id' => auth()->user()->id
+            ],
+            $application_data
+        );
 
         if ($application) {
             return response()->json([

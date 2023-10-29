@@ -38,7 +38,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Template Stylesheet -->
-    <link href="{{ asset('css/homepage.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
     <style>
         .eye-icon-position,
@@ -105,7 +105,7 @@
                                 <!-- Password input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="password" id="password" class="form-control form-control-lg password"
-                                        placeholder="Enter password" tabindex="4" />
+                                        placeholder="Enter password" tabindex="4"/>
                                     <label class="form-label" for="password">Password</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
@@ -124,17 +124,17 @@
 
                                 <!-- Zip code input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="zip_code"
-                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="10" />
+                                    <input type="text" id="zip_code" class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="10"/>
                                     <label class="form-label" for="zip_code">Zip Code</label>
                                     <span class="err-zip_code err-msg"></span>
                                 </div>
                             </div>
+                            
                             <div class="col-md-4">
                                 <!-- Email input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="email" id="email" class="form-control form-control-lg email"
-                                        placeholder="Enter email address" tabindex="2" />
+                                        placeholder="Enter email address" tabindex="2"/>
                                     <label class="form-label" for="email">Email address</label>
                                     <span class="err-email err-msg"></span>
                                 </div>
@@ -160,8 +160,8 @@
 
                                 <!-- Address input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="address" class="form-control form-control-lg address" tabindex="11"
-                                        placeholder="Enter address" />
+                                    <input type="text" id="address" class="form-control form-control-lg address"
+                                        placeholder="Enter address" tabindex="11"/>
                                     <label class="form-label" for="address">Address</label>
                                     <span class="err-address err-msg"></span>
                                 </div>
@@ -187,7 +187,6 @@
                                     <span class="err-last_name err-msg"></span>
                                 </div>
 
-
                                 <!-- City -->
                                 <div class="form-floating mb-4">
                                     <select class="city form-select" id="city" tabindex="9"></select>
@@ -204,16 +203,16 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="input-group">
-                                    <input type="file" class="form-control form-control-lg company_logo" tabindex="12"
-                                        id="company_logo" accept=".png,.jpeg,.jpg">
+                                    <input type="file" class="form-control form-control-lg company_logo"
+                                        id="company_logo" accept=".png,.jpeg,.jpg" tabindex="12" />
                                     <label class="input-group-text" for="company_logo">Upload Company Logo</label>
                                 </div>
                                 <span class="err-company_logo err-msg mb-4"></span>
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group">
-                                    <input type="file" class="form-control form-control-lg business_permit" tabindex="13"
-                                        id="business_permit" accept=".png,.jpeg,.jpg">
+                                    <input type="file" class="form-control form-control-lg business_permit"
+                                        id="business_permit" accept=".png,.jpeg,.jpg" tabindex="13" />
                                     <label class="input-group-text" for="business_permit">Upload Business
                                         Permit</label>
                                 </div>
@@ -221,8 +220,8 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="input-group">
-                                    <input type="file" class="form-control form-control-lg bir_certificate" tabindex="14"
-                                        id="bir_certificate" accept=".png,.jpeg,.jpg">
+                                    <input type="file" class="form-control form-control-lg bir_certificate"
+                                        id="bir_certificate" accept=".png,.jpeg,.jpg" tabindex="14" />
                                     <label class="input-group-text" for="bir_certificate">Upload BIR
                                         Certificate</label>
                                 </div>
@@ -231,7 +230,7 @@
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input accept-agreement" id="accept-agreement" type="checkbox" tabindex="15">
+                            <input class="form-check-input accept-agreement" id="accept-agreement" type="checkbox" tabindex="15" />
                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal"
                                 style="cursor:pointer;">
                                 <label class="form-check-label" for="accept-agreement">I certify that I have read and
@@ -242,12 +241,12 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                             <p class="small fw-bold pt-1 mb-0">Already have an account? <a
-                                    href="{{ url('/applicant/login') }}" class="link-danger">Login</a></p>
+                                    href="{{ url('/applicant/login') }}" class="link-danger" tabindex="16">Login</a></p>
                         </div>
 
                         <div class="text-center text-lg-start mt-4 pt-2 mb-5">
                             <button type="button" class="btn-register btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;" tabindex="17">Register</button>
                         </div>
                     </div>
                     <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved {{ date('Y') }}</p>

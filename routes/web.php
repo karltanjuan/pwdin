@@ -49,6 +49,10 @@ Route::get('/bs', function() {
     return view('bs');
 });
 
+Route::get('/ad', function() {
+    return view('joblist');
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/choose-account', [HomeController::class, 'chooseAccount'])->name('chooseAccount');
 
@@ -78,11 +82,14 @@ Route::group(['prefix' => 'applicant'], function() {
     Route::middleware('is_applicant')->group(function () {
         // Route::get('/dashboard', [ApplicantDashboardController::class, 'index'])->name('applicant.dashboard');
 
-        Route::get('/applied-jobs', [ApplicantAppliedJobController::class, 'getAppliedJobs'])->name('applicant.getAppliedJobs');
-        Route::post('getAppliedJobsById', [ApplicantAppliedJobController::class, 'getAppliedJobsById'])->name('applicant.getAppliedJobsById');
+        Route::get('/applied-jobs', [ApplicantAppliedJobController::class, 'index'])->name('applicant.getAppliedJobs');
+        Route::post('/applied-jobs', [ApplicantAppliedJobController::class, 'postAppliedJobs'])->name('applicant.postAppliedJobs');
+        Route::post('/applied-jobs-details/{id}', [ApplicantAppliedJobController::class, 'getAppliedJobsById'])->name('applicant.getAppliedJobsById');
 
-        Route::get('/jobs/{type?}', [ApplicantJobController::class, 'index'])->name('applicant.index');
-        Route::post('getJobsById', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
+        Route::get('/jobs/{type?}/{related?}', [ApplicantJobController::class, 'index'])->name('applicant.index');
+        Route::post('/jobs', [ApplicantJobController::class, 'getJobs'])->name('applicant.getJobs');
+        Route::get('job-details/{id}', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
+        // Route::post('getJobsById', [ApplicantJobController::class, 'getJobsById'])->name('applicant.getJobsById');
         Route::post('applyJob', [ApplicantJobController::class, 'applyJob'])->name('applicant.applyJob');
         Route::post('withdrawJob', [ApplicantJobController::class, 'withdrawJob'])->name('applicant.withdrawJob');
 

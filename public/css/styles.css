@@ -237,6 +237,11 @@
     background-size: cover;
 }
 
+.applicant-page-header {
+    background: linear-gradient(rgba(43, 57, 64, .5), rgba(43, 57, 64, .5)), url(../img/applicant_cover2.jpg) center center no-repeat;
+    background-size: cover;
+}
+
 .breadcrumb-item + .breadcrumb-item::before {
     color: var(--light);
 }
@@ -457,4 +462,10 @@ h6 {
 
 .register-img {
     width: 300px;
+}
+
+.display-3 {
+    font-weight: bold;
+    font-size: 4rem;
+    line-height: 1.2;
 }
