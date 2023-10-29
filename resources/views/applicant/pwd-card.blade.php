@@ -12,7 +12,7 @@
     </style>
 
     <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">Change PWD Card</h1>
-    <p class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Unlock your dream job with an outstanding resume!</p>
+    <p class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Upload PWD ID card / Recent medical records</p>
 
     <div class="row">
         <div class="col-md-8 offset-md-2">

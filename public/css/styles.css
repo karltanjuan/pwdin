@@ -469,3 +469,8 @@ h6 {
     font-size: 4rem;
     line-height: 1.2;
 }
+
+body .uwy.userway_p7 .uai, 
+body .uwy.userway_p8 .uai {
+    top: 85px !important;
+}
