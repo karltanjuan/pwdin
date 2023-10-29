@@ -1,6 +1,6 @@
 @extends('applicant.layouts.master')
 
-@section('title', 'Applicant - Job List')
+@section('title', 'Applicant - Applied Jobs')
 @section('cover_page')
     <li class="breadcrumb-item text-white active">Applied Jobs</li>
 @endsection

@@ -116,10 +116,12 @@ function displayErrors(errors) {
 var state1 = false;
 var state2 = false;
 var state3 = false;
+var state4 = false;
 
 let hide1 = $("#show1");
 let hide2 = $("#show2");
 let hide3 = $("#show3");
+let hide4 = $("#show4");
 
 function toggle1() {
   if (state1) {
@@ -160,5 +162,19 @@ function toggle3() {
       hide3.css("color", "#1976D2");
       hide3.removeClass("la-eye").addClass("la-eye-slash");
       state3 = true;
+    }
+}
+
+function toggle4() {
+    if (state4) {
+      $("#current_password").attr("type", "password");
+      hide4.css("color", "#D0CECE");
+      hide4.removeClass("la-eye-slash").addClass("la-eye");
+      state4 = false;
+    } else {
+      $("#current_password").attr("type", "text");
+      hide4.css("color", "#1976D2");
+      hide4.removeClass("la-eye").addClass("la-eye-slash");
+      state4 = true;
     }
 }

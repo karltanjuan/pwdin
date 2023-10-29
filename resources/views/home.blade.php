@@ -111,10 +111,10 @@
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum
                                         dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd
                                         rebum sea elitr.</p>
-                                    <a href=""
+                                    <a href="{{url('/applicant/login')}}"
                                         class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A
                                         Job</a>
-                                    <a href=""
+                                    <a href="{{url('/employer/login')}}"
                                         class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A
                                         Talent</a>
                                 </div>
@@ -134,10 +134,10 @@
                                     <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum
                                         dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd
                                         rebum sea elitr.</p>
-                                    <a href=""
+                                    <a href="{{url('/applicant/login')}}"
                                         class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Search A
                                         Job</a>
-                                    <a href=""
+                                    <a href="{{url('/employer/login')}}"
                                         class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Find A
                                         Talent</a>
                                 </div>
