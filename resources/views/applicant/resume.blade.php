@@ -35,7 +35,7 @@
                             <a href="{{asset($resume)}}" target="_blank" type="button" class="btn btn-outline-secondary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">View resume</a>
                         @endif
                         <button type="button" class="btn-update btn btn-primary btn-lg"
-                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Save Password</button>
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">Save Resume</button>
                     </div>
                 </div>
             </div>
