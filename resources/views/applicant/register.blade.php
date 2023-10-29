@@ -350,9 +350,55 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi vel praesentium expedita quas
-                        qui iste sit, iusto hic? Odio, atque possimus quae sunt nostrum, molestiae sed quod maiores
-                        impedit ipsa!</p>
+                    <p>These terms and conditions ("Terms") govern your use of the PWDIn website and the services provided through it. By creating an account on PWDIn, you agree to abide by these Terms. Please read them carefully.
+
+                        1. Eligibility
+
+                        1.1. You must be at least 18 years of age to create an account on PWDIn.
+
+                        1.2. By creating an account, you represent that you have the legal capacity to enter into these Terms and are not prohibited by any applicable law from using our services.
+
+                        2. Account Registration
+
+                        2.1. To create an account, you will be required to provide accurate, current, and complete information as requested during the registration process.
+
+                        2.2. You are responsible for maintaining the confidentiality of your account information, including your username and password.
+
+                        2.3. You agree to notify us immediately of any unauthorized use of your account.
+
+                        3. User Conduct
+
+                        3.1. You agree to use PWDIn for lawful purposes and in a manner consistent with all applicable local, state, and federal laws and regulations.
+
+                        3.2. You agree not to:
+                        a. Engage in any fraudulent, abusive, or unethical activity on the platform.
+                        b. Impersonate any person or entity.
+                        c. Upload, post, or transmit any content that violates intellectual property rights, privacy, or other rights of others.
+                        d. Use the platform to distribute spam, malware, or any other malicious content.
+                        website.
+
+                        4. Privacy
+
+                        4.1. Your use of PWDIn is also governed by our Privacy Policy, which can be found on our website.
+
+                        5. Termination
+
+                        5.1. We reserve the right to terminate or suspend your account at our discretion if we believe you have violated these Terms or any applicable laws.
+
+                        6. Modifications
+
+                        6.1. We may update or modify these Terms from time to time, and you will be notified of such changes.
+
+                        7. Contact Information
+
+                        7.1. If you have any questions or concerns regarding these Terms, you can contact us at [Contact Email Address].
+
+                        8. Entire Agreement
+
+                        8.1. These Terms, together with our Privacy Policy, constitute the entire agreement between you and PWDIn.
+
+                        By creating an account on PWDIn, you acknowledge that you have read, understood, and agreed to these Terms and the associated Privacy Policy.
+                        </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-agree btn-primary">Understood</button>
