@@ -21,13 +21,20 @@ use Carbon\Carbon;
 class InvoiceController extends Controller
 {
     public function getSubscription() {
-        $invoice = Invoice::where('employer_id', auth()->guard('employers')->user()->id)->pluck('subscription_expired_at')[0];
+        $invoice = Invoice::with('transaction')
+                    ->where('employer_id', auth()->guard('employers')->user()->id)
+                    ->first();
+                
+        $is_expire = 1;
 
-        $subscription_expired_at = Carbon::parse($invoice);
+        if ($invoice->count() > 0 && $invoice->transaction->status === "Paid") {
+            $invoice = $invoice->pluck('subscription_expired_at')[0];
+    
+            $subscription_expired_at = Carbon::parse($invoice);
+            if (Carbon::now()->isBefore($subscription_expired_at)) {
+                $is_expire = 0;
+            }
 
-        $is_expired = 1;
-        if (Carbon::now()->isBefore($subscription_expired_at)) {
-            $is_expire = 0;
         }
 
         return view('employer.subscription', compact('is_expire'));
