@@ -343,14 +343,14 @@
 
     <div class="modal fade" id="agreement-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="agreementModal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Terms and Conditions</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>These terms and conditions ("Terms") govern your use of the PWDIn website and the services provided through it. By creating an account on PWDIn, you agree to abide by these Terms. Please read them carefully.
+                    <p class="text-justify">These terms and conditions ("Terms") govern your use of the PWDIn website and the services provided through it. By creating an account on PWDIn, you agree to abide by these Terms. Please read them carefully.
 
                         1. Eligibility
 
@@ -428,6 +428,16 @@
             getProvinces()
             $('.pwd_categories').select2();
         })
+
+        $(document).on('change', '.pwd_categories', function() {
+            if ($(this).val() != '') {
+                $('label[for="pwd_categories"]').css('z-index', '-1')
+            } else {
+                $('label[for="pwd_categories"]').css('z-index', '0')
+            }
+        })
+
+
 
         function getProvinces() {
             fetch('{{ asset('/json/provinces.json') }}')
