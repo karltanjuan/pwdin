@@ -81,7 +81,7 @@ class ApplicantJobController extends Controller
             // all pwd categories
             $jobs = $jobs->paginate(10);
         }
-                    
+        
         return response()->json($jobs);
     }
 
@@ -95,6 +95,10 @@ class ApplicantJobController extends Controller
                               ->where('applicant_id', auth()->user()->id);
                     }])
                     ->first();
+
+        if (!isset($job)) {
+            return redirect('/applicant/jobs');
+        }
         
         return view('applicant.job-details', compact('job'));
         // return response()->json($job);
