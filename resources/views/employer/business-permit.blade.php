@@ -8,7 +8,7 @@
 
 @section('content')
     <style>
-        
+
     </style>
 
     <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">Change Business Permit</h1>
@@ -20,22 +20,34 @@
                 <div class="card-body">
                     {{-- Business Permit --}}
                     <div class="input-group">
-                        <input type="file" class="form-control form-control-lg business_permit" id="business_permit" accept=".pdf,.png,.jpeg,.jpg">
+                        <input type="file" class="form-control form-control-lg business_permit" id="business_permit"
+                            accept=".pdf,.png,.jpeg,.jpg">
                         <label class="input-group-text" for="business_permit">Upload Business Permit</label>
                     </div>
                     <span class="err-business_permit err-msg mb-4"></span>
 
                     @php
-                        $business_permit = str_replace('public', 'storage', auth()->guard('employers')->user()->business_permit);
+                        $business_permit = str_replace(
+                            'public',
+                            'storage',
+                            auth()
+                                ->guard('employers')
+                                ->user()->business_permit,
+                        );
                         $path = pathinfo($business_permit);
                     @endphp
 
-                    @if (isset($path['extension']) && $path['extension'] == "pdf")
-                        <a href="{{asset($business_permit)}}" target="_blank" type="button" class="btn btn-outline-secondary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">View business permit</a>
-                    @else
-                        <img class="rounded border w-100 img-fluid img-preview" src="{{asset($business_permit)}}" alt="Business Permit">
+                    @if (isset($path['extension']) && $path['extension'] == 'pdf')
+                        <a href="{{ asset($business_permit) }}" target="_blank" type="button"
+                            class="btn btn-outline-secondary btn-lg"
+                            style="padding-left: 2.5rem; padding-right: 2.5rem;">View business permit</a>
                     @endif
-                    
+
+                    @if (isset($path['extension']) && in_array($path['extension'], ['png', 'jpg', 'jpeg']))
+                        <img class="rounded border w-100 img-fluid img-preview" src="{{ asset($business_permit) }}"
+                            alt="Business Permit">
+                    @endif
+
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button type="button" class="btn-update btn btn-primary btn-lg"
                             style="padding-left: 2.5rem; padding-right: 2.5rem;">Save Business Permit</button>
@@ -44,20 +56,20 @@
             </div>
         </div>
     </div>
-    
+
     @include('employer.layouts.scripts')
 
     <script>
         $('.business_permit').on('change', function(event) {
             const selectedImage = event.target.files[0];
-            
+
             if (selectedImage) {
                 const reader = new FileReader();
-                
+
                 reader.onload = function(e) {
                     $('.img-preview').attr('src', e.target.result);
                 };
-                
+
                 reader.readAsDataURL(selectedImage);
             }
         });
@@ -65,7 +77,7 @@
         $('.btn-update').on('click', function() {
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
-            formData.append('old_file', '{{auth()->guard('employers')->user()->business_permit}}');
+            formData.append('old_file', '{{ auth()->guard('employers')->user()->business_permit }}');
             formData.append('business_permit', $('#business_permit')[0].files[0]);
 
             $.ajax({
@@ -79,7 +91,7 @@
                         toastr.success('Business Permit change successfully', 'Success')
 
                         setTimeout(function() {
-                            window.location.href = '{{url('/employer/business-permit')}}'
+                            window.location.href = '{{ url('/employer/business-permit') }}'
                         }, 2000)
                     } else {
                         displayErrors(JSON.parse(response.errors));
@@ -91,7 +103,7 @@
                     displayErrors(result.errors)
                 }
             });
-    
+
         })
     </script>
 @endsection

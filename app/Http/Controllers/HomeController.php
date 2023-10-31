@@ -26,6 +26,14 @@ class HomeController extends Controller
     }
 
     public function chooseAccount() {
+        if (auth()->guard('employers')->check()) {
+            return redirect('employer/dashboard');
+        }
+
+        if (auth()->check()) {
+            return redirect('applicant/jobs');
+        }
+
         return view('choose-account');
     }
 
