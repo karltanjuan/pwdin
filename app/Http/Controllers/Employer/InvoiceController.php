@@ -31,17 +31,17 @@ class InvoiceController extends Controller
             if ($invoice->count() > 0 && !is_null($invoice->transaction)) {
                 if ($invoice->transaction->status === "Paid") {
 
-                    $invoice = $invoice->pluck('subscription_expired_at')[0];
+                    $expired_at = $invoice->pluck('subscription_expired_at')[0];
             
-                    $subscription_expired_at = Carbon::parse($invoice);
+                    $subscription_expired_at = Carbon::parse($expired_at);
                     if (Carbon::now()->isBefore($subscription_expired_at)) {
                         $is_expire = 0;
                     }
                 }
             }
         }
-
-        return view('employer.subscription', compact('is_expire'));
+        
+        return view('employer.subscription', compact('is_expire', 'expired_at', 'invoice'));
     }
 
     public function createInvoice(Request $request) {
