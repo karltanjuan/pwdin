@@ -109,7 +109,7 @@ class AdminAuthController extends Controller
     {
         $validator = $this->validateLoginAdmin($request);
         $response = response()->json(['errors' => [
-            'username' => ['Invalid username or password']]
+            'email' => ['Invalid email or password']]
             ], 422);
 
         if ($validator->fails()) {
@@ -118,7 +118,7 @@ class AdminAuthController extends Controller
             ], 422);
         }
 
-        $credentials = $request->only('username', 'password');
+        $credentials = $request->only('email', 'password');
 
         if (auth('admins')->attempt($credentials)) {
             $user = auth('admins')->user();
@@ -138,7 +138,7 @@ class AdminAuthController extends Controller
     public function validateLoginAdmin(Request $request)
     {
          return Validator::make($request->all(), [ 
-            'username'    => 'required',
+            'email'    => 'required',
             'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
         ]);
     }
@@ -174,7 +174,7 @@ class AdminAuthController extends Controller
             return $response;
         }
 
-        $token = $user->username.md5(rand(1, 10) . microtime());
+        $token = $user->email.md5(rand(1, 10) . microtime());
         $token_expired_at = Carbon::now()->addDay(1)->format("Y-m-d");
 
         $user_token = Admin::where('email', $request->email)
