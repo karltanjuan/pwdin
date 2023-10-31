@@ -210,6 +210,7 @@
                                         id="pwd_categories" name="pwd_categories[]" multiple="multiple">
                                         <option value="Psychosocial">Psychosocial</option>
                                         <option value="Mental">Mental</option>
+                                        <option value="Physical">Physical</option>
                                         <option value="Chronic illness">Chronic illness</option>
                                         <option value="Learning">Learning</option>
                                         <option value="Visual">Visual</option>

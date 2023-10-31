@@ -52,7 +52,7 @@ class AdminDashboardController extends Controller
         // Define the default categories
         $default_categories = [
             'Psychosocial', 'Mental', 'Chronic illness', 'Learning',
-            'Visual', 'Orthopedic', 'Communication'
+            'Visual', 'Orthopedic', 'Communication', 'Physical'
         ];
 
         // Merge the default categories with all categories
