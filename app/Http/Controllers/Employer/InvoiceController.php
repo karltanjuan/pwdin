@@ -28,12 +28,15 @@ class InvoiceController extends Controller
         $is_expire = 1;
 
         if ($invoice) {
-            if ($invoice->count() > 0 && $invoice->transaction->status === "Paid") {
-                $invoice = $invoice->pluck('subscription_expired_at')[0];
-        
-                $subscription_expired_at = Carbon::parse($invoice);
-                if (Carbon::now()->isBefore($subscription_expired_at)) {
-                    $is_expire = 0;
+            if ($invoice->count() > 0 && !is_null($invoice->transaction)) {
+                if ($invoice->transaction->status === "Paid") {
+
+                    $invoice = $invoice->pluck('subscription_expired_at')[0];
+            
+                    $subscription_expired_at = Carbon::parse($invoice);
+                    if (Carbon::now()->isBefore($subscription_expired_at)) {
+                        $is_expire = 0;
+                    }
                 }
             }
         }
@@ -50,24 +53,74 @@ class InvoiceController extends Controller
 
             $reference_no = self::generateReferenceNo();
 
-            $invoice = Invoice::create([
-                'reference_number'        => $reference_no,
-                'employer_id'             => $employer_id,
-                'product_name'            => 'pwdIn 1 Year Subscription',
-                'description'             => 'pwdIn 1 Year Subscription',
-                'quantity'                => 1,
-                'currency'                => 'PHP',
-                'total_amount'            => 400000, // 4000 pesos
-                'payment_method'          => '',
-                'subscription_expired_at' => Carbon::now()->addYear()->toDateTimeString()
-            ]);
+            $invoice_id = Invoice::where('employer_id', $employer_id)->pluck('id');
 
-            $transaction = Transaction::create([
-                'invoice_id'          => $invoice->id,
-                'checkout_session_id' => '',
-                'transaction_details' => '',
-                'status'              => 'Pending'
-            ]);
+            if (count($invoice_id) > 0) {
+                $invoice = Invoice::updateOrCreate([
+                    'id' => $invoice_id,
+                ], [
+                    'reference_number'        => $reference_no,
+                    'employer_id'             => $employer_id,
+                    'product_name'            => 'pwdIn 1 Year Subscription',
+                    'description'             => 'pwdIn 1 Year Subscription',
+                    'quantity'                => 1,
+                    'currency'                => 'PHP',
+                    'total_amount'            => 400000, // 4000 pesos
+                    'payment_method'          => '',
+                    'subscription_expired_at' => Carbon::now()->addYear()->toDateTimeString()
+                ]);
+    
+                $transaction = Transaction::updateOrCreate([
+                    'invoice_id' => $invoice->id,
+                ], [
+                    'invoice_id'          => $invoice->id,
+                    'checkout_session_id' => '',
+                    'transaction_details' => '',
+                    'status'              => 'Pending'
+                ]);
+            } else {
+                $invoice = Invoice::create([
+                    'reference_number'        => $reference_no,
+                    'employer_id'             => $employer_id,
+                    'product_name'            => 'pwdIn 1 Year Subscription',
+                    'description'             => 'pwdIn 1 Year Subscription',
+                    'quantity'                => 1,
+                    'currency'                => 'PHP',
+                    'total_amount'            => 400000, // 4000 pesos
+                    'payment_method'          => '',
+                    'subscription_expired_at' => Carbon::now()->addYear()->toDateTimeString()
+                ]);
+    
+                $transaction = Transaction::create([
+                    'invoice_id'          => $invoice->id,
+                    'checkout_session_id' => '',
+                    'transaction_details' => '',
+                    'status'              => 'Pending'
+                ]);
+            }
+
+            
+
+            // if (is_null($invoice_id)) {
+            //     $invoice = Invoice::create([
+            //         'reference_number'        => $reference_no,
+            //         'employer_id'             => $employer_id,
+            //         'product_name'            => 'pwdIn 1 Year Subscription',
+            //         'description'             => 'pwdIn 1 Year Subscription',
+            //         'quantity'                => 1,
+            //         'currency'                => 'PHP',
+            //         'total_amount'            => 400000, // 4000 pesos
+            //         'payment_method'          => '',
+            //         'subscription_expired_at' => Carbon::now()->addYear()->toDateTimeString()
+            //     ]);
+    
+            //     $transaction = Transaction::create([
+            //         'invoice_id'          => $invoice->id,
+            //         'checkout_session_id' => '',
+            //         'transaction_details' => '',
+            //         'status'              => 'Pending'
+            //     ]);
+            // }
             
             DB::commit();
 
