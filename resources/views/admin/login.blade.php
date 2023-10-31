@@ -21,9 +21,9 @@
 					<div class="login-form">
 						<h2>Login</h2>
 							<p>
-								<label>Username<span>*</span></label>
-								<input type="text" class="username" id="username" placeholder="Enter username">
-								<span class="err-username err-msg"></span>
+								<label>Email<span>*</span></label>
+								<input type="text" class="email" id="email" placeholder="Enter email">
+								<span class="err-email err-msg"></span>
 							</p>
 							<p>
 								<label>Password<span>*</span></label>
@@ -87,7 +87,7 @@
     		// prepare the data to be submitted on backend
     		var formData = new FormData();
 			formData.append('_token', "{{ csrf_token() }}");
-			formData.append('username', $('#username').val());
+			formData.append('email', $('#email').val());
 			formData.append('password', $('#password').val());
 
 	        // Send an AJAX request to validate the data
