@@ -32,7 +32,7 @@
                 @endif
 
                 <h5 class="my-3">{{$user->first_name}} {{$user->middle_name}} {{$user->last_name}}</h5>
-                <p class="text-muted mb-1">Full Stack Developer</p>
+                {{-- <p class="text-muted mb-1">Full Stack Developer</p> --}}
                 <p class="text-muted mb-4">{{$user->city}}, {{$user->province}}</p>
 
                 <div class="input-group">
