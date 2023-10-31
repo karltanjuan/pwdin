@@ -227,6 +227,14 @@
             }
         });
 
+        $(document).on('change', '.pwd_categories', function() {
+            if ($(this).val() != '') {
+                $('label[for="pwd_categories"]').css('z-index', '-1')
+            } else {
+                $('label[for="pwd_categories"]').css('z-index', '0')
+            }
+        })
+
         function getProvinces() {
             fetch('{{asset('/json/provinces.json')}}')
             .then(response => response.json()) 
