@@ -61,6 +61,8 @@ class ApplicantProfileInfoController extends Controller
                      'summary'         => $request->summary,
                      'zip_code'        => $request->zip_code,
                      'pwd_categories'  => $request->pwd_categories,
+                     'skills'          => $request->skills,
+                     'description'     => $request->description,
                 ]);
         
         return response()->json([
@@ -88,7 +90,7 @@ class ApplicantProfileInfoController extends Controller
             'address'               => 'required',
             'zip_code'              => 'required|digits:4',
             'profile_photo'         => 'required|mimes:jpeg,jpg,png',
-            'pwd_categories'        => 'required'
+            'pwd_categories'        => 'required',
         ]);
     }
 }

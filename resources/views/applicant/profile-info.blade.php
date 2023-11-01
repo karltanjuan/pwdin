@@ -7,6 +7,8 @@
 @endsection
 
 @section('content')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+
     <style>
         .select2-selection {
             min-height: 58px !important;
@@ -185,6 +187,20 @@
                         <span class="err-pwd_categories err-msg"></span>
                     </div>
                 </div>
+                <hr>
+                <div class="col-md-12">
+                    <label class="form-label" for="skills">Skills</label>
+                    <input type="text" id="skills" class="form-control form-control-lg skills"
+                        placeholder="Enter skills" tabindex="14" value="{{$user->skills}}"/>
+                    <span class="err-skills err-msg"></span>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                        <textarea class="form-control description" id="description" rows="10" placeholder="Description">{{$user->description}}</textarea>
+                        <label for="description">Description</label>
+                        <span class="err-description err-msg"></span>
+                    </div>
+                </div>
 
                 <div class="text-center text-lg-start pt-2">
                     <button type="button" class="btn-update btn btn-primary btn-lg"
@@ -197,6 +213,8 @@
       </div>
     
     @include('applicant.layouts.scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>
         $(document).ready(function() {
             getProvinces()
@@ -212,6 +230,12 @@
                 console.log(province_code)
                 getCities(province_code)
             }, 500)
+
+            const skills = document.querySelector('.skills');
+            let choices = new Choices(skills, {
+                removeItems: true,
+                removeItemButton: true,
+            });
         })
 
         $('.profile_photo').on('change', function(event) {
@@ -313,6 +337,8 @@
             formData.append('address', $('#address').val());
             formData.append('zip_code', $('#zip_code').val());
             formData.append('pwd_categories', $('#pwd_categories').val().join());
+            formData.append('skills', skills.value)
+            formData.append('description', $('#description').val())
 
             $.ajax({
                 url: '{{ route('applicant.updateProfileInfo') }}',
