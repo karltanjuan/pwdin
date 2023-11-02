@@ -27,12 +27,12 @@
     </style>
 
     <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">{{ $page_title }}</h1>
-    <button class="mt-3 btn btn-primary btn-add mb-5 position-absolute" style="margin-left:85px;height:50px;">Add Job</button>
+    <button class="mt-4 btn btn-primary btn-add mb-5 position-absolute" style="margin-left:100px;height:48px;">Add Job</button>
 
     <div class="row">
         <div class="col-md-12">
             <table class="table table-bordered jobs-table wow fadeInUp" id="jobs-table" data-wow-delay="0.1s">
-                <thead class="table-secondary">
+                <thead class="table-dark">
                     <tr>
                         <th>Job Title <i class="fa-solid fa-sort"></i></th>
                         <th>Total Candidates <i class="fa-solid fa-sort"></i></th>
@@ -50,15 +50,11 @@
                                 <td>{{ $job->job_title }}</td>
                                 <td>
                                     @if (count($job->applications) != 0)
-                                        <p>
-                                            <a class="text-center" href="{{ url("/employer/jobs/{$job->id}/applicants") }}">
-                                                <span class="badge bg-primary">
-                                                    <i class="fa-regular fa-user"></i>
-                                                    {{ count($job->applications) }} 
-                                                    Applicant
-                                                </span>
-                                            </a>
-                                        </p>
+                                        <a class="text-center btn btn-sm btn-info text-white" href="{{ url("/employer/jobs/{$job->id}/applicants") }}">
+                                            <i class="fa-regular fa-user"></i>
+                                            {{ count($job->applications) }} 
+                                            Applicant
+                                        </a>
                                     @else
                                         <span>0</span>
                                     @endif
@@ -71,13 +67,13 @@
                                 </td>
                                 <td>
                                     @if ($job->status === 0)
-                                        <span>Pending Payment</span>
+                                        <span class="badge bg-warning">Pending Payment</span>
                                     @elseif($job->status === 1)
-                                        <span>Active</span>
+                                        <span class="badge bg-success">Active</span>
                                     @elseif($job->status === 2)
-                                        <span>Inactive</span>
+                                        <span class="badge bg-secondary">Inactive</span>
                                     @elseif($job->status === 3)
-                                        <span>Closed</span>
+                                        <span class="badge bg-danger">Closed</span>
                                     @endif
                                 </td>
                                 <td>{{ date('m/d/y', strtotime($job->created_at)) }}</td>
@@ -89,7 +85,7 @@
                                         data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </button>
-                                    <button title="View Job" class="btn btn-outline-secondary btn-sm btn-view" id="btn-view"
+                                    <button title="View Job" class="btn btn-outline-dark btn-sm btn-view" id="btn-view"
                                         data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-eye"></i>
                                     </button>
@@ -121,10 +117,12 @@
     <script>
 
         var datatable_job = $('.jobs-table').DataTable({
-            "order": [[0, 'asc']],
+            "order": [[1, 'asc']],
         });
 
+        $('#jobs-table_length select').removeClass('form-select-sm').addClass('form-select-lg')
         $("input[type='search']").addClass('form-control form-control-lg mb-3')
+
 
     </script>
 @endsection
