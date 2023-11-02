@@ -27,7 +27,7 @@
     </style>
 
     <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">{{ $page_title }}</h1>
-    <button class="mt-4 btn btn-primary btn-add mb-5 position-absolute" style="margin-left:100px;height:48px;">Add Job</button>
+    <a class="mt-4 btn btn-primary btn-add mb-5 position-absolute" href="{{url('/employer/jobs/add')}}" style="margin-left:100px;height:48px;padding-top:11px;">Add Job</a>
 
     <div class="row">
         <div class="col-md-12">

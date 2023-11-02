@@ -119,9 +119,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <textarea class="form-control summary" id="summary" rows="15" style="height:100px;" placeholder="Summary">
-                            {{$user->summary}}
-                        </textarea>
+                        <textarea class="form-control summary" id="summary" rows="15" style="height:100px;" placeholder="Summary">{{$user->summary}}</textarea>
                         <label for="summary">Enter summary</label>
                         <span class="err-summary err-msg"></span>
                     </div>

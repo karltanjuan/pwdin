@@ -26,6 +26,10 @@ class EmployerJobController extends Controller
         return view('employer.jobs', compact('jobs'));
     }
 
+    public function add() {
+        return view('employer.add-job');
+    }
+
     public function getJobsById(Request $request) {
         $jobs = Job::where('id', $request->id)->first();
         return response()->json($jobs);

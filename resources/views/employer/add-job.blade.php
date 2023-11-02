@@ -1,0 +1,226 @@
+@extends('employer.layouts.master')
+
+@php $page_title = "Add Job"; @endphp
+
+@section('title', 'Employer - '.$page_title)
+@section('cover_page')
+    <li class="breadcrumb-item text-white">
+        <a href="{{url('employer/job')}}">Jobs</a>
+    </li>
+    <li class="breadcrumb-item text-white active">$page_title</li>
+@endsection
+
+@section('content')
+    <style>
+        .select2-selection {
+            min-height: 58px !important;
+        }
+    </style>
+    
+    @php $user = auth()->guard('employers')->user() @endphp
+
+    <h1 class="text-center mb-5 wow fadeInUp title-label" data-wow-delay="0.1s">Add New Job</h1>
+
+    <div class="row wow fadeInUp" data-wow-delay="0.1s">
+        <div class="col-lg-12">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                    <div class="form-outline mb-4 form-floating">
+                        <input type="text" id="job_title" class="form-control form-control-lg job_title"
+                            placeholder="Enter job title" tabindex="1" value=""/>
+                        <label class="form-label" for="job_title">Job Title</label>
+                        <span class="err-job_title err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="career_level form-select" id="career_level" tabindex="2">
+                            <option value="Intern Level">Intern Level</option>
+                            <option value="Entry Level">Entry Level</option>
+                            <option value="Associate Level">Associate Level</option>
+                            <option value="Mid-Senior Level">Mid-Senior Level</option>
+                            <option value="Director">Director</option>
+                        </select>
+                        <label for="career_level">Career Level</label>
+                        <span class="err-career_level err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="job_type form-select" id="job_type" tabindex="3">
+                            <option value="Full-time">Full-time</option>
+                            <option value="Part-time">Part-time</option>
+                            <option value="Internship">Internship</option>
+                            <option value="Contract">Contract</option>
+                        </select>
+                        <label for="job_type">Job Type</label>
+                        <span class="err-job_type err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="job_industry form-select" id="job_industry" tabindex="4">
+                            <option value="Accounting/Finance">Accounting/Finance</option>
+                            <option value="Admin/Human Resources">Admin/Human Resources</option>
+                            <option value="Sales/Marketing">Sales/Marketing</option>
+                            <option value="Arts/Media/Communication">Arts/Media/Communication</option>
+                            <option value="Services">Services</option>
+                            <option value="Hotel/Restaurant">Hotel/Restaurant</option>
+                            <option value="Education/Training">Education/Training</option>
+                            <option value="Computer/Information Technology">Computer/Information Technology
+                            </option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Building/Construction">Building/Construction</option>
+                            <option value="Sciences">Sciences</option>
+                            <option value="Healtcare">Healtcare</option>
+                            <option value="Journalist/Editors">Journalist/Editors</option>
+                            <option value="General Work">General Work</option>
+                            <option value="Publishing">Publishing</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <label for="job_industry">Job Industry</label>
+                        <span class="err-job_industry err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-outline mb-4 form-floating">
+                        <input type="number" id="years_experience" class="form-control form-control-lg years_experience"
+                            placeholder="Enter years of experience" tabindex="5" value=""/>
+                        <label class="form-label" for="years_experience">Years of Experience</label>
+                        <span class="err-years_experience err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-outline mb-4 form-floating">
+                        <input type="number" id="average_processing_time" class="form-control form-control-lg average_processing_time"
+                            placeholder="Enter days" tabindex="6" value=""/>
+                        <label class="form-label" for="average_processing_time">Average Processing Iime</label>
+                        <span class="err-average_processing_time err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-outline mb-4 form-floating">
+                        <input type="number" id="salary" class="form-control form-control-lg salary"
+                            placeholder="Enter salary" tabindex="7" value=""/>
+                        <label class="form-label" for="salary">Salary</label>
+                        <span class="err-salary err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="qualification form-select" id="qualification" tabindex="8">
+                            <option value="Grade School">Grade School</option>
+                            <option value="High School">High School</option>
+                            <option value="Bachelor's Degree">Bachelor's Degree</option>
+                            <option value="Vocational">Vocational</option>
+                            <option value="Post-Graduate">Post-Graduate</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <label for="qualification">Educational Attainment</label>
+                        <span class="err-qualification err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="work_setup form-select" id="work_setup" tabindex="9">
+                            <option value="Onsite">Onsite</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                        <label for="work_setup">Work Setup</label>
+                        <span class="err-work_setup err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="working_days form-select" id="working_days" tabindex="10" name="working_days[]"
+                        multiple="multiple">
+                            <option value="Onsite">Onsite</option>
+                            <option value="Remote">Remote</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                        <label for="working_days">Working Days</label>
+                        <span class="err-working_days err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="pwd_categories form-select" id="pwd_categories" tabindex="11" name="pwd_categories[]"
+                        multiple="multiple">
+                            <option value="Psychosocial">Psychosocial</option>
+                            <option value="Mental">Mental</option>
+                            <option value="Physical">Physical</option>
+                            <option value="Chronic illness">Chronic illness</option>
+                            <option value="Learning">Learning</option>
+                            <option value="Visual">Visual</option>
+                            <option value="Orthopedic">Orthopedic</option>
+                            <option value="Communication">Communication</option>
+                        </select>
+                        <label for="pwd_categories">PWD Categories</label>
+                        <span class="err-pwd_categories err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="status form-select" id="status" tabindex="12">
+                            <option value="1">Open</option>
+                            <option value="0">Closed</option>
+                        </select>
+                        <label for="status">Status</label>
+                        <span class="err-status err-msg"></span>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-floating">
+                        <textarea class="form-control job_description" id="job_description" rows="15" style="height:100px;" placeholder="Job Description"></textarea>
+                        <label for="job_description">Enter job description and optional disclaimer.</label>
+                        <span class="err-job_description err-msg"></span>
+                    </div>
+                </div>
+
+                <div class="text-center text-lg-start pt-2">
+                    <button type="button" class="btn-save btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Save Job</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      
+      @include('employer.layouts.scripts')
+      
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        $(document).ready(function() {
+            tinymce.init({
+                selector: 'textarea#job_description',
+                plugins: 'powerpaste advcode table lists checklist emoticons',
+                toolbar: 'undo redo | blocks| bold italic | bullist numlist checklist | code | table | emoticons'
+            });
+
+            $('.working_days').select2();
+            $('.pwd_categories').select2();
+        })
+
+        $(document).on('change', '.working_days', function() {
+            if ($(this).val() != '') {
+                $('label[for="working_days"]').css('z-index', '-1')
+            } else {
+                $('label[for="working_days"]').css('z-index', '0')
+            }
+        })
+
+        $(document).on('change', '.pwd_categories', function() {
+            if ($(this).val() != '') {
+                $('label[for="pwd_categories"]').css('z-index', '-1')
+            } else {
+                $('label[for="pwd_categories"]').css('z-index', '0')
+            }
+        })
+    </script>
+@endsection

@@ -128,6 +128,7 @@ Route::group(['prefix' => 'employer'], function() {
         Route::get('/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.dashboard');
 
         Route::get('/jobs', [EmployerJobController::class, 'index'])->name('employer.index');
+        Route::get('/jobs/add', [EmployerJobController::class, 'add'])->name('employer.add');
         Route::post('postJob', [EmployerJobController::class, 'postJob'])->name('employer.postJob');
         Route::post('getJobsById', [EmployerJobController::class, 'getJobsById'])->name('employer.getJobsById');
         Route::post('updateJob', [EmployerJobController::class, 'updateJob'])->name('employer.updateJob');
