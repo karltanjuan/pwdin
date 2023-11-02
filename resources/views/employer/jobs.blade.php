@@ -11,96 +11,102 @@
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
 
     <style>
+        #jobs-table_filter,
+        .pagination {
+            float: right !important;
+        }
+
+        thead > tr > th {
+            width: 300px !important;
+        }
+
+        th:hover {
+            cursor: pointer;
+        }
 
     </style>
 
     <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">{{ $page_title }}</h1>
-    <p class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s"><b>Note</b>: lorem</p>
+    <button class="mt-3 btn btn-primary btn-add mb-5 position-absolute" style="margin-left:85px;height:50px;">Add Job</button>
 
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered jobs-table" id="jobs-table">
+            <table class="table table-bordered jobs-table wow fadeInUp" id="jobs-table" data-wow-delay="0.1s">
                 <thead class="table-secondary">
                     <tr>
-                        <th>Job Title</th>
-                        <th>Total Candidates</th>
-                        <th>Hired</th>
-                        <th>Rejected</th>
-                        <th>Job Status</th>
-                        <th>Posted</th>
-                        <th>Action</th>
+                        <th>Job Title <i class="fa-solid fa-sort"></i></th>
+                        <th>Total Candidates <i class="fa-solid fa-sort"></i></th>
+                        <th>Hired <i class="fa-solid fa-sort"></i></th>
+                        <th>Rejected <i class="fa-solid fa-sort"></i></th>
+                        <th>Job Status <i class="fa-solid fa-sort"></i></th>
+                        <th>Posted <i class="fa-solid fa-sort"></i></th>
+                        <th>Action <i class="fa-solid fa-sort"></i></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Web Developer</td>
-                        <td>
-                            <a href="#">123</a>
-                        </td>
-                        <td>5</td>
-                        <td>1</td>
-                        <td>Active</td>
-                        <td>{{ date('m/d/Y', strtotime('2023-10-31')) }}</td>
-                        <td>
-                            <button title="Edit Job" class="btn btn-outline-primary btn-edit" id="btn-edit" data-id="1">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button title="Delete Job" class="btn btn-outline-danger btn-delete" id="btn-delete"
-                                data-id="1">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                            <button title="View Job" class="btn btn-outline-secondary btn-view" id="btn-view"
-                                data-id="1">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Web Developer</td>
-                        <td>
-                            <a href="#">123</a>
-                        </td>
-                        <td>5</td>
-                        <td>1</td>
-                        <td>Active</td>
-                        <td>{{ date('m/d/Y', strtotime('2023-10-31')) }}</td>
-                        <td>
-                            <button title="Edit Job" class="btn btn-outline-primary btn-edit" id="btn-edit" data-id="1">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button title="Delete Job" class="btn btn-outline-danger btn-delete" id="btn-delete"
-                                data-id="1">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                            <button title="View Job" class="btn btn-outline-secondary btn-view" id="btn-view"
-                                data-id="1">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Web Developer</td>
-                        <td>
-                            <a href="#">123</a>
-                        </td>
-                        <td>5</td>
-                        <td>1</td>
-                        <td>Active</td>
-                        <td>{{ date('m/d/Y', strtotime('2023-10-31')) }}</td>
-                        <td>
-                            <button title="Edit Job" class="btn btn-outline-primary btn-edit" id="btn-edit" data-id="1">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button title="Delete Job" class="btn btn-outline-danger btn-delete" id="btn-delete"
-                                data-id="1">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
-                            <button title="View Job" class="btn btn-outline-secondary btn-view" id="btn-view"
-                                data-id="1">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    @if (count($jobs) > 0)
+                        @foreach ($jobs as $job)
+                            <tr>
+                                <td>{{ $job->job_title }}</td>
+                                <td>
+                                    @if (count($job->applications) != 0)
+                                        <p>
+                                            <a class="text-center" href="{{ url("/employer/jobs/{$job->id}/applicants") }}">
+                                                <span class="badge bg-primary">
+                                                    <i class="fa-regular fa-user"></i>
+                                                    {{ count($job->applications) }} 
+                                                    Applicant
+                                                </span>
+                                            </a>
+                                        </p>
+                                    @else
+                                        <span>0</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ count($job->applications->where('status', 'Hired')) }}
+                                </td>
+                                <td>
+                                    {{ count($job->applications->where('status', 'Rejected')) }}
+                                </td>
+                                <td>
+                                    @if ($job->status === 0)
+                                        <span>Pending Payment</span>
+                                    @elseif($job->status === 1)
+                                        <span>Active</span>
+                                    @elseif($job->status === 2)
+                                        <span>Inactive</span>
+                                    @elseif($job->status === 3)
+                                        <span>Closed</span>
+                                    @endif
+                                </td>
+                                <td>{{ date('m/d/y', strtotime($job->created_at)) }}</td>
+                                <td class="text-center">
+                                    <button title="Edit Job" class="btn btn-outline-primary btn-sm btn-edit" id="btn-edit" data-id="{{ $job->id }}">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                    <button title="Delete Job" class="btn btn-outline-danger btn-sm btn-delete" id="btn-delete"
+                                        data-id="{{ $job->id }}">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                    <button title="View Job" class="btn btn-outline-secondary btn-sm btn-view" id="btn-view"
+                                        data-id="{{ $job->id }}">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center">No records found.</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
@@ -113,14 +119,12 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script>
+
         var datatable_job = $('.jobs-table').DataTable({
-            // "lengthChange": false,
-            // "iDisplayLength": 2,
-            // "order": [[0, 'asc']],
+            "order": [[0, 'asc']],
         });
 
         $("input[type='search']").addClass('form-control form-control-lg mb-3')
 
-        // new DataTable('.jobs-table');
     </script>
 @endsection

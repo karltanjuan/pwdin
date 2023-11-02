@@ -97,9 +97,6 @@
                         <h1 class="text-center">
                             <span>Login As</span>
                         </h1>
-                        <div class="divider d-flex align-items-center my-4">
-                            <p class="text-center fw-bold mx-3 mb-0">Or</p>
-                        </div>
                         <div class="text-center mt-4 pt-2">
                             <a href="{{ url('/applicant/login') }}" type="button" class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">
@@ -108,17 +105,17 @@
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">
                                 Employer</a>
                         </div>
-                        <h1 class="text-center" style="margin-top: 20px;">
-                            <span>Register As</span>
-                        </h1>
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center fw-bold mx-3 mb-0">Or</p>
                         </div>
+                        <h1 class="text-center">
+                            <span>Register As</span>
+                        </h1>
                         <div class="text-center mt-4 pt-2">
-                            <a href="{{ url('/applicant/register') }}" type="button" class="btn btn-primary btn-lg"
+                            <a href="{{ url('/applicant/register') }}" type="button" class="btn btn-outline-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">
                                 Applicant</a>
-                            <a href="{{ url('/employer/register') }}" type="button" class="btn btn-secondary btn-lg"
+                            <a href="{{ url('/employer/register') }}" type="button" class="btn btn-outline-secondary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">
                                 Employer</a>
                         </div>
