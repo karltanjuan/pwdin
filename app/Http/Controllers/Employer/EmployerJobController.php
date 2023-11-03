@@ -30,6 +30,11 @@ class EmployerJobController extends Controller
         return view('employer.add-job');
     }
 
+    public function edit($id) {
+        $job = Job::where('id', $id)->first();
+        return view('employer.edit-job', compact('job'));
+    }
+
     public function getJobsById(Request $request) {
         $jobs = Job::where('id', $request->id)->first();
         return response()->json($jobs);
@@ -45,7 +50,8 @@ class EmployerJobController extends Controller
             ], 422);
         }
 
-        // save to database
+        $hide_salary = ($request->hide_salary === "true") ? 1 : 0;
+
         $job                          = new Job();
         $job->employer_id             = auth()->guard('employers')->user()->id;
         $job->job_title               = $request->job_title; 
@@ -55,8 +61,7 @@ class EmployerJobController extends Controller
         $job->years_experience        = $request->years_experience; 
         $job->average_processing_time = $request->average_processing_time; 
         $job->salary                  = $request->salary; 
-        //gawa ni gail eyy
-        $job->hide_salary             = $request->hide_salary;
+        $job->hide_salary             = $hide_salary;
         $job->qualification           = $request->qualification; 
         $job->work_setup              = $request->work_setup; 
         $job->working_days            = $request->working_days;

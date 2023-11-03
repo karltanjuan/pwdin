@@ -16,18 +16,18 @@
             float: right !important;
         }
 
-        thead > tr > th {
+        thead>tr>th {
             width: 300px !important;
         }
 
         th:hover {
             cursor: pointer;
         }
-
     </style>
 
     <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">{{ $page_title }}</h1>
-    <a class="mt-4 btn btn-primary btn-add mb-5 position-absolute" href="{{url('/employer/jobs/add')}}" style="margin-left:100px;height:48px;padding-top:11px;">Add Job</a>
+    <a class="mt-4 btn btn-primary btn-add mb-5 position-absolute" href="{{ url('/employer/jobs/add') }}"
+        style="margin-left:100px;height:48px;padding-top:11px;">Add Job</a>
 
     <div class="row">
         <div class="col-md-12">
@@ -50,9 +50,10 @@
                                 <td>{{ $job->job_title }}</td>
                                 <td>
                                     @if (count($job->applications) != 0)
-                                        <a class="text-center btn btn-sm btn-info text-white" href="{{ url("/employer/jobs/{$job->id}/applicants") }}">
+                                        <a class="text-center btn btn-sm btn-info text-white"
+                                            href="{{ url("/employer/jobs/{$job->id}/applicants") }}">
                                             <i class="fa-regular fa-user"></i>
-                                            {{ count($job->applications) }} 
+                                            {{ count($job->applications) }}
                                             Applicant
                                         </a>
                                     @else
@@ -78,17 +79,21 @@
                                 </td>
                                 <td>{{ date('m/d/y', strtotime($job->created_at)) }}</td>
                                 <td class="text-center">
-                                    <button title="Edit Job" class="btn btn-outline-primary btn-sm btn-edit" id="btn-edit" data-id="{{ $job->id }}">
+                                    <a href="{{ url('employer/jobs/edit/' . $job->id) }}" title="Edit Job"
+                                        class="btn btn-outline-primary btn-sm btn-edit" id="btn-edit"
+                                        data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-pen-to-square"></i>
-                                    </button>
-                                    <button title="Delete Job" class="btn btn-outline-danger btn-sm btn-delete" id="btn-delete"
+                                    </a>
+                                    <a href="{{ url('employer/jobs/edit/' . $job->id) }}" title="Delete Job"
+                                        class="btn btn-outline-danger btn-sm btn-delete" id="btn-delete"
                                         data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-trash-can"></i>
-                                    </button>
-                                    <button title="View Job" class="btn btn-outline-dark btn-sm btn-view" id="btn-view"
+                                    </a>
+                                    <a href="{{ url('employer/jobs/edit/' . $job->id) }}" title="View Job"
+                                        class="btn btn-outline-dark btn-sm btn-view" id="btn-view"
                                         data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-eye"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -115,14 +120,13 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script>
-
         var datatable_job = $('.jobs-table').DataTable({
-            "order": [[1, 'asc']],
+            "order": [
+                [1, 'asc']
+            ],
         });
 
         $('#jobs-table_length select').removeClass('form-select-sm').addClass('form-select-lg')
         $("input[type='search']").addClass('form-control form-control-lg mb-3')
-
-
     </script>
 @endsection
