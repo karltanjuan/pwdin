@@ -35,6 +35,16 @@ class EmployerJobController extends Controller
         return view('employer.edit-job', compact('job'));
     }
 
+    public function view($id) {
+        $id = (int)$id;
+
+        $job = Job::where('id', $id)
+                    ->with('employer')
+                    ->first();
+
+        return view('employer.view-job', compact('job'));
+    }
+
     public function getJobsById(Request $request) {
         $jobs = Job::where('id', $request->id)->first();
         return response()->json($jobs);

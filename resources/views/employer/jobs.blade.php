@@ -84,12 +84,12 @@
                                         data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
-                                    <a href="{{ url('employer/jobs/edit/' . $job->id) }}" title="Delete Job"
+                                    <a href="javascript:void(0)" title="Delete Job"
                                         class="btn btn-outline-danger btn-sm btn-delete" id="btn-delete"
                                         data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
-                                    <a href="{{ url('employer/jobs/edit/' . $job->id) }}" title="View Job"
+                                    <a href="{{ url('employer/jobs/view/' . $job->id) }}" title="View Job"
                                         class="btn btn-outline-dark btn-sm btn-view" id="btn-view"
                                         data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-eye"></i>
