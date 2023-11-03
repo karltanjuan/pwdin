@@ -84,11 +84,11 @@
                                         data-id="{{ $job->id }}">
                                         <i class="fa-regular fa-pen-to-square"></i>
                                     </a>
-                                    <a href="javascript:void(0)" title="Delete Job"
-                                        class="btn btn-outline-danger btn-sm btn-delete" id="btn-delete"
-                                        data-id="{{ $job->id }}">
+                                    <button title="Delete Job" class="btn btn-outline-danger btn-sm btn-delete"
+                                        id="btn-delete" data-id="{{ $job->id }}" data-bs-toggle="modal"
+                                        data-bs-target="#modal-delete-job" role="dialog">
                                         <i class="fa-regular fa-trash-can"></i>
-                                    </a>
+                                    </button>
                                     <a href="{{ url('employer/jobs/view/' . $job->id) }}" title="View Job"
                                         class="btn btn-outline-dark btn-sm btn-view" id="btn-view"
                                         data-id="{{ $job->id }}">
@@ -113,6 +113,25 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade modal-delete-job" id="modal-delete-job" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Job</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-remove">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     @include('employer.layouts.scripts')
 
@@ -128,5 +147,41 @@
 
         $('#jobs-table_length select').removeClass('form-select-sm').addClass('form-select-lg')
         $("input[type='search']").addClass('form-control form-control-lg mb-3')
+
+        let id = 0;
+        $(document).on('click', '.btn-delete', function() {
+            id = $(this).data('id')
+        })
+
+        $(document).on('click', '.btn-remove', function() {
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('id', parseInt(id));
+
+            $.ajax({
+                url: '{{ route('employer.deleteJob') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        $('.modal').modal('hide')
+                        toastr.success('Job Post Deleted', 'Success')
+
+                        setTimeout(function() {
+                            window.location.href = '{{ url('/employer/jobs') }}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                }
+            });
+        })
     </script>
 @endsection
