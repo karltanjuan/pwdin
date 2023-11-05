@@ -139,7 +139,7 @@
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
                                     </span>
                                     <span class="err-password err-msg"></span>
-                                    <span>Password must be 8 characters, must contain alpha numeric characters and a special character.</span>
+                                    <span><i>Password must be 8 characters, must contain alpha numeric characters and a special character.</i></span>
                                 </div>
 
                                 <!-- Confirm password input -->
