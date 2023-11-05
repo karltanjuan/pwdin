@@ -94,7 +94,7 @@
                         <div class="divider d-flex align-items-center my-4"></div>
                         <h3>Personal Details</h3>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <!-- Usename input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="username" class="form-control form-control-lg username"
@@ -102,25 +102,20 @@
                                     <label class="form-label" for="username">Username</label>
                                     <span class="err-username err-msg"></span>
                                 </div>
-
-                                <!-- Password input -->
+                                <!-- Email input -->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="password" id="password" class="form-control form-control-lg password"
-                                        placeholder="Enter password" tabindex="4"/>
-                                    <label class="form-label" for="password">Password</label>
-                                    <span class="show eye-icon-position">
-                                        <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
-                                    </span>
-                                    <span class="err-password err-msg"></span>
+                                    <input type="email" id="email" class="form-control form-control-lg email"
+                                        placeholder="Enter email address" tabindex="2"/>
+                                    <label class="form-label" for="email">Email address</label>
+                                    <span class="err-email err-msg"></span>
                                 </div>
-
-                                <!-- Company name input-->
+                                <!-- Mobile number input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="company_name"
-                                        class="form-control form-control-lg company_name"
-                                        placeholder="Enter company name" tabindex="7" />
-                                    <label class="form-label" for="company_name">Compay Name</label>
-                                    <span class="err-company_name err-msg"></span>
+                                    <input type="number" id="mobile_no"
+                                        class="form-control form-control-lg mobile_no"
+                                        placeholder="Enter mobile number" tabindex="3" />
+                                    <label class="form-label" for="mobile_no">Mobile Number</label>
+                                    <span class="err-mobile_no err-msg"></span>
                                 </div>
 
                                 <!-- Zip code input-->
@@ -131,15 +126,18 @@
                                 </div>
                             </div>
                             
-                            <div class="col-md-4">
-                                <!-- Email input -->
+                            <div class="col-md-12">
+                                <!-- Password input -->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="email" id="email" class="form-control form-control-lg email"
-                                        placeholder="Enter email address" tabindex="2"/>
-                                    <label class="form-label" for="email">Email address</label>
-                                    <span class="err-email err-msg"></span>
+                                    <input type="password" id="password" class="form-control form-control-lg password"
+                                        placeholder="Enter password" tabindex="4"/>
+                                    <label class="form-label" for="password">Password</label>
+                                    <span class="show eye-icon-position">
+                                        <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
+                                    </span>
+                                    <span class="err-password err-msg"></span>
+                                    <span><i>Password must be 8 characters, must contain alpha numeric characters and a special character.</i></span>
                                 </div>
-
                                 <!-- Confirm password input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="password" id="password_confirmation"
@@ -151,34 +149,6 @@
                                     </span>
                                     <span class="err-password_confirmation err-msg"></span>
                                 </div>
-
-                                <!-- Province -->
-                                <div class="form-floating mb-4">
-                                    <select class="province form-select" id="province" tabindex="8"></select>
-                                    <span class="err-province err-msg"></span>
-                                    <label for="province">Province</label>
-                                </div>
-
-                                <!-- Address input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="address" class="form-control form-control-lg address"
-                                        placeholder="Enter address" tabindex="11"/>
-                                    <label class="form-label" for="address">Address</label>
-                                    <span class="err-address err-msg"></span>
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-4">
-                                <!-- Mobile number input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="number" id="mobile_no"
-                                        class="form-control form-control-lg mobile_no"
-                                        placeholder="Enter mobile number" tabindex="3" />
-                                    <label class="form-label" for="mobile_no">Mobile Number</label>
-                                    <span class="err-mobile_no err-msg"></span>
-                                </div>
-
                                 <!-- Contact person input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="contact_person"
@@ -187,6 +157,23 @@
                                     <label class="form-label" for="contact_person">Contact Person</label>
                                     <span class="err-last_name err-msg"></span>
                                 </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <!-- Company name input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="company_name"
+                                        class="form-control form-control-lg company_name"
+                                        placeholder="Enter company name" tabindex="7" />
+                                    <label class="form-label" for="company_name">Compay Name</label>
+                                    <span class="err-company_name err-msg"></span>
+                                </div>
+                                <!-- Province -->
+                                <div class="form-floating mb-4">
+                                    <select class="province form-select" id="province" tabindex="8"></select>
+                                    <span class="err-province err-msg"></span>
+                                    <label for="province">Province</label>
+                                </div>
 
                                 <!-- City -->
                                 <div class="form-floating mb-4">
@@ -194,7 +181,13 @@
                                     <span class="err-city err-msg"></span>
                                     <label for="city">City</label>
                                 </div>
-
+                                <!-- Address input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="address" class="form-control form-control-lg address"
+                                        placeholder="Enter address" tabindex="11"/>
+                                    <label class="form-label" for="address">Address</label>
+                                    <span class="err-address err-msg"></span>
+                                </div>
                             </div>
                         </div>
 
