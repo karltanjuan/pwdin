@@ -27,6 +27,8 @@ class InvoiceController extends Controller
                 
         $is_expire = 1;
 
+        $expired_at = null;
+        
         if ($invoice) {
             if ($invoice->count() > 0 && !is_null($invoice->transaction)) {
                 if ($invoice->transaction->status === "Paid") {
