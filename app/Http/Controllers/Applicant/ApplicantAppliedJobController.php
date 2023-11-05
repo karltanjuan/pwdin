@@ -44,6 +44,7 @@ class ApplicantAppliedJobController extends Controller
             }])
             ->with(['applications' => function ($query) {
                 $query->where('applicant_id', auth()->user()->id);
+                $query->orderBy('created_at', 'desc');
             }])
             ->whereHas('applications', function ($query) {
                 $query->where('applicant_id', auth()->user()->id);
@@ -52,7 +53,8 @@ class ApplicantAppliedJobController extends Controller
         
         $jobs = $jobs->when($request->search_query !== null, function ($query) use ($request) {
             return $query->where('job_title', 'like', '%' . $request->search_query . '%');
-        })->paginate(10);
+        })
+        ->paginate(10);
         
         return response()->json($jobs);
         

@@ -102,23 +102,26 @@
 
                             status_html += `<div class="btn-group" role="group">`
 
-                            if (app_status == "Applied") {
-                                status_html += `<button type="button" class="btn ${val.applications[0].is_rejected === 1 ? 'btn-danger' : 'btn-secondary'}">
-                                    <span class="badge bg-warning text-dark">${key_counter++}</span>
-                                    Applied <i class="fa-solid fa-caret-right"></i>
-                                </button>`
-                            } else {
-                                status_html += `<button type="button" class="btn btn-outline-secondary">
-                                    <span class="badge bg-warning text-dark">${key_counter++}</span>
-                                    Applied <i class="fa-solid fa-caret-right"></i>
-                                </button>`
-                            }
+                            // if (app_status == "Applied") {
+                            //     status_html += `<button type="button" class="btn ${val.applications[0].is_rejected === 1 ? 'btn-danger' : 'btn-secondary'}">
+                            //         <span class="badge bg-warning text-dark">${key_counter++}</span>
+                            //         Applied <i class="fa-solid fa-caret-right"></i>
+                            //     </button>`
+                            // } else {
+                            //     status_html += `<button type="button" class="btn btn-outline-secondary">
+                            //         <span class="badge bg-warning text-dark">${key_counter++}</span>
+                            //         Applied <i class="fa-solid fa-caret-right"></i>
+                            //     </button>`
+                            // }
 
                             $.each(statuses, function(index, status) {
-                                status_html += `<button type="button" class="btn ${app_status == status ? 'btn-secondary' : 'btn-outline-secondary'} ${app_status == status && val.applications[0].is_rejected === 1 ? 'btn-danger' : 'btn-outline-dark' }">
-                                    <span class="badge bg-warning text-dark">${key_counter++}</span>
-                                    ${status} <i class="fa-solid fa-caret-right"></i>
-                                </button>`
+                                if (status != "Rejected") {
+                                    status_html += `<button type="button" class="btn ${app_status == status ? 'btn-secondary' : 'btn-outline-secondary'} ${app_status == status && val.applications[0].is_rejected === 1 ? 'btn-danger' : 'btn-outline-dark' }">
+                                        <span class="badge bg-warning text-dark">${key_counter++}</span>
+                                        ${status} <i class="fa-solid fa-caret-right"></i>
+                                    </button>`
+                                }
+
                             })
 
                             if (app_status == "Withdrawn") {
@@ -181,6 +184,14 @@
                                                 ${rejected_reason}
                                             </span>
                                         </p>
+                                        <div class="mb-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="mb-0 fw-bold">Cover Letter</p>
+                                                    <span class="fw-light">${val.applications[0].cover_letter}</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="application-status">
                                             <p>Application Status</p>
                                             ${status_html}
