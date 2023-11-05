@@ -1,13 +1,18 @@
-<div class="top">
-	<i class="navToggle fa-solid fa-bars fa-icon"></i>
-	<a class="profile" href="javascript:void(0)">
-		@if (auth()->guard('admins')->user()->profile_photo != null)
-			@php
-				$profile_photo = str_replace('public', 'storage', auth()->guard('admins')->user()->profile_photo);
-			@endphp
-			<img src="{{asset($profile_photo)}}" alt="Profile Photo">
-		@else
-			<i class="fa-regular fa-user fa-icon"></i>
-		@endif
-	</a>
-</div>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+	<!-- Navbar Brand-->
+	<a class="navbar-brand ps-3" href="index.html">{{env('APP_NAME')}}</a>
+	<!-- Sidebar Toggle-->
+	<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+	<div class="ms-auto"></div>
+	<p class="text-white mt-3">Welcome back, {{auth()->guard('admins')->user()->username}}!</p>
+	<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+			<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+				{{-- <li><a class="dropdown-item" href="{{url('/admin/activity-logs')}}">Activity Logs</a></li>
+				<li><hr class="dropdown-divider" /></li> --}}
+				<li><a class="dropdown-item" href="{{url('admin/logout')}}">Logout</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>

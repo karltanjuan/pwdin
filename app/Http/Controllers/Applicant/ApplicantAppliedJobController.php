@@ -48,6 +48,7 @@ class ApplicantAppliedJobController extends Controller
             }])
             ->whereHas('applications', function ($query) {
                 $query->where('applicant_id', auth()->user()->id);
+                $query->orderBy('created_at', 'desc');
             })
             ->where('status', 1);
         

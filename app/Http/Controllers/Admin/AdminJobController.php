@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\JobStatusEmail;
 use Illuminate\Http\Request;
 use Auth;
 use Validator;
@@ -33,19 +35,24 @@ class AdminJobController extends Controller
     }
 
     public function updateJob(Request $request) {
-
         $closed_at = NULL;
 
-        if ($request->status == 2) {
+        if ($request->status == 0) {
             $closed_at = date('Y-m-d H:i:s');
-            
         }
 
         $job = Job::where('id', (int)$request->id);
         $job->update([
-                'status' => $request->status, // 0 - inactive, 1 - active, 2 - disabled
+                'status' => (int)$request->status, // 0 - inactive, 1 - active, 2 - disabled
                 'closed_at' => $closed_at,
         ]);
+
+        $jb = $job->with('employer')->first();
+        Mail::to($jb->employer['email'])
+            ->send(new JobStatusEmail(
+                $jb->first()
+            )
+        );
 
         if ($job) {
             return response()->json([
