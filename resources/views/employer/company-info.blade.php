@@ -26,9 +26,9 @@
                 @endphp
 
                 @if(!empty($company_logo))
-                    <img src="{{asset($company_logo)}}" alt="avatar" class="rounded-circle img-fluid img-preview" style="width: 150px;">
+                    <img src="{{asset($company_logo)}}" alt="avatar" class="rounded-circle img-fluid img-preview" style="width: 150px;height:150px;">
                 @else
-                    <img src="{{asset('/img/default_avatar.png')}}" alt="avatar" class="rounded-circle img-fluid img-preview" style="width: 150px;">
+                    <img src="{{asset('/img/default_avatar.png')}}" alt="avatar" class="rounded-circle img-fluid img-preview" style="width: 150px;height:150px;">
                 @endif
 
                 <h5 class="my-3">{{$user->company_name}}</h5>

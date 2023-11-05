@@ -28,9 +28,9 @@
                 @endphp
 
                 @if(!empty($profile_photo))
-                    <img src="{{asset($profile_photo)}}" alt="avatar" class="rounded-circle img-fluid img-preview" style="width: 150px;">
+                    <img src="{{asset($profile_photo)}}" alt="avatar" class="rounded-circle img-fluid img-preview" style="width: 150px;height:150px;">
                 @else
-                    <img src="{{asset('/img/default_avatar.png')}}" alt="avatar" class="rounded-circle img-fluid img-preview" style="width: 150px;">
+                    <img src="{{asset('/img/default_avatar.png')}}" alt="avatar" class="rounded-circle img-fluid img-preview" style="width: 150px;height:150px;">
                 @endif
 
                 <h5 class="my-3">{{$user->first_name}} {{$user->middle_name}} {{$user->last_name}}</h5>

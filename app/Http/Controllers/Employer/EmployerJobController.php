@@ -11,6 +11,7 @@ use Validator;
 use Session;
 use Storage;
 use App\Models\Job;
+use App\Models\User;
 use App\Models\Application;
 use App\Models\ApplicationStatus;
 use App\Models\Invoice;
@@ -51,7 +52,6 @@ class EmployerJobController extends Controller
     }
 
     public function postJob(Request $request){
-
         $validator = $this->validateJob($request);
 
         if ($validator->fails()) {
@@ -90,7 +90,6 @@ class EmployerJobController extends Controller
     }
 
     public function updateJob(Request $request){
-        
         $validator = $this->validateJob($request);
 
         if ($validator->fails()) {
@@ -101,7 +100,6 @@ class EmployerJobController extends Controller
 
         $hide_salary = ($request->hide_salary === "true") ? 1 : 0;
 
-        // save to database
         $job = Job::where('id', $request->id);
         $job->update([
             'job_title'               => $request->job_title, 
@@ -150,23 +148,26 @@ class EmployerJobController extends Controller
         return view('employer.applicants', compact('applicants'));
     }
 
-    public function getApplicantById(Request $request) {
+    public function getApplicantById($job_id, $applicant_id) {
+        // $applicants = Application::where('job_id', (int)$job_id)
+        //     ->where('applicant_id', (int)$applicant_id)
+        //     ->with('applicant')
+        //     ->with('job')
+        //     ->orderBy('created_at', 'desc')
+        //     ->get();
 
-        $applicants = Application::where('job_id', (int)$request->job_id)
-            ->where('applicant_id', (int)$request->applicant_id)
-            ->with('applicant')
-            ->with('job')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $user   = User::where('id', $applicant_id)
+                ->with(['applications' => function($query) use ($job_id) {
+                    $query->where('job_id', $job_id);
+                }])
+                ->first();
 
         $app_status = ApplicationStatus::where('employer_id', auth()->guard('employers')->user()->id)->orderBy('id', 'asc')->get();
+        // $user       = $applicants;
 
-        $response = [
-            'applicants' => $applicants,
-            'app_status' => $app_status
-        ];
 
-        return response()->json($response);
+
+        return view('employer.job-applicant', compact('user', 'app_status'));
     }
 
     public function getAppStatus() {
@@ -179,7 +180,6 @@ class EmployerJobController extends Controller
 
 
     public function updateAppStatus(Request $request){
-
         $update_data = [
             'status' => $request->status,
             'is_rejected' => (int)$request->is_rejected,
