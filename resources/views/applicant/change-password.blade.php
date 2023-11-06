@@ -14,7 +14,7 @@
     </style>
 
     <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">Change Password</h1>
-    <p class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s"><b>Note</b>: Strong password should be 8 characters long or more.</p>
+    <p class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s"><b>Note</b>: Strong password should contain alpha numeric characters, a special character, and must be 8 characters long or more.</p>
 
     <div class="row">
         <div class="col-md-8 offset-md-2">

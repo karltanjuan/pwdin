@@ -157,7 +157,7 @@ class ApplicantJobController extends Controller
 
     public function validateApplication($request) {
          $rules = [
-            'cover_letter' => 'required|string|max:300',
+            'cover_letter' => 'required|string|max:2000',
         ];
 
         return $validator = Validator::make($request->all(), $rules);
