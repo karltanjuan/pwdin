@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>pwdIn</title>
+    <title>PWDIn</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -57,7 +57,7 @@
             <a href="/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <img class="img-fluid w-10 rounded pwdin-logo" src="{{ asset('img/pwdin_logo.png') }}" alt="pwdIn Logo">
                 <span>&nbsp;</span>
-                <h1 class="m-0 text-primary">pwdIn</h1>
+                <h1 class="m-0 text-primary">PWDIn</h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse">
