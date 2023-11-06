@@ -90,29 +90,22 @@
         <section class="vh-100">
             <div class="container h-custom">
                 <div class="row d-flex justify-content-center h-100 mt-5">
-                    {{-- <div class="col-md-4">
-                        <img src="{{ url('/img/register2.jpg') }}" class="img-fluid register-img" alt="Register"/>
-                        <p style="text-align:justify;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit nulla
-                            dicta ipsa ipsam delectus
-                            dolorum harum provident vel architecto, molestiae earum perferendis praesentium,
-                            consequuntur
-                            perspiciatis minima in assumenda qui odio!</p>
-                        </p>
-                    </div> --}}
                     <div class="col-md-12">
                         <h1>Applicant Registration</h1>
                         <div class="divider d-flex align-items-center my-4"></div>
                         <h3>Personal Details</h3>
                         <div class="row">
-                            <div class="col-md-12">
-                                <!-- Usename input-->
+                            <div class="col-md-4">
+                                <!-- Username input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="username" class="form-control form-control-lg username"
                                         placeholder="Enter username" tabindex="1" />
                                     <label class="form-label" for="username">Username</label>
                                     <span class="err-username err-msg"></span>
                                 </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- Email input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="email" id="email" class="form-control form-control-lg email"
@@ -120,7 +113,9 @@
                                     <label class="form-label" for="email">Email address</label>
                                     <span class="err-email err-msg"></span>
                                 </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- Mobile number input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="number" id="mobile_no"
@@ -129,80 +124,23 @@
                                     <label class="form-label" for="mobile_no">Mobile Number</label>
                                     <span class="err-mobile_no err-msg"></span>
                                 </div>
+                            </div>
 
-                                <!-- Password input -->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="password" id="password" class="form-control form-control-lg password"
-                                        placeholder="Enter password" tabindex="4"/>
-                                    <label class="form-label" for="password">Password</label>
-                                    <span class="show eye-icon-position">
-                                        <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
-                                    </span>
-                                    <span class="err-password err-msg"></span>
-                                    <span><i>Password must be 8 characters, must contain alpha numeric characters and a special character.</i></span>
-                                </div>
-
-                                <!-- Confirm password input -->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="password" id="password_confirmation"
-                                        class="form-control form-control-lg password_confirmation"
-                                        placeholder="Enter password confirmation" tabindex="5"/>
-                                    <label class="form-label" for="password_confirmation">Confirm Password</label>
-                                    <span class="show eye-icon-position">
-                                        <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
-                                    </span>
-                                    <span class="err-password_confirmation err-msg"></span>
-                                </div>
-
+                            <div class="col-md-4">
                                 <!-- Birthdate input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="date" id="birthdate"
                                         class="form-control form-control-lg birthdate"
-                                        placeholder="Enter birthdate" tabindex="6"/>
+                                        placeholder="Enter birthdate" tabindex="4"/>
                                     <label class="form-label" for="birthdate">Date of Birth</label>
                                     <span class="err-birthdate err-msg"></span>
                                 </div>
-
                             </div>
-                            <div class="col-md-12">
-                                 <!-- First name input-->
-                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="first_name"
-                                        class="form-control form-control-lg first_name"
-                                        placeholder="Enter first name" tabindex="7"/>
-                                    <label class="form-label" for="first_name">First Name</label>
-                                    <span class="err-first_name err-msg"></span>
-                                </div>
 
-                                <!-- Middle name input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="middle_name"
-                                        class="form-control form-control-lg middle_name"
-                                        placeholder="Enter middle name" tabindex="8"/>
-                                    <label class="form-label" for="middle_name">Middle Name</label>
-                                    <span class="err-middle_name err-msg"></span>
-                                </div>
-
-                                <!-- Last name input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="last_name"
-                                        class="form-control form-control-lg last_name"
-                                        placeholder="Enter last name" tabindex="9"/>
-                                    <label class="form-label" for="last_name">Last Name</label>
-                                    <span class="err-last_name err-msg"></span>
-                                </div>
-
-                                <!-- Prefix input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="prefix" class="form-control form-control-lg prefix"
-                                        placeholder="Enter prefix" tabindex="10"/>
-                                    <label class="form-label" for="prefix">Prefix</label>
-                                    <span class="err-prefix err-msg"></span>
-                                </div>
-
+                            <div class="col-md-4">
                                 <!-- Gender -->
                                 <div class="form-floating mb-4">
-                                    <select class="gender form-select" id="gender" tabindex="11">
+                                    <select class="gender form-select" id="gender" tabindex="5">
                                         {{-- <option disabled selected>Select gender</option> --}}
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -211,10 +149,12 @@
                                     <span class="err-gender err-msg"></span>
                                     <label for="gender">Gender</label>
                                 </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- Education Level -->
                                 <div class="form-floating mb-4">
-                                    <select class="form-select education_level" id="education_level" tabindex="12">
+                                    <select class="form-select education_level" id="education_level" tabindex="6">
                                         <option value="None">None</option>
                                         <option value="Elementary">Elementary</option>
                                         <option value="High School">High School</option>
@@ -229,40 +169,92 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-4">
+                                <!-- First name input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="first_name"
+                                        class="form-control form-control-lg first_name"
+                                        placeholder="Enter first name" tabindex="7"/>
+                                    <label class="form-label" for="first_name">First Name</label>
+                                    <span class="err-first_name err-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Middle name input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="middle_name"
+                                        class="form-control form-control-lg middle_name"
+                                        placeholder="Enter middle name" tabindex="8"/>
+                                    <label class="form-label" for="middle_name">Middle Name</label>
+                                    <span class="err-middle_name err-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Last name input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="last_name"
+                                        class="form-control form-control-lg last_name"
+                                        placeholder="Enter last name" tabindex="9"/>
+                                    <label class="form-label" for="last_name">Last Name</label>
+                                    <span class="err-last_name err-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                    <!-- Prefix input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="prefix" class="form-control form-control-lg prefix"
+                                        placeholder="Enter prefix" tabindex="10"/>
+                                    <label class="form-label" for="prefix">Prefix</label>
+                                    <span class="err-prefix err-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
                                 <!-- Province -->
                                 <div class="form-floating mb-4">
-                                    <select class="province form-select" id="province" tabindex="13"></select>
+                                    <select class="province form-select" id="province" tabindex="11"></select>
                                     <span class="err-province err-msg"></span>
                                     <label for="province">Province</label>
                                 </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- City -->
                                 <div class="form-floating mb-4">
-                                    <select class="city form-select" id="city"tabindex="14"></select>
+                                    <select class="city form-select" id="city"tabindex="12"></select>
                                     <span class="err-city err-msg"></span>
                                     <label for="city">City</label>
                                 </div>
+                            </div>
 
-                                <!-- Address input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="address" class="form-control form-control-lg address"
-                                        placeholder="Enter address" tabindex="15"/>
-                                    <label class="form-label" for="address">Address</label>
-                                    <span class="err-address err-msg"></span>
-                                </div>
-                                
+                            <div class="col-md-4">
                                 <!-- Zip code input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="zip_code"
-                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="16"/>
+                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="13"/>
                                     <label class="form-label" for="zip_code">Zip Code</label>
                                     <span class="err-zip_code err-msg"></span>
                                 </div>
+                            </div>
+                                
+                            
+                            <div class="col-md-4">
+                                <!-- Address input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="address" class="form-control form-control-lg address"
+                                        placeholder="Enter address" tabindex="14"/>
+                                    <label class="form-label" for="address">Address</label>
+                                    <span class="err-address err-msg"></span>
+                                </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- PWD Categories -->
                                 <div class="form-outline mb-4 form-floating">
-                                    <select class="pwd_categories form-select form-control form-control-lg" tabindex="17"
+                                    <select class="pwd_categories form-select form-control form-control-lg" tabindex="15"
                                         id="pwd_categories" name="pwd_categories[]" multiple="multiple">
                                         <option value="Psychosocial">Psychosocial</option>
                                         <option value="Mental">Mental</option>
@@ -276,8 +268,34 @@
                                     <span class="err-pwd_categories err-msg"></span>
                                     <label for="pwd_categories">PWD Categories</label>
                                 </div>
+                            </div>
 
+                            <div class="col-md-6">
+                                <!-- Password input -->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="password" id="password" class="form-control form-control-lg password"
+                                        placeholder="Enter password" tabindex="16"/>
+                                    <label class="form-label" for="password">Password</label>
+                                    <span class="show eye-icon-position">
+                                        <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
+                                    </span>
+                                    <span class="err-password err-msg"></span>
+                                    <span><i>Password must be atleast 8 characters including alpha numeric and special character.</i></span>
+                                </div>
+                            </div>
 
+                            <div class="col-md-6">
+                                <!-- Confirm password input -->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="password" id="password_confirmation"
+                                        class="form-control form-control-lg password_confirmation"
+                                        placeholder="Enter password confirmation" tabindex="17"/>
+                                    <label class="form-label" for="password_confirmation">Confirm Password</label>
+                                    <span class="show eye-icon-position">
+                                        <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
+                                    </span>
+                                    <span class="err-password_confirmation err-msg"></span>
+                                </div>
                             </div>
                         </div>
 
