@@ -49,11 +49,6 @@
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">
                         <img src="{{ url('/img/admin_login.jpg') }}" class="img-fluid" alt="Sample image">
-                        <p class="text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit nulla
-                            dicta ipsa ipsam delectus
-                            dolorum harum provident vel architecto, molestiae earum perferendis praesentium,
-                            consequuntur
-                            perspiciatis minima in assumenda qui odio!</p>
                         </p>
                     </div>
                     <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
