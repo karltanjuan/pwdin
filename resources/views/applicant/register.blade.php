@@ -90,29 +90,22 @@
         <section class="vh-100">
             <div class="container h-custom">
                 <div class="row d-flex justify-content-center h-100 mt-5">
-                    {{-- <div class="col-md-4">
-                        <img src="{{ url('/img/register2.jpg') }}" class="img-fluid register-img" alt="Register"/>
-                        <p style="text-align:justify;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit nulla
-                            dicta ipsa ipsam delectus
-                            dolorum harum provident vel architecto, molestiae earum perferendis praesentium,
-                            consequuntur
-                            perspiciatis minima in assumenda qui odio!</p>
-                        </p>
-                    </div> --}}
                     <div class="col-md-12">
                         <h1>Applicant Registration</h1>
                         <div class="divider d-flex align-items-center my-4"></div>
                         <h3>Personal Details</h3>
                         <div class="row">
-                            <div class="col-md-12">
-                                <!-- Usename input-->
+                            <div class="col-md-4">
+                                <!-- Username input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="username" class="form-control form-control-lg username"
                                         placeholder="Enter username" tabindex="1" />
                                     <label class="form-label" for="username">Username</label>
                                     <span class="err-username err-msg"></span>
                                 </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- Email input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="email" id="email" class="form-control form-control-lg email"
@@ -120,7 +113,9 @@
                                     <label class="form-label" for="email">Email address</label>
                                     <span class="err-email err-msg"></span>
                                 </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- Mobile number input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="number" id="mobile_no"
@@ -129,80 +124,23 @@
                                     <label class="form-label" for="mobile_no">Mobile Number</label>
                                     <span class="err-mobile_no err-msg"></span>
                                 </div>
+                            </div>
 
-                                <!-- Password input -->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="password" id="password" class="form-control form-control-lg password"
-                                        placeholder="Enter password" tabindex="4"/>
-                                    <label class="form-label" for="password">Password</label>
-                                    <span class="show eye-icon-position">
-                                        <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
-                                    </span>
-                                    <span class="err-password err-msg"></span>
-                                    <span><i>Password must be 8 characters, must contain alpha numeric characters and a special character.</i></span>
-                                </div>
-
-                                <!-- Confirm password input -->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="password" id="password_confirmation"
-                                        class="form-control form-control-lg password_confirmation"
-                                        placeholder="Enter password confirmation" tabindex="5"/>
-                                    <label class="form-label" for="password_confirmation">Confirm Password</label>
-                                    <span class="show eye-icon-position">
-                                        <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
-                                    </span>
-                                    <span class="err-password_confirmation err-msg"></span>
-                                </div>
-
+                            <div class="col-md-4">
                                 <!-- Birthdate input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="date" id="birthdate"
                                         class="form-control form-control-lg birthdate"
-                                        placeholder="Enter birthdate" tabindex="6"/>
+                                        placeholder="Enter birthdate" tabindex="4"/>
                                     <label class="form-label" for="birthdate">Date of Birth</label>
                                     <span class="err-birthdate err-msg"></span>
                                 </div>
-
                             </div>
-                            <div class="col-md-12">
-                                 <!-- First name input-->
-                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="first_name"
-                                        class="form-control form-control-lg first_name"
-                                        placeholder="Enter first name" tabindex="7"/>
-                                    <label class="form-label" for="first_name">First Name</label>
-                                    <span class="err-first_name err-msg"></span>
-                                </div>
 
-                                <!-- Middle name input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="middle_name"
-                                        class="form-control form-control-lg middle_name"
-                                        placeholder="Enter middle name" tabindex="8"/>
-                                    <label class="form-label" for="middle_name">Middle Name</label>
-                                    <span class="err-middle_name err-msg"></span>
-                                </div>
-
-                                <!-- Last name input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="last_name"
-                                        class="form-control form-control-lg last_name"
-                                        placeholder="Enter last name" tabindex="9"/>
-                                    <label class="form-label" for="last_name">Last Name</label>
-                                    <span class="err-last_name err-msg"></span>
-                                </div>
-
-                                <!-- Prefix input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="prefix" class="form-control form-control-lg prefix"
-                                        placeholder="Enter prefix" tabindex="10"/>
-                                    <label class="form-label" for="prefix">Prefix</label>
-                                    <span class="err-prefix err-msg"></span>
-                                </div>
-
+                            <div class="col-md-4">
                                 <!-- Gender -->
                                 <div class="form-floating mb-4">
-                                    <select class="gender form-select" id="gender" tabindex="11">
+                                    <select class="gender form-select" id="gender" tabindex="5">
                                         {{-- <option disabled selected>Select gender</option> --}}
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -211,10 +149,12 @@
                                     <span class="err-gender err-msg"></span>
                                     <label for="gender">Gender</label>
                                 </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- Education Level -->
                                 <div class="form-floating mb-4">
-                                    <select class="form-select education_level" id="education_level" tabindex="12">
+                                    <select class="form-select education_level" id="education_level" tabindex="6">
                                         <option value="None">None</option>
                                         <option value="Elementary">Elementary</option>
                                         <option value="High School">High School</option>
@@ -229,40 +169,92 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-4">
+                                <!-- First name input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="first_name"
+                                        class="form-control form-control-lg first_name"
+                                        placeholder="Enter first name" tabindex="7"/>
+                                    <label class="form-label" for="first_name">First Name</label>
+                                    <span class="err-first_name err-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Middle name input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="middle_name"
+                                        class="form-control form-control-lg middle_name"
+                                        placeholder="Enter middle name" tabindex="8"/>
+                                    <label class="form-label" for="middle_name">Middle Name</label>
+                                    <span class="err-middle_name err-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <!-- Last name input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="last_name"
+                                        class="form-control form-control-lg last_name"
+                                        placeholder="Enter last name" tabindex="9"/>
+                                    <label class="form-label" for="last_name">Last Name</label>
+                                    <span class="err-last_name err-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                    <!-- Prefix input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="prefix" class="form-control form-control-lg prefix"
+                                        placeholder="Enter prefix" tabindex="10"/>
+                                    <label class="form-label" for="prefix">Prefix</label>
+                                    <span class="err-prefix err-msg"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
                                 <!-- Province -->
                                 <div class="form-floating mb-4">
-                                    <select class="province form-select" id="province" tabindex="13"></select>
+                                    <select class="province form-select" id="province" tabindex="11"></select>
                                     <span class="err-province err-msg"></span>
                                     <label for="province">Province</label>
                                 </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- City -->
                                 <div class="form-floating mb-4">
-                                    <select class="city form-select" id="city"tabindex="14"></select>
+                                    <select class="city form-select" id="city"tabindex="12"></select>
                                     <span class="err-city err-msg"></span>
                                     <label for="city">City</label>
                                 </div>
+                            </div>
 
-                                <!-- Address input-->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="text" id="address" class="form-control form-control-lg address"
-                                        placeholder="Enter address" tabindex="15"/>
-                                    <label class="form-label" for="address">Address</label>
-                                    <span class="err-address err-msg"></span>
-                                </div>
-                                
+                            <div class="col-md-4">
                                 <!-- Zip code input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="zip_code"
-                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="16"/>
+                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="13"/>
                                     <label class="form-label" for="zip_code">Zip Code</label>
                                     <span class="err-zip_code err-msg"></span>
                                 </div>
+                            </div>
+                                
+                            
+                            <div class="col-md-4">
+                                <!-- Address input-->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="text" id="address" class="form-control form-control-lg address"
+                                        placeholder="Enter address" tabindex="14"/>
+                                    <label class="form-label" for="address">Address</label>
+                                    <span class="err-address err-msg"></span>
+                                </div>
+                            </div>
 
+                            <div class="col-md-4">
                                 <!-- PWD Categories -->
                                 <div class="form-outline mb-4 form-floating">
-                                    <select class="pwd_categories form-select form-control form-control-lg" tabindex="17"
+                                    <select class="pwd_categories form-select form-control form-control-lg" tabindex="15"
                                         id="pwd_categories" name="pwd_categories[]" multiple="multiple">
                                         <option value="Psychosocial">Psychosocial</option>
                                         <option value="Mental">Mental</option>
@@ -276,8 +268,34 @@
                                     <span class="err-pwd_categories err-msg"></span>
                                     <label for="pwd_categories">PWD Categories</label>
                                 </div>
+                            </div>
 
+                            <div class="col-md-6">
+                                <!-- Password input -->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="password" id="password" class="form-control form-control-lg password"
+                                        placeholder="Enter password" tabindex="16"/>
+                                    <label class="form-label" for="password">Password</label>
+                                    <span class="show eye-icon-position">
+                                        <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
+                                    </span>
+                                    <span class="err-password err-msg"></span>
+                                    <span><i>Password must be atleast 8 characters including alpha numeric and special character.</i></span>
+                                </div>
+                            </div>
 
+                            <div class="col-md-6">
+                                <!-- Confirm password input -->
+                                <div class="form-outline mb-4 form-floating">
+                                    <input type="password" id="password_confirmation"
+                                        class="form-control form-control-lg password_confirmation"
+                                        placeholder="Enter password confirmation" tabindex="17"/>
+                                    <label class="form-label" for="password_confirmation">Confirm Password</label>
+                                    <span class="show eye-icon-position">
+                                        <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
+                                    </span>
+                                    <span class="err-password_confirmation err-msg"></span>
+                                </div>
                             </div>
                         </div>
 
@@ -353,55 +371,51 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-justify">These terms and conditions ("Terms") govern your use of the PWDIn website and the services provided through it. By creating an account on PWDIn, you agree to abide by these Terms. Please read them carefully.
+                        <div><i>These terms and conditions ("Terms") govern your use of the PWDIn website and the services provided through it. By creating an account on PWDIn, you agree to abide by these Terms. Please read them carefully.</i></div><br>
 
-                        1. Eligibility
+                        <p><b>1. Eligibility</b></p>
+                        <p>1.1. You must be at least 18 years of age to create an account on PWDIn.</p>
+                        <p>1.2. By creating an account, you represent that you have the legal capacity to enter into these Terms and are not prohibited by any applicable law from using our services.</p>
+                        <p><b>2. Account Registration</b></p>
 
-                        1.1. You must be at least 18 years of age to create an account on PWDIn.
+                        <p>2.1. To create an account, you will be required to provide accurate, current, and complete information as requested during the registration process.</p>
 
-                        1.2. By creating an account, you represent that you have the legal capacity to enter into these Terms and are not prohibited by any applicable law from using our services.
+                        <p>2.2. You are responsible for maintaining the confidentiality of your account information, including your username and password.</p>
 
-                        2. Account Registration
+                        <p>2.3. You agree to notify us immediately of any unauthorized use of your account.</p>
 
-                        2.1. To create an account, you will be required to provide accurate, current, and complete information as requested during the registration process.
+                        <p><b>3. User Conduct</b></p>
 
-                        2.2. You are responsible for maintaining the confidentiality of your account information, including your username and password.
+                        <p>3.1. You agree to use PWDIn for lawful purposes and in a manner consistent with all applicable local, state, and federal laws and regulations.</p>
 
-                        2.3. You agree to notify us immediately of any unauthorized use of your account.
+                        <p>3.2. You agree not to:
+                            a. Engage in any fraudulent, abusive, or unethical activity on the platform.
+                            b. Impersonate any person or entity.
+                            c. Upload, post, or transmit any content that violates intellectual property rights, privacy, or other rights of others.
+                            d. Use the platform to distribute spam, malware, or any other malicious content.
+                            website.</p>
 
-                        3. User Conduct
+                        <p><b>4. Privacy</b></p>
 
-                        3.1. You agree to use PWDIn for lawful purposes and in a manner consistent with all applicable local, state, and federal laws and regulations.
+                        <p>4.1. Your use of PWDIn is also governed by our Privacy Policy, which can be found on our website.</p>
 
-                        3.2. You agree not to:
-                        a. Engage in any fraudulent, abusive, or unethical activity on the platform.
-                        b. Impersonate any person or entity.
-                        c. Upload, post, or transmit any content that violates intellectual property rights, privacy, or other rights of others.
-                        d. Use the platform to distribute spam, malware, or any other malicious content.
-                        website.
+                        <p><b>5. Termination</b></p>
 
-                        4. Privacy
+                        <p>5.1. We reserve the right to terminate or suspend your account at our discretion if we believe you have violated these Terms or any applicable laws.</p>
 
-                        4.1. Your use of PWDIn is also governed by our Privacy Policy, which can be found on our website.
+                        <p><b>6. Modifications</b></p>
 
-                        5. Termination
+                        <p>6.1. We may update or modify these Terms from time to time, and you will be notified of such changes.</p>
 
-                        5.1. We reserve the right to terminate or suspend your account at our discretion if we believe you have violated these Terms or any applicable laws.
+                        <p><b>7. Contact Information</b></p>
 
-                        6. Modifications
+                        <p>7.1. If you have any questions or concerns regarding these Terms, you can contact us at [Contact Email Address].</p>
 
-                        6.1. We may update or modify these Terms from time to time, and you will be notified of such changes.
+                        <p><b>8. Entire Agreement</b></p>
 
-                        7. Contact Information
-
-                        7.1. If you have any questions or concerns regarding these Terms, you can contact us at [Contact Email Address].
-
-                        8. Entire Agreement
-
-                        8.1. These Terms, together with our Privacy Policy, constitute the entire agreement between you and PWDIn.
-
-                        By creating an account on PWDIn, you acknowledge that you have read, understood, and agreed to these Terms and the associated Privacy Policy.
-                        </p>
+                        <p>8.1. These Terms, together with our Privacy Policy, constitute the entire agreement between you and PWDIn.</p>
+                        
+                        <p>By creating an account on PWDIn, you acknowledge that you have read, understood, and agreed to these Terms and the associated Privacy Policy.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-agree btn-primary">Understood</button>
