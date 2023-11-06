@@ -371,55 +371,51 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-justify">These terms and conditions ("Terms") govern your use of the PWDIn website and the services provided through it. By creating an account on PWDIn, you agree to abide by these Terms. Please read them carefully.
+                        <div><i>These terms and conditions ("Terms") govern your use of the PWDIn website and the services provided through it. By creating an account on PWDIn, you agree to abide by these Terms. Please read them carefully.</i></div><br>
 
-                        1. Eligibility
+                        <p><b>1. Eligibility</b></p>
+                        <p>1.1. You must be at least 18 years of age to create an account on PWDIn.</p>
+                        <p>1.2. By creating an account, you represent that you have the legal capacity to enter into these Terms and are not prohibited by any applicable law from using our services.</p>
+                        <p><b>2. Account Registration</b></p>
 
-                        1.1. You must be at least 18 years of age to create an account on PWDIn.
+                        <p>2.1. To create an account, you will be required to provide accurate, current, and complete information as requested during the registration process.</p>
 
-                        1.2. By creating an account, you represent that you have the legal capacity to enter into these Terms and are not prohibited by any applicable law from using our services.
+                        <p>2.2. You are responsible for maintaining the confidentiality of your account information, including your username and password.</p>
 
-                        2. Account Registration
+                        <p>2.3. You agree to notify us immediately of any unauthorized use of your account.</p>
 
-                        2.1. To create an account, you will be required to provide accurate, current, and complete information as requested during the registration process.
+                        <p><b>3. User Conduct</b></p>
 
-                        2.2. You are responsible for maintaining the confidentiality of your account information, including your username and password.
+                        <p>3.1. You agree to use PWDIn for lawful purposes and in a manner consistent with all applicable local, state, and federal laws and regulations.</p>
 
-                        2.3. You agree to notify us immediately of any unauthorized use of your account.
+                        <p>3.2. You agree not to:
+                            a. Engage in any fraudulent, abusive, or unethical activity on the platform.
+                            b. Impersonate any person or entity.
+                            c. Upload, post, or transmit any content that violates intellectual property rights, privacy, or other rights of others.
+                            d. Use the platform to distribute spam, malware, or any other malicious content.
+                            website.</p>
 
-                        3. User Conduct
+                        <p><b>4. Privacy</b></p>
 
-                        3.1. You agree to use PWDIn for lawful purposes and in a manner consistent with all applicable local, state, and federal laws and regulations.
+                        <p>4.1. Your use of PWDIn is also governed by our Privacy Policy, which can be found on our website.</p>
 
-                        3.2. You agree not to:
-                        a. Engage in any fraudulent, abusive, or unethical activity on the platform.
-                        b. Impersonate any person or entity.
-                        c. Upload, post, or transmit any content that violates intellectual property rights, privacy, or other rights of others.
-                        d. Use the platform to distribute spam, malware, or any other malicious content.
-                        website.
+                        <p><b>5. Termination</b></p>
 
-                        4. Privacy
+                        <p>5.1. We reserve the right to terminate or suspend your account at our discretion if we believe you have violated these Terms or any applicable laws.</p>
 
-                        4.1. Your use of PWDIn is also governed by our Privacy Policy, which can be found on our website.
+                        <p><b>6. Modifications</b></p>
 
-                        5. Termination
+                        <p>6.1. We may update or modify these Terms from time to time, and you will be notified of such changes.</p>
 
-                        5.1. We reserve the right to terminate or suspend your account at our discretion if we believe you have violated these Terms or any applicable laws.
+                        <p><b>7. Contact Information</b></p>
 
-                        6. Modifications
+                        <p>7.1. If you have any questions or concerns regarding these Terms, you can contact us at [Contact Email Address].</p>
 
-                        6.1. We may update or modify these Terms from time to time, and you will be notified of such changes.
+                        <p><b>8. Entire Agreement</b></p>
 
-                        7. Contact Information
-
-                        7.1. If you have any questions or concerns regarding these Terms, you can contact us at [Contact Email Address].
-
-                        8. Entire Agreement
-
-                        8.1. These Terms, together with our Privacy Policy, constitute the entire agreement between you and PWDIn.
-
-                        By creating an account on PWDIn, you acknowledge that you have read, understood, and agreed to these Terms and the associated Privacy Policy.
-                        </p>
+                        <p>8.1. These Terms, together with our Privacy Policy, constitute the entire agreement between you and PWDIn.</p>
+                        
+                        <p>By creating an account on PWDIn, you acknowledge that you have read, understood, and agreed to these Terms and the associated Privacy Policy.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-agree btn-primary">Understood</button>
