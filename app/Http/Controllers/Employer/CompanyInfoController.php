@@ -41,21 +41,27 @@ class CompanyInfoController extends Controller
                 Storage::delete($old_file);
             }
         }
+
+
+        $employer_data = [
+            'username'       => $request->username,
+            'email'          => $request->email,
+            'contact_person' => $request->contact_person,
+            'mobile_no'      => $request->mobile_no,
+            'company_name'   => $request->company_name,
+            'address'        => $request->address,
+            'province'       => $request->province,
+            'city'           => $request->city,
+            'zip_code'       => $request->zip_code,
+            'summary'        => $request->summary,
+        ];
+
+        if (!empty($company_logo_path)) {
+            $employer_data['company_logo'] = $company_logo_path;
+        }
    
         $user = Employer::where('id', auth()->guard('employers')->user()->id)
-                ->update([
-                    'company_logo'   => $company_logo_path,
-                    'username'       => $request->username,
-                    'email'          => $request->email,
-                    'contact_person' => $request->contact_person,
-                    'mobile_no'      => $request->mobile_no,
-                    'company_name'   => $request->company_name,
-                    'address'        => $request->address,
-                    'province'       => $request->province,
-                    'city'           => $request->city,
-                    'zip_code'       => $request->zip_code,
-                    'summary'        => $request->summary,
-                ]);
+                ->update($employer_data);
         
         return response()->json([
             'message' => 'Company information updated successfully',
@@ -67,7 +73,7 @@ class CompanyInfoController extends Controller
         $id = auth()->guard('employers')->user()->id;
 
         return Validator::make($request->all(), [
-            'company_logo'          => 'required|mimes:jpeg,jpg,png',
+            // 'company_logo'          => 'required|mimes:jpeg,jpg,png',
             'username'              => 'required|unique:users,username,'.$id,
             'email'                 => 'required|email|unique:users,email,'.$id,
             'mobile_no'             => 'required|regex:/^09[0-9]{9}$/',

@@ -41,18 +41,23 @@ class AdminInfoController extends Controller
                 Storage::delete($old_file);
             }
         }
+
+        $admin_data = [
+            'username'        => $request->username,
+            'email'           => $request->email,
+            'mobile_no'       => $request->mobile_no,
+            'first_name'      => $request->first_name,
+            'middle_name'     => $request->middle_name,
+            'last_name'       => $request->last_name,
+            'prefix'          => $request->prefix,
+        ];
+
+        if (!empty($profile_path)) {
+            $admin_data['profile_photo'] =  $profile_path;
+        }
    
         $user = Admin::where('id', auth()->guard('admins')->user()->id)
-                ->update([
-                     'profile_photo'   => $profile_path,
-                     'username'        => $request->username,
-                     'email'           => $request->email,
-                     'mobile_no'       => $request->mobile_no,
-                     'first_name'      => $request->first_name,
-                     'middle_name'     => $request->middle_name,
-                     'last_name'       => $request->last_name,
-                     'prefix'          => $request->prefix,
-                ]);
+                ->update($admin_data);
         
         return response()->json([
             'message' => 'Admin information updated successfully',
@@ -64,7 +69,7 @@ class AdminInfoController extends Controller
         $id = auth()->guard('admins')->user()->id;
 
         return Validator::make($request->all(), [
-            'profile_photo'         => 'required|mimes:jpeg,jpg,png',
+            // 'profile_photo'         => 'required|mimes:jpeg,jpg,png',
             'username'              => 'required|unique:users,username,'.$id,
             'email'                 => 'required|email|unique:users,email,'.$id,
             'mobile_no'             => 'required|regex:/^09[0-9]{9}$/',
