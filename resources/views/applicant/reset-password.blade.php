@@ -166,12 +166,24 @@
                         }, 2000)
                     } else {
                         displayErrors(JSON.parse(response.errors));
+                        let password_errors = validatePassword($('#new_password').val())
+                        let html  = ''
+                        $.each(password_errors, function(index,error) {
+                            html += `<p class="mb-1">${error}</p>`
+                        })
+                        $('.err-new_password').addClass('d-block').html(html)
                     }
                 },
                 error: function(xhr, status, error) {
                     // Handle the AJAX request error
                     var result = JSON.parse(xhr.responseText)
                     displayErrors(result.errors)
+                    let password_errors = validatePassword($('#new_password').val())
+                    let html  = ''
+                    $.each(password_errors, function(index,error) {
+                        html += `<p class="mb-1">${error}</p>`
+                    })
+                    $('.err-new_password').addClass('d-block').html(html)
                 }
             });
 

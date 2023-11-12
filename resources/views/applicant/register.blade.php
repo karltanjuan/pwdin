@@ -280,7 +280,7 @@
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
                                     </span>
                                     <span class="err-password err-msg"></span>
-                                    <span><i>Password must be atleast 8 characters including alpha numeric and special character.</i></span>
+                                    {{-- <span><i>Password must be atleast 8 characters including alpha numeric and special character.</i></span> --}}
                                 </div>
                             </div>
 
@@ -560,15 +560,24 @@
                                 window.location.href = '{{ url('/') }}'
                             }, 2000)
                         } else {
-                            // 422 or another error
-                            // JSON.parse converts string to js object
                             displayErrors(JSON.parse(response.errors));
+                            let password_errors = validatePassword($('#password').val())
+                            let html  = ''
+                            $.each(password_errors, function(index,error) {
+                                html += `<p class="mb-1">${error}</p>`
+                            })
+                            $('.err-password').addClass('d-block').html(html)
                         }
                     },
                     error: function(xhr, status, error) {
-                        // Handle the AJAX request error
                         var result = JSON.parse(xhr.responseText)
                         displayErrors(result.errors)
+                        let password_errors = validatePassword($('#password').val())
+                        let html  = ''
+                        $.each(password_errors, function(index,error) {
+                            html += `<p class="mb-1">${error}</p>`
+                        })
+                        $('.err-password').addClass('d-block').html(html)
                     }
                 });
             } else {

@@ -170,7 +170,7 @@ class EmployerAuthController extends Controller
     {
          return Validator::make($request->all(), [ 
             'email'    => 'required|email',
-            'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
+            'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[!@#$%^&*()_+=-~]/']
         ]);
     }
 
@@ -321,7 +321,7 @@ class EmployerAuthController extends Controller
 
     public function validateResetPassword(Request $request) {
         return Validator::make($request->all(), [
-            'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
+            'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[!@#$%^&*()_+=-~]/'],
             'password_confirmation' => ['required', 'same:new_password']
         ]);
     }

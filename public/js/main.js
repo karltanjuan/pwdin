@@ -178,3 +178,42 @@ function toggle4() {
       state4 = true;
     }
 }
+
+function validatePassword(password) {
+    const lowercaseRegex = /[a-z]/;
+    const uppercaseRegex = /[A-Z]/;
+    const digitRegex = /[0-9]/;
+    const specialCharRegex = /[!@#$%^&*()_+\-=~]/;
+
+    const errors = [];
+
+    if (password.trim() === '') {
+        errors.push('Password is required.');
+    }
+
+    if (typeof password !== 'string') {
+        errors.push('Password must be a string.');
+    }
+    
+    if (password.length < 6) {
+        errors.push('Password must be at least 6 characters long.');
+    }
+
+    if (!lowercaseRegex.test(password)) {
+        errors.push('Password must contain at least one lowercase letter (a-z).');
+    }
+
+    if (!uppercaseRegex.test(password)) {
+        errors.push('Password must contain at least one uppercase letter (A-Z).');
+    }
+
+    if (!digitRegex.test(password)) {
+        errors.push('Password must contain at least one numeric character (0-9).');
+    }
+
+    if (!specialCharRegex.test(password)) {
+        errors.push('Password must contain at least one special character (!@#$%^&*()_+=-~).');
+    }
+
+    return errors;
+}
