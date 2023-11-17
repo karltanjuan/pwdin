@@ -91,7 +91,7 @@
                                 <i class="las la-eye fs-5" id="show1" onclick="toggle1()"></i>
                             </span>
                             <span class="err-new_password err-msg"></span>
-                            <span><i>Password must be 8 characters, must contain alpha numeric characters and a special character.</i></span>
+                            {{-- <span><i>Password must be 8 characters, must contain alpha numeric characters and a special character.</i></span> --}}
                         </div>
 
                         <!-- Confirm password input -->
@@ -166,12 +166,24 @@
                         }, 2000)
                     } else {
                         displayErrors(JSON.parse(response.errors));
+                        let password_errors = validatePassword($('#new_password').val())
+                        let html  = ''
+                        $.each(password_errors, function(index,error) {
+                            html += `<p class="mb-1">${error}</p>`
+                        })
+                        $('.err-new_password').addClass('d-block').html(html)
                     }
                 },
                 error: function(xhr, status, error) {
                     // Handle the AJAX request error
                     var result = JSON.parse(xhr.responseText)
                     displayErrors(result.errors)
+                    let password_errors = validatePassword($('#new_password').val())
+                    let html  = ''
+                    $.each(password_errors, function(index,error) {
+                        html += `<p class="mb-1">${error}</p>`
+                    })
+                    $('.err-new_password').addClass('d-block').html(html)
                 }
             });
 

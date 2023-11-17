@@ -139,7 +139,7 @@ class AdminAuthController extends Controller
     {
          return Validator::make($request->all(), [ 
             'email'    => 'required',
-            'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/']
+            'password' => ['required', 'string', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[!@#$%^&*()_+=-~]/']
         ]);
     }
 
@@ -289,7 +289,7 @@ class AdminAuthController extends Controller
 
     public function validateResetPasswordAdmin(Request $request) {
         return Validator::make($request->all(), [
-            'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&]/'],
+            'new_password'          => ['required', 'string', 'min:6', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[!@#$%^&*()_+=-~]/'],
             'password_confirmation' => ['required', 'same:new_password']
         ]);
     }

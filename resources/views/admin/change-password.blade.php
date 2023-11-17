@@ -74,88 +74,8 @@
     
 </div>
 
-
-
+<script src="{{ asset('js/main.js') }}"></script>
 <script>
-    var err_counter = 0;
-    function displayErrors(errors) {
-        $('.err-msg').text('');
-        $('.err-msg').siblings('input, select').removeClass('error');
-
-        // loop all the error messages from backend to display on ui
-        $.each(errors, function(field, messages) {
-            var errMsgSelector = '.err-' + field;
-            var inputSelector = '#' + field;
-            $(errMsgSelector).text(messages[0]);
-            $(inputSelector).addClass('error');
-        });
-    }
-
-    var state1 = false;
-    var state2 = false;
-    var state3 = false;
-    var state4 = false;
-
-    let hide1 = $("#show1");
-    let hide2 = $("#show2");
-    let hide3 = $("#show3");
-    let hide4 = $("#show4");
-
-    function toggle1() {
-    if (state1) {
-        $("#new_password").attr("type", "password");
-        hide1.css("color", "#D0CECE");
-        hide1.removeClass("la-eye-slash").addClass("la-eye");
-        state1 = false;
-    } else {
-        $("#new_password").attr("type", "text");
-        hide1.css("color", "#1976D2");
-        hide1.removeClass("la-eye").addClass("la-eye-slash");
-        state1 = true;
-    }
-    }
-
-    function toggle2() {
-    if (state2) {
-        $("#password_confirmation").attr("type", "password");
-        hide2.css("color", "#D0CECE");
-        hide2.removeClass("la-eye-slash").addClass("la-eye");
-        state2 = false;
-    } else {
-        $("#password_confirmation").attr("type", "text");
-        hide2.css("color", "#1976D2");
-        hide2.removeClass("la-eye").addClass("la-eye-slash");
-        state2 = true;
-    }
-    }
-
-    function toggle3() {
-        if (state3) {
-        $("#password").attr("type", "password");
-        hide3.css("color", "#D0CECE");
-        hide3.removeClass("la-eye-slash").addClass("la-eye");
-        state3 = false;
-        } else {
-        $("#password").attr("type", "text");
-        hide3.css("color", "#1976D2");
-        hide3.removeClass("la-eye").addClass("la-eye-slash");
-        state3 = true;
-        }
-    }
-
-    function toggle4() {
-        if (state4) {
-        $("#current_password").attr("type", "password");
-        hide4.css("color", "#D0CECE");
-        hide4.removeClass("la-eye-slash").addClass("la-eye");
-        state4 = false;
-        } else {
-        $("#current_password").attr("type", "text");
-        hide4.css("color", "#1976D2");
-        hide4.removeClass("la-eye").addClass("la-eye-slash");
-        state4 = true;
-        }
-    }
 
     $('.btn-update').on('click', function() {
         var formData = new FormData();
@@ -179,11 +99,23 @@
                     }, 2000)
                 } else {
                     displayErrors(JSON.parse(response.errors));
+                    let password_errors = validatePassword($('#new_password').val())
+                    let html  = ''
+                    $.each(password_errors, function(index,error) {
+                        html += `<p class="mb-1">${error}</p>`
+                    })
+                    $('.err-new_password').addClass('d-block').html(html)
                 }
             },
             error: function(xhr, status, error) {
                 var result = JSON.parse(xhr.responseText)
                 displayErrors(result.errors)
+                let password_errors = validatePassword($('#new_password').val())
+                let html  = ''
+                $.each(password_errors, function(index,error) {
+                    html += `<p class="mb-1">${error}</p>`
+                })
+                $('.err-new_password').addClass('d-block').html(html)
             }
         });
     })

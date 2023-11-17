@@ -41,29 +41,35 @@ class ApplicantProfileInfoController extends Controller
                 Storage::delete($old_file);
             }
         }
+
+        $user_data = [
+            'username'        => $request->username,
+            'email'           => $request->email,
+            'first_name'      => $request->first_name,
+            'middle_name'     => $request->middle_name,
+            'last_name'       => $request->last_name,
+            'prefix'          => $request->prefix,
+            'birthdate'       => $request->birthdate,
+            'gender'          => $request->gender,
+            'mobile_no'       => $request->mobile_no,
+            'education_level' => $request->education_level,
+            'address'         => $request->address,
+            'province'        => $request->province,
+            'city'            => $request->city,
+            'summary'         => $request->summary,
+            'zip_code'        => $request->zip_code,
+            'pwd_categories'  => $request->pwd_categories,
+            'skills'          => $request->skills,
+            'description'     => $request->description,
+        ];
+
+        if (!empty($profile_path)) {
+            $user_data['profile_photo'] = $profile_path;
+        }
+    
    
         $user = User::where('id', auth()->user()->id)
-                ->update([
-                     'profile_photo'   => $profile_path,
-                     'username'        => $request->username,
-                     'email'           => $request->email,
-                     'first_name'      => $request->first_name,
-                     'middle_name'     => $request->middle_name,
-                     'last_name'       => $request->last_name,
-                     'prefix'          => $request->prefix,
-                     'birthdate'       => $request->birthdate,
-                     'gender'          => $request->gender,
-                     'mobile_no'       => $request->mobile_no,
-                     'education_level' => $request->education_level,
-                     'address'         => $request->address,
-                     'province'        => $request->province,
-                     'city'            => $request->city,
-                     'summary'         => $request->summary,
-                     'zip_code'        => $request->zip_code,
-                     'pwd_categories'  => $request->pwd_categories,
-                     'skills'          => $request->skills,
-                     'description'     => $request->description,
-                ]);
+                ->update($user_data);
         
         return response()->json([
             'message' => 'Profile information updated successfully',
@@ -89,7 +95,7 @@ class ApplicantProfileInfoController extends Controller
             'city'                  => 'required|',
             'address'               => 'required',
             'zip_code'              => 'required|digits:4',
-            'profile_photo'         => 'required|mimes:jpeg,jpg,png',
+            // 'profile_photo'         => 'required|mimes:jpeg,jpg,png',
             'pwd_categories'        => 'required',
         ]);
     }

@@ -138,14 +138,14 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
+    
         $('.btn-login').on('click', function() {
-            // prepare the data to be submitted on backend
+        
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('email', $('#email').val());
             formData.append('password', $('#password').val());
 
-            // Send an AJAX request to validate the data
             $.ajax({
                 url: '{{ route('applicant.postLogin') }}',
                 type: 'POST',
@@ -166,12 +166,24 @@
                         }, 2000)
                     } else {
                         displayErrors(JSON.parse(response.errors));
+                        let password_errors = validatePassword($('#password').val())
+                        let html  = ''
+                        $.each(password_errors, function(index,error) {
+                            html += `<p class="mb-1">${error}</p>`
+                        })
+                        $('.err-password').addClass('d-block').html(html)
                     }
                 },
                 error: function(xhr, status, error) {
                     // Handle the AJAX request error
                     var result = JSON.parse(xhr.responseText)
                     displayErrors(result.errors)
+                    let password_errors = validatePassword($('#password').val())
+                    let html  = ''
+                    $.each(password_errors, function(index,error) {
+                        html += `<p class="mb-1">${error}</p>`
+                    })
+                    $('.err-password').addClass('d-block').html(html)
                 }
             });
 
