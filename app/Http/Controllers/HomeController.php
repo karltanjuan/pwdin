@@ -37,4 +37,9 @@ class HomeController extends Controller
         return view('choose-account');
     }
 
+    public function aboutUs(){
+        return view('about-us');
+
+    }
+
 }
