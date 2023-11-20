@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>PWDIn</title>
@@ -32,7 +31,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -40,12 +38,9 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
-
 <body>
-    <div class="container-fluid bg-white p-0">
-
-        <!-- Navbar Start -->
-        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <img class="img-fluid w-10 rounded pwdin-logo" src="{{ asset('img/pwdin_logo.png') }}" alt="pwdIn Logo">
                 <span>&nbsp;</span>
@@ -77,63 +72,24 @@
                     </div> --}}
                     <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="{{ url('/choose-account') }}"
-                    class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i
-                        class="fa fa-arrow-right ms-3"></i></a>
+                @if(auth()->check())
+                    <a href="{{ url('/applicant/jobs') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>
+                @elseif(auth()->guard('employers')->check())
+                    <a href="{{ url('/employer/dashboard') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>
+                @else
+                    <a href="{{ url('/choose-account') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i class="fa fa-arrow-right ms-3"></i></a>
+                @endif
             </div>
         </nav>
-        <!-- Navbar End -->
+    <!-- Navbar End -->
 
-        <section class="vh-100">
-            <div class="container-fluid h-custom">
-                <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col-md-9 col-lg-6 col-xl-5">
-                        <img src="{{ url('img/choose_account.jpg') }}" class="img-fluid" alt="Sample image">
-                        <p class="text-center">Unlock your future: Whether you're the dream employer or the ideal
-                            candidate!"</p>
-                    </div>
 
-                    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                        <h1 class="text-center">
-                            <span>Login As</span>
-                        </h1>
-                        <div class="text-center mt-4 pt-2">
-                            <a href="{{ url('/applicant/login') }}" type="button" class="btn btn-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                                Applicant</a>
-                            <a href="{{ url('/employer/login') }}" type="button" class="btn btn-secondary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                                Employer</a>
-                        </div>
-                        <div class="divider d-flex align-items-center my-4">
-                            <p class="text-center fw-bold mx-3 mb-0">Or</p>
-                        </div>
-                        <h1 class="text-center">
-                            <span>Register As</span>
-                        </h1>
-                        <div class="text-center mt-4 pt-2">
-                            <a href="{{ url('/applicant/register') }}" type="button" class="btn btn-outline-primary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                                Applicant</a>
-                            <a href="{{ url('/employer/register') }}" type="button" class="btn btn-outline-secondary btn-lg"
-                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
-                                Employer</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="text-center">&copy; {{ env('APP_NAME') }}. All Rights Reserved
-                {{ date('Y') }}</p>
-        </section>
+<h1>HI HELLOs</h1>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
-            <i class="fa fa-angle-up" aria-hidden="true"></i>
-        </a>
-    </div>
+
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
@@ -142,11 +98,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
     integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.userway.org/widget.js" data-account="HaifC5drHg"></script>
+
+    <script>
+        (function(d){
+           var s = d.createElement("script");
+           /* uncomment the following line to override default position*/
+           s.setAttribute("data-position", 100);
+           /* uncomment the following line to override default size (values: small, large)*/
+           /* s.setAttribute("data-size", "large");*/
+           /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
+           /* s.setAttribute("data-language", "null");*/
+           /* uncomment the following line to override color set via widget (e.g., #053f67)*/
+           /* s.setAttribute("data-color", "#2d68ff");*/
+           /* uncomment the following line to override type set via widget (1=person, 2=chair, 3=eye, 4=text)*/
+           /* s.setAttribute("data-type", "1");*/
+           /* s.setAttribute("data-statement_text:", "Our Accessibility Statement");*/
+           /* s.setAttribute("data-statement_url", "http://www.example.com/accessibility";*/
+           /* uncomment the following line to override support on mobile devices*/
+           /* s.setAttribute("data-mobile", true);*/
+           /* uncomment the following line to set custom trigger action for accessibility menu*/
+           /* s.setAttribute("data-trigger", "triggerId")*/
+           s.setAttribute("data-account", "HaifC5drHg");
+           s.setAttribute("src", "https://cdn.userway.org/widget.js");
+           (d.body || d.head).appendChild(s);})(document)
+   </script>
+  <!-- Template Javascript -->
+  <script src="{{ asset('js/main.js') }}"></script>
+                    
+
     
-    <!-- Template Javascript -->
-    <script src="{{ asset('js/main.js') }}"></script>
-
 </body>
-
 </html>
