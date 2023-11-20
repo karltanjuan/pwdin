@@ -9,7 +9,7 @@
                 <div class="col-md-6 text-center text-md-end">
                     <div class="footer-menu">
                         <a href="{{ url('/') }}">Home</a>
-                        <a href="{{ url('/about') }}">About</a>
+                        <a href="{{ url('/about-us') }}">About</a>
                         <a href="mailto:pwdinhelp@gmail.com">Help</a>
                     </div>
                 </div>

@@ -53,7 +53,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/about-us') }}" class="nav-item nav-link">About</a>
                     <a href="{{ url('/choose-account') }}" class="nav-item nav-link d-md-none">Login Account</a>
                     {{-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
@@ -240,7 +240,7 @@
         <div class="member-info">
           <h4>Abigail Larupay</h4>
           <span>Web Developer</span>
-          <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
+          <p>As a web developer, I leverage coding languages like HTML, CSS, and JavaScript to craft visually appealing and functionally seamless online experiences, transforming creative ideas into dynamic and engaging digital platforms.</p>
         </div>
       </div>
     </div>
@@ -259,7 +259,7 @@
         <div class="member-info">
           <h4>Irene Estelle Domingo</h4>
           <span>Web Designer</span>
-          <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
+          <p>As a web designer, I fuse creativity with user experience, utilizing design principles and tools to craft visually compelling and intuitive websites that leave a lasting impression.</p>
         </div>
       </div>
     </div>
@@ -277,8 +277,8 @@
         </div>
         <div class="member-info">
           <h4>Carl Gabriel Dadula</h4>
-          <span>Administrator</span>
-          <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+          <span>Documentator</span>
+          <p>In my role as a documentator, I meticulously organize and articulate complex technical information into clear and comprehensive documentation, empowering users and teams to navigate and understand intricate systems with ease.</p>
         </div>
       </div>
     </div>
@@ -296,8 +296,8 @@
         </div>
         <div class="member-info">
           <h4>Numer Paul James Edralin</h4>
-          <span>Quality Assurance (QA) Engineer</span>
-          <p>paka haba ng pangalan mo leche Rerum voluptate non adipisci animi distinctio et deserunt amet voluptas. Quia aut aliquid doloremque ut possimus ipsum officia.</p>
+          <span>Quality Assurance (QA)</span>
+          <p>As a quality assurance professional, I meticulously scrutinize and test software products, ensuring they meet the highest standards of functionality, performance, and user experience, to deliver a seamless and reliable end-user journey.</p>
         </div>
       </div>
     </div>
@@ -308,14 +308,41 @@
 
 </section><!-- End Team Section -->
 
+<section class="ourFooter expand-lg container-fluid">
+  <!-- Footer -->
+  <footer class="text-center text-white" style="background-color: #0a4275;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: CTA -->
+      <section class="">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3" style="color: white;">Register for free</span>
+          <button type="button" class="btn btn-outline-light btn-rounded" onclick="window.location.href='{{ url('/applicant/register') }}'">
+            Sign up as Applicant!
+          </button>
+          <button type="button" class="btn btn-outline-light btn-rounded" onclick="window.location.href='{{ url('/employer/register') }}'">
+            Sign up as Employer!
+          </button>
+        </p>
+      </section>
+      <!-- Section: CTA -->
+    </div>
+    <!-- Grid container -->
 
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © PWDin  All Right Reserved. 2023  
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+</section>
 
     </main>
     
     <!-- End #main -->
     </div>
 </div>
-
 
 
 <!-- JavaScript Libraries -->

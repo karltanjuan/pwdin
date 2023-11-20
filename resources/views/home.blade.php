@@ -66,7 +66,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/about-us') }}" class="nav-item nav-link">About</a>
                     <a href="{{ url('/choose-account') }}" class="nav-item nav-link d-md-none">Login Account</a>
                     {{-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
@@ -355,7 +355,7 @@
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
                                 <a href="{{ url('/') }}">Home</a>
-                                <a href="{{ url('/about') }}">About</a>
+                                <a href="{{ url('/about-us') }}">About</a>
                                 <a href="mailto:pwdinhelp@gmail.com">Help</a>
                             </div>
                         </div>
