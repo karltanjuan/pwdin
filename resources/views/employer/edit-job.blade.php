@@ -261,6 +261,21 @@
                                     <option value="Communication"
                                         {{ in_array('Communication', explode(',', $job->pwd_categories)) ? 'selected' : '' }}>
                                         Communication</option>
+                                    <option value="Deaf"
+                                        {{ in_array('Deaf/Hard of Hearing', explode(',', $job->pwd_categories)) ? 'selected' : '' }}>
+                                        Deaf/Hard of Hearing</option>
+                                    <option value="Intellectual"
+                                        {{ in_array('Intellectual', explode(',', $job->pwd_categories)) ? 'selected' : '' }}>
+                                        Intellectual</option>
+                                    <option value="Speech"
+                                        {{ in_array('Speech', explode(',', $job->pwd_categories)) ? 'selected' : '' }}>
+                                        Speech and Language</option>
+                                    <option value="Cancer"
+                                        {{ in_array('Cancer', explode(',', $job->pwd_categories)) ? 'selected' : '' }}>
+                                        Cancer</option>
+                                    <option value="Rare"
+                                        {{ in_array('Rare', explode(',', $job->pwd_categories)) ? 'selected' : '' }}>
+                                        Rare Disease</option>
                                 </select>
                                 <label for="pwd_categories">PWD Categories</label>
                                 <span class="err-pwd_categories err-msg"></span>

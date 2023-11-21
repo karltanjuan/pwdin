@@ -16,7 +16,7 @@ class ApplicantSeeder extends Seeder
     {
         date_default_timezone_set('Asia/Manila');
 
-        $pwd_categories = ['Psychosocial', 'Mental', 'Chronic illness', 'Learning', 'Visual', 'Orthopedic', 'Physical', 'Communication'];
+        $pwd_categories = ['Psychosocial', 'Mental', 'Chronic illness', 'Learning', 'Visual', 'Orthopedic', 'Physical', 'Communication','Deaf/Hard of Hearing','Intellectual', 'Speech and Language', 'Cancer','Rare Disease'];
         $pwd_category = $pwd_categories[array_rand($pwd_categories)];
 
         $user = [

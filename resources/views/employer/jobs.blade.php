@@ -68,13 +68,11 @@
                                 </td>
                                 <td>
                                     @if ($job->status === 0)
-                                        <span class="badge bg-warning">Pending Payment</span>
+                                        <span class="badge bg-warning">Closed</span>
                                     @elseif($job->status === 1)
                                         <span class="badge bg-success">Active</span>
                                     @elseif($job->status === 2)
                                         <span class="badge bg-secondary">Inactive</span>
-                                    @elseif($job->status === 3)
-                                        <span class="badge bg-danger">Closed</span>
                                     @endif
                                 </td>
                                 <td>{{ date('m/d/y', strtotime($job->created_at)) }}</td>

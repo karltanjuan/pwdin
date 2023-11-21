@@ -264,6 +264,11 @@
                                         <option value="Visual">Visual</option>
                                         <option value="Orthopedic">Orthopedic</option>
                                         <option value="Communication">Communication</option>
+                                        <option value="Deaf">Deaf/Hard of Hearing</option>
+                                        <option value="Intellectual">Intellectual</option>
+                                        <option value="Speech">Speech and Language</option>
+                                        <option value="Cancer">Cancer</option>
+                                        <option value="Rare">Rare Disease</option>
                                     </select>
                                     <span class="err-pwd_categories err-msg"></span>
                                     <label for="pwd_categories">PWD Categories</label>
