@@ -21,7 +21,11 @@ class AdminUserController extends Controller
                  ->orderBy('created_at', 'desc')
                  ->get();
 
-        return view('admin.users', compact('users'));
+        return view('admin.users.index', compact('users'));
+    }
+
+    public function add() {
+        return view('admin.users.add');
     }
 
     public function saveUser(Request $request) {
@@ -41,7 +45,6 @@ class AdminUserController extends Controller
             $profile_path = $request->file('profile_photo')->storeAs('public/admin/profile_photo', $profile_path);
         }
 
-        // save to database
         $user = new Admin();
         $user->profile_photo = $profile_path;
         $user->username      = $request->username;
@@ -52,7 +55,7 @@ class AdminUserController extends Controller
         $user->middle_name   = $request->middle_name;
         $user->last_name     = $request->last_name;
         $user->prefix        = $request->prefix;
-        $user->role          = $request->role;
+        $user->role          = $request->role; // admin
         $user->status        = $request->status;
         $user->save();
 
@@ -64,9 +67,13 @@ class AdminUserController extends Controller
         }
     }
 
-    public function updateUser(Request $request){
+    public function edit($id) {
+        $user = Admin::where('id', (int)$id)->first();
+        return view('admin.users.edit', compact('user'));
+    }
 
-        $validator = $this->validateUser($request);
+    public function updateUser(Request $request) {
+        $validator = $this->validateUserUpdate($request);
 
         if ($validator->fails()) {
             return response()->json([
@@ -87,20 +94,26 @@ class AdminUserController extends Controller
             }
         }
 
+        $admin_data = [
+            'profile_photo' => $profile_path,
+            'username'      => $request->username,
+            'email'         => $request->email,
+            'mobile_no'     => $request->mobile_no,
+            'first_name'    => $request->first_name,
+            'middle_name'   => $request->middle_name,
+            'last_name'     => $request->last_name,
+            'prefix'        => $request->prefix,
+            'role'          => $request->role,
+            'status'        => $request->status
+        ];
+
+        if (!empty($profile_path)) {
+            $admin_data['profile_photo'] =  $profile_path;
+        }
+
+
         $user = Admin::where('id', (int)$request->id)
-                ->update([
-                     'profile_photo' => $profile_path,
-                     'username'      => $request->username,
-                     'email'         => $request->email,
-                     'mobile_no'     => $request->mobile_no,
-                     'password'      => Hash::make($request->password, ['rounds' => 12]),
-                     'first_name'    => $request->first_name,
-                     'middle_name'   => $request->middle_name,
-                     'last_name'     => $request->last_name,
-                     'prefix'        => $request->prefix,
-                     'role'          => $request->role,
-                     'status'        => $request->status
-                ]);
+                ->update($admin_data);
 
         if ($user) {
             return response()->json([
@@ -108,18 +121,6 @@ class AdminUserController extends Controller
                 'code'    => '200'
             ]);
         }
-    }
-
-    public function getUserById(Request $request) {
-        $user = Admin::where('id', (int)$request->id)
-                ->orderBy('created_at', 'desc')
-                ->first();
-
-        $response = [
-            'user' => $user
-        ];
-
-        return response()->json($response);
     }
 
     public function deleteUser(Request $request){
@@ -152,5 +153,21 @@ class AdminUserController extends Controller
 
         return $validator = Validator::make($request->all(), $rules);
     }
+
+    public function validateUserUpdate($request) {
+        $rules = [
+           'username'              => 'required|unique:users',
+           'email'                 => 'required|email|unique:users',
+           'mobile_no'             => 'required|regex:/^09[0-9]{9}$/',
+           'first_name'            => 'required|min:2',
+           'middle_name'           => 'nullable|min:2',
+           'last_name'             => 'required|min:2',
+           'prefix'                => 'nullable|min:2',
+           'role'                  => 'required',
+           'status'                => 'required'
+       ];
+
+       return $validator = Validator::make($request->all(), $rules);
+   }
 
 }

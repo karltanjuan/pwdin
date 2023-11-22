@@ -33,10 +33,10 @@
                             <i class="fa-solid fa-circle-info"></i>&nbsp;
                             Profile Info
                         </a>
-                        {{-- <a class="nav-link" href="{{url('/admin/users')}}">
+                        <a class="nav-link" href="{{url('/admin/users')}}">
                             <i class="fa-solid fa-users-gear"></i>&nbsp;
                             Users
-                        </a> --}}
+                        </a>
                         <a class="nav-link" href="{{url('/admin/change-password')}}">
                             <i class="fa-solid fa-key"></i>&nbsp;
                             Change Password

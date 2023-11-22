@@ -44,10 +44,6 @@ use App\Http\Controllers\Admin\AdminUserController;
 |
 */
 
-Route::get('/bs', function() {
-    return view('bs');
-});
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/choose-account', [HomeController::class, 'chooseAccount'])->name('chooseAccount');
 
@@ -58,11 +54,11 @@ Route::get('/contact-us', [HomeController::class, 'contact-us'])->name('contact-
 
 
 // Generate all database seeder
-Route::get('/seeder', function () {
-    Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
-    dd('Seeder uploaded');
-});
-
+// DO NOT RUN IN PRODUCTION
+// Route::get('/seeder', function () {
+//     Artisan::call('db:seed', ['--class' => 'DatabaseSeeder']);
+//     dd('Seeder uploaded');
+// });
 
 // Applicant
 /* prefix is use to reduce redudancy on the route url */
@@ -212,6 +208,8 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('/update-password', [AdminPasswordController::class, 'updatePassword'])->name('admin.updatePassword');
 
         Route::get('/users', [AdminUserController::class, 'getUsers'])->name('admin.getUsers');
+        Route::get('/users/add', [AdminUserController::class, 'add'])->name('admin.add');
+        Route::get('/users/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.edit');
         Route::post('/getUserById', [AdminUserController::class, 'getUserById'])->name('admin.getUserById');
         Route::post('saveUser', [AdminUserController::class, 'saveUser'])->name('admin.saveUser');
         Route::post('updateUser', [AdminUserController::class, 'updateUser'])->name('admin.updateUser');

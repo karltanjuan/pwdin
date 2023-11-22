@@ -1,10 +1,17 @@
 @extends('admin.layouts.master')
 
-@php $page_title = "Admin Information"; @endphp
+@php $page_title = "Edit User"; @endphp
 @section('title', 'Admin - '.$page_title)
 
 @section('content')
 <style>
+     .eye-icon-position {
+        display: flex;
+        float: right;
+        margin-top: -38px;
+        margin-right: 12px;
+    }
+
     .err-msg {
         color: red;
         font-size: 12px;
@@ -16,7 +23,6 @@
     }
 </style>
 
-@php $user = auth()->guard('admins')->user() @endphp
 <div class="container-fluid px-4">
     <h1 class="mt-4 mb-5">{{$page_title}}</h1>
 
@@ -106,9 +112,57 @@
                     </div>
                 </div>
 
+                {{-- <div class="col-md-4">
+                    <div class="form-outline mb-3 form-floating">
+                        <input type="password" id="password" class="form-control form-control-lg password" placeholder="Enter password" tabindex="8" value="">
+                        <label class="form-label" for="password">Password</label>
+                        <span class="show eye-icon-position">
+                            <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
+                        </span>
+                        <span class="err-password err-msg"></span>
+                    </div>
+                </div> --}}
+
+                {{-- <div class="col-md-4">
+                    <div class="form-outline mb-3 form-floating">
+                        <input type="password" id="password_confirmation"
+                            class="form-control form-control-lg password_confirmation"
+                            placeholder="Enter password confirmation" tabindex="9"/>
+                        <label class="form-label" for="password_confirmation">Confirm Password</label>
+                        <span class="show eye-icon-position">
+                            <i class="las la-eye fs-5" id="show2" onclick="toggle2()"></i>
+                        </span>
+                        <span class="err-password_confirmation err-msg"></span>
+                    </div>
+                </div> --}}
+
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="role form-select" id="role" tabindex="8">
+                            <option value="1" {{ $user->role === 1 ? 'selected' : '' }}>Admin</option>
+                            <option value="2" {{ $user->role === 2 ? 'selected' : '' }}>Moderator</option>
+                        </select>
+                        <label for="role">Role</label>
+                        <span class="err-role err-msg"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-floating mb-4">
+                        <select class="status form-select" id="status" tabindex="9">
+                            <option value="0" {{ $user->status === 0 ? 'selected' : '' }}>Inactive</option>
+                            <option value="1" {{ $user->status === 1 ? 'selected' : '' }}>Active</option>
+                        </select>
+                        <label for="status">Status</label>
+                        <span class="err-status err-msg"></span>
+                    </div>
+                </div>
+
                 <div class="text-center text-lg-start pt-2">
+                    <a href="{{url('/admin/users')}}" class="btn btn-secondary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;" tabindex="10">Back</a>
                     <button type="button" class="btn-update btn btn-primary btn-lg"
-                        style="padding-left: 2.5rem; padding-right: 2.5rem;" tabindex="9">Save Profile</button>
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;" tabindex="11">Update User</button>
                 </div>
               </div>
             </div>
@@ -117,13 +171,11 @@
       </div>
 </div>
 
-
 <script src="{{asset('lib/wow/wow.min.js')}}"></script>
 <script src="{{asset('lib/owlcarousel/owl.carousel.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <script>
-   
     $('.profile_photo').on('change', function(event) {
         const selectedImage = event.target.files[0];
         
@@ -140,8 +192,9 @@
 
     $('.btn-update').on('click', function() {
         var formData = new FormData();
+        formData.append('id', parseInt('{{ request()->segment(4) }}'));
         formData.append('_token', "{{ csrf_token() }}");
-        formData.append('old_file', '{{auth()->guard('admins')->user()->profile_photo}}');
+        formData.append('old_file', '{{$user->profile_photo}}');
         formData.append('profile_photo', $('#profile_photo')[0].files[0]);
         formData.append('username', $('#username').val());
         formData.append('email', $('#email').val());
@@ -150,19 +203,23 @@
         formData.append('middle_name', $('#middle_name').val());
         formData.append('last_name', $('#last_name').val());
         formData.append('prefix', $('#prefix').val());
+        // formData.append('password', $('#password').val());
+        // formData.append('password_confirmation', $('#password_confirmation').val());
+        formData.append('role', $('#role').val());
+        formData.append('status', $('#status').val());
 
         $.ajax({
-            url: '{{ route('admin.updateAdminInfo') }}',
+            url: '{{ route('admin.updateUser') }}',
             type: 'POST',
             data: formData,
             processData: false,
             contentType: false,
             success: function(response) {
                 if (response.code == "200") {
-                    toastr.success('Admin information updated successfully', 'Success')
+                    toastr.success('User updated successfully', 'Success')
 
                     setTimeout(function() {
-                            window.location.href = '{{url('/admin/profile-info')}}'
+                            window.location.href = '{{url('/admin/users')}}'
                         }, 2000)
                 } else {
                     displayErrors(JSON.parse(response.errors));

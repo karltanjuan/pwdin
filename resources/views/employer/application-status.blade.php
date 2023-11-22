@@ -266,13 +266,7 @@
                             modal_title += 'Updated'
                         }
 
-                        Swal.fire({
-                          title: modal_title,
-                          text: 'Success',
-                          icon: 'success',
-                          showCancelButton: false,
-                          confirmButtonText: 'OK'
-                        });
+                        toastr.success(modal_title, 'Success')
 
                         setTimeout(function() {
                             window.location.href = '{{url('/employer/application-status')}}'
