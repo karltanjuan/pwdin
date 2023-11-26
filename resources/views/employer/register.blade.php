@@ -407,61 +407,9 @@
             }
         })
 
-        $('.username').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.email').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.password').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.password_confirmation').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.contact_person').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.company_name').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.province').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.city').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.province').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.city').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.zip_code').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.address').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.business_permit').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.bir_certificate').on('keypress', function() {
-            registerUser();
-        })
+        // $('input').on('keypress', function() {
+        //     registerUser();
+        // })
 
         $(document).on('click', '.btn-agree', function() {
             $('.accept-agreement').prop('checked', true)
@@ -471,16 +419,15 @@
         var click_counter = 0;
         
         $('.btn-register').on('click', function() {
-            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
-
-        $('.btn-register').on('click', function() {
-            registerUser();
-        })
+            registerUser()
+        });
 
         function registerUser() {
-                if ($('#accept-agreement').is(':checked')) {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+            
+            if ($('#accept-agreement').is(':checked')) {
                 $('.err-agreement').hide()
-                // prepare the data to be submitted on backend
+
                 var formData = new FormData();
                 formData.append('_token', "{{ csrf_token() }}"); // for browser request
                 formData.append('username', $('#username').val());
@@ -549,7 +496,7 @@
             } else {
                 $('.err-agreement').show().text('Please read the terms and condition to continue')
             }
-            }
+        }
     </script>
 
 </body>

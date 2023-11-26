@@ -155,61 +155,29 @@
         <div class="container-fluid mb-5" style="padding: 35px; background: #f4f7f7;" >
             <div class="container mt-5">
                 <div class="row justify-content-around">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Our Process</h1>
+                    <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Our Process</h1>
                     <!-- First Partition -->
                     <div class="col-md-3 mb-4 ml-5 wow fadeIn" data-wow-delay="0.1s">
-                    <img src="{{ asset('img/lockImg.png') }}" alt="">
-                    <p class="mt-2"><strong>Create an account</strong></p>
-                    <p class="mt-2">Register by filling up the forms and submitting a copy of your resume, picture, and pwd card/valid medical records. Then wait to get your account verified by our system.</p>
+                        <img src="{{ asset('img/lockImg.png') }}" alt="">
+                        <p class="mt-2"><strong>Create an account</strong></p>
+                        <p class="mt-2">Register by filling up the forms and submitting a copy of your resume, picture, and pwd card/valid medical records. Then wait to get your account verified by our system.</p>
                     </div>
                     <!-- Second Partition -->
                     <div class="col-md-3 mb-4 ml-5 wow fadeIn" data-wow-delay="0.1s">
-                    <img src="{{ asset('img/fileImg.png') }}" alt="">
-                    <p class="mt-2"><strong>Search Jobs.</strong></p>
-                    <p class="mt-2">Search for available jobs for multiple employers around the country that are welcoming towards PWD applicants.</p>
+                        <img src="{{ asset('img/fileImg.png') }}" alt="">
+                        <p class="mt-2"><strong>Search Jobs.</strong></p>
+                        <p class="mt-2">Search for available jobs for multiple employers around the country that are welcoming towards PWD applicants.</p>
                     </div>
                     <!-- Third Partition -->
                     <div class="col-md-3 mb-4 ml-5 wow fadeIn" data-wow-delay="0.1s">
-                    <img src="{{ asset('img/securityImg.png') }}" alt="">
-                    <p class="mt-2"><strong>Monitor Application</strong></p>
-                    <p class="mt-2">Easily monitor your application status by checking which stage the applicant is in.</p>
+                        <img src="{{ asset('img/securityImg.png') }}" alt="">
+                        <p class="mt-2"><strong>Monitor Application</strong></p>
+                        <p class="mt-2">Easily monitor your application status by checking which stage the applicant is in.</p>
                     </div>
                 </div>
             </div>
-         </div>
-            <!-- <div class="container">
-                <div class="row g-2">
-                    <div class="col-md-10">
-                        <div class="row g-2">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control border-0" placeholder="Keyword" />
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0">
-                                    <option selected>Category</option>
-                                    <option value="1">Category 1</option>
-                                    <option value="2">Category 2</option>
-                                    <option value="3">Category 3</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select border-0">
-                                    <option selected>Location</option>
-                                    <option value="1">Location 1</option>
-                                    <option value="2">Location 2</option>
-                                    <option value="3">Location 3</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-dark border-0 w-100">Search</button>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <!-- Search End -->
-
 
         <!-- Category Start -->
         <div class="container-xxl py-5">
