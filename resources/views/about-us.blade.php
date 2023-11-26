@@ -267,7 +267,7 @@
     <div class="col-lg-3 col-md-6 d-flex align-items-stretch wow fadeInUp" data-wow-delay="0.1s">
       <div class="member">
         <div class="member-img">
-          <img src="assets/img/team/team-3.jpg" class="img-fluid" alt="">
+          <img src="{{asset('img/team/team-3.png')}}" class="img-fluid" alt="">
           <div class="social">
             <a href=""><i class="bi bi-twitter"></i></a>
             <a href=""><i class="bi bi-facebook"></i></a>
