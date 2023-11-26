@@ -122,7 +122,7 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
-        var click_counter = 0;
+        let click_counter = 0;
         
         $('.btn-send').on('click', function() {
             $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);

@@ -50,30 +50,39 @@
 
 
     <script>
-        $(document).on('click', '.btn-subscribe', function() {
+        let click_counter = 0;
 
-            toastr.info('Please wait', 'Creating invoice and redirecting you to payment service provider.');
+        $(document).on('click', '.btn-subscribe', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
 
             setTimeout(function() {
-                // Create invoice and transactions
                 var formData = new FormData();
                 formData.append('_token', "{{ csrf_token() }}");
 
-                // Send an AJAX request to validate the data
-                $.ajax({
-                    url: '{{ route('employer.createInvoice') }}',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        window.location.href = response.data.attributes.checkout_url
-                    },
-                    error: function(xhr, status, error) {
-                        var result = JSON.parse(xhr.responseText)
-                        console.log(result)
-                    }
-                });
+                if (click_counter === 0) {
+                    click_counter++;
+                    $(this).prop('disabled', true);
+                    
+                    toastr.info('Please wait', 'Creating invoice and redirecting you to payment service provider.');
+
+                    $.ajax({
+                        url: '{{ route('employer.createInvoice') }}',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $('.btn-login').html(`Subscribe`);
+                            window.location.href = response.data.attributes.checkout_url
+                        },
+                        error: function(xhr, status, error) {
+                            var result = JSON.parse(xhr.responseText)
+                            console.log(result)
+                            $('.btn-subscribe').html(`Subscribe`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    });
+                }
             }, 2000)
         })
     </script>

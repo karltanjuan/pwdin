@@ -69,6 +69,8 @@
         let click_counter = 0;
 
         $('.btn-update').on('click', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+            
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('current_password', $('#current_password').val());

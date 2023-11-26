@@ -151,35 +151,48 @@
             id = $(this).data('id')
         })
 
+        let click_counter = 0;
         $(document).on('click', '.btn-remove', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('id', parseInt(id));
 
-            $.ajax({
-                url: '{{ route('employer.deleteJob') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        $('.modal').modal('hide')
-                        toastr.success('Job Post Deleted', 'Success')
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/employer/jobs') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                $.ajax({
+                    url: '{{ route('employer.deleteJob') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-remove').html(`Confirm`);
+                            $('.modal').modal('hide')
+                            toastr.success('Job Post Deleted', 'Success')
+
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/employer/jobs') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-remove').html(`Confirm`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-remove').html(`Confirm`).prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
         })
     </script>
 @endsection

@@ -60,6 +60,8 @@
     @include('employer.layouts.scripts')
 
     <script>
+        let click_counter = 0;
+
         $('.bir_certificate').on('change', function(event) {
             const selectedImage = event.target.files[0];
 
@@ -75,34 +77,45 @@
         });
 
         $('.btn-update').on('click', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('old_file', '{{ auth()->guard('employers')->user()->bir_certificate }}');
             formData.append('bir_certificate', $('#bir_certificate')[0].files[0]);
 
-            $.ajax({
-                url: '{{ route('employer.updateBIRCertificate') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        toastr.success('BIR Certificate change successfully', 'Success')
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/employer/bir-certificate') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                $.ajax({
+                    url: '{{ route('employer.updateBIRCertificate') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-update').html(`Save BIR Certificate`);
+                            toastr.success('BIR Certificate change successfully', 'Success')
+
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/employer/bir-certificate') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-update').html(`Save BIR Certificate`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-update').html(`Save BIR Certificate`).prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
 
         })
     </script>

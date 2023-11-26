@@ -222,6 +222,7 @@
             $('#updateModal').modal('hide')
         })
 
+        let click_counter = 0;
         $(document).on('click', '.btn-confirm', function() {
             $('.err-rejected_reason').hide().text('')
 
@@ -235,6 +236,8 @@
                 is_rejected = 1;
             }
 
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('id', '{{$user->applications[0]->id}}');
@@ -242,31 +245,42 @@
             formData.append('rejected_reason', $('.rejected_reason').val());
             formData.append('is_rejected', is_rejected);
 
-            $.ajax({
-                url: '{{ route('employer.updateAppStatus') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        $('#updateModal').modal('hide')
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        toastr.success('Application Status Updated', 'Success')
 
-                        setTimeout(function() {
-                            window.location.href = '{{url('/employer/jobs/')}}/{{request()->segment(3)}}/applicants'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                $.ajax({
+                    url: '{{ route('employer.updateAppStatus') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-confirm').html(`Yes`);
+                            $('#updateModal').modal('hide')
+
+                            toastr.success('Application Status Updated', 'Success')
+
+                            setTimeout(function() {
+                                window.location.href = '{{url('/employer/jobs/')}}/{{request()->segment(3)}}/applicants'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-confirm').html(`Yes`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-confirm').html(`Yes`).prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
         })
     </script>
 @endsection

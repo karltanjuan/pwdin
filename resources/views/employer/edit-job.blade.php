@@ -345,8 +345,11 @@
             }
         })
 
+        let click_counter = 0;
 
         $('.btn-update').on('click', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('id', '{{ request()->segment(4) }}');
@@ -365,30 +368,40 @@
             formData.append('job_description', tinymce.get("job_description").getContent());
             formData.append('status', $('#status').val());
 
-            $.ajax({
-                url: '{{ route('employer.updateJob') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    console.log(response)
-                    if (response.code == "200") {
-                        toastr.success('Job updated successfully', 'Success')
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
+                
+                $.ajax({
+                    url: '{{ route('employer.updateJob') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        console.log(response)
+                        if (response.code == "200") {
+                            $('.btn-update').html(`Update Job`);
+                            toastr.success('Job updated successfully', 'Success')
 
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/employer/jobs') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/employer/jobs') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-update').html(`Update Job`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-update').html(`Update Job`).prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
 
         })
     </script>

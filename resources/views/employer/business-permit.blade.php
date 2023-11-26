@@ -74,35 +74,48 @@
             }
         });
 
+        let click_counter = 0;
+
         $('.btn-update').on('click', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('old_file', '{{ auth()->guard('employers')->user()->business_permit }}');
             formData.append('business_permit', $('#business_permit')[0].files[0]);
 
-            $.ajax({
-                url: '{{ route('employer.updateBusinessPermit') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        toastr.success('Business Permit change successfully', 'Success')
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/employer/business-permit') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                $.ajax({
+                    url: '{{ route('employer.updateBusinessPermit') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-update').html(`Save Business Permit`);
+                            toastr.success('Business Permit change successfully', 'Success')
+
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/employer/business-permit') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-update').html(`Save Business Permit`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-update').html(`Save Business Permit`).prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
 
         })
     </script>

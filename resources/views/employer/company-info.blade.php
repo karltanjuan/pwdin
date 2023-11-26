@@ -215,7 +215,11 @@
             });
         }
 
+        let click_counter = 0;
+
         $('.btn-update').on('click', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('old_file', '{{$user->company_logo}}');
@@ -231,28 +235,38 @@
             formData.append('zip_code', $('#zip_code').val());
             formData.append('summary', $('#summary').val());
 
-            $.ajax({
-                url: '{{ route('employer.updateCompanyInfo') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        toastr.success('Company information updated successfully', 'Success')
-            
-                        setTimeout(function() {
-                                window.location.href = '{{url('/employer/company-info')}}'
-                            }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
+
+                $.ajax({
+                    url: '{{ route('employer.updateCompanyInfo') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-update').html(`Save Company`);
+                            toastr.success('Company information updated successfully', 'Success')
+                
+                            setTimeout(function() {
+                                    window.location.href = '{{url('/employer/company-info')}}'
+                                }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-update').html(`Save Company`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-update').html(`Save Company`).prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
         })
     </script>
 @endsection

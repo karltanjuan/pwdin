@@ -138,7 +138,7 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
-        var click_counter = 0;
+        let click_counter = 0;
 
         $('.btn-login').on('click', function() {
             

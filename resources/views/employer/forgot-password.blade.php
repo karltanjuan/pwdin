@@ -122,40 +122,51 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
+        let click_counter = 0;
+
         $('.btn-send').on('click', function() {
-            // prepare the data to be submitted on backend
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('email', $('#email').val());
 
-            // Send an AJAX request to validate the data
-            $.ajax({
-                url: '{{ route('employer.postForgotPassword') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        $('input').removeClass('error')
-                        $('.err-msg').hide()
+                $.ajax({
+                    url: '{{ route('employer.postForgotPassword') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-send').html('Send')
+                            $('input').removeClass('error')
+                            $('.err-msg').hide()
 
-                        toastr.info('Reset password sent to email', 'Check your email inbox')
+                            toastr.info('Reset password sent to email', 'Check your email inbox')
 
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/employer/login') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/employer/login') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-send').html('Send').prop('disabled', false)
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-send').html('Send').prop('disabled', false)
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
 
         })
     </script>
