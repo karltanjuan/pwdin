@@ -6,9 +6,9 @@
 @section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4 mb-5">{{$page_title}}</h1>
-    
     <div class="row mb-5">
         <div class="col-md-12">
+        <a href="https://pwd.doh.gov.ph/home.php" target="_blank"  class="btn btn-primary mb-5 mt-0 position-absolute" style="margin: 15vw;">Verify PWD Card</a>
             <table class="table table-bordered table-striped applicants-table" id="applicants-table">
                 <thead>
                     <tr>
@@ -30,7 +30,7 @@
                             <tr>
                                 <td>
                                     {{ $app->first_name }}
-                                    {{ $app->middle_name }}
+                                    {{ $app->middle_name ?? ""}}
                                     {{ $app->last_name }}
                                 </td>
                                 <td>{{ $app->education_level }}</td>
@@ -126,7 +126,7 @@
                         <p>Profile Photo:</p> <img class="img-fluid rounded" src='{{asset('${profile_photo}')}}' alt='Profile Photo'/>
                     </div>
                     <ul class="list-group">
-                    <li class="list-group-item">Full Name: ${applicant.first_name} ${applicant.middle_name} ${applicant.last_name} ${applicant.prefix !== null ? applicant.prefix : ''}</li>
+                    <li class="list-group-item">Full Name: ${applicant.first_name} ${applicant.middle_name ?? ""} ${applicant.last_name} ${applicant.prefix !== null ? applicant.prefix : ''}</li>
                     <li class="list-group-item">PWD Category: ${applicant.pwd_categories}</li>
                     <li class="list-group-item">PWD Card: <a href='{{asset('${pwd_card}')}}' target='_blank'>View and Download</a></li>
                     <li class="list-group-item">Resume: <a href='{{asset('${resume}')}}' target='_blank'>View and Download</a></li>
