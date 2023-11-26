@@ -45,34 +45,49 @@
     @include('applicant.layouts.scripts')
 
     <script>
+        let click_counter = 0;
+
          $('.btn-update').on('click', function() {
+                $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
                 var formData = new FormData();
                 formData.append('_token', "{{ csrf_token() }}");
                 formData.append('old_file', '{{auth()->user()->resume}}');
                 formData.append('resume', $('#resume')[0].files[0]);
 
-                $.ajax({
-                    url: '{{ route('applicant.updateResume') }}',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (response.code == "200") {
-                            toastr.success('Resume change successfully')
+                if (click_counter === 0) {
+                    click_counter++;
+                    $(this).prop('disabled', true);
 
-                            setTimeout(function() {
-                                window.location.href = '{{url('/applicant/resume')}}'
-                            }, 2000)
-                        } else {
-                            displayErrors(JSON.parse(response.errors));
+                    $.ajax({
+                        url: '{{ route('applicant.updateResume') }}',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.code == "200") {
+                                $('.btn-update').html(`Save Resume`);
+
+                                toastr.success('Resume change successfully')
+
+                                setTimeout(function() {
+                                    window.location.href = '{{url('/applicant/resume')}}'
+                                }, 2000)
+                            } else {
+                                displayErrors(JSON.parse(response.errors));
+                                $('.btn-update').html(`Save Resume`).prop('disabled', false);
+                                click_counter = 0;
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            var result = JSON.parse(xhr.responseText)
+                            displayErrors(result.errors)
+                            $('.btn-update').html(`Save Resume`).prop('disabled', false);
+                            click_counter = 0;
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        var result = JSON.parse(xhr.responseText)
-                        displayErrors(result.errors)
-                    }
-                });
+                    });
+                }
             })
     </script>
 @endsection

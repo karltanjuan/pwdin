@@ -138,54 +138,67 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
-    
+        var click_counter = 0;
+
         $('.btn-login').on('click', function() {
-        
+            
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('email', $('#email').val());
             formData.append('password', $('#password').val());
 
-            $.ajax({
-                url: '{{ route('applicant.postLogin') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        $('input').removeClass('error')
-                        $('.err-msg').hide()
+                $.ajax({
+                    url: '{{ route('applicant.postLogin') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-login').html(`Login`);
+                            $('input').removeClass('error')
+                            $('.err-msg').hide()
 
-                        toastr.success('Redirecting to dashboard...', 'Login Successful');
+                            toastr.success('Redirecting to dashboard...', 'Login Successful');
 
-                        setTimeout(function() {
-                            window.location.href =
-                                '{{ url('/applicant/jobs') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                            setTimeout(function() {
+                                window.location.href =
+                                    '{{ url('/applicant/jobs') }}'
+                            }, 2000)
+                            
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            let password_errors = validatePassword($('#password').val())
+                            let html  = ''
+                            $.each(password_errors, function(index,error) {
+                                html += `<p class="mb-1">${error}</p>`
+                            })
+                            $('.err-password').addClass('d-block').html(html)
+                            $('.btn-login').html(`Login`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
                         let password_errors = validatePassword($('#password').val())
                         let html  = ''
                         $.each(password_errors, function(index,error) {
                             html += `<p class="mb-1">${error}</p>`
                         })
                         $('.err-password').addClass('d-block').html(html)
+                        $('.btn-login').html(`Login`).prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                    let password_errors = validatePassword($('#password').val())
-                    let html  = ''
-                    $.each(password_errors, function(index,error) {
-                        html += `<p class="mb-1">${error}</p>`
-                    })
-                    $('.err-password').addClass('d-block').html(html)
-                }
-            });
+                });
+            }
 
         })
     </script>

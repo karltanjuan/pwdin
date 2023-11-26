@@ -788,3 +788,8 @@ body .uwy.userway_p7 .uai,
 body .uwy.userway_p8 .uai {
     top: 85px !important;
 }
+
+.accept-agreement,
+a[data-bs-target="#agreement-modal"] > label {
+    cursor: pointer;
+}

@@ -520,7 +520,10 @@
             closeModal()
         })
 
+        var click_counter = 0;
+
         $('.btn-register').on('click', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
 
             if ($('#accept-agreement').is(':checked')) {
                 $('.err-agreement').hide()
@@ -548,45 +551,56 @@
                 formData.append('resume', $('#resume')[0].files[0]);
                 formData.append('pwd_card', $('#pwd_card')[0].files[0]);
 
-                // Send an AJAX request to validate the data
-                $.ajax({
-                    url: '{{ route('applicant.postRegister') }}',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (response.code == "200") {
-                            toastr.info('Registration Pending',
-                                'Please anticipate a verification process for your account that may take up to three days.'
-                            )
+                if (click_counter === 0) {
+                    click_counter++;
+                    $(this).prop('disabled', true);
 
-                            setTimeout(function() {
-                                window.location.href = '{{ url('/') }}'
-                            }, 2000)
-                        } else {
-                            displayErrors(JSON.parse(response.errors));
+                    $.ajax({
+                        url: '{{ route('applicant.postRegister') }}',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            if (response.code == "200") {
+                                $('.btn-register').html('Register')
+
+                                toastr.info('Registration Pending',
+                                    'Please anticipate a verification process for your account that may take up to three days.'
+                                )
+
+                                setTimeout(function() {
+                                    window.location.href = '{{ url('/') }}'
+                                }, 2000)
+                            } else {
+                                displayErrors(JSON.parse(response.errors));
+                                let password_errors = validatePassword($('#password').val())
+                                let html  = ''
+                                $.each(password_errors, function(index,error) {
+                                    html += `<p class="mb-1">${error}</p>`
+                                })
+                                $('.err-password').addClass('d-block').html(html)
+                                $('.btn-register').html('Register').prop('disabled', false);
+                                click_counter = 0;
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            var result = JSON.parse(xhr.responseText)
+                            displayErrors(result.errors)
                             let password_errors = validatePassword($('#password').val())
                             let html  = ''
                             $.each(password_errors, function(index,error) {
                                 html += `<p class="mb-1">${error}</p>`
                             })
                             $('.err-password').addClass('d-block').html(html)
+                            $('.btn-register').html('Register').prop('disabled', false);
+                            click_counter = 0;
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        var result = JSON.parse(xhr.responseText)
-                        displayErrors(result.errors)
-                        let password_errors = validatePassword($('#password').val())
-                        let html  = ''
-                        $.each(password_errors, function(index,error) {
-                            html += `<p class="mb-1">${error}</p>`
-                        })
-                        $('.err-password').addClass('d-block').html(html)
-                    }
-                });
+                    });
+                }
             } else {
                 $('.err-agreement').show().text('Please read the terms and condition to continue')
+                $('.btn-register').html('Register')
             }
 
         })

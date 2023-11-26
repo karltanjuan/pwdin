@@ -359,6 +359,8 @@
             $('.modal').modal('hide')
         })
 
+        var click_counter = 0;
+        
         $('.btn-register').on('click', function() {
 
             if ($('#accept-agreement').is(':checked')) {

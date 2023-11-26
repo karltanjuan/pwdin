@@ -154,63 +154,89 @@
     <script>
         $(document).ready(function() {})
 
+        let click_counter = 0;
+
         $(document).on('click', '.btn-apply', function() {
+
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('cover_letter', $('.cover_letter').val())
             formData.append('job_id', parseInt('{{ request()->segment(3) }}'));
 
-            $.ajax({
-                url: '{{ route('applicant.applyJob') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        toastr.success('Application submitted', 'Success')
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/applicant/jobs') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                $.ajax({
+                    url: '{{ route('applicant.applyJob') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-apply').html(`Apply Now`)
+                            toastr.success('Application submitted', 'Success')
+
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/applicant/jobs') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-apply').html(`Apply Now`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-apply').html(`Apply`).prop('disabled', false);
+                            click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
         })
 
+        let click_counter2 = 0;
         $(document).on('click', '.btn-withdraw', function() {
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('job_id', parseInt('{{ request()->segment(3) }}'));
 
-            $.ajax({
-                url: '{{ route('applicant.withdrawJob') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        toastr.success('Application withdraw', 'Success')
+            if (click_counter === 0) {
+                click_counter2++;
+                $(this).prop('disabled', true);
 
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/applicant/jobs') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                $.ajax({
+                    url: '{{ route('applicant.withdrawJob') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-withdraw').html(`Withdraw`)
+                            toastr.success('Application withdraw', 'Success')
+
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/applicant/jobs') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-withdraw').html(`Withdraw`).prop('disabled', false);
+                            click_counter2 = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-withdraw').html(`Withdraw`).prop('disabled', false);
+                        click_counter2 = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
         })
     </script>
 @endsection

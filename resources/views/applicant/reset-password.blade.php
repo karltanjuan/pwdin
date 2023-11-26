@@ -138,54 +138,69 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
+        var click_counter = 0;
+
         $('.btn-reset').on('click', function() {
-            // prepare the data to be submitted on backend
+
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('reset_token', '{{ app('request')->segment(3) }}');
             formData.append('new_password', $('#new_password').val());
             formData.append('password_confirmation', $('#password_confirmation').val());
 
-            // Send an AJAX request to validate the data
-            $.ajax({
-                url: '{{ route('applicant.postResetPassword') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        $('input').removeClass('error')
-                        $('.err-msg').hide()
+                $.ajax({
+                    url: '{{ route('applicant.postResetPassword') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-reset').html('Reset')
+                            $('input').removeClass('error')
+                            $('.err-msg').hide()
 
-                        toastr.success('Password reset successfully', 'Redirecting to login...')
+                            toastr.success('Password reset successfully', 'Redirecting to login...')
 
-                        setTimeout(function() {
-                            window.location.href = '{{ url('/applicant/login') }}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/applicant/login') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            let password_errors = validatePassword($('#new_password').val())
+                            let html  = ''
+                            $.each(password_errors, function(index,error) {
+                                html += `<p class="mb-1">${error}</p>`
+                            })
+                            $('.err-new_password').addClass('d-block').html(html)
+
+                            $('.btn-reset').html('Reset').prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
                         let password_errors = validatePassword($('#new_password').val())
                         let html  = ''
                         $.each(password_errors, function(index,error) {
                             html += `<p class="mb-1">${error}</p>`
                         })
                         $('.err-new_password').addClass('d-block').html(html)
+
+                        $('.btn-reset').html('Reset').prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                    let password_errors = validatePassword($('#new_password').val())
-                    let html  = ''
-                    $.each(password_errors, function(index,error) {
-                        html += `<p class="mb-1">${error}</p>`
-                    })
-                    $('.err-new_password').addClass('d-block').html(html)
-                }
-            });
+                });
+
+            }
 
         })
     </script>
