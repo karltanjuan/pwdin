@@ -128,10 +128,11 @@ class AuthController extends Controller
             'address'               => 'required',
             // 'summary'               => 'max:300',
             'zip_code'              => 'required|digits:4',
-            'profile_photo'         => 'required|mimes:jpeg,jpg,png',
+            // 'profile_photo'         => 'required|mimes:jpeg,jpg,png',
             'resume'                => 'required|mimes:pdf',
             'pwd_card'              => 'required|mimes:jpeg,jpg,png',
             // 'status'          => 'required|in:0,1,2',
+            'pwd_categories'             => 'required',
         ];
 
         return $validator = Validator::make($request->all(), $rules);

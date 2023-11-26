@@ -114,7 +114,7 @@
                             <div class="col-md-4">
                                 <!-- Mobile number input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="number" id="mobile_no" class="form-control form-control-lg mobile_no" placeholder="Enter mobile number" tabindex="3" />
+                                    <input type="text" id="mobile_no" class="form-control form-control-lg mobile_no" placeholder="Enter mobile number" tabindex="3" maxlength="11"/>
                                     <label class="form-label" for="mobile_no">Mobile Number</label>
                                     <span class="err-mobile_no err-msg"></span>
                                 </div>
@@ -270,9 +270,51 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi vel praesentium expedita quas
-                        qui iste sit, iusto hic? Odio, atque possimus quae sunt nostrum, molestiae sed quod maiores
-                        impedit ipsa!</p>
+                <div><i>These terms and conditions ("Terms") govern your use of the PWDIn website and the services provided through it. By creating an account on PWDIn, you agree to abide by these Terms. Please read them carefully.</i></div><br>
+
+                    <p><b>1. Eligibility</b></p>
+                    <p>1.1. You must be at least 18 years of age to create an account on PWDIn.</p>
+                    <p>1.2. By creating an account, you represent that you have the legal capacity to enter into these Terms and are not prohibited by any applicable law from using our services.</p>
+                    <p><b>2. Account Registration</b></p>
+
+                    <p>2.1. To create an account, you will be required to provide accurate, current, and complete information as requested during the registration process.</p>
+
+                    <p>2.2. You are responsible for maintaining the confidentiality of your account information, including your username and password.</p>
+
+                    <p>2.3. You agree to notify us immediately of any unauthorized use of your account.</p>
+
+                    <p><b>3. User Conduct</b></p>
+
+                    <p>3.1. You agree to use PWDIn for lawful purposes and in a manner consistent with all applicable local, state, and federal laws and regulations.</p>
+
+                    <p>3.2. You agree not to:
+                        a. Engage in any fraudulent, abusive, or unethical activity on the platform.
+                        b. Impersonate any person or entity.
+                        c. Upload, post, or transmit any content that violates intellectual property rights, privacy, or other rights of others.
+                        d. Use the platform to distribute spam, malware, or any other malicious content.
+                        website.</p>
+
+                    <p><b>4. Privacy</b></p>
+
+                    <p>4.1. Your use of PWDIn is also governed by our Privacy Policy, which can be found on our website.</p>
+
+                    <p><b>5. Termination</b></p>
+
+                    <p>5.1. We reserve the right to terminate or suspend your account at our discretion if we believe you have violated these Terms or any applicable laws.</p>
+
+                    <p><b>6. Modifications</b></p>
+
+                    <p>6.1. We may update or modify these Terms from time to time, and you will be notified of such changes.</p>
+
+                    <p><b>7. Contact Information</b></p>
+
+                    <p>7.1. If you have any questions or concerns regarding these Terms, you can contact us at [Contact Email Address].</p>
+
+                    <p><b>8. Entire Agreement</b></p>
+
+                    <p>8.1. These Terms, together with our Privacy Policy, constitute the entire agreement between you and PWDIn.</p>
+
+                    <p>By creating an account on PWDIn, you acknowledge that you have read, understood, and agreed to these Terms and the associated Privacy Policy.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-agree btn-primary">Understood</button>
@@ -312,7 +354,8 @@
                         html +=
                             `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
                     });
-
+                    
+                    var html = '<option value="">Select Province</option>';
                     $('.province').html(html);
 
                     province_code = $('.province>option:first:selected').data('key')
@@ -337,7 +380,7 @@
                     // compare province_code with city.province then return matching results
                     var filtered_cities = $(data).filter((index, city) => city.province === province_code).toArray();
 
-                    var html = "";
+                    var html = '<option value="">Select City</option>';
                     $.each(filtered_cities, function(index, item) {
                         html += `<option value="${item.name}">${item.name}</option>`
                     });
@@ -354,6 +397,72 @@
             $('#agreement-modal').show()
         })
 
+        $('.mobile_no').on('keypress', function(event) {
+            registerUser();
+            var keyCode = event.which;
+            // Check if the key is a digit (0-9)
+            if (keyCode < 48 || keyCode > 57) {
+                // Prevent the default action if the key is not a digit
+                event.preventDefault();
+            }
+        })
+
+        $('.username').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.email').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.password').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.password_confirmation').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.contact_person').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.company_name').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.province').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.city').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.province').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.city').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.zip_code').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.address').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.business_permit').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.bir_certificate').on('keypress', function() {
+            registerUser();
+        })
+
         $(document).on('click', '.btn-agree', function() {
             $('.accept-agreement').prop('checked', true)
             $('.modal').modal('hide')
@@ -364,7 +473,12 @@
         $('.btn-register').on('click', function() {
             $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
 
-            if ($('#accept-agreement').is(':checked')) {
+        $('.btn-register').on('click', function() {
+            registerUser();
+        })
+
+        function registerUser() {
+                if ($('#accept-agreement').is(':checked')) {
                 $('.err-agreement').hide()
                 // prepare the data to be submitted on backend
                 var formData = new FormData();
@@ -435,8 +549,7 @@
             } else {
                 $('.err-agreement').show().text('Please read the terms and condition to continue')
             }
-
-        })
+            }
     </script>
 
 </body>

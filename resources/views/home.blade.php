@@ -16,6 +16,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Inter:wght@700;800&display=swap"
         rel="stylesheet">
+    
+    <!-- Google Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -35,13 +38,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container-fluid bg-white p-0">
+    <div class="container-fluid p-0">
         <!-- Spinner Start -->
         <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -148,8 +152,32 @@
 
 
         <!-- Search Start -->
-        <!-- <div class="container-fluid bg-primary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
-            <div class="container">
+        <div class="container-fluid mb-5" style="padding: 35px; background: #f4f7f7;" >
+            <div class="container mt-5">
+                <div class="row justify-content-around">
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Our Process</h1>
+                    <!-- First Partition -->
+                    <div class="col-md-3 mb-4 ml-5 wow fadeIn" data-wow-delay="0.1s">
+                    <img src="{{ asset('img/lockImg.png') }}" alt="">
+                    <p class="mt-2"><strong>Create an account</strong></p>
+                    <p class="mt-2">Register by filling up the forms and submitting a copy of your resume, picture, and pwd card/valid medical records. Then wait to get your account verified by our system.</p>
+                    </div>
+                    <!-- Second Partition -->
+                    <div class="col-md-3 mb-4 ml-5 wow fadeIn" data-wow-delay="0.1s">
+                    <img src="{{ asset('img/fileImg.png') }}" alt="">
+                    <p class="mt-2"><strong>Search Jobs.</strong></p>
+                    <p class="mt-2">Search for available jobs for multiple employers around the country that are welcoming towards PWD applicants.</p>
+                    </div>
+                    <!-- Third Partition -->
+                    <div class="col-md-3 mb-4 ml-5 wow fadeIn" data-wow-delay="0.1s">
+                    <img src="{{ asset('img/securityImg.png') }}" alt="">
+                    <p class="mt-2"><strong>Monitor Application</strong></p>
+                    <p class="mt-2">Easily monitor your application status by checking which stage the applicant is in.</p>
+                    </div>
+                </div>
+            </div>
+         </div>
+            <!-- <div class="container">
                 <div class="row g-2">
                     <div class="col-md-10">
                         <div class="row g-2">
@@ -178,8 +206,8 @@
                         <button class="btn btn-dark border-0 w-100">Search</button>
                     </div>
                 </div>
-            </div>
-        </div> -->
+            </div> -->
+        </div>
         <!-- Search End -->
 
 

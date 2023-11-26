@@ -100,7 +100,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="username" class="form-control form-control-lg username"
                                         placeholder="Enter username" tabindex="1" />
-                                    <label class="form-label" for="username">Username</label>
+                                    <label class="form-label" for="username">Username (Required)</label>
                                     <span class="err-username err-msg"></span>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="email" id="email" class="form-control form-control-lg email"
                                         placeholder="Enter email address" tabindex="2" />
-                                    <label class="form-label" for="email">Email address</label>
+                                    <label class="form-label" for="email">Email address (Required)</label>
                                     <span class="err-email err-msg"></span>
                                 </div>
                             </div>
@@ -118,10 +118,10 @@
                             <div class="col-md-4">
                                 <!-- Mobile number input-->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="number" id="mobile_no"
+                                    <input type="text" id="mobile_no"
                                         class="form-control form-control-lg mobile_no"
-                                        placeholder="Enter mobile number" tabindex="3" />
-                                    <label class="form-label" for="mobile_no">Mobile Number</label>
+                                        placeholder="Enter mobile number" tabindex="3" maxlength="11"/>
+                                    <label class="form-label" for="mobile_no">Mobile Number (Required)</label>
                                     <span class="err-mobile_no err-msg"></span>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@
                                     <input type="date" id="birthdate"
                                         class="form-control form-control-lg birthdate"
                                         placeholder="Enter birthdate" tabindex="4"/>
-                                    <label class="form-label" for="birthdate">Date of Birth</label>
+                                    <label class="form-label" for="birthdate">Date of Birth (Required)</label>
                                     <span class="err-birthdate err-msg"></span>
                                 </div>
                             </div>
@@ -141,7 +141,7 @@
                                 <!-- Gender -->
                                 <div class="form-floating mb-4">
                                     <select class="gender form-select" id="gender" tabindex="5">
-                                        {{-- <option disabled selected>Select gender</option> --}}
+                                         <option disabled selected>Select gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                         <option value="Others">Others</option>
@@ -175,7 +175,7 @@
                                     <input type="text" id="first_name"
                                         class="form-control form-control-lg first_name"
                                         placeholder="Enter first name" tabindex="7"/>
-                                    <label class="form-label" for="first_name">First Name</label>
+                                    <label class="form-label" for="first_name">First Name (Required)</label>
                                     <span class="err-first_name err-msg"></span>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                                     <input type="text" id="last_name"
                                         class="form-control form-control-lg last_name"
                                         placeholder="Enter last name" tabindex="9"/>
-                                    <label class="form-label" for="last_name">Last Name</label>
+                                    <label class="form-label" for="last_name">Last Name (Required)</label>
                                     <span class="err-last_name err-msg"></span>
                                 </div>
                             </div>
@@ -235,7 +235,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="zip_code"
                                         class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="13"/>
-                                    <label class="form-label" for="zip_code">Zip Code</label>
+                                    <label class="form-label" for="zip_code">Zip Code (Required)</label>
                                     <span class="err-zip_code err-msg"></span>
                                 </div>
                             </div>
@@ -246,7 +246,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="address" class="form-control form-control-lg address"
                                         placeholder="Enter address" tabindex="14"/>
-                                    <label class="form-label" for="address">Address</label>
+                                    <label class="form-label" for="address">Address (Required)</label>
                                     <span class="err-address err-msg"></span>
                                 </div>
                             </div>
@@ -271,7 +271,7 @@
                                         <option value="Rare">Rare Disease</option>
                                     </select>
                                     <span class="err-pwd_categories err-msg"></span>
-                                    <label for="pwd_categories">PWD Categories</label>
+                                    <label for="pwd_categories">PWD Categories (Required)</label>
                                 </div>
                             </div>
 
@@ -280,7 +280,7 @@
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="password" id="password" class="form-control form-control-lg password"
                                         placeholder="Enter password" tabindex="16"/>
-                                    <label class="form-label" for="password">Password</label>
+                                    <label class="form-label" for="password">Password (Required)</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
                                     </span>
@@ -295,7 +295,7 @@
                                     <input type="password" id="password_confirmation"
                                         class="form-control form-control-lg password_confirmation"
                                         placeholder="Enter password confirmation" tabindex="17"/>
-                                    <label class="form-label" for="password_confirmation">Confirm Password</label>
+                                    <label class="form-label" for="password_confirmation">Confirm Password (Required)</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
                                     </span>
@@ -309,6 +309,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
+                            <label class="text-danger">Required</label>
                                 <div class="input-group">
                                     <input type="file" class="form-control form-control-lg resume" id="resume" tabindex="18"
                                         accept=".pdf">
@@ -317,6 +318,7 @@
                                 <span class="err-resume err-msg mb-4"></span>
                             </div>
                             <div class="col-md-12">
+                            <label class="text-danger">Required</label>
                                 <div class="input-group ">
                                     <input type="file" class="form-control form-control-lg pwd_card"
                                         id="pwd_card" accept=".png,.jpeg,.jpg" tabindex="19">
@@ -440,7 +442,7 @@
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.userway.org/widget.js" data-account="HaifC5drHg"></script>
+    <!-- <script src="https://cdn.userway.org/widget.js" data-account="HaifC5drHg"></script> -->
 
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>
@@ -474,6 +476,7 @@
                             `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
                     });
 
+                    var html = '<option value="">Select Province</option>';
                     $('.province').html(html);
 
                     province_code = $('.province>option:first:selected').data('key')
@@ -498,7 +501,8 @@
                     // compare province_code with city.province then return matching results
                     var filtered_cities = $(data).filter((index, city) => city.province === province_code).toArray();
 
-                    var html = "";
+
+                    var html = '<option value="">Select City</option>';
                     $.each(filtered_cities, function(index, item) {
                         html += `<option value="${item.name}">${item.name}</option>`
                     });
@@ -515,7 +519,6 @@
             $('.modal').modal('hide')
         })
 
-
         $(document).on('click', '.modal-close', function() {
             closeModal()
         })
@@ -524,7 +527,99 @@
 
         $('.btn-register').on('click', function() {
             $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+        $('.email').on('keypress', function() {
+            registerUser();
+        })
 
+        $('.username').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.mobile_no').on('keypress', function(event) {
+            registerUser();
+            var keyCode = event.which;
+            // Check if the key is a digit (0-9)
+            if (keyCode < 48 || keyCode > 57) {
+                // Prevent the default action if the key is not a digit
+                event.preventDefault();
+            }
+        })
+
+        $('.password').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.password_confirmation').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.birthdate').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.first_name').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.middle_name').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.last_name').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.prefix').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.gender').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.education_level').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.province').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.city').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.address').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.zip_code').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.pwd_categories').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.profile_photo').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.resume').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.pwd_card').on('keypress', function() {
+            registerUser();
+        })
+
+        $('.btn-register').on('click', function() {
+            registerUser();
+        })
+
+        
+
+        function registerUser() {
             if ($('#accept-agreement').is(':checked')) {
                 $('.err-agreement').hide()
                 // prepare the data to be submitted on backend
@@ -587,6 +682,23 @@
                         error: function(xhr, status, error) {
                             var result = JSON.parse(xhr.responseText)
                             displayErrors(result.errors)
+                // Send an AJAX request to validate the data
+                $.ajax({
+                    url: '{{ route('applicant.postRegister') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            toastr.info('Registration Pending',
+                                'Please anticipate a verification process for your account that may take up to three days.'
+                            )
+                            setTimeout(function() {
+                                window.location.href = '{{ url('/') }}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
                             let password_errors = validatePassword($('#password').val())
                             let html  = ''
                             $.each(password_errors, function(index,error) {
@@ -602,8 +714,7 @@
                 $('.err-agreement').show().text('Please read the terms and condition to continue')
                 $('.btn-register').html('Register')
             }
-
-        })
+        }
 
         function closeModal() {
             $(".modal").css("display", "none");

@@ -65,8 +65,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-outline mb-4 form-floating">
-                        <input type="number" id="mobile_no" class="form-control form-control-lg mobile_no"
-                            placeholder="Enter mobile number" tabindex="3" value="{{$user->mobile_no}}"/>
+                        <input type="text" id="mobile_no" class="form-control form-control-lg mobile_no"
+                            placeholder="Enter mobile number" tabindex="3" value="{{$user->mobile_no}}" maxlength="11"/>
                         <label class="form-label" for="mobile_no">Mobile Number</label>
                         <span class="err-mobile_no err-msg"></span>
                     </div>
@@ -216,6 +216,14 @@
         }
 
         let click_counter = 0;
+        $('.mobile_no').on('keypress', function(event) {
+            var keyCode = event.which;
+            // Check if the key is a digit (0-9)
+            if (keyCode < 48 || keyCode > 57) {
+                // Prevent the default action if the key is not a digit
+                event.preventDefault();
+            }
+        })
 
         $('.btn-update').on('click', function() {
             $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
