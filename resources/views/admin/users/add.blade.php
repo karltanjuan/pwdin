@@ -187,7 +187,11 @@
         }
     });
 
+    let click_counter = 0;
+
     $('.btn-save').on('click', function() {
+        $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
         var formData = new FormData();
         formData.append('_token', "{{ csrf_token() }}");
         formData.append('profile_photo', $('#profile_photo')[0].files[0]);
@@ -203,28 +207,38 @@
         formData.append('role', $('#role').val());
         formData.append('status', $('#status').val());
 
-        $.ajax({
-            url: '{{ route('admin.saveUser') }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.code == "200") {
-                    toastr.success('User created successfully', 'Success')
+        if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                    setTimeout(function() {
-                            window.location.href = '{{url('/admin/users')}}'
-                        }, 2000)
-                } else {
-                    displayErrors(JSON.parse(response.errors));
+            $.ajax({
+                url: '{{ route('admin.saveUser') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        $('.btn-save').html(`Save User`);
+                        toastr.success('User created successfully', 'Success')
+
+                        setTimeout(function() {
+                                window.location.href = '{{url('/admin/users')}}'
+                            }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                        $('.btn-save').html(`Save User`).prop('disabled', false);
+                        click_counter = 0;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                    $('.btn-save').html(`Save User`).prop('disabled', false);
+                    click_counter = 0;
                 }
-            },
-            error: function(xhr, status, error) {
-                var result = JSON.parse(xhr.responseText)
-                displayErrors(result.errors)
-            }
-        });
+            });
+        }
     })
 
    

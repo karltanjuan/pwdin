@@ -135,7 +135,7 @@
                     <div class="input-group">
                         <select class="form-select status" id="status" data-id="${employer.id}"></select>
                         <button type="button" class="btn-update btn btn-primary btn-lg"
-                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Update Application</button>
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Update</button>
                     </div>
                 `)
 
@@ -168,37 +168,51 @@
         });
     }
 
+    let click_counter = 0;
+
     $(document).on('click', '.btn-update', function() {
+        $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
         var formData = new FormData();
         formData.append('_token', "{{ csrf_token() }}");
         formData.append('id', id);
         formData.append('status', $('.status').val());
 
-        $.ajax({
-            url: '{{ route('admin.updateEmployerApproval') }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.code == "200") {
-                    $('.modal').hide()
+        if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                    toastr.success('Employer Status Updated', 'Success')
+            $.ajax({
+                url: '{{ route('admin.updateEmployerApproval') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        $('.btn-update').html(`Update`);
+                        $('.modal').hide()
 
-                    setTimeout(function() {
-                        window.location.href = '{{url('admin/employers')}}'
-                    }, 2000)
-                } else {
-                    displayErrors(JSON.parse(response.errors));
+                        toastr.success('Employer Status Updated', 'Success')
+
+                        setTimeout(function() {
+                            window.location.href = '{{url('admin/employers')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                        $('.btn-update').html(`Update`).prop('disabled', false);
+                        click_counter = 0;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX request error
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                    $('.btn-update').html(`Update`).prop('disabled', false);
+                    click_counter = 0;
                 }
-            },
-            error: function(xhr, status, error) {
-                // Handle the AJAX request error
-                var result = JSON.parse(xhr.responseText)
-                displayErrors(result.errors)
-            }
-        });
+            });
+        }
     })
 </script>
 @endsection

@@ -176,36 +176,50 @@
         });
     }
 
+    let click_counter = 0;
+
     $(document).on('click', '.btn-update', function() {
+        $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
         var formData = new FormData();
         formData.append('_token', "{{ csrf_token() }}");
         formData.append('id', id);
         formData.append('status', $('.status').val());
 
-        $.ajax({
-            url: '{{ route('admin.updateApplicantApproval') }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.code == "200") {
-                    $('#viewModal').modal('hide')
+        if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                    toastr.success('Applicant Status Updated', 'Success')
+            $.ajax({
+                url: '{{ route('admin.updateApplicantApproval') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        $('.btn-update').html(`Update`);
+                        $('#viewModal').modal('hide')
 
-                    setTimeout(function() {
-                        window.location.href = '{{url('admin/applicants')}}'
-                    }, 2000)
-                } else {
-                    displayErrors(JSON.parse(response.errors));
+                        toastr.success('Applicant Status Updated', 'Success')
+
+                        setTimeout(function() {
+                            window.location.href = '{{url('admin/applicants')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                        $('.btn-update').html(`Update`).prop('disabled', false);
+                        click_counter = 0;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                    $('.btn-update').html(`Update`).prop('disabled', false);
+                    click_counter = 0;
                 }
-            },
-            error: function(xhr, status, error) {
-                var result = JSON.parse(xhr.responseText)
-                displayErrors(result.errors)
-            }
-        });
+            });
+        }
     })
 </script>
 @endsection

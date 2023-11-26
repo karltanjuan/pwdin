@@ -65,7 +65,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="text-center text-lg-start mt-4 pt-2">
+            <div class="text-center text-lg-s   tart mt-4 pt-2">
                 <button type="button" class="btn-update btn btn-primary btn-lg"
                     style="padding-left: 2.5rem; padding-right: 2.5rem;">Save Password</button>
             </div>
@@ -76,48 +76,60 @@
 
 <script src="{{ asset('js/main.js') }}"></script>
 <script>
-
+    let click_counter = 0;
     $('.btn-update').on('click', function() {
+        $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
         var formData = new FormData();
         formData.append('_token', "{{ csrf_token() }}");
         formData.append('current_password', $('#current_password').val());
         formData.append('new_password', $('#new_password').val());
         formData.append('password_confirmation', $('#password_confirmation').val());
 
-        $.ajax({
-            url: '{{ route('admin.updatePassword') }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.code == "200") {
-                    toastr.success('Password change successfully', 'Success')
-                
-                    setTimeout(function() {
-                        window.location.href = '{{url('/admin/change-password')}}'
-                    }, 2000)
-                } else {
-                    displayErrors(JSON.parse(response.errors));
+        if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
+
+            $.ajax({
+                url: '{{ route('admin.updatePassword') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        $('.btn-update').html(`Save Password`);
+                        toastr.success('Password change successfully', 'Success')
+                    
+                        setTimeout(function() {
+                            window.location.href = '{{url('/admin/change-password')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                        let password_errors = validatePassword($('#new_password').val())
+                        let html  = ''
+                        $.each(password_errors, function(index,error) {
+                            html += `<p class="mb-1">${error}</p>`
+                        })
+                        $('.err-new_password').addClass('d-block').html(html)
+                        $('.btn-update').html(`Save Password`).prop('disabled', false);
+                        click_counter = 0;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
                     let password_errors = validatePassword($('#new_password').val())
                     let html  = ''
                     $.each(password_errors, function(index,error) {
                         html += `<p class="mb-1">${error}</p>`
                     })
                     $('.err-new_password').addClass('d-block').html(html)
+                    $('.btn-update').html(`Save Password`).prop('disabled', false);
+                        click_counter = 0;
                 }
-            },
-            error: function(xhr, status, error) {
-                var result = JSON.parse(xhr.responseText)
-                displayErrors(result.errors)
-                let password_errors = validatePassword($('#new_password').val())
-                let html  = ''
-                $.each(password_errors, function(index,error) {
-                    html += `<p class="mb-1">${error}</p>`
-                })
-                $('.err-new_password').addClass('d-block').html(html)
-            }
-        });
+            });
+        }
     })
 
 </script>

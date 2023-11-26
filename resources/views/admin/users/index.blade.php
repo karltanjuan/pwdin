@@ -139,36 +139,49 @@
             $('.modal-delete-user').show();
         })
 
+        let click_counter = 0;
+
         $(document).on('click', '.btn-remove', function() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('id', id);
 
-            $.ajax({
-                url: '{{ route('admin.deleteUser') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.code == "200") {
-                        $('.modal').modal('hide')
+            if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                        toastr.success('User deleted successfully', 'Success')
+                $.ajax({
+                    url: '{{ route('admin.deleteUser') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-remove').html(`Confirm`);
+                            $('.modal').modal('hide')
 
-                        setTimeout(function() {
-                            window.location.href = '{{url('/admin/users')}}'
-                        }, 2000)
-                    } else {
-                        displayErrors(JSON.parse(response.errors));
+                            toastr.success('User deleted successfully', 'Success')
+
+                            setTimeout(function() {
+                                window.location.href = '{{url('/admin/users')}}'
+                            }, 2000)
+                        } else {
+                            displayErrors(JSON.parse(response.errors));
+                            $('.btn-remove').html(`Confirm`).prop('disabled', false);
+                            click_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var result = JSON.parse(xhr.responseText)
+                        displayErrors(result.errors)
+                        $('.btn-remove').html(`Confirm`).prop('disabled', false);
+                        click_counter = 0;
                     }
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX request error
-                    var result = JSON.parse(xhr.responseText)
-                    displayErrors(result.errors)
-                }
-            });
+                });
+            }
         })
 </script>
 

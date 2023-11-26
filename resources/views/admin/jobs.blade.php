@@ -143,7 +143,7 @@
                     <div class="input-group">
                         <select class="form-select status" id="status" data-id="${response.id}"></select>
                         <button type="button" class="btn-update btn btn-primary btn-lg"
-                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Update Application</button>
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Update</button>
                     </div>
                 `)
 
@@ -173,36 +173,49 @@
             }
         });
     }
-
+    
+    let click_counter = 0;
     $(document).on('click', '.btn-update', function() {
+        $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
         var formData = new FormData();
         formData.append('_token', "{{ csrf_token() }}");
         formData.append('id', id);
         formData.append('status', $('.status').val());
 
-        $.ajax({
-            url: '{{ route('admin.updateJob') }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.code == "200") {
-                    $('#viewModal').modal('hide')
-                    toastr.success('Job Status Updated', 'Success')
+        if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                    setTimeout(function() {
-                        window.location.href = '{{url('admin/jobs')}}'
-                    }, 2000)
-                } else {
-                    displayErrors(JSON.parse(response.errors));
+            $.ajax({
+                url: '{{ route('admin.updateJob') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        $('.btn-update').html(`Update`);
+                        $('#viewModal').modal('hide')
+                        toastr.success('Job Status Updated', 'Success')
+
+                        setTimeout(function() {
+                            window.location.href = '{{url('admin/jobs')}}'
+                        }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                        $('.btn-update').html(`Update`).prop('disabled', false);
+                        click_counter = 0;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                    $('.btn-update').html(`Update`).prop('disabled', false);
+                    click_counter = 0;
                 }
-            },
-            error: function(xhr, status, error) {
-                var result = JSON.parse(xhr.responseText)
-                displayErrors(result.errors)
-            }
-        });
+            });
+        }
     })
 </script>
 @endsection

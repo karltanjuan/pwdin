@@ -138,7 +138,10 @@
         }
     });
 
+    let click_counter = 0;
     $('.btn-update').on('click', function() {
+        $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
         var formData = new FormData();
         formData.append('_token', "{{ csrf_token() }}");
         formData.append('old_file', '{{auth()->guard('admins')->user()->profile_photo}}');
@@ -151,28 +154,38 @@
         formData.append('last_name', $('#last_name').val());
         formData.append('prefix', $('#prefix').val());
 
-        $.ajax({
-            url: '{{ route('admin.updateAdminInfo') }}',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.code == "200") {
-                    toastr.success('Admin information updated successfully', 'Success')
+        if (click_counter === 0) {
+                click_counter++;
+                $(this).prop('disabled', true);
 
-                    setTimeout(function() {
-                            window.location.href = '{{url('/admin/profile-info')}}'
-                        }, 2000)
-                } else {
-                    displayErrors(JSON.parse(response.errors));
+            $.ajax({
+                url: '{{ route('admin.updateAdminInfo') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.code == "200") {
+                        $('.btn-update').html('Save Profile')
+                        toastr.success('Admin information updated successfully', 'Success')
+
+                        setTimeout(function() {
+                                window.location.href = '{{url('/admin/profile-info')}}'
+                            }, 2000)
+                    } else {
+                        displayErrors(JSON.parse(response.errors));
+                        $('.btn-update').html(`Save Profile`).prop('disabled', false);
+                        click_counter = 0;
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var result = JSON.parse(xhr.responseText)
+                    displayErrors(result.errors)
+                    $('.btn-update').html(`Save Profile`).prop('disabled', false);
+                    click_counter = 0;
                 }
-            },
-            error: function(xhr, status, error) {
-                var result = JSON.parse(xhr.responseText)
-                displayErrors(result.errors)
-            }
-        });
+            });
+        }
     })
 
    
