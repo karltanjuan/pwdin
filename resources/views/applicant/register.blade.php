@@ -523,20 +523,7 @@
             closeModal()
         })
 
-        var click_counter = 0;
-
-        $('.btn-register').on('click', function() {
-            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
-        $('.email').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.username').on('keypress', function() {
-            registerUser();
-        })
-
         $('.mobile_no').on('keypress', function(event) {
-            registerUser();
             var keyCode = event.which;
             // Check if the key is a digit (0-9)
             if (keyCode < 48 || keyCode > 57) {
@@ -545,86 +532,19 @@
             }
         })
 
-        $('.password').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.password_confirmation').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.birthdate').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.first_name').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.middle_name').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.last_name').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.prefix').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.gender').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.education_level').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.province').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.city').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.address').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.zip_code').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.pwd_categories').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.profile_photo').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.resume').on('keypress', function() {
-            registerUser();
-        })
-
-        $('.pwd_card').on('keypress', function() {
-            registerUser();
-        })
-
+        let click_counter = 0;
         $('.btn-register').on('click', function() {
             registerUser();
         })
 
-        
-
+    
         function registerUser() {
+            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             if ($('#accept-agreement').is(':checked')) {
                 $('.err-agreement').hide()
-                // prepare the data to be submitted on backend
                 var formData = new FormData();
-                formData.append('_token', "{{ csrf_token() }}"); // for browser request
+                formData.append('_token', "{{ csrf_token() }}");
                 formData.append('username', $('#username').val());
                 formData.append('email', $('#email').val());
                 formData.append('mobile_no', $('#mobile_no').val());
@@ -682,33 +602,8 @@
                         error: function(xhr, status, error) {
                             var result = JSON.parse(xhr.responseText)
                             displayErrors(result.errors)
-                // Send an AJAX request to validate the data
-                $.ajax({
-                    url: '{{ route('applicant.postRegister') }}',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (response.code == "200") {
-                            toastr.info('Registration Pending',
-                                'Please anticipate a verification process for your account that may take up to three days.'
-                            )
-                            setTimeout(function() {
-                                window.location.href = '{{ url('/') }}'
-                            }, 2000)
-                        } else {
-                            displayErrors(JSON.parse(response.errors));
-                            let password_errors = validatePassword($('#password').val())
-                            let html  = ''
-                            $.each(password_errors, function(index,error) {
-                                html += `<p class="mb-1">${error}</p>`
-                            })
-                            $('.err-password').addClass('d-block').html(html)
-                            $('.btn-register').html('Register').prop('disabled', false);
-                            click_counter = 0;
                         }
-                    });
+                    })
                 }
             } else {
                 $('.err-agreement').show().text('Please read the terms and condition to continue')
