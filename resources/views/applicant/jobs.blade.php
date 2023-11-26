@@ -35,6 +35,16 @@
                 </a>
             </li>
         </ul>
+        
+        <div class="d-flex justify-content-center mb-3">
+            <span class="me-3">Filter by Salary Range:</span>
+            <div>
+                <input type="number" class="form-control salary_start" placeholder="0.00"/>
+            </div> <span class="ms-1 me-1 mt-1 text-bold">-</span>
+            <div>
+                <input type="number" class="form-control salary_end" placeholder="100,000.00"/>
+            </div>
+        </div>
 
         <div class="row mb-5">
             <div class="col-md-4">
@@ -44,7 +54,29 @@
                     <option value="all">All Jobs</option>
                 </select>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
+                <select class="btn-industry form-select" id="btn-industry">  
+                    <option disabled selected>Filter by Job Industry</option>
+                    <option value="Accounting/Finance">Accounting/Finance</option>
+                    <option value="Admin/Human Resources">Admin/Human Resources</option>
+                    <option value="Sales/Marketing">Sales/Marketing</option>
+                    <option value="Arts/Media/Communication">Arts/Media/Communication</option>
+                    <option value="Services">Services</option>
+                    <option value="Hotel/Restaurant">Hotel/Restaurant</option>
+                    <option value="Education/Training">Education/Training</option>
+                    <option value="Computer/Information Technology">Computer/Information Technology</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Manufacturing">Manufacturing</option>
+                    <option value="Building/Construction">Building/Construction</option>
+                    <option value="Sciences">Sciences</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Journalist/Editors">Journalist/Editors</option>
+                    <option value="General Work">General Work</option>
+                    <option value="Publishing">Publishing</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+            <div class="col-md-4">
                 <div class="input-group">
                     <input type="text" class="form-control query" placeholder="Search jobs"/>
                     <button class="btn btn-outline-primary btn-search" type="button" id="btn-search">
@@ -62,10 +94,13 @@
 
     @include('applicant.layouts.scripts')
     <script>
-        let page      = 1;
-        let data_type = null;
-        let related   = 'related';
-        let query     = null;
+        let page         = 1;
+        let data_type    = null;
+        let industry     = null;
+        let related      = 'related';
+        let salary_start = 0;
+        let salary_end   = 0;
+        let query        = null;
 
         $(document).ready(function() {
             filterJobs(null, 'related', null);
@@ -73,38 +108,67 @@
 
         $(document).on('click', '#pagination .page-link', function() {
             page = $(this).data('page');
-            filterJobs(data_type, related, query, page);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page);
         });
 
         $(document).on('click', '.job-types', function() {
             data_type = $(this).data('type');
-            filterJobs(data_type, related, query, page = 1);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
         })
 
         $(document).on('change', '.btn-filter', function() {
             related = $(this).val();
-            filterJobs(data_type, related, query, page = 1);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+        })
+
+        $(document).on('change', '.btn-industry', function() {
+            industry = $(this).val();
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+        })
+
+        $(document).on('keypress', '.salary_start', function(e) {
+            if (e.keyCode === 13) {
+                salary_start = $(this).val()
+                
+                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+            }
+        })
+
+        $(document).on('keypress', '.salary_end', function(e) {
+            if (e.keyCode === 13) {
+                salary_end = $(this).val()
+                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+            }
         })
 
         $(document).on('keypress', '.query', function(e) {
             if (e.keyCode === 13) {
                 query = $(this).val();
-                filterJobs(data_type, related, query, page = 1);
+                salary_start = $('.salary_start').val()
+                salary_end = $('.salary_end').val()
+
+                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
             }
         })
 
         $(document).on('click', '.btn-search', function() {
             query = $('.query').val();
-            filterJobs(data_type, related, query, page);
+            salary_start = $('.salary_start').val()
+            salary_end = $('.salary_end').val()
+
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page);
         })
 
-        function filterJobs(data_type, related, query, page = 1) {
+        function filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1) {
             var formData = new FormData();
 
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('page', page);
             formData.append('type', data_type);
+            formData.append('industry', industry);
             formData.append('related', related)
+            formData.append('salary_start', salary_start)
+            formData.append('salary_end', salary_end)
             formData.append('search_query', query)
 
             // Send an AJAX request to validate the data

@@ -17,40 +17,18 @@ use Carbon\Carbon;
 class ApplicantJobController extends Controller
 {
     public function index($type = null, $related = 'related') {
-        // $pwd_categories = auth()->user()->pwd_categories;
-        // $pwd_categories_arr = explode(',', $pwd_categories);
-
-        // $jobs = Job::orderBy('created_at', 'desc')
-        //             ->with('employer')
-        //             ->with(['applications' => function ($query) {
-        //                 $query->where('applicant_id', auth()->user()->id);
-        //             }])
-        //             ->where('status', 1);
-
-        // $jobs = $type !== null ? $jobs->where('job_type', ucwords($type)) : $jobs;
-
-
-        // if ($related == "related") {
-        //     // related pwd categories
-        //     $jobs = $jobs->where(function ($query) use ($pwd_categories_arr) {
-        //         foreach ($pwd_categories_arr as $category) {
-        //             $query->orWhere('pwd_categories', 'LIKE', "%$category%");
-        //         }
-        //     })->paginate(2);
-        // } else {
-        //     // all pwd categories
-        //     $jobs = $jobs->paginate(2);
-        // }
-                    
-        // return view('applicant.jobs', compact('jobs'));
         return view('applicant.jobs');
     }
 
-    public function getJobs(Request $request) {  
+    public function getJobs(Request $request) { 
         $request->related = $request->related ?? "related";
 
         if ($request->type == 'null') {
             $request->type = null;
+        }
+
+        if ($request->industry == 'null') {
+            $request->industry = null;
         }
 
         if ($request->search_query == 'null') {
@@ -68,6 +46,10 @@ class ApplicantJobController extends Controller
                     ->where('status', 1);
         
         $jobs = $request->type !== null ? $jobs->where('job_type', ucwords($request->type)) : $jobs;
+        $jobs = $request->industry !== null ? $jobs->where('job_industry', ucwords($request->industry)) : $jobs;
+        $jobs = $request->salary_start !== null ? $jobs->where('salary', '>=', $request->salary_start)->where('hide_salary', 0) : $jobs;
+        $jobs = $request->salary_end !== null ? $jobs->where('salary', '<=', $request->salary_end)->where('hide_salary', 0) : $jobs;
+
         $jobs = $request->search_query !== null ? $jobs->where('job_title', 'like', '%'.$request->search_query.'%') : $jobs;
 
         if ($request->related == "related") {
