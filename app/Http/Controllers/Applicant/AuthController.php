@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PendingApplicantEmail;
 use App\Mail\ApplicantForgotPasswordEmail;
+use App\Mail\OTPCodeEmail;
 use Validator;
 use Session;
 use Storage;
@@ -27,6 +28,26 @@ class AuthController extends Controller
         }
 
         return view('applicant.register');
+    }
+
+    public function sendOTP(Request $request)
+    {       
+        $otp_code = rand(100000, 999999);
+        $otp_expired_at = Carbon::now()->addMinutes(15)->format("Y-m-d H:i:s");
+
+        Mail::to($request->email)
+            ->send(new OTPCodeEmail(
+                $request->email,
+                $otp_code
+            )
+        );
+
+        return response()->json([
+            'message'  => 'OPT code sent successfully',
+            'code'     => '200',
+            'otp_code' => $otp_code
+        ]);
+
     }
 
     public function postRegister(Request $request)

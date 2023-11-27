@@ -108,14 +108,14 @@
                             <div class="col-md-4">
                                 <!-- Email input -->
                                 <div class="input-group mb-3">
-                                    <input type="email" class="form-control"        placeholder="Email (Required)" id="emailInput"/>
-                                        <div class="input-group-append">
-                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal" tabindex="21"
-                                                style="cursor:pointer;">
-                                                <button class="btn btn-outline-secondary no-glow" type="button">Get OTP</button>
-                                            </a>
-                                        </div>
+                                    <input type="email" class="form-control form-control-lg email" placeholder="Email (Required)" id="email"/>
+                                    <div class="input-group-append">
+                                        <a href="javascript:void(0)" tabindex="21"
+                                            style="cursor:pointer;" class="btn-otp btn btn-lg btn-secondary">Send OTP
+                                        </a>
+                                    </div>
                                 </div>
+                                <span class="err-email err-msg"></span>
                             </div>
 
                             <div class="col-md-4">
@@ -372,8 +372,8 @@
 
     {{-- Modals --}}
 
-    <div class="modal fade" id="agreement-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="agreementModal" aria-hidden="true">
+    <div class="modal fade" id="otp-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="otpModal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -388,12 +388,12 @@
                                 <b>Enter the code we just sent on your email</b>
                                 </span>
                                 <div class="d-flex flex-row mt-5">
-                                <input type="text" class="form-control" autofocus="" />
-                                <input type="text" class="form-control" />
-                                <input type="text" class="form-control" />
-                                <input type="text" class="form-control" />
-                                <input type="text" class="form-control" />
-                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control otp1" autofocus="" />
+                                <input type="text" class="form-control otp2" />
+                                <input type="text" class="form-control otp3" />
+                                <input type="text" class="form-control otp4" />
+                                <input type="text" class="form-control otp5" />
+                                <input type="text" class="form-control otp6" />
                                 </div>
                                 <div class="text-center mt-5">
                                 <span class="d-block mobile-text" id="countdown"></span>
@@ -525,10 +525,78 @@
                 });
         }
 
-        //Email OTP Listener
-        $('#emailInput').on('input', function() {
-            var emailValue = $(this).val();
-            $('.yourEmail').text("Verify email: "+emailValue);
+        function validateEmail(email) {
+            const email_validator = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+            if (email.trim() === '') {
+                return false;
+            }
+
+            return email_validator.test(email);
+        }
+
+        $('.btn-otp').click(function() {
+            if(!validateEmail($('.email').val())) {
+                $('.err-email').text('Email field is invalid')
+                $('.email').addClass('border-danger')
+            } else {
+                $('.err-email').text('')
+                $('.email').removeClass('border-danger')
+                $('#otp-modal').modal('show')
+                sendOTP();
+            }
+        })
+
+        let otp_counter = 0;
+        function sendOTP() {
+            $('.btn-otp').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('email', $('.email').val());
+
+            if (otp_counter === 0) {
+                otp_counter++;
+                $(this).prop('disabled', true);
+
+                $.ajax({
+                    url: '{{ route('applicant.sendOTP') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-otp').html('Send OTP')
+                            localStorage.setItem("otp_code", response.otp_code);
+                        } else {
+                            $('.btn-otp').html('Send OTP').prop('disabled', false);
+                            otp_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+
+                        $('.btn-otp').html('Send OTP').prop('disabled', false);
+                        otp_counter = 0;
+                    }
+                });
+
+            }
+        }
+
+        $(".otp1").on("paste", function() {
+            setTimeout(function() {
+               console.log($('.otp1').val())
+               console.log(localStorage.getItem('otp_code'))
+                if ($('.otp1').val() == localStorage.getItem('otp_code')) {
+                    $('.btn-otp').text('Verified')
+                        .removeClass('btn-secondary')
+                        .addClass('btn-success')
+
+                    $('#otp-modal').modal('hide')
+                }
+           }, 2000)
         });
 
         // Email OTP Timer
@@ -555,13 +623,11 @@
             }
 
             document.getElementById("resend").innerHTML = `Don't receive the code? 
-                <span class="font-weight-bold text-color cursor" onclick="timer(900)">Resend</span>`;
+                <span class="font-weight-bold text-color cursor" onclick="timer(3)">Resend</span>`;
         }
 
         // Start the timer with 15 minutes (900 seconds)
-        timer(900);
-
-
+        timer(3);
 
 
         $('.province').on('change', function() {
@@ -614,7 +680,6 @@
             registerUser();
         })
 
-    
         function registerUser() {
             $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
 

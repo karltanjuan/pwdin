@@ -64,7 +64,7 @@ Route::get('/contact-us', [HomeController::class, 'contact-us'])->name('contact-
 /* prefix is use to reduce redudancy on the route url */
 Route::group(['prefix' => 'applicant'], function() {
     Route::get('register', [AuthController::class, 'getRegister'])->name('applicant.getRegister');
-    // submit data to backend using HTTP POST 
+    Route::post('sendOTP', [AuthController::class, 'sendOTP'])->name('applicant.sendOTP');
     Route::post('postRegister', [AuthController::class, 'postRegister'])->name('applicant.postRegister');
 
     Route::get('login', [AuthController::class, 'getLogin'])->name('applicant.getLogin');

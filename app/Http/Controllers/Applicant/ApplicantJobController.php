@@ -21,6 +21,7 @@ class ApplicantJobController extends Controller
     }
 
     public function getJobs(Request $request) { 
+
         $request->related = $request->related ?? "related";
 
         if ($request->type == 'null') {
@@ -45,7 +46,16 @@ class ApplicantJobController extends Controller
                     }])
                     ->where('status', 1);
         
-        $jobs = $request->type !== null ? $jobs->where('job_type', ucwords($request->type)) : $jobs;
+        $job_types = json_decode($request->job_types); // converted string to array
+        foreach($jobs_types as $index => $type) {
+            if ($index == 0) {
+                $jobs = $type !== null ? $jobs->where('job_type', ucwords($type)) : $jobs;
+            } else {
+                $jobs = $type !== null ? $jobs->orWhere('job_type', ucwords($type)) : $jobs;
+            }
+        }
+
+
         $jobs = $request->industry !== null ? $jobs->where('job_industry', ucwords($request->industry)) : $jobs;
         $jobs = $request->salary_start !== null ? $jobs->where('salary', '>=', $request->salary_start)->where('hide_salary', 0) : $jobs;
         $jobs = $request->salary_end !== null ? $jobs->where('salary', '<=', $request->salary_end)->where('hide_salary', 0) : $jobs;
