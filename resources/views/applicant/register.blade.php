@@ -107,11 +107,14 @@
 
                             <div class="col-md-4">
                                 <!-- Email input -->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="email" id="email" class="form-control form-control-lg email"
-                                        placeholder="Enter email address" tabindex="2" />
-                                    <label class="form-label" for="email">Email address (Required)</label>
-                                    <span class="err-email err-msg"></span>
+                                <div class="input-group mb-3">
+                                    <input type="email" class="form-control"        placeholder="Email (Required)" id="emailInput"/>
+                                        <div class="input-group-append">
+                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#agreement-modal" tabindex="21"
+                                                style="cursor:pointer;">
+                                                <button class="btn btn-outline-secondary no-glow" type="button">Get OTP</button>
+                                            </a>
+                                        </div>
                                 </div>
                             </div>
 
@@ -374,6 +377,41 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h5 class="modal-title yourEmail">Get OTP for Email Verification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center align-items-center continer">
+                            <div class="card py-5 px-3">
+                                <h5 class="m-0">Email verification</h5>
+                                <span class="mobile-text">
+                                <b>Enter the code we just sent on your email</b>
+                                </span>
+                                <div class="d-flex flex-row mt-5">
+                                <input type="text" class="form-control" autofocus="" />
+                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" />
+                                <input type="text" class="form-control" />
+                                </div>
+                                <div class="text-center mt-5">
+                                <span class="d-block mobile-text" id="countdown"></span>
+                                <span class="d-block mobile-text" id="resend"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="agreement-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="agreementModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
                     <h5 class="modal-title">Terms and Conditions</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -486,6 +524,45 @@
                     console.log('Error:', error);
                 });
         }
+
+        //Email OTP Listener
+        $('#emailInput').on('input', function() {
+            var emailValue = $(this).val();
+            $('.yourEmail').text("Verify email: "+emailValue);
+        });
+
+        // Email OTP Timer
+        let timerOn = true;
+
+        function timer(remaining) {
+            var m = Math.floor(remaining / 60);
+            var s = remaining % 60;
+            m = m < 10 ? "0" + m : m;
+            s = s < 10 ? "0" + s : s;
+            document.getElementById("countdown").innerHTML = `Time left: ${m}:${s}`;
+            remaining -= 1;
+
+            if (remaining >= 0 && timerOn) {
+                setTimeout(function () {
+                    timer(remaining);
+                }, 1000);
+                document.getElementById("resend").innerHTML = ``;
+                return;
+            }
+
+            if (!timerOn) {
+                return;
+            }
+
+            document.getElementById("resend").innerHTML = `Don't receive the code? 
+                <span class="font-weight-bold text-color cursor" onclick="timer(900)">Resend</span>`;
+        }
+
+        // Start the timer with 15 minutes (900 seconds)
+        timer(900);
+
+
+
 
         $('.province').on('change', function() {
             province_code = $(this).find('option:selected').data('key') // data-key attribute
