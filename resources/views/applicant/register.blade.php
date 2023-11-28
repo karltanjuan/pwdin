@@ -388,12 +388,13 @@
                                 <b>Enter the code we just sent on your email</b>
                                 </span>
                                 <div class="d-flex flex-row mt-5">
-                                <input type="text" class="form-control otp1" autofocus="" />
-                                <input type="text" class="form-control otp2" />
-                                <input type="text" class="form-control otp3" />
-                                <input type="text" class="form-control otp4" />
-                                <input type="text" class="form-control otp5" />
-                                <input type="text" class="form-control otp6" />
+                                <!-- HTML -->
+                                    <input type="text" class="form-control otp-input" id="otp1" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp2" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp3" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp4" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp5" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp6" maxlength="1" />
                                 </div>
                                 <div class="text-center mt-5">
                                 <span class="d-block mobile-text" id="countdown"></span>
@@ -454,7 +455,7 @@
 
                         <p><b>7. Contact Information</b></p>
 
-                        <p>7.1. If you have any questions or concerns regarding these Terms, you can contact us at [Contact Email Address].</p>
+                        <p>7.1. If you have any questions or concerns regarding these Terms, you can contact us at our email.</p>
 
                         <p><b>8. Entire Agreement</b></p>
 
@@ -503,27 +504,34 @@
 
         function getProvinces() {
             fetch('{{ asset('/json/provinces.json') }}')
-                .then(response => response.json()) // convert string to json
-                .then(data => { // data is the parameter
-                    // var html = "<option selected disabled>Please select</option>";
-                    var html = "";
-                    var selected = "";
+                .then(response => response.json())
+                .then(data => {
+                    var html = '<option value="">Select Province</option>';
                     $.each(data, function(index, item) {
-                        var selected = (index === 0) ? "selected" : "";
                         html +=
-                            `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
+                            `<option value="${item.name}" data-key="${item.key}">${item.name}</option>`;
                     });
 
-                    var html = '<option value="">Select Province</option>';
                     $('.province').html(html);
 
-                    province_code = $('.province>option:first:selected').data('key')
-                    getCities(province_code)
+                    // Add an event listener for province selection
+                    $('.province').on('change', function() {
+                        var province_code = $(this).find('option:selected').data('key');
+                        getCities(province_code);
+                    });
                 })
                 .catch(error => {
                     console.log('Error:', error);
                 });
         }
+
+// Function to get cities based on the selected province code
+function getCities(province_code) {
+    // Fetch and populate cities based on province code
+    // ... (your existing getCities logic)
+}
+
+
 
         function validateEmail(email) {
             const email_validator = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
@@ -585,19 +593,60 @@
             }
         }
 
-        $(".otp1").on("paste", function() {
-            setTimeout(function() {
-               console.log($('.otp1').val())
-               console.log(localStorage.getItem('otp_code'))
-                if ($('.otp1').val() == localStorage.getItem('otp_code')) {
-                    $('.btn-otp').text('Verified')
-                        .removeClass('btn-secondary')
-                        .addClass('btn-success')
+        // Define a named function
+        function handleOtpInput() {
+            var otp = '';
+            
+            // Concatenate the values of all OTP inputs
+            $('.otp-input').each(function() {
+                otp += $(this).val();
+            });
 
-                    $('#otp-modal').modal('hide')
-                }
-           }, 2000)
+            // Check if the entered OTP matches the stored OTP
+            if (otp === localStorage.getItem('otp_code')) {
+                $('.btn-otp')
+                    .text('Verified')
+                    .removeClass('btn-secondary')
+                    .addClass('btn-success');
+
+                $('#otp-modal').modal('hide');
+            }
+        }
+
+
+        // JavaScript
+        $('.otp-input').on('input', function() {
+            var otp = '';
+            
+            // Concatenate the values of all OTP inputs
+            $('.otp-input').each(function() {
+                otp += $(this).val();
+            });
+
+            // Check if the entered OTP matches the stored OTP
+            if (otp === localStorage.getItem('otp_code')) {
+                $('.btn-otp')
+                    .text('Verified')
+                    .removeClass('btn-secondary')
+                    .addClass('btn-success');
+
+                $('#otp-modal').modal('hide');
+            }
         });
+
+        $('.otp-input').on('paste', function(e) {
+            e.preventDefault();
+
+            // Get the pasted text
+            var pastedText = (e.originalEvent || e).clipboardData.getData('text/plain');
+
+            // Iterate through each character and fill the respective input field
+            for (var i = 0; i < pastedText.length && i < 6; i++) {
+                $('#otp' + (i + 1)).val(pastedText[i]);
+            }
+        });
+
+
 
         // Email OTP Timer
         let timerOn = true;
@@ -627,35 +676,38 @@
         }
 
         // Start the timer with 15 minutes (900 seconds)
-        timer(3);
+        timer(900);
 
 
         $('.province').on('change', function() {
             province_code = $(this).find('option:selected').data('key') // data-key attribute
 
-            getCities(province_code)
+            getCities(province_code);
         })
 
+        
         function getCities(province_code) {
-            // only select city by province code
+            // Fetch city data using the provided path (make sure the path is correct)
             fetch('{{ asset('/json/cities.json') }}')
                 .then(response => response.json())
                 .then(data => {
-                    // compare province_code with city.province then return matching results
+                    // Compare province_code with city.province to return matching results
                     var filtered_cities = $(data).filter((index, city) => city.province === province_code).toArray();
 
-
+                    // Build HTML for city options
                     var html = '<option value="">Select City</option>';
                     $.each(filtered_cities, function(index, item) {
-                        html += `<option value="${item.name}">${item.name}</option>`
+                        html += `<option value="${item.name}">${item.name}</option>`;
                     });
 
+                    // Populate the city dropdown with the generated HTML
                     $('.city').html(html);
                 })
                 .catch(error => {
                     console.log('Error:', error);
                 });
         }
+
 
         $(document).on('click', '.btn-agree', function() {
             $('.accept-agreement').prop('checked', true)

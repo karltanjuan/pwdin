@@ -344,22 +344,21 @@
 
         function getProvinces() {
             fetch('{{ asset('/json/provinces.json') }}')
-                .then(response => response.json()) // convert string to json
-                .then(data => { // data is the parameter
-                    // var html = "<option selected disabled>Please select</option>";
-                    var html = "";
-                    var selected = "";
-                    $.each(data, function(index, item) {
-                        var selected = (index === 0) ? "selected" : "";
-                        html +=
-                            `<option ${selected} value="${item.name}" data-key="${item.key}">${item.name}</option>`
-                    });
-                    
+                .then(response => response.json())
+                .then(data => {
                     var html = '<option value="">Select Province</option>';
+                    $.each(data, function(index, item) {
+                        html +=
+                            `<option value="${item.name}" data-key="${item.key}">${item.name}</option>`;
+                    });
+
                     $('.province').html(html);
 
-                    province_code = $('.province>option:first:selected').data('key')
-                    getCities(province_code)
+                    // Add an event listener for province selection
+                    $('.province').on('change', function() {
+                        var province_code = $(this).find('option:selected').data('key');
+                        getCities(province_code);
+                    });
                 })
                 .catch(error => {
                     console.log('Error:', error);
@@ -373,18 +372,20 @@
         })
 
         function getCities(province_code) {
-            // only select city by province code
+            // Fetch city data using the provided path (make sure the path is correct)
             fetch('{{ asset('/json/cities.json') }}')
                 .then(response => response.json())
                 .then(data => {
-                    // compare province_code with city.province then return matching results
+                    // Compare province_code with city.province to return matching results
                     var filtered_cities = $(data).filter((index, city) => city.province === province_code).toArray();
 
+                    // Build HTML for city options
                     var html = '<option value="">Select City</option>';
                     $.each(filtered_cities, function(index, item) {
-                        html += `<option value="${item.name}">${item.name}</option>`
+                        html += `<option value="${item.name}">${item.name}</option>`;
                     });
 
+                    // Populate the city dropdown with the generated HTML
                     $('.city').html(html);
                 })
                 .catch(error => {
