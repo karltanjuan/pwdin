@@ -793,3 +793,7 @@ body .uwy.userway_p8 .uai {
 a[data-bs-target="#agreement-modal"] > label {
     cursor: pointer;
 }
+
+.job_type_label {
+  cursor: pointer;
+}

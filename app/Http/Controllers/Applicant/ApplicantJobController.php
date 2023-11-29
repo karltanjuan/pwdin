@@ -45,15 +45,18 @@ class ApplicantJobController extends Controller
                         $query->where('applicant_id', auth()->user()->id);
                     }])
                     ->where('status', 1);
-        
-        $job_types = json_decode($request->job_types); // converted string to array
-        foreach($jobs_types as $index => $type) {
-            if ($index == 0) {
-                $jobs = $type !== null ? $jobs->where('job_type', ucwords($type)) : $jobs;
-            } else {
-                $jobs = $type !== null ? $jobs->orWhere('job_type', ucwords($type)) : $jobs;
+                
+        $job_types = explode(',', $request->job_types);
+        // fix bug here
+        if (!empty($job_types)) {
+            foreach($job_types as $index => $type) {
+                if ($index == 0) {
+                    $jobs = $type !== null ? $jobs->where('job_type', ucwords($type)) : $jobs;
+                } else {
+                    $jobs = $type !== null ? $jobs->orWhere('job_type', ucwords($type)) : $jobs;
+                }
             }
-        }
+        } 
 
 
         $jobs = $request->industry !== null ? $jobs->where('job_industry', ucwords($request->industry)) : $jobs;

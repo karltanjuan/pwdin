@@ -11,28 +11,45 @@
         <span>Filter by Job Type:</span>
         <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-3">
             <li class="nav-item">
-                <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input job_type" type="checkbox" id="internship" value="internship">
+                    <label class="form-check-label job_type_label" for="internship"><h6 class="mt-n1 mb-0">Internship</h6></label>
+                </div>
+
+                {{-- <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
                     href="#tab-1" data-type="internship">
                     <h6 class="mt-n1 mb-0">Internship</h6>
-                </a>
+                </a> --}}
             </li>
             <li class="nav-item">
-                <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
+                {{-- <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
                     href="#tab-2" data-type="contract">
                     <h6 class="mt-n1 mb-0">Contract</h6>
-                </a>
+                </a> --}}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input job_type" type="checkbox" id="contract" value="contract">
+                    <label class="form-check-label job_type_label" for="contract"><h6 class="mt-n1 mb-0">Contract</h6></label>
+                </div>
             </li>
             <li class="nav-item">
-                <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input job_type" type="checkbox" id="part-time" value="part-time">
+                    <label class="form-check-label job_type_label" for="part-time"><h6 class="mt-n1 mb-0">Part Time</h6></label>
+                </div>
+                {{-- <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
                     href="#tab-3" data-type="part-time">
                     <h6 class="mt-n1 mb-0">Part Time</h6>
-                </a>
+                </a> --}}
             </li>
             <li class="nav-item">
-                <a class="job-types d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-4"
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input job_type" type="checkbox" id="full-time" value="full-time">
+                    <label class="form-check-label job_type_label" for="full-time"><h6 class="mt-n1 mb-0">Full Time</h6></label>
+                </div>
+                {{-- <a class="job-types d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-4"
                     data-type="full-time">
                     <h6 class="mt-n1 mb-0">Full Time</h6>
-                </a>
+                </a> --}}
             </li>
         </ul>
         
@@ -116,6 +133,15 @@
             filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
         })
 
+        var job_types = [];
+        $(".job_type").change(function() {
+            job_types = $(".job_type:checked").map(function() {
+                return $(this).val();
+            }).get();
+
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page);
+        });
+
         $(document).on('change', '.btn-filter', function() {
             related = $(this).val();
             filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
@@ -170,6 +196,7 @@
             formData.append('salary_start', salary_start)
             formData.append('salary_end', salary_end)
             formData.append('search_query', query)
+            formData.append('job_types', job_types)
 
             // Send an AJAX request to validate the data
             $.ajax({
