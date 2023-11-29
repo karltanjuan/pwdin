@@ -47,22 +47,16 @@ class ApplicantJobController extends Controller
                     ->where('status', 1);
                 
         $job_types = explode(',', $request->job_types);
-        // fix bug here
-        if (!empty($job_types)) {
-            foreach($job_types as $index => $type) {
-                if ($index == 0) {
-                    $jobs = $type !== null ? $jobs->where('job_type', ucwords($type)) : $jobs;
-                } else {
-                    $jobs = $type !== null ? $jobs->orWhere('job_type', ucwords($type)) : $jobs;
-                }
-            }
-        } 
+        $jobs = $jobs->when(!empty($job_types), function ($query) use ($job_types) {
+            return $query->whereIn('job_type', array_map('ucwords', $job_types));
+        });
 
+        $salary_start = (int)$request->salary_start;
+        $salary_end   = (int)$request->salary_end;
 
         $jobs = $request->industry !== null ? $jobs->where('job_industry', ucwords($request->industry)) : $jobs;
-        $jobs = $request->salary_start !== null ? $jobs->where('salary', '>=', $request->salary_start)->where('hide_salary', 0) : $jobs;
-        $jobs = $request->salary_end !== null ? $jobs->where('salary', '<=', $request->salary_end)->where('hide_salary', 0) : $jobs;
-
+        $jobs = $salary_start !== 0 ? $jobs->where('salary', '>=', $salary_start)->where('hide_salary', 0) : $jobs;
+        $jobs = $salary_end !== 0 ? $jobs->where('salary', '<=', $salary_end)->where('hide_salary', 0) : $jobs;
         $jobs = $request->search_query !== null ? $jobs->where('job_title', 'like', '%'.$request->search_query.'%') : $jobs;
 
         if ($request->related == "related") {

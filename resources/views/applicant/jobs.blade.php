@@ -12,7 +12,7 @@
         <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-3">
             <li class="nav-item">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input job_type" type="checkbox" id="internship" value="internship">
+                    <input class="form-check-input job_type" type="checkbox" id="internship" value="internship" checked>
                     <label class="form-check-label job_type_label" for="internship"><h6 class="mt-n1 mb-0">Internship</h6></label>
                 </div>
 
@@ -27,13 +27,13 @@
                     <h6 class="mt-n1 mb-0">Contract</h6>
                 </a> --}}
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input job_type" type="checkbox" id="contract" value="contract">
+                    <input class="form-check-input job_type" type="checkbox" id="contract" value="contract" checked>
                     <label class="form-check-label job_type_label" for="contract"><h6 class="mt-n1 mb-0">Contract</h6></label>
                 </div>
             </li>
             <li class="nav-item">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input job_type" type="checkbox" id="part-time" value="part-time">
+                    <input class="form-check-input job_type" type="checkbox" id="part-time" value="part-time" checked>
                     <label class="form-check-label job_type_label" for="part-time"><h6 class="mt-n1 mb-0">Part Time</h6></label>
                 </div>
                 {{-- <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
@@ -43,7 +43,7 @@
             </li>
             <li class="nav-item">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input job_type" type="checkbox" id="full-time" value="full-time">
+                    <input class="form-check-input job_type" type="checkbox" id="full-time" value="full-time" checked>
                     <label class="form-check-label job_type_label" for="full-time"><h6 class="mt-n1 mb-0">Full Time</h6></label>
                 </div>
                 {{-- <a class="job-types d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-4"
@@ -67,7 +67,7 @@
             <div class="col-md-4">
                 <select class="btn-filter form-select" id="btn-filter">  
                     <option disabled selected>View all jobs or view related jobs</option>
-                    <option value="related">Related Jobs</option>
+                    <option value="related" selected>Related Jobs</option>
                     <option value="all">All Jobs</option>
                 </select>
             </div>
@@ -118,9 +118,14 @@
         let salary_start = 0;
         let salary_end   = 0;
         let query        = null;
+        let job_types    = [];
 
         $(document).ready(function() {
-            filterJobs(null, 'related', null);
+            job_types = $(".job_type:checked").map(function() {
+                return $(this).val();
+            }).get();
+
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
         });
 
         $(document).on('click', '#pagination .page-link', function() {
@@ -133,7 +138,6 @@
             filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
         })
 
-        var job_types = [];
         $(".job_type").change(function() {
             job_types = $(".job_type:checked").map(function() {
                 return $(this).val();
@@ -155,6 +159,7 @@
         $(document).on('keypress', '.salary_start', function(e) {
             if (e.keyCode === 13) {
                 salary_start = $(this).val()
+                salary_end = $('.salary_end').val()
                 
                 filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
             }
@@ -162,6 +167,7 @@
 
         $(document).on('keypress', '.salary_end', function(e) {
             if (e.keyCode === 13) {
+                salary_start = $('.salary_start').val()
                 salary_end = $(this).val()
                 filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
             }
