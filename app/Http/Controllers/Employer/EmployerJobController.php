@@ -20,13 +20,18 @@ use Carbon\Carbon;
 
 class EmployerJobController extends Controller
 {
+    private $id;
+
+    public function __construct() {
+        $this->id = auth()->guard('employers')->user()->id;
+    }
+
     public function index() {
-        $id   = auth()->guard('employers')->user()->id;
-        $jobs = Job::where('employer_id', $id)
+        $jobs = Job::where('employer_id', $this->id)
                 ->orderBy('created_at', 'desc')
                 ->with('applications')
                 ->get();
-                
+
         return view('employer.jobs', compact('jobs'));
     }
 
@@ -35,24 +40,27 @@ class EmployerJobController extends Controller
     }
 
     public function edit($id) {
-        $job = Job::where('id', $id)->first();
+        $job = Job::where('id', $id)
+                ->where('employer_id', $this->id)
+                ->first();
+
         return view('employer.edit-job', compact('job'));
     }
 
     public function view($id) {
-        $id = (int)$id;
 
         $job = Job::where('id', $id)
+                    ->where('employer_id', $this->id)
                     ->with('employer')
                     ->first();
 
         return view('employer.view-job', compact('job'));
     }
 
-    public function getJobsById(Request $request) {
-        $jobs = Job::where('id', $request->id)->first();
-        return response()->json($jobs);
-    }
+    // public function getJobsById(Request $request) {
+    //     $jobs = Job::where('id', $request->id)->first();
+    //     return response()->json($jobs);
+    // }
 
     public function postJob(Request $request){
         $validator = $this->validateJob($request);
