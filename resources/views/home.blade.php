@@ -87,7 +87,7 @@
                             <a href="404.html" class="dropdown-item">404</a>
                         </div>
                     </div> --}}
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
+                    <a href="{{ url('/contact-us') }}" class="nav-item nav-link">Contact</a>
                 </div>
                 @if(auth()->check())
                     <a href="{{ url('/applicant/jobs') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>

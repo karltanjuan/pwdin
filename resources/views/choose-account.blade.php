@@ -75,7 +75,7 @@
                             <a href="404.html" class="dropdown-item">404</a>
                         </div>
                     </div> --}}
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
+                    <a href="{{ url('/contact-us') }}" class="nav-item nav-link">Contact</a>
                 </div>
                 <a href="{{ url('/choose-account') }}"
                     class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login Account<i

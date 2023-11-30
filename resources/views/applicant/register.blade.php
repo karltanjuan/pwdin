@@ -282,13 +282,32 @@
                                 <!-- Password input -->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="password" id="password" class="form-control form-control-lg password"
-                                        placeholder="Enter password" tabindex="16"/>
+                                        placeholder="Enter password" tabindex="16" oninput="check()"/>
                                     <label class="form-label" for="password">Password (Required)</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
                                     </span>
+                                    <div id="set" >
+                                        <div id="count"> </div>
+                                    </div>
+                                    <div id="check0">
+                                        <i class="far fa-check-circle"></i>  <span> Password must be atleast 8 characters.</span>
+                                    </div>
+                                   
+                                    <div id="check1">
+                                            <i class="far fa-check-circle"></i>  <span> Contains numerical character.</span>
+                                    </div>
+                                    <div id="check2">
+                                            <i class="far fa-check-circle"></i>   <span>Contains special character.</span>
+                                    </div>
+                                    <div id="check3">
+                                            <i class="far fa-check-circle"></i>  <span>Shouldn't contain spaces.</span>
+                                    </div>
+                                    <div id="check4">
+                                            <i class="far fa-check-circle"></i>  <span>Contains uppercase letter.</span>
+                                    </div>
                                     <span class="err-password err-msg"></span>
-                                    {{-- <span><i>Password must be atleast 8 characters including alpha numeric and special character.</i></span> --}}
+                            
                                 </div>
                             </div>
 
@@ -808,6 +827,30 @@ function getCities(province_code) {
         function closeModal() {
             $(".modal").css("display", "none");
         }
+
+        
+        (function(d){
+           var s = d.createElement("script");
+           /* uncomment the following line to override default position*/
+           s.setAttribute("data-position", 100);
+           /* uncomment the following line to override default size (values: small, large)*/
+           /* s.setAttribute("data-size", "large");*/
+           /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
+           /* s.setAttribute("data-language", "null");*/
+           /* uncomment the following line to override color set via widget (e.g., #053f67)*/
+           /* s.setAttribute("data-color", "#2d68ff");*/
+           /* uncomment the following line to override type set via widget (1=person, 2=chair, 3=eye, 4=text)*/
+           /* s.setAttribute("data-type", "1");*/
+           /* s.setAttribute("data-statement_text:", "Our Accessibility Statement");*/
+           /* s.setAttribute("data-statement_url", "http://www.example.com/accessibility";*/
+           /* uncomment the following line to override support on mobile devices*/
+           /* s.setAttribute("data-mobile", true);*/
+           /* uncomment the following line to set custom trigger action for accessibility menu*/
+           /* s.setAttribute("data-trigger", "triggerId")*/
+           s.setAttribute("data-account", "HaifC5drHg");
+           s.setAttribute("src", "https://cdn.userway.org/widget.js");
+           (d.body || d.head).appendChild(s);})(document)
+   
     </script>
 
 </body>

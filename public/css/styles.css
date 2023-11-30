@@ -794,6 +794,192 @@ a[data-bs-target="#agreement-modal"] > label {
     cursor: pointer;
 }
 
+
+/* CONTACT US */
+
+.section-header h2 {
+  margin-top: 5%;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: #0d6efd;
+  text-transform: uppercase;
+
+}
+
+.section-header p{
+  font-size: 24px;
+  font-weight: 700;
+  color: #033582;
+  text-align: center;
+  
+}
+
+.contact .info-box {
+  color: #444444;
+  background: #fafbff;
+  padding: 30px;
+}
+
+.contact .info-box i {
+  font-size: 38px;
+  line-height: 0;
+  color: #0d6efd;
+}
+
+.contact .info-box h3 {
+  font-size: 20px;
+  color: #012970;
+  font-weight: 700;
+  margin: 20px 0 10px 0;
+}
+
+.contact .info-box p {
+  padding: 0;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.contact .php-email-form {
+  background: #fafbff;
+  padding: 30px;
+  height: 100%;
+}
+
+.contact .php-email-form .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.contact .php-email-form .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.contact .php-email-form .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 24px;
+}
+
+.contact .php-email-form .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #18d26e;
+  border-top-color: #eee;
+  animation: animate-loading 1s linear infinite;
+}
+
+.contact .php-email-form input,
+.contact .php-email-form textarea {
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+  border-radius: 0;
+}
+
+.contact .php-email-form input:focus,
+.contact .php-email-form textarea:focus {
+  border-color: #0d6efd;
+}
+
+.contact .php-email-form input[type=text],
+.contact .php-email-form input[type=email] {
+  padding: 10px 15px;
+}
+
+.contact .php-email-form textarea {
+  padding: 12px 15px;
+}
+
+.contact .php-email-form button[type=submit] {
+  background: #0d6efd;
+  border: 0;
+  padding: 10px 30px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+
+.contact .php-email-form button[type=submit]:hover {
+  background: #0d6efd;
+}
+
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Password Validation */
+#set
+{
+    display:block ;
+    position:relative;
+    margin:auto;
+} 
+#count
+{
+   display:inline-block;
+   position:relative ;
+   margin:2%; margin-bottom:2%;
+   color:#000; 
+   text-indent:40px;
+   font-weight:bolder;
+   display: none;
+   
+}
+#see
+{
+    display:inline-block;
+    color:gray;
+    margin:auto; 
+    float: right;
+    margin-right:40px;
+    margin-top:10px;
+    cursor:pointer; 
+    transition-duration:0.2s;
+}
+
+i
+{
+    transition-duration:600ms;    
+}
+#check0,#check1,#check2,#check3,#check4
+{
+   display:block;
+   position:relative;
+   margin:1%;
+   color:red; 
+
+   
+}
+span
+{
+    font-weight: bold;
+}
+
 .job_type_label {
   cursor: pointer;
 }
