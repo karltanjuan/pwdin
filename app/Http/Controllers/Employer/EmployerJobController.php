@@ -38,6 +38,10 @@ class EmployerJobController extends Controller
                 ->where('employer_id', auth()->guard('employers')->user()->id)
                 ->first();
 
+        if (empty($job)) {
+            return redirect('/employer/jobs');    
+        }
+
         return view('employer.edit-job', compact('job'));
     }
 
@@ -46,6 +50,10 @@ class EmployerJobController extends Controller
                     ->where('employer_id', auth()->guard('employers')->user()->id)
                     ->with('employer')
                     ->first();
+
+        if (empty($job)) {
+            return redirect('/employer/jobs');    
+        }
 
         return view('employer.view-job', compact('job'));
     }
@@ -144,30 +152,39 @@ class EmployerJobController extends Controller
     }
 
     public function getApplicants(int $id) {
+        $employer_id = auth()->guard('employers')->user()->id;
         $applicants = Application::where('job_id', $id)
             ->with('applicant')
             ->with('job')
+            ->whereHas('job', function ($query) use ($employer_id) {
+                $query->where('employer_id', $employer_id);
+            })
             ->orderBy('created_at', 'desc')
             ->get();
+               
+        if (count($applicants) === 0) {
+            return redirect('/employer/jobs');
+        }
+        
         return view('employer.applicants', compact('applicants'));
     }
 
     public function getApplicantById($job_id, $applicant_id) {
-        // $applicants = Application::where('job_id', (int)$job_id)
-        //     ->where('applicant_id', (int)$applicant_id)
-        //     ->with('applicant')
-        //     ->with('job')
-        //     ->orderBy('created_at', 'desc')
-        //     ->get();
-
+        $employer_id = auth()->guard('employers')->user()->id;
         $user   = User::where('id', $applicant_id)
-                ->with(['applications' => function($query) use ($job_id) {
-                    $query->where('job_id', $job_id);
+                ->with(['applications' => function($query) use ($job_id, $employer_id) {
+                    $query->where('job_id', $job_id)
+                        ->whereHas('job', function ($job_query) use ($employer_id) {
+                            $job_query->where('employer_id', $employer_id);
+                        });
                 }])
                 ->first();
-
-        $app_status = ApplicationStatus::where('employer_id', auth()->guard('employers')->user()->id)->orderBy('id', 'asc')->get();
-        // $user       = $applicants;
+                
+        if (count($user->applications) === 0) {
+            return redirect('/employer/jobs');
+        }
+            
+        $app_status = ApplicationStatus::orderBy('id', 'asc')->get();
 
 
 
