@@ -52,8 +52,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/about-us') }}" class="nav-item nav-link">About</a>
+                    <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
+                    <a href="{{ url('/about-us') }}" class="nav-item nav-link active">About</a>
                     <a href="{{ url('/choose-account') }}" class="nav-item nav-link d-md-none">Login Account</a>
                     {{-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
@@ -70,7 +70,7 @@
                             <a href="404.html" class="dropdown-item">404</a>
                         </div>
                     </div> --}}
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
+                    <a href="{{ url('/contact-us') }}" class="nav-item nav-link">Contact</a>
                 </div>
                 @if(auth()->check())
                     <a href="{{ url('/applicant/jobs') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>

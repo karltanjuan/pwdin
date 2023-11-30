@@ -179,41 +179,56 @@ function toggle4() {
     }
 }
 
-function validatePassword(password) {
-    const lowercaseRegex = /[a-z]/;
-    const uppercaseRegex = /[A-Z]/;
-    const digitRegex = /[0-9]/;
-    const specialCharRegex = /[!@#$%^&*()_+\-=~]/;
+    function check()
+    {
+        var input = document.getElementById("password").value;
+        
+        input=input.trim();
+        document.getElementById("password").value=input;
+        document.getElementById("count").innerText="Length : " + input.length;
+        if(input.length>=8)
+        {
+            document.getElementById("check0").style.color="green";
+        }
+        else
+        {
+        document.getElementById("check0").style.color="red"; 
+        }
+        
+        
+        if(input.match(/[0-9]/i))
+        {
+            document.getElementById("check1").style.color="green";
+        }
+        else
+        {
+        document.getElementById("check1").style.color="red"; 
+        }
+        
+        if(input.match(/[^A-Za-z0-9-' ']/i))
+        {
+            document.getElementById("check2").style.color="green";
+        }
+        else
+        {
+        document.getElementById("check2").style.color="red"; 
+        }
+        if(input.match(' '))
+        {
+            document.getElementById("check3").style.color="red";
+        }
+        else
+        {
+        document.getElementById("check3").style.color="green"; 
+        }
+        if(input.match(/[A-Z]/))
+        {
+            document.getElementById("check4").style.color="green";
+        }
+        else
+        {
+        document.getElementById("check4").style.color="red"; 
+        }
 
-    const errors = [];
-
-    if (password.trim() === '') {
-        errors.push('Password is required.');
+        return errors;
     }
-
-    if (typeof password !== 'string') {
-        errors.push('Password must be a string.');
-    }
-    
-    if (password.length < 6) {
-        errors.push('Password must be at least 6 characters long.');
-    }
-
-    if (!lowercaseRegex.test(password)) {
-        errors.push('Password must contain at least one lowercase letter (a-z).');
-    }
-
-    if (!uppercaseRegex.test(password)) {
-        errors.push('Password must contain at least one uppercase letter (A-Z).');
-    }
-
-    if (!digitRegex.test(password)) {
-        errors.push('Password must contain at least one numeric character (0-9).');
-    }
-
-    if (!specialCharRegex.test(password)) {
-        errors.push('Password must contain at least one special character (!@#$%^&*()_+=-~).');
-    }
-
-    return errors;
-}

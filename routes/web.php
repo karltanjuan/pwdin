@@ -50,7 +50,7 @@ Route::get('/choose-account', [HomeController::class, 'chooseAccount'])->name('c
 
 Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
 
-Route::get('/contact-us', [HomeController::class, 'contact-us'])->name('contact-us');
+Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
 
 
 // Generate all database seeder
