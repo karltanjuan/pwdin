@@ -33,7 +33,10 @@
                                     <span class="badge bg-dark bg-dark">{{strtoupper($invoice->payment_method)}}</span>
                                 </td>
                                 <td>
-                                    <span class="badge bg-dark bg-dark">{{strtoupper($invoice->total_amount)}}</span>
+                                    <span class="badge bg-dark bg-dark">
+                                        &#8369;
+                                        {{strtoupper(number_format($invoice->total_amount / 100, 2, '.', ','))}}
+                                    </span>
                                 </td>
                                 <td>
                                     <span class="badge bg-dark bg-dark">{{$expired_at}}</span>
