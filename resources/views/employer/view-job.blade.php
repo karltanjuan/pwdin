@@ -8,6 +8,11 @@
     <li class="breadcrumb-item text-white active">Job Details</li>
 @endsection
 @section('content')
+    @if(!isset($job->employer)) 
+        @php 
+            redirect("{{url('/employer/jobs')}}")
+        @endphp
+    @endif
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="row gy-5 gx-4">
