@@ -20,14 +20,8 @@ use Carbon\Carbon;
 
 class EmployerJobController extends Controller
 {
-    private $id;
-
-    public function __construct() {
-        $this->id = auth()->guard('employers')->user()->id;
-    }
-
     public function index() {
-        $jobs = Job::where('employer_id', $this->id)
+        $jobs = Job::where('employer_id', auth()->guard('employers')->user()->id)
                 ->orderBy('created_at', 'desc')
                 ->with('applications')
                 ->get();
@@ -41,16 +35,15 @@ class EmployerJobController extends Controller
 
     public function edit($id) {
         $job = Job::where('id', $id)
-                ->where('employer_id', $this->id)
+                ->where('employer_id', auth()->guard('employers')->user()->id)
                 ->first();
 
         return view('employer.edit-job', compact('job'));
     }
 
     public function view($id) {
-
         $job = Job::where('id', $id)
-                    ->where('employer_id', $this->id)
+                    ->where('employer_id', auth()->guard('employers')->user()->id)
                     ->with('employer')
                     ->first();
 
