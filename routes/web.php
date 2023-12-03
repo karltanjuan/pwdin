@@ -218,3 +218,46 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
 });
+
+Route::get('/qr-code', function() {
+    $bytes = function_exists('random_bytes') ? random_bytes(32) : openssl_random_pseudo_bytes(32);
+    $token = bin2hex($bytes);
+
+    $event_name = "wedding";
+    echo "Wedding QR Code, To our guests, you can upload your precious memories with us.<br><br>";
+    return \SimpleSoftwareIO\QrCode\Facades\QrCode::size(200)->generate(
+        env('APP_URL')."/{$event_name}/{$token}",
+    );
+});
+
+Route::get('/upload/{event}/{token}', function($event, $token) {
+    return view('demo');
+});
+
+use Illuminate\Http\Request;
+Route::post('/upload-photos', function(Request $request) {
+    $photo_file = null;
+    $photo_path = "";
+    if ($request->file('image')) {
+        $photo_file = $request->file('image');
+        $photo_path = uniqid().md5(1).'_'.$photo_file->getClientOriginalName();
+        $photo_path = $request->file('image')->storeAs("public/{$request->event}/{$request->token}", $photo_path);
+    }
+});
+
+Route::get('/photos/{event}/{token}', function($event, $token) {
+    $images = Storage::files('public/'.$event.'/'.$token);
+    $image_names = array_map(function ($image) use ($event, $token) {
+        return 'storage/'.$event . '/' . $token . '/' . basename($image);
+    }, $images);
+
+    return view('photo-list', ['images' => $image_names]);
+});
+
+function generateRandomToken($length = 32) {
+    // Use random_bytes for PHP 7 and above, or fallback to openssl_random_pseudo_bytes
+    $bytes = function_exists('random_bytes') ? random_bytes($length) : openssl_random_pseudo_bytes($length);
+
+    // Convert the random bytes to a hexadecimal string
+    return bin2hex($bytes);
+}
