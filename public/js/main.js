@@ -182,7 +182,6 @@ function toggle4() {
     function check()
     {
         var input = $('.password').val()
-        // input = input.trim()
         $('#count').text(`Length : ${input.length}`)
 
         for (let i = 0; i < 5; i++) {

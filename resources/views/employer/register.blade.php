@@ -174,13 +174,31 @@
                             <div class="col-md-6">
                                 <!-- Password input -->
                                 <div class="form-outline mb-4 form-floating">
-                                    <input type="password" id="password" class="form-control form-control-lg password" placeholder="Enter password" tabindex="10"/>
+                                    <input type="password" id="password" class="form-control form-control-lg password" placeholder="Enter password" tabindex="10" oninput="check()"/>
                                     <label class="form-label" for="password">Password</label>
                                     <span class="show eye-icon-position">
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
                                     </span>
+                                    <div id="set" >
+                                        <div id="count"></div>
+                                    </div>
+                                    <div id="check0">
+                                        <i class="far fa-check-circle"></i>  <span> Password must be atleast 8 characters.</span>
+                                    </div>
+                                   
+                                    <div id="check1">
+                                            <i class="far fa-check-circle"></i>  <span> Contains numerical character.</span>
+                                    </div>
+                                    <div id="check2">
+                                            <i class="far fa-check-circle"></i>   <span>Contains special character.</span>
+                                    </div>
+                                    <div id="check3">
+                                            <i class="far fa-check-circle"></i>  <span>Shouldn't contain spaces.</span>
+                                    </div>
+                                    <div id="check4">
+                                            <i class="far fa-check-circle"></i>  <span>Contains uppercase letter.</span>
+                                    </div>
                                     <span class="err-password err-msg"></span>
-                                    {{-- <span><i>Password must be 8 characters, must contain alphanumeric characters, and a special character.</i></span> --}}
                                 </div>
                             </div>
                             <div class="col-md-6">

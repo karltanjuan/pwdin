@@ -288,7 +288,7 @@
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle3()"></i>
                                     </span>
                                     <div id="set" >
-                                        <div id="count"> </div>
+                                        <div id="count"></div>
                                     </div>
                                     <div id="check0">
                                         <i class="far fa-check-circle"></i>  <span> Password must be atleast 8 characters.</span>
