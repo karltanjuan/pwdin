@@ -17,7 +17,10 @@ use Carbon\Carbon;
 class AdminEmployerController extends Controller
 {
     public function getEmployers() {
-        $employers = Employer::orderBy('created_at', 'desc')->get();
+        $employers = Employer::orderBy('created_at', 'desc')
+                    ->with('invoice')
+                    ->get();
+
         return view('admin.employers', compact('employers'));
     }
 

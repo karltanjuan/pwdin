@@ -16,7 +16,7 @@
                         <th>Company Name</th>
                         <th>Job Status</th>
                         <th>Date Posted</th>
-                        <th>Date Closed</th>
+                        <th>Date Updated</th>
                         <th>Action</th>
                     </tr>
                 </thead>

@@ -322,6 +322,9 @@
                                         <i class="las la-eye fs-5" id="show3" onclick="toggle2()"></i>
                                     </span>
                                     <span class="err-password_confirmation err-msg"></span>
+                                    <div class="text-success match-password">
+                                        <i class="far fa-check-circle"></i>  <span>Password is match</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -745,6 +748,16 @@ function getCities(province_code) {
                 event.preventDefault();
             }
         })
+
+        $('.password_confirmation').on('keyup', function() {
+            $('.match-password').hide()
+            
+            if ($('.password_confirmation').val() == $('.password').val()) {
+                $('.match-password').show()
+            }
+        })
+
+
 
         let click_counter = 0;
         $('.btn-register').on('click', function() {

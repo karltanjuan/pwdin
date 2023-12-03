@@ -983,3 +983,7 @@ span
 .job_type_label {
   cursor: pointer;
 }
+
+.match-password {
+  display: none;
+}

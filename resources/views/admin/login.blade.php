@@ -106,6 +106,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.userway.org/widget.js" data-account="HaifC5drHg"></script>
 
     <!-- Template Javascript -->
     <script src="{{ asset('js/main.js') }}"></script>
@@ -120,7 +121,6 @@
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('email', $('#email').val());
             formData.append('password', $('#password').val());
-
             if (click_counter === 0) {
                 click_counter++;
                 $(this).prop('disabled', true);
@@ -172,28 +172,6 @@
             }
 
         })
-
-        (function(d){
-           var s = d.createElement("script");
-           /* uncomment the following line to override default position*/
-           s.setAttribute("data-position", 100);
-           /* uncomment the following line to override default size (values: small, large)*/
-           /* s.setAttribute("data-size", "large");*/
-           /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
-           /* s.setAttribute("data-language", "null");*/
-           /* uncomment the following line to override color set via widget (e.g., #053f67)*/
-           /* s.setAttribute("data-color", "#2d68ff");*/
-           /* uncomment the following line to override type set via widget (1=person, 2=chair, 3=eye, 4=text)*/
-           /* s.setAttribute("data-type", "1");*/
-           /* s.setAttribute("data-statement_text:", "Our Accessibility Statement");*/
-           /* s.setAttribute("data-statement_url", "http://www.example.com/accessibility";*/
-           /* uncomment the following line to override support on mobile devices*/
-           /* s.setAttribute("data-mobile", true);*/
-           /* uncomment the following line to set custom trigger action for accessibility menu*/
-           /* s.setAttribute("data-trigger", "triggerId")*/
-           s.setAttribute("data-account", "HaifC5drHg");
-           s.setAttribute("src", "https://cdn.userway.org/widget.js");
-           (d.body || d.head).appendChild(s);})(document)
 
     </script>
 
