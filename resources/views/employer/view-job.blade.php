@@ -8,9 +8,9 @@
     <li class="breadcrumb-item text-white active">Job Details</li>
 @endsection
 @section('content')
-    @if(optional($job->employer)->company === null)
+    @if(optional($job->employer)->company == null)
         @php
-            return redirect(url('/employer/jobs'));
+            redirect(url('/employer/jobs'));
         @endphp
     @endif
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
