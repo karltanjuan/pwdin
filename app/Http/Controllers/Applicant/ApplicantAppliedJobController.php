@@ -17,19 +17,6 @@ use Carbon\Carbon;
 class ApplicantAppliedJobController extends Controller
 {
     public function index() {
-        // $pwd_categories = auth()->user()->pwd_categories;
-        // $pwd_categories_arr = explode(',', $pwd_categories);
-
-        // $jobs = Job::orderBy('created_at', 'desc')
-        //             ->with(['employer' => function ($query) {
-        //                 $query->with('application_statuses');
-        //             }])
-        //             ->whereHas('applications', function ($query) {
-        //                 $query->where('applicant_id', auth()->user()->id);
-        //             })
-        //             ->get();
-
-        // return view('applicant.applied-jobs', compact('jobs'));
         return view('applicant.applied-jobs');
     }
 

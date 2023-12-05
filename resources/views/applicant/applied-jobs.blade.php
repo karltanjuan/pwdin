@@ -95,7 +95,7 @@
                                 rejected = 'rejected'
                             }
 
-                            let statuses    = JSON.parse(val.employer.application_statuses.name);
+                            let statuses    = ["Applied", "Initial Interview","Exam","Final Interview","Hired","Rejected"];
                             let key_counter = 1;
                             let status_html = ''
                             let app_status = val.applications[0].status
