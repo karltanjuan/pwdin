@@ -103,14 +103,17 @@
                             status_html += `<div class="btn-group" role="group">`
 
                             $.each(statuses, function(index, status) {
-                                if (status != "Rejected") {
-                                    status_html += `<button type="button" class="btn ${app_status == status ? 'btn-secondary' : 'btn-outline-secondary'} ${app_status == status && val.applications[0].is_rejected === 1 ? 'btn-danger' : 'btn-outline-dark' }">
-                                        <span class="badge bg-warning text-dark">${key_counter++}</span>
-                                        ${status} <i class="fa-solid fa-caret-right"></i>
-                                    </button>`
-                                }
+                            if (status != "Rejected") {
+                                const isCurrentStatus = app_status === status;
+                                const isRejected = isCurrentStatus && val.applications[0].is_rejected === 1;
+                                const btnClass = isRejected ? 'btn-danger' : (isCurrentStatus ? 'btn-success' : 'btn-outline-dark');
 
-                            })
+                                status_html += `<button type="button" class="btn ${btnClass}">
+                                    <span class="badge bg-warning text-dark">${key_counter++}</span>
+                                    ${status} <i class="fa-solid fa-caret-right"></i>
+                                </button>`;
+                            }
+                        });
 
                             if (app_status == "Withdrawn") {
                                 status_html += `<button type="button" class="btn btn-secondary">
