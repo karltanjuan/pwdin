@@ -18,14 +18,18 @@ use Carbon\Carbon;
 class TransactionRedirectController extends Controller
 {
     public function transactionMessage($employer_id) {
-        $transaction = Transaction::with(['invoice' => function ($query) use ($employer_id) {
-            $query->where('employer_id', $employer_id);
-        }])->first();
+        if ($employer_id != auth()->guard('employers')->user()->id) {
+            $employer_id = 0;
+        }
+
+        $invoice = Invoice::where('employer_id', (int)$employer_id)
+        ->with('transaction')
+        ->first();
 
         // Retrieve Paymongo checkout session
         $paymongo_api_key = env('PAYMONGO_TEST_API_KEY_ENCODED');
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('GET', 'https://api.paymongo.com/v1/checkout_sessions/'.$transaction->checkout_session_id, [
+        $response = $client->request('GET', 'https://api.paymongo.com/v1/checkout_sessions/'.$invoice->transaction->checkout_session_id, [
             'headers' => [
                 'Content-Type'  => 'application/json',
                 'accept'        => 'application/json',
@@ -36,7 +40,7 @@ class TransactionRedirectController extends Controller
         $response_content    = $response->getBody()->getContents();
         $response_data       = json_decode($response_content, true);
 
-        if (!empty($response_data['data']['attributes']['payments'])) {
+        if (!empty($response_data['data']['attributes']['payments'][0]['attributes']['status'])) {
             $data    = $response_data['data']['attributes']['payments'][0]['attributes'];
             $payment_method_used = $response_data['data']['attributes']['payment_method_used'];
             $status  = ucfirst(strtolower($data['status']));
@@ -55,25 +59,16 @@ class TransactionRedirectController extends Controller
         try {
             $updated_at = date('Y-m-d H:i:s');
 
-            $invoice = Invoice::where('employer_id', $employer_id)->update([
+            $update_invoice = Invoice::where('employer_id', $employer_id)->update([
                 'payment_method' => $payment_method_used,
                 'updated_at'     => $updated_at
             ]);
 
-            $update_transaction = Transaction::where('id', $transaction->id)->update([
+            $update_transaction = Transaction::where('id', $invoice->transaction->id)->update([
                 'status'              => $status,
                 'transaction_details' => json_encode($response_data), // For transaction history reference
                 'updated_at'          => $updated_at
             ]);
-
-            // $job_status = $status == "Paid" ? 1 : 0;
-    
-            // $job = Job::find($job_id);
-            // $job->update([
-            //     'status'     => $job_status,
-            //     'updated_at' => $updated_at
-            // ]);
-    
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json(['error' => 'Transaction update failed: ' . $e->getMessage()], 500);
