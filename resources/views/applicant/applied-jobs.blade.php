@@ -67,6 +67,9 @@
                 success: function(response) {
                     let html = ''
                     if (response.data.length > 0) {
+                        // Sort jobs by application date in descending order
+                        response.data.sort((a, b) => new Date(b.applications[0].created_at) - new Date(a.applications[0].created_at));
+
                         $.each(response.data, function(index, val) {
 
                             let salary = parseFloat(val.salary).toLocaleString(undefined, {
@@ -114,6 +117,8 @@
                                 </button>`;
                             }
                         });
+
+                        getPagination(response);
 
                             if (app_status == "Withdrawn") {
                                 status_html += `<button type="button" class="btn btn-secondary">

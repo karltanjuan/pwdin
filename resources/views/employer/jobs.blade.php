@@ -68,7 +68,7 @@
                                 </td>
                                 <td>
                                     @if ($job->status === 0)
-                                        <span class="badge bg-warning">Closed</span>
+                                        <span class="badge bg-danger">Closed</span>
                                     @elseif($job->status === 1)
                                         <span class="badge bg-success">Active</span>
                                     @elseif($job->status === 2)
