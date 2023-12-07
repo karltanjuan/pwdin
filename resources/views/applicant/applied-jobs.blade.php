@@ -9,7 +9,16 @@
     <h1 class="text-center mb-5 wow fadeInUp title-label" data-wow-delay="0.1s">Applied Jobs</h1>
     <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
         <div class="row mb-5">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text">Filter by Date Applied</span>
+                    <input type="date" class="form-control date" id="date"/>
+                    <button class="btn btn-outline-secondary btn-clear" type="button" id="btn-clear">
+                        <span>Clear</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="input-group">
                     <input type="text" class="form-control query" placeholder="Search jobs"/>
                     <button class="btn btn-outline-primary btn-search" type="button" id="btn-search">
@@ -28,34 +37,46 @@
     <script>
         let page  = 1;
         let query = null;
+        let date = null;
 
         $(document).ready(function() {
-            filterJobs(null, page = 1);
+            filterJobs(null, null, page = 1);
         });
 
         $(document).on('click', '#pagination .page-link', function() {
             page = $(this).data('page');
-            filterJobs(query, page);
+            filterJobs(date, query, page);
         });
+
+        $(document).on('change', '.date', function(e) {
+            date = $(this).val();
+            filterJobs(date, query, page = 1);
+        })
+
+        $(document).on('click', '.btn-clear', function() {
+            $('.date').val('')
+            filterJobs(null,query, page = 1);
+        })
 
         $(document).on('keypress', '.query', function(e) {
             if (e.keyCode === 13) {
                 query = $(this).val();
-                filterJobs(query, page = 1);
+                filterJobs(date, query, page = 1);
             }
         })
 
         $(document).on('click', '.btn-search', function() {
             query = $('.query').val();
-            filterJobs(query, page = 1);
+            filterJobs(date, query, page = 1);
         })
 
-        function filterJobs( query, page = 1) {
+        function filterJobs(date, query, page = 1) {
             var formData = new FormData();
 
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('page', page);
             formData.append('search_query', query)
+            formData.append('search_date', date)
 
             // Send an AJAX request to validate the data
             $.ajax({

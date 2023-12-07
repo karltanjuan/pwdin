@@ -21,11 +21,16 @@ class ApplicantAppliedJobController extends Controller
     }
 
     public function postAppliedJobs(Request $request) {
+        if ($request->search_date == 'null') {
+            $request->search_date = null;
+        }
+
         if ($request->search_query == 'null') {
             $request->search_query = null;
         }
         
-        $jobs = Job::orderBy('created_at', 'desc')
+        $jobs = Job::where('status', 1)
+            ->orderBy('created_at', 'desc')
             ->with(['employer' => function ($query) {
                 $query->with('application_statuses');
             }])
@@ -33,12 +38,14 @@ class ApplicantAppliedJobController extends Controller
                 $query->where('applicant_id', auth()->user()->id);
                 $query->orderBy('created_at', 'desc');
             }])
-            ->whereHas('applications', function ($query) {
+            ->whereHas('applications', function ($query) use ($request) {
                 $query->where('applicant_id', auth()->user()->id);
+                if ($request->search_date !== null) {
+                    $query->whereDate('created_at', $request->search_date);
+                }
                 $query->orderBy('created_at', 'desc');
-            })
-            ->where('status', 1);
-        
+            });
+
         $jobs = $jobs->when($request->search_query !== null, function ($query) use ($request) {
             return $query->where('job_title', 'like', '%' . $request->search_query . '%');
         })
