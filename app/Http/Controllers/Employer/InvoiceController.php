@@ -100,29 +100,6 @@ class InvoiceController extends Controller
                     'status'              => 'Pending'
                 ]);
             }
-
-            
-
-            // if (is_null($invoice_id)) {
-            //     $invoice = Invoice::create([
-            //         'reference_number'        => $reference_no,
-            //         'employer_id'             => $employer_id,
-            //         'product_name'            => 'pwdIn 1 Year Subscription',
-            //         'description'             => 'pwdIn 1 Year Subscription',
-            //         'quantity'                => 1,
-            //         'currency'                => 'PHP',
-            //         'total_amount'            => 400000, // 4000 pesos
-            //         'payment_method'          => '',
-            //         'subscription_expired_at' => Carbon::now()->addYear()->toDateTimeString()
-            //     ]);
-    
-            //     $transaction = Transaction::create([
-            //         'invoice_id'          => $invoice->id,
-            //         'checkout_session_id' => '',
-            //         'transaction_details' => '',
-            //         'status'              => 'Pending'
-            //     ]);
-            // }
             
             DB::commit();
 

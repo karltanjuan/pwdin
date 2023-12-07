@@ -26,10 +26,32 @@ class EmployerJobController extends Controller
                 ->with('applications')
                 ->get();
 
-        return view('employer.jobs', compact('jobs'));
+        $transaction = Transaction::with(['invoice' => function ($query) {
+            $query->where('employer_id', auth()->guard('employers')->user()->id);
+        }])->first();
+
+        $transaction_status = 0;
+        if (!empty($transaction)) {
+            $transaction_status = $transaction->status;
+        }
+
+        return view('employer.jobs', compact('jobs', 'transaction_status'));
     }
 
     public function add() {
+        $transaction = Transaction::with(['invoice' => function ($query) {
+            $query->where('employer_id', auth()->guard('employers')->user()->id);
+        }])->first();
+
+        $transaction_status = 0;
+        if (!empty($transaction)) {
+            $transaction_status = $transaction->status;
+        }
+
+        if ($transaction_status != "Paid") {
+            return redirect('employer/jobs');
+        }
+
         return view('employer.add-job');
     }
 

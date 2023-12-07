@@ -26,8 +26,15 @@
     </style>
 
     <h1 class="text-center mb-1 wow fadeInUp title-label" data-wow-delay="0.1s">{{ $page_title }}</h1>
-    <a class="mt-4 btn btn-primary btn-add mb-5 position-absolute" href="{{ url('/employer/jobs/add') }}"
+
+    @if ($transaction_status != "Paid")
+        <a class="mt-4 btn btn-secondary btn-add mb-5 position-absolute" href="javascript:void(0)"
         style="margin-left:100px;height:48px;padding-top:11px;">Add Job</a>
+        <span class="position-absolute" style="margin-left:210px;margin-top:35px;">Note: Subscribe first to post unlimited jobs.</span>
+    @else
+        <a class="mt-4 btn btn-primary btn-add mb-5 position-absolute" href="{{ url('/employer/jobs/add') }}"
+        style="margin-left:100px;height:48px;padding-top:11px;">Add Job</a>
+    @endif
 
     <div class="row">
         <div class="col-md-12">
