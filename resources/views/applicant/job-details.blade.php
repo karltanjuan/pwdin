@@ -47,8 +47,6 @@
                             {!! $job->job_description !!}
                         </div>
                         <h4 class="mb-3">Other Details</h4>
-                        <p>Magna et elitr diam sed lorem. Diam diam stet erat no est est. Accusam sed lorem stet voluptua
-                            sit sit at stet consetetur, takimata at diam kasd gubergren elitr dolor</p>
                         <ul class="list-unstyled">
                             <li><i class="fa fa-angle-right text-primary me-2"></i>PWD Categories:
                                 <i>{{ $job->pwd_categories }}</i>
