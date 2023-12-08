@@ -179,7 +179,7 @@
                             toastr.success('Application submitted', 'Success')
 
                             setTimeout(function() {
-                                window.location.href = '{{ url('/applicant/jobs') }}'
+                                window.location.href = '{{ url('/applicant/applied-jobs') }}'
                             }, 2000)
                         } else {
                             displayErrors(JSON.parse(response.errors));
@@ -219,7 +219,7 @@
                             toastr.success('Application withdraw', 'Success')
 
                             setTimeout(function() {
-                                window.location.href = '{{ url('/applicant/jobs') }}'
+                                window.location.href = '{{ url('/applicant/applied-jobs') }}'
                             }, 2000)
                         } else {
                             displayErrors(JSON.parse(response.errors));
