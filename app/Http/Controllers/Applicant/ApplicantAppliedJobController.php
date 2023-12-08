@@ -21,8 +21,9 @@ class ApplicantAppliedJobController extends Controller
     }
 
     public function postAppliedJobs(Request $request) {
-        if ($request->search_date == 'null') {
-            $request->search_date = null;
+        if ($request->start_date == 'null' && $request->end_date == 'null') {
+            $request->start_date = null;
+            $request->end_date = null;
         }
 
         if ($request->search_query == 'null') {
@@ -40,8 +41,9 @@ class ApplicantAppliedJobController extends Controller
             }])
             ->whereHas('applications', function ($query) use ($request) {
                 $query->where('applicant_id', auth()->user()->id);
-                if ($request->search_date !== null) {
-                    $query->whereDate('created_at', $request->search_date);
+                if ($request->start_date !== null && $request->end_date !== null) {
+                    $query->whereDate('created_at', '>=', $request->start_date);
+                    $query->whereDate('created_at', '<=', $request->end_date);
                 }
                 $query->orderBy('created_at', 'desc');
             });

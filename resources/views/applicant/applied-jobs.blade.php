@@ -9,16 +9,22 @@
     <h1 class="text-center mb-5 wow fadeInUp title-label" data-wow-delay="0.1s">Applied Jobs</h1>
     <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
         <div class="row mb-5">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="input-group">
-                    <span class="input-group-text">Filter by Date Applied</span>
-                    <input type="date" class="form-control date" id="date"/>
+                    <span class="input-group-text">Start Date Applied</span>
+                    <input type="date" class="form-control start_date" id="start_date"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group">
+                    <span class="input-group-text">End Date Applied</span>
+                    <input type="date" class="form-control end_date" id="end_date"/>
                     <button class="btn btn-outline-secondary btn-clear" type="button" id="btn-clear">
                         <span>Clear</span>
                     </button>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="input-group">
                     <input type="text" class="form-control query" placeholder="Search jobs"/>
                     <button class="btn btn-outline-primary btn-search" type="button" id="btn-search">
@@ -35,48 +41,55 @@
     </div>
     @include('applicant.layouts.scripts')
     <script>
-        let page  = 1;
-        let query = null;
-        let date = null;
+        let page       = 1;
+        let query      = null;
+        let start_date = null;
+        let end_date   =  null;
 
         $(document).ready(function() {
-            filterJobs(null, null, page = 1);
+            filterJobs(null, null, null, page = 1);
         });
 
         $(document).on('click', '#pagination .page-link', function() {
             page = $(this).data('page');
-            filterJobs(date, query, page);
+            filterJobs(start_date, end_date, query, page);
         });
 
-        $(document).on('change', '.date', function(e) {
-            date = $(this).val();
-            filterJobs(date, query, page = 1);
+        $(document).on('change', '.start_date', function(e) {
+            start_date = $(this).val();
+            filterJobs(start_date, end_date, query, page = 1);
+        })
+
+        $(document).on('change', '.end_date', function(e) {
+            end_date = $(this).val();
+            filterJobs(start_date, end_date, query, page = 1);
         })
 
         $(document).on('click', '.btn-clear', function() {
             $('.date').val('')
-            filterJobs(null,query, page = 1);
+            filterJobs(null, null,query, page = 1);
         })
 
         $(document).on('keypress', '.query', function(e) {
             if (e.keyCode === 13) {
                 query = $(this).val();
-                filterJobs(date, query, page = 1);
+                filterJobs(start_date, end_date, query, page = 1);
             }
         })
 
         $(document).on('click', '.btn-search', function() {
             query = $('.query').val();
-            filterJobs(date, query, page = 1);
+            filterJobs(start_date, end_date, query, page = 1);
         })
 
-        function filterJobs(date, query, page = 1) {
+        function filterJobs(start_date, end_date, query, page = 1) {
             var formData = new FormData();
 
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('page', page);
             formData.append('search_query', query)
-            formData.append('search_date', date)
+            formData.append('start_date', start_date)
+            formData.append('end_date', end_date)
 
             // Send an AJAX request to validate the data
             $.ajax({
