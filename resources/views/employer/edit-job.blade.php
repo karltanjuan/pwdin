@@ -141,7 +141,7 @@
                                 <input type="number" id="average_processing_time"
                                     class="form-control form-control-lg average_processing_time" placeholder="Enter days"
                                     tabindex="6" value="{{ $job->average_processing_time }}" />
-                                <label class="form-label" for="average_processing_time">Average Processing Iime</label>
+                                <label class="form-label" for="average_processing_time">Average Processing Time</label>
                                 <span class="err-average_processing_time err-msg"></span>
                             </div>
                         </div>
