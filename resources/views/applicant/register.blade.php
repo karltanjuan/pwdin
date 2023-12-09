@@ -237,7 +237,7 @@
                                 <!-- Zip code input-->
                                 <div class="form-outline mb-4 form-floating">
                                     <input type="text" id="zip_code"
-                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="13"/>
+                                        class="form-control form-control-lg zip_code" placeholder="Enter zip code" tabindex="13" maxlength="4"/>
                                     <label class="form-label" for="zip_code">Zip Code (Required)</label>
                                     <span class="err-zip_code err-msg"></span>
                                 </div>
@@ -741,6 +741,15 @@ function getCities(province_code) {
         })
 
         $('.mobile_no').on('keypress', function(event) {
+            var keyCode = event.which;
+            // Check if the key is a digit (0-9)
+            if (keyCode < 48 || keyCode > 57) {
+                // Prevent the default action if the key is not a digit
+                event.preventDefault();
+            }
+        })
+
+        $('.zip_code').on('keypress', function(event) {
             var keyCode = event.which;
             // Check if the key is a digit (0-9)
             if (keyCode < 48 || keyCode > 57) {
