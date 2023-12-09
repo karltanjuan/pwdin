@@ -522,8 +522,6 @@
             }
         })
 
-
-
         function getProvinces() {
             fetch('{{ asset('/json/provinces.json') }}')
                 .then(response => response.json())
@@ -546,12 +544,6 @@
                     console.log('Error:', error);
                 });
         }
-
-// Function to get cities based on the selected province code
-function getCities(province_code) {
-    // Fetch and populate cities based on province code
-    // ... (your existing getCities logic)
-}
 
 
 
@@ -774,7 +766,7 @@ function getCities(province_code) {
         })
 
         function registerUser() {
-            $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+            $('.btn-register').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
 
             if ($('#accept-agreement').is(':checked')) {
                 $('.err-agreement').hide()
@@ -837,42 +829,20 @@ function getCities(province_code) {
                         error: function(xhr, status, error) {
                             var result = JSON.parse(xhr.responseText)
                             displayErrors(result.errors)
+                            $('.btn-register').html('Register').prop('disabled', false);
+                            click_counter = 0;
                         }
                     })
                 }
             } else {
                 $('.err-agreement').show().text('Please read the terms and condition to continue')
-                $('.btn-register').html('Register')
+                $('.btn-register').html('Register').prop('disabled', false);
             }
         }
 
         function closeModal() {
             $(".modal").css("display", "none");
         }
-
-        
-        (function(d){
-           var s = d.createElement("script");
-           /* uncomment the following line to override default position*/
-           s.setAttribute("data-position", 100);
-           /* uncomment the following line to override default size (values: small, large)*/
-           /* s.setAttribute("data-size", "large");*/
-           /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
-           /* s.setAttribute("data-language", "null");*/
-           /* uncomment the following line to override color set via widget (e.g., #053f67)*/
-           /* s.setAttribute("data-color", "#2d68ff");*/
-           /* uncomment the following line to override type set via widget (1=person, 2=chair, 3=eye, 4=text)*/
-           /* s.setAttribute("data-type", "1");*/
-           /* s.setAttribute("data-statement_text:", "Our Accessibility Statement");*/
-           /* s.setAttribute("data-statement_url", "http://www.example.com/accessibility";*/
-           /* uncomment the following line to override support on mobile devices*/
-           /* s.setAttribute("data-mobile", true);*/
-           /* uncomment the following line to set custom trigger action for accessibility menu*/
-           /* s.setAttribute("data-trigger", "triggerId")*/
-           s.setAttribute("data-account", "HaifC5drHg");
-           s.setAttribute("src", "https://cdn.userway.org/widget.js");
-           (d.body || d.head).appendChild(s);})(document)
-   
     </script>
 
 </body>

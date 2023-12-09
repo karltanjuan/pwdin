@@ -51,7 +51,7 @@ Route::get('/choose-account', [HomeController::class, 'chooseAccount'])->name('c
 Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
 
 Route::get('/contact-us', [HomeController::class, 'contactUs'])->name('contact-us');
-
+Route::post('/send-inquiry', [HomeController::class, 'sendInquiry'])->name('send-inquiry');
 
 // Generate all database seeder
 // DO NOT RUN IN PRODUCTION

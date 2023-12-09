@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Inquiry;
+use Validator;
 
 class HomeController extends Controller
 {
@@ -44,5 +46,39 @@ class HomeController extends Controller
     public function contactUs(){
         return view('contact-us');
     }
+
+    public function sendInquiry(Request $request) {
+        $validator = $this->validateSendInquiry($request);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $inquiry = new Inquiry();
+        $inquiry->full_name     = $request->full_name;
+        $inquiry->email_address = $request->email_address;
+        $inquiry->subject       = $request->subject;
+        $inquiry->message       = $request->message;
+        $inquiry->save();
+
+        if ($inquiry) {
+            return response()->json([
+                'code' => '200'
+            ]);
+        }
+    }
+
+    public function validateSendInquiry($request) {
+        return Validator::make($request->all(), [ 
+            'full_name'     => ['required', 'string', 'min         : 2'],
+            'email_address' => ['required', 'string', 'email', 'max: 100'],
+            'subject'       => ['required', 'string'],
+            'message'       => ['required', 'string']
+        ]);
+    }
+
+
 
 }

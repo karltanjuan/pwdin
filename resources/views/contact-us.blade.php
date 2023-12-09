@@ -70,7 +70,7 @@
                             <a href="404.html" class="dropdown-item">404</a>
                         </div>
                     </div> --}}
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link active">Contact</a>
+                    <a href="{{ url('/contact-us') }}" class="nav-item nav-link active">Contact</a>
                 </div>
                 @if(auth()->check())
                     <a href="{{ url('/applicant/jobs') }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Dashboard<i class="fa fa-arrow-right ms-3"></i></a>
@@ -90,78 +90,79 @@
 <div class="container" data-aos="fade-up">
 
   <header class="section-header">
-    <h2>Contact</h2>
-    <p>Contact Us</p>
+    <h1>Contact Us</h1>
   </header>
 
-  <div class="row gy-4">
-
-    <div class="col-lg-6">
-
-      <div class="row gy-4">
-        <div class="col-md-6">
-          <div class="info-box">
-            <i class="bi bi-geo-alt"></i>
-            <h3>Address</h3>
-            <p>STI Academic Center, University Pkwy, Taguig, Metro Manila</p>
-          </div>
-        </div>
-        
-        <div class="col-md-6">
-          <div class="info-box">
-            <i class="bi bi-envelope"></i>
-            <h3>Email Us</h3>
-            <p>pwdinhelp@gmail.com</p>
-          </div>
-        </div>
-        
+  <div class="row gy-4 mb-4">
+    <div class="col-md-6">
+      <div class="info-box">
+        <i class="bi bi-geo-alt"></i>
+        <h3>Address</h3>
+        <p>STI Academic Center, University Pkwy, Taguig, Metro Manila</p>
       </div>
-
     </div>
+    
+    <div class="col-md-6">
+      <div class="info-box">
+        <i class="bi bi-envelope"></i>
+        <h3>Email Us</h3>
+        <p>pwdinhelp@gmail.com</p>
+      </div>
+    </div>
+    
+  </div>
 
-    <div class="col-lg-6">
-      <form action="forms/contact.php" method="post" class="php-email-form">
+  <div class="row gy-4">
+    <div class="col-lg-12">
         <div class="row gy-4">
 
           <div class="col-md-6">
-            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+            <div class="form-outline form-floating">
+              <input type="text" id="full_name" class="form-control form-control-lg full_name" placeholder="Enter full name">
+              <label class="form-label" for="full_name">Full Name</label>
+              <span class="err-full_name err-msg"></span>
+            </div>
           </div>
 
-          <div class="col-md-6 ">
-            <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+          <div class="col-md-6">
+              <div class="form-outline form-floating">
+                <input type="text" id="email_address" class="form-control form-control-lg email_address" placeholder="Enter email_address">
+                <label class="form-label" for="email_address">Email Address</label>
+                <span class="err-email_address err-msg"></span>
+              </div>
           </div>
 
           <div class="col-md-12">
-            <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+              <div class="form-outline form-floating">
+                <input type="text" id="subject" class="form-control form-control-lg subject" placeholder="Enter subject">
+                <label class="form-label" for="subject">Subject</label>
+                <span class="err-subject err-msg"></span>
+              </div>
           </div>
 
           <div class="col-md-12">
-            <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+            <div class="form-floating">
+                <textarea class="form-control message" id="message" rows="10" placeholder="Message" style="height: 106px;"></textarea>
+                <label for="message">Message</label>
+                <span class="err-message err-msg"></span>
+            </div>
           </div>
 
-          <div class="col-md-12 text-center">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
-
-            <button type="submit">Send Message</button>
+          <div class="col-md-12">
+            <button type="button" class="btn-send btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Send Message</button>
           </div>
-
         </div>
-      </form>
-
     </div>
 
   </div>
-
 </div>
+</section>
 
-</section><!-- End Contact Section -->
 
 
 
     <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
     <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
@@ -171,33 +172,62 @@
     integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script>
-        (function(d){
-           var s = d.createElement("script");
-           /* uncomment the following line to override default position*/
-           s.setAttribute("data-position", 100);
-           /* uncomment the following line to override default size (values: small, large)*/
-           /* s.setAttribute("data-size", "large");*/
-           /* uncomment the following line to override default language (e.g., fr, de, es, he, nl, etc.)*/
-           /* s.setAttribute("data-language", "null");*/
-           /* uncomment the following line to override color set via widget (e.g., #053f67)*/
-           /* s.setAttribute("data-color", "#2d68ff");*/
-           /* uncomment the following line to override type set via widget (1=person, 2=chair, 3=eye, 4=text)*/
-           /* s.setAttribute("data-type", "1");*/
-           /* s.setAttribute("data-statement_text:", "Our Accessibility Statement");*/
-           /* s.setAttribute("data-statement_url", "http://www.example.com/accessibility";*/
-           /* uncomment the following line to override support on mobile devices*/
-           /* s.setAttribute("data-mobile", true);*/
-           /* uncomment the following line to set custom trigger action for accessibility menu*/
-           /* s.setAttribute("data-trigger", "triggerId")*/
-           s.setAttribute("data-account", "HaifC5drHg");
-           s.setAttribute("src", "https://cdn.userway.org/widget.js");
-           (d.body || d.head).appendChild(s);})(document)
-   </script>
-  <!-- Template Javascript -->
-  <script src="{{ asset('js/main.js') }}"></script>
-                    
-
+    <!-- Template Javascript -->
+    <script src="{{ asset('js/main.js') }}"></script>
     
+    <script>
+       let click_counter = 0;
+
+      $('.btn-send').on('click', function() {
+          
+          $(this).html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
+          var formData = new FormData();
+          formData.append('_token', "{{ csrf_token() }}");
+          formData.append('full_name', $('#full_name').val());
+          formData.append('email_address', $('#email_address').val());
+          formData.append('subject', $('#subject').val());
+          formData.append('message', $('#message').val());
+
+          if (click_counter === 0) {
+              click_counter++;
+              $(this).prop('disabled', true);
+
+              $.ajax({
+                  url: '{{ route('send-inquiry') }}',
+                  type: 'POST',
+                  data: formData,
+                  processData: false,
+                  contentType: false,
+                  success: function(response) {
+                      if (response.code == "200") {
+                          $('.btn-send').html(`Login`);
+                          $('input').removeClass('error')
+                          $('.err-msg').hide()
+
+                          toastr.success('Inquiry sent, please wait for admin\'s reply', 'Sent Successful');
+
+                          setTimeout(function() {
+                              window.location.href =
+                                  '{{ url('/') }}'
+                          }, 2000)
+                          
+                      } else {
+                          displayErrors(JSON.parse(response.errors));
+                          $('.btn-send').html(`Login`).prop('disabled', false);
+                          click_counter = 0;
+                      }
+                  },
+                  error: function(xhr, status, error) {
+                      var result = JSON.parse(xhr.responseText)
+                      displayErrors(result.errors)
+                      $('.btn-send').html(`Login`).prop('disabled', false);
+                      click_counter = 0;
+                  }
+              });
+          }
+
+      })
+    </script>
 </body>
 </html>
