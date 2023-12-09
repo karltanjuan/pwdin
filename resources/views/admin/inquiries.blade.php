@@ -44,7 +44,11 @@
                                 <td>{{ $inquiry->full_name }}</td>
                                 <td><a class="text-primary btn-outline-primary" href="mailto:{{ $inquiry->email_address }}">{{ $inquiry->email_address }}</a></td>
                                 <td>{{ $inquiry->subject }}</td>
-                                <td>{{ $inquiry->message }}</td>
+                                <td class="text-justify" data-id="{{$inquiry->id}}">
+                                    <span class="view-message" data-message="{{$inquiry->message}}" style="cursor:pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="View Message">
+                                        {{ (strlen($inquiry->message) > 50) ? substr($inquiry->message, 0, 50) . '...' : $inquiry->message }}
+                                    </span>
+                                </td>
                                 <td>{{ date('m/d/y', strtotime($inquiry->created_at))}}</td>
                             </tr>
                             @endforeach
@@ -76,13 +80,23 @@
         </div>
     </div>
 </div>
-
-
 <script>
     window.addEventListener('DOMContentLoaded', event => {
         const datatablesSimple = document.getElementById('inquiries-table');
         if (datatablesSimple) {
             new simpleDatatables.DataTable(datatablesSimple);
+        }
+    });
+
+    $(document).on('click', '.view-message', function() {
+        var message = $(this).data("message");
+        if (!message) {
+            var trimmed_message = $(this).text().slice(0, -3);
+            $(this).data("message", trimmed_message);
+            $(this).text(trimmed_message);
+        } else {
+            $(this).removeAttr("data-message");
+            $(this).text(message);
         }
     });
 
