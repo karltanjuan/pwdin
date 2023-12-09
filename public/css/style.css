@@ -345,3 +345,15 @@ body{
 .error {
     border: 1px solid red !important;
 }
+
+.total_today {
+    background: rgb(0, 222, 137);
+    cursor:  pointer;
+    border: none;
+}
+
+.total_last_week {
+    background: rgb(0, 190, 215);
+    cursor:  pointer;
+    border: none;
+}

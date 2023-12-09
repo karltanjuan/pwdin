@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminJobController;
 use App\Http\Controllers\Admin\AdminEmployerController;
 use App\Http\Controllers\Admin\AdminApplicantController;
+use App\Http\Controllers\Admin\AdminInquiryController;
 use App\Http\Controllers\Admin\AdminInfoController;
 use App\Http\Controllers\Admin\AdminPasswordController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -200,6 +201,8 @@ Route::group(['prefix' => 'admin'], function() {
         Route::get('/employers', [AdminEmployerController::class, 'getEmployers'])->name('admin.getEmployers');
         Route::post('/getEmployerById', [AdminEmployerController::class, 'getEmployerById'])->name('admin.getEmployerById');
         Route::post('/updateEmployerApproval', [AdminEmployerController::class, 'updateEmployerApproval'])->name('admin.updateEmployerApproval');
+
+        Route::get('/inquiries/{filter?}', [AdminInquiryController::class, 'getInquiries'])->name('admin.getInquiries');
 
         Route::get('/profile-info', [AdminInfoController::class, 'getAdminInfo'])->name('admin.getAdminInfo');
         Route::post('/update-admin', [AdminInfoController::class, 'updateAdminInfo'])->name('admin.updateAdminInfo');

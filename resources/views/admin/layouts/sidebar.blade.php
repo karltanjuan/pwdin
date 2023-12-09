@@ -10,16 +10,20 @@
                 <hr class="mb-0">
                 <div class="sb-sidenav-menu-heading mt-0">Management</div>
                 <a class="nav-link" href="{{url('/admin/jobs')}}">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-briefcase"></i></i></div>
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-briefcase"></i></div>
                     Jobs
                 </a>
                 <a class="nav-link" href="{{url('/admin/employers')}}">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-building-user"></i></i></div>
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-building-user"></i></div>
                     Employers
                 </a>
                 <a class="nav-link" href="{{url('/admin/applicants')}}">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-people-line"></i></i></div>
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-people-line"></i></div>
                     Applicants
+                </a>
+                <a class="nav-link" href="{{url('/admin/inquiries')}}">
+                    <div class="sb-nav-link-icon"><i class="fa fa-comments" aria-hidden="true"></i></div>
+                    Inquiries
                 </a>
                 <hr>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
