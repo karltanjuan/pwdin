@@ -42,7 +42,7 @@
                             @foreach ($inquiries as $inquiry)
                             <tr>
                                 <td>{{ $inquiry->full_name }}</td>
-                                <td><a class="text-primary btn-outline-primary" href="mailto:{{ $inquiry->email_address }}">{{ $inquiry->email_address }}</a></td>
+                                <td><a class="text-primary" href="mailto:{{ $inquiry->email_address }}">{{ $inquiry->email_address }}</a></td>
                                 <td>{{ $inquiry->subject }}</td>
                                 <td class="text-justify" data-id="{{$inquiry->id}}">
                                     <span class="view-message" data-message="{{$inquiry->message}}" style="cursor:pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="View Message">

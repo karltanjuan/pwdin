@@ -136,6 +136,10 @@
                 </div>
                 <hr>
                 <div class="col-md-12">
+                    
+                    @if($user->applications[0]->is_rejected === 1)
+                        <div class="mb-2">Rejected Reason: <i>{{$user->applications[0]->rejected_reason}}</i></div>
+                    @endif
                     <div class="input-group">
                         @php 
                             $app_status = json_decode($app_status[0]->name);
@@ -244,6 +248,8 @@
             formData.append('status', $('.status').val());
             formData.append('rejected_reason', $('.rejected_reason').val());
             formData.append('is_rejected', is_rejected);
+            formData.append('job_id', '{{request()->segment(3)}}')
+            formData.append('applicant_id', '{{request()->segment(5)}}')
 
             if (click_counter === 0) {
                 click_counter++;

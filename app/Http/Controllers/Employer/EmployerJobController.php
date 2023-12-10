@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicationStatusEmail;
 use Illuminate\Http\Request;
 use Auth;
 use Validator;
@@ -208,8 +210,6 @@ class EmployerJobController extends Controller
             
         $app_status = ApplicationStatus::orderBy('id', 'asc')->get();
 
-
-
         return view('employer.job-applicant', compact('user', 'app_status'));
     }
 
@@ -221,17 +221,16 @@ class EmployerJobController extends Controller
         return response()->json($status);
     }
 
-
-    public function updateAppStatus(Request $request){
+    public function updateAppStatus(Request $request) {
         $update_data = [
-            'status' => $request->status,
-            'is_rejected' => (int)$request->is_rejected,
+            'status'          => $request->status,
+            'is_rejected'     => (int)$request->is_rejected,
             'rejected_reason' => $request->rejected_reason ?? '',
         ];    
 
         if ($request->status == "Rejected") {
             $update_data = [
-                'is_rejected' => (int)$request->is_rejected,
+                'is_rejected'     => (int)$request->is_rejected,
                 'rejected_reason' => $request->rejected_reason ?? '',
             ];    
         }
@@ -239,6 +238,20 @@ class EmployerJobController extends Controller
         $application = Application::where('id', (int)$request->id);
         $application->update($update_data);
 
+        $job       = Job::where('id', $request->job_id)->with('employer')->first();
+        $applicant = User::find($request->applicant_id);
+
+        Mail::to($applicant->email)
+            ->send(new ApplicationStatusEmail(
+                $request->status,
+                $request->rejected_reason,
+                $request->is_rejected,
+                $applicant->username,
+                $job->job_title,
+                $job->employer->company_name
+            )
+        );
+        
         if ($application) {
             return response()->json([
                 'message' => 'Application updated successfully',

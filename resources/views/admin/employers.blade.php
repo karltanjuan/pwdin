@@ -129,7 +129,7 @@
                     <ul class="list-group">
                         <li class="list-group-item">Company Name: ${employer.company_name}</li>
                         <li class="list-group-item">Contact Person: ${employer.contact_person}</li>
-                        <li class="list-group-item">Summary: ${employer.summary}</div>
+                        <li class="list-group-item">Summary: ${employer.summary ?? 'None'}</div>
                         <li class="list-group-item">Business Permit: <a href='{{asset('${business_permit}')}}' target='_blank'>View and Download</a></div>
                         <li class="list-group-item">BIR Certificate: <a href='{{asset('${bir_certificate}')}}' target='_blank'>View and Download</a></li>
 
