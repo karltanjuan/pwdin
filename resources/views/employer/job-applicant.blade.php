@@ -61,12 +61,12 @@
                         <span>View PWD Card</span>
                     </a>
                 </li>
-                <li class="list-group-item">
+                {{-- <li class="list-group-item">
                     <a href="#" target="_blank">
                         <i class="fa-solid fa-certificate"></i>
                         <span>View Certificates</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </div>
         <div class="col-lg-8">
