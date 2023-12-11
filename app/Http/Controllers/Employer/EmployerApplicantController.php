@@ -30,9 +30,9 @@ class EmployerApplicantController extends Controller
         });
 
         $applicants = $applicants->when($status === 'hired', function ($query) {
-            return $query->where('status', 'Hired');
+            return $query->where('status', 'Hired')->where('is_rejected', 0);
         })->when($status === 'rejected', function ($query) {
-            return $query->where('status', 'Rejected');
+            return $query->where('is_rejected', 1);
         });
 
 

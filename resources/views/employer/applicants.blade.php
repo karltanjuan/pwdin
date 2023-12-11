@@ -35,6 +35,7 @@
             <table class="table table-bordered jobs-table wow fadeInUp" id="jobs-table" data-wow-delay="0.1s">
                 <thead class="table-dark">
                     <tr>
+                        <th>Job Role Applied</th>
                         <th>Full Name <i class="fa-solid fa-sort"></i></th>
                         <th>Education Level <i class="fa-solid fa-sort"></i></th>
                         <th>Mobile Number <i class="fa-solid fa-sort"></i></th>
@@ -49,6 +50,7 @@
                     @if (count($applicants) > 0)
                         @foreach ($applicants as $app)
                             <tr>
+                                <td>{{ $app->job->job_title }}</td>
                                 <td>
                                     {{ $app->applicant->first_name }}
                                     {{ $app->applicant->middle_name }}

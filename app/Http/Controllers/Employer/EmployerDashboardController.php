@@ -26,12 +26,13 @@ class EmployerDashboardController extends Controller
                             ->count();
 
         $total_hired = Application::where('status', 'Hired')
+                        ->where('is_rejected', 0)
                         ->whereHas('job', function ($query) use ($id) {
                             $query->where('employer_id', '=', $id);
                         })
                         ->count();
 
-        $total_rejected = Application::where('status', 'Rejected')
+        $total_rejected = Application::where('is_rejected', 1)
                         ->whereHas('job', function ($query) use ($id) {
                             $query->where('employer_id', '=', $id);
                         })
