@@ -15,6 +15,7 @@ use App\Http\Controllers\Applicant\ApplicantPasswordController;
 use App\Http\Controllers\Employer\EmployerAuthController;
 use App\Http\Controllers\Employer\EmployerDashboardController;
 use App\Http\Controllers\Employer\EmployerJobController;
+use App\Http\Controllers\Employer\EmployerApplicantController;
 use App\Http\Controllers\Employer\ApplicationStatusController;
 use App\Http\Controllers\Employer\CompanyInfoController;
 use App\Http\Controllers\Employer\EmployerPasswordController;
@@ -125,7 +126,7 @@ Route::group(['prefix' => 'employer'], function() {
     Route::middleware('is_employer')->group(function () {
         Route::get('/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.dashboard');
 
-        Route::get('/jobs', [EmployerJobController::class, 'index'])->name('employer.index');
+        Route::get('/jobs/{status?}', [EmployerJobController::class, 'index'])->name('employer.index');
         Route::get('/jobs/add', [EmployerJobController::class, 'add'])->name('employer.add');
         Route::post('postJob', [EmployerJobController::class, 'postJob'])->name('employer.postJob');
         Route::get('/jobs/edit/{id}', [EmployerJobController::class, 'edit'])->name('employer.edit');
@@ -146,6 +147,8 @@ Route::group(['prefix' => 'employer'], function() {
 
         Route::get('/jobs/{id}/applicants', [EmployerJobController::class, 'getApplicants'])->name('employer.getApplicants');
         Route::get('/jobs/{job_id}/applicants/{applicant_id}', [EmployerJobController::class, 'getApplicantById'])->name('employer.getApplicantById');
+
+        Route::get('/applicants/{status?}', [EmployerApplicantController::class, 'getApplicants'])->name('employer.getApplicants');
 
         Route::post('getAppStatus', [EmployerJobController::class, 'getAppStatus'])->name('employer.getAppStatus');
 

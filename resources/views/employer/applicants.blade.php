@@ -67,7 +67,7 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ url('employer/jobs/' . request()->segment(3) . '/applicants/' . $app->applicant->id) }}" title="View Applicant Details" class="btn btn-outline-dark btn-sm btn-view" id="btn-view">
+                                    <a href="{{ url('employer/jobs/' .$app->job_id. '/applicants/' . $app->applicant->id) }}" title="View Applicant Details" class="btn btn-outline-dark btn-sm btn-view" id="btn-view">
                                         <i class="far fa-eye"></i>
                                     </a>
                                 </td>

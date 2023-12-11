@@ -22,9 +22,16 @@ use Carbon\Carbon;
 
 class EmployerJobController extends Controller
 {
-    public function index() {
-        $jobs = Job::where('employer_id', auth()->guard('employers')->user()->id)
-                ->orderBy('created_at', 'desc')
+    public function index($status = 'all') {
+        $jobs = Job::where('employer_id', auth()->guard('employers')->user()->id);
+
+        $jobs = $jobs->when($status === 'open', function ($query) {
+            return $query->where('status', 1);
+        })->when($status === 'closed', function ($query) {
+            return $query->where('status', 0);
+        });
+
+        $jobs = $jobs->orderBy('created_at', 'desc')
                 ->with('applications')
                 ->get();
 

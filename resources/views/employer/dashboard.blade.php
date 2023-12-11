@@ -36,30 +36,42 @@
     <br>
     <div class="dashboard-container">
         <div class="card card4">
-            <h3>{{$total_jobs}} <i class="fa-solid fa-briefcase"></i></h3>
-            <p>Jobs</p>
+            <a class="text-white" href="{{url('/employer/jobs')}}">
+                <h3>{{$total_jobs}} <i class="fa-solid fa-briefcase"></i></h3>
+                <p>Jobs</p>
+            </a>
         </div>
         <div class="card card2">
-            <h3>{{$total_hired}} <i class="fa-solid fa-handshake"></i></h3>
-            <p>Hired</p>
+            <a class="text-white" href="{{url('/employer/applicants/hired')}}">
+                <h3>{{$total_hired}} <i class="fa-solid fa-handshake"></i></h3>
+                <p>Hired</p>
+            </a>
         </div>
         <div class="card card3">
-            <h3>{{$total_rejected}} <i class="fa-solid fa-face-frown"></i></h3>
-            <p>Rejected</p>
+            <a class="text-white" href="{{url('/employer/applicants/rejected')}}">
+                <h3>{{$total_rejected}} <i class="fa-solid fa-face-frown"></i></h3>
+                <p>Rejected</p>
+            </a>
         </div>
     </div>
     <div class="dashboard-container">
         <div class="card card1">
-            <h3>{{$total_applicants}} <i class="fa-solid fa-people-line"></i></h3>
-            <p>Applicants</p>
+            <a class="text-white" href="{{url('/employer/applicants')}}">
+                <h3>{{$total_applicants}} <i class="fa-solid fa-people-line"></i></h3>
+                <p>Applicants</p>
+            </a>
         </div>
         <div class="card card5">
-            <h3>{{$total_jobs_open}} <i class="fa-solid fa-book-open"></i></h3>
-            <p>Job Open</p>
+            <a class="text-white" href="{{url('/employer/jobs/open')}}">
+                <h3>{{$total_jobs_open}} <i class="fa-solid fa-book-open"></i></h3>
+                <p>Job Open</p>
+            </a>
         </div>
         <div class="card card6">
-            <h3>{{$total_jobs_closed}} <i class="fa-solid fa-circle-xmark"></i></h3>
-            <p>Job Closed</p>
+            <a class="text-white" href="{{url('/employer/jobs/closed')}}">
+                <h3>{{$total_jobs_closed}} <i class="fa-solid fa-circle-xmark"></i></h3>
+                <p>Job Closed</p>
+            </a>
         </div>
     </div>
     <div class="dashboard-container">
