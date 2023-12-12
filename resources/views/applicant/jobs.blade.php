@@ -12,7 +12,7 @@
         <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-3">
             <li class="nav-item">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input job_type" type="checkbox" id="internship" value="internship" checked>
+                    <input class="form-check-input job_type" type="checkbox" id="internship" value="internship">
                     <label class="form-check-label job_type_label" for="internship"><h6 class="mt-n1 mb-0">Internship</h6></label>
                 </div>
 
@@ -27,13 +27,13 @@
                     <h6 class="mt-n1 mb-0">Contract</h6>
                 </a> --}}
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input job_type" type="checkbox" id="contract" value="contract" checked>
+                    <input class="form-check-input job_type" type="checkbox" id="contract" value="contract">
                     <label class="form-check-label job_type_label" for="contract"><h6 class="mt-n1 mb-0">Contract</h6></label>
                 </div>
             </li>
             <li class="nav-item">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input job_type" type="checkbox" id="part-time" value="part-time" checked>
+                    <input class="form-check-input job_type" type="checkbox" id="part-time" value="part-time">
                     <label class="form-check-label job_type_label" for="part-time"><h6 class="mt-n1 mb-0">Part Time</h6></label>
                 </div>
                 {{-- <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
@@ -43,7 +43,7 @@
             </li>
             <li class="nav-item">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input job_type" type="checkbox" id="full-time" value="full-time" checked>
+                    <input class="form-check-input job_type" type="checkbox" id="full-time" value="full-time">
                     <label class="form-check-label job_type_label" for="full-time"><h6 class="mt-n1 mb-0">Full Time</h6></label>
                 </div>
                 {{-- <a class="job-types d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-4"
@@ -121,7 +121,7 @@
         let job_types    = [];
 
         $(document).ready(function() {
-            job_types = $(".job_type:checked").map(function() {
+            job_types = $(".job_type").map(function() {
                 return $(this).val();
             }).get();
 
