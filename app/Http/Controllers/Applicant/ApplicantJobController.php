@@ -130,6 +130,14 @@ class ApplicantJobController extends Controller
     }
 
     public function withdrawJob(Request $request) {
+        $validator = $this->validateWithdraw($request);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
         $job_id = (int) $request->job_id;
         $application = Application::where([
             'job_id'          => $job_id,
@@ -154,4 +162,12 @@ class ApplicantJobController extends Controller
 
         return $validator = Validator::make($request->all(), $rules);
     }
+
+    public function validateWithdraw($request) {
+        $rules = [
+           'withdraw_reason' => 'required',
+       ];
+
+       return $validator = Validator::make($request->all(), $rules);
+   }
 }

@@ -40,9 +40,9 @@
                         <th>Education Level <i class="fa-solid fa-sort"></i></th>
                         <th>Mobile Number <i class="fa-solid fa-sort"></i></th>
                         <th>Gender <i class="fa-solid fa-sort"></i></th>
-                        <th>Address <i class="fa-solid fa-sort"></i></th>
                         <th>Date Applied <i class="fa-solid fa-sort"></i></th>
                         <th>Status <i class="fa-solid fa-sort"></i></th>
+                        <th>Withdraw Reason <i class="fa-solid fa-sort"></i></th>
                         <th>Action <i class="fa-solid fa-sort"></i></th>
                     </tr>
                 </thead>
@@ -59,7 +59,6 @@
                                 <td>{{ $app->applicant->education_level }}</td>
                                 <td>{{ $app->applicant->mobile_no }}</td>
                                 <td>{{ $app->applicant->gender }}</td>
-                                <td>{{ $app->applicant->city }} {{ $app->applicant->province }}</td>
                                 <td>{{ date('m/d/y', strtotime($app->created_at))}}</td>
                                 <td>
                                     @if($app->is_rejected === 1) 
@@ -68,6 +67,7 @@
                                         <span class="badge bg-info">{{ $app->status }}</span>
                                     @endif
                                 </td>
+                                <td>{{$app->withdraw_reason}}</td>
                                 <td class="text-center">
                                     <a href="{{ url('employer/jobs/' .$app->job_id. '/applicants/' . $app->applicant->id) }}" title="View Applicant Details" class="btn btn-outline-dark btn-sm btn-view" id="btn-view">
                                         <i class="far fa-eye"></i>
