@@ -109,7 +109,8 @@ class ApplicantJobController extends Controller
             'cover_letter'    => $request->cover_letter,
             'status'          => config('application.status')[0],
             'is_rejected'     => 0,
-            'rejected_reason' => ""
+            'rejected_reason' => "",
+            'withdraw_reason' => ""
         ];
         
         $application = Application::updateOrCreate(
@@ -130,11 +131,13 @@ class ApplicantJobController extends Controller
 
     public function withdrawJob(Request $request) {
         $job_id = (int) $request->job_id;
-
         $application = Application::where([
-            'job_id'       => $job_id,
-            'applicant_id' => auth()->user()->id
-        ])->update(['status' => 'Withdrawn']);
+            'job_id'          => $job_id,
+            'applicant_id'    => auth()->user()->id
+        ])->update([
+            'status'          => 'Withdrawn',
+            'withdraw_reason' => $request->withdraw_reason
+        ]);
 
         if ($application) {
             return response()->json([

@@ -132,6 +132,13 @@
                                 rejected = 'rejected'
                             }
 
+                            if (val.applications[0].status == "Withdrawn" && val.applications[0].is_rejected !== 1) {
+                                // withdrawn reason
+                                rejected_reason = `<span class="text-truncate me-3">
+                                                <i class="fa-regular fa-circle-xmark text-primary me-2"></i> Withdraw Reason: <b>${val.applications[0].withdraw_reason}<b>
+                                            </span>`
+                            }
+
                             let statuses    = ["Applied", "Initial Interview","Exam","Final Interview","Hired","Rejected"];
                             let key_counter = 1;
                             let status_html = ''

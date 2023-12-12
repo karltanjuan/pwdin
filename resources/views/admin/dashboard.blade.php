@@ -27,6 +27,10 @@
     .card h3 {
         font-size: 40px;
     }
+
+    .card a {
+        text-decoration: none;
+    }
 </style>
 <div class="container-fluid px-4">
     <h1 class="mt-4 mb-5">{{$page_title}}</h1>
@@ -37,48 +41,60 @@
         <div class="col-md-3">
             <div class="card card4 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_jobs}} <i class="fa-solid fa-briefcase"></i></h3>
-                    <p>Jobs</p>
+                    <a class="text-white" href="{{url('admin/jobs')}}">
+                        <h3>{{$total_jobs}} <i class="fa-solid fa-briefcase"></i></h3>
+                        <p>Jobs</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card1 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_applicants}} <i class="fa-solid fa-people-line"></i></h3>
-                    <p>Applicants</p>
+                    <a class="text-white" href="{{url('admin/applicants')}}">
+                        <h3>{{$total_applicants}} <i class="fa-solid fa-people-line"></i></h3>
+                        <p>Applicants</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card2 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_hired}} <i class="fa-solid fa-handshake"></i></h3>
-                    <p>Hired</p>
+                    <a class="text-white" href="{{url('admin/applicants/hired')}}">
+                        <h3>{{$total_hired}} <i class="fa-solid fa-handshake"></i></h3>
+                        <p>Hired</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card3 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_rejected}} <i class="fa-solid fa-rectangle-xmark"></i></h3>
-                    <p>Rejected</p>
+                    <a class="text-white" href="{{url('admin/applicants/rejected')}}">
+                        <h3>{{$total_rejected}} <i class="fa-solid fa-rectangle-xmark"></i></h3>
+                        <p>Rejected</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card5 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_jobs_open}} <i class="fa-solid fa-book-open"></i></h3>
-                    <p>Job Open</p>
+                    <a class="text-white" href="{{url('admin/jobs/open')}}">
+                        <h3>{{$total_jobs_open}} <i class="fa-solid fa-book-open"></i></h3>
+                        <p>Job Open</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card6 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_jobs_closed}} <i class="fa-solid fa-book"></i></h3>
-                    <p>Job Closed</p>
+                    <a class="text-white" href="{{url('admin/jobs/closed')}}">
+                        <h3>{{$total_jobs_closed}} <i class="fa-solid fa-book"></i></h3>
+                        <p>Job Closed</p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -86,48 +102,60 @@
         <div class="col-md-3">
             <div class="card card7 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_employer_approved}} <i class="fa-solid fa-thumbs-up"></i></h3>
-                    <p>Approved Employer</p>
+                    <a class="text-white" href="{{url('admin/employers/approved')}}">
+                        <h3>{{$total_employer_approved}} <i class="fa-solid fa-thumbs-up"></i></h3>
+                        <p>Approved Employer</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card8 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_employer_pending}} <i class="fa-solid fa-clock-rotate-left"></i></h3>
-                    <p>Pending Employer</p>
+                    <a class="text-white" href="{{url('admin/employers/pending')}}">
+                        <h3>{{$total_employer_pending}} <i class="fa-solid fa-clock-rotate-left"></i></h3>
+                        <p>Pending Employer</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card9 mb-4">
                 <div class="card-body">
+                    <a class="text-white" href="{{url('admin/employers/rejected')}}">
                     <h3>{{$total_employer_rejected}} <i class="fa-solid fa-circle-xmark"></i></h3>
                     <p>Rejected Employer</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card10 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_applicant_approved}} <i class="fa-solid fa-person-circle-check fa-icon"></i></h3>
-                    <p>Approved Applicant</p>
+                    <a class="text-white" href="{{url('admin/applicants/approved')}}">
+                        <h3>{{$total_applicant_approved}} <i class="fa-solid fa-person-circle-check fa-icon"></i></h3>
+                        <p>Approved Applicant</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card11 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_applicant_pending}} <i class="fa-solid fa-hourglass-start fa-icon"></i></h3>
-                    <p>Pending Applicant</p>
+                    <a class="text-white" href="{{url('admin/applicants/pending')}}">
+                        <h3>{{$total_applicant_pending}} <i class="fa-solid fa-hourglass-start fa-icon"></i></h3>
+                        <p>Pending Applicant</p>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card card12 mb-4">
                 <div class="card-body">
-                    <h3>{{$total_applicant_rejected}} <i class="fa-regular fa-circle-xmark"></i></h3>
-                    <p>Rejected Applicant</p>
+                    <a class="text-white" href="{{url('admin/applicants/rejected')}}">
+                        <h3>{{$total_applicant_rejected}} <i class="fa-regular fa-circle-xmark"></i></h3>
+                        <p>Rejected Applicant</p>
+                    </a>
                 </div>
             </div>
         </div>

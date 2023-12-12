@@ -23,7 +23,8 @@ class Application extends Model
         'cover_letter',
         'status',
         'is_rejected', //value is 1 and 0 in db
-        'rejected_reason'
+        'rejected_reason',
+        'withdraw_reason'
     ];
 
     public function job()

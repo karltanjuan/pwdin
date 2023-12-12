@@ -149,6 +149,33 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade updateModal" id="updateModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Withdraw Application</h5>
+                    <button type="button" class="close btn btn-secondary-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to continue?</p>
+                    <div class="form-outline mb-4 form-floating withdraw_reason_container">
+                        <input type="text" id="withdraw_reason" class="form-control form-control-lg withdraw_reason"
+                            placeholder="Enter job withdraw_reason" tabindex="1" value="" />
+                        <label class="form-label" for="withdraw_reason">Withdraw Reason</label>
+                        <span class="err-withdraw_reason err-msg"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close" data-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary btn-confirm">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function() {})
 
@@ -197,11 +224,26 @@
             }
         })
 
-        let click_counter2 = 0;
         $(document).on('click', '.btn-withdraw', function() {
+            $('#updateModal').modal('show')
+        })
+
+        $(document).on('click', '.close', function() {
+            $('#updateModal').modal('hide')
+        })
+
+        let click_counter2 = 0;
+        $(document).on('click', '.btn-confirm', function() {
+            withdrawJob()
+        })
+
+        function withdrawJob() {
+            $('.btn-withdraw').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
             var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('job_id', parseInt('{{ request()->segment(3) }}'));
+            formData.append('withdraw_reason', $('.withdraw_reason').val());
 
             if (click_counter === 0) {
                 click_counter2++;
@@ -235,6 +277,6 @@
                     }
                 });
             }
-        })
+        }
     </script>
 @endsection

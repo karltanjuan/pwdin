@@ -16,8 +16,18 @@ use Carbon\Carbon;
 
 class AdminApplicantController extends Controller
 {
-    public function getApplicants() {
-        $applicants = User::orderBy('created_at', 'desc')->get();
+    public function getApplicants($status = "all") {
+        $applicants = User::when($status === 'approved', function ($query) {
+            return $query->where('status', 1);
+        })->when($status === 'pending', function ($query) {
+            return $query->where('status', 0);
+        })->when($status === 'rejected', function ($query) {
+            return $query->where('status', 2);
+        });
+        
+        $applicants = $applicants->orderBy('created_at', 'desc')
+                      ->get();
+                      
         return view('admin.applicants', compact('applicants'));
     }
 

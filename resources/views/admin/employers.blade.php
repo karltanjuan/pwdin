@@ -199,7 +199,7 @@
                 success: function(response) {
                     if (response.code == "200") {
                         $('.btn-update').html(`Update`);
-                        $('.modal').hide()
+                        $('.modal').modal('hide')
 
                         toastr.success('Employer Status Updated', 'Success')
 

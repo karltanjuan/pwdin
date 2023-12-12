@@ -16,8 +16,16 @@ use Carbon\Carbon;
 
 class AdminEmployerController extends Controller
 {
-    public function getEmployers() {
-        $employers = Employer::orderBy('created_at', 'desc')
+    public function getEmployers($status = "all") {
+        $employers = Employer::when($status === 'approved', function ($query) {
+            return $query->where('status', 1);
+        })->when($status === 'pending', function ($query) {
+            return $query->where('status', 0);
+        })->when($status === 'rejected', function ($query) {
+            return $query->where('status', 2);
+        });
+        
+        $employers = $employers->orderBy('created_at', 'desc')
                     ->with('invoice')
                     ->get();
 

@@ -193,15 +193,15 @@ Route::group(['prefix' => 'admin'], function() {
     Route::middleware('is_admin')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
-        Route::get('/jobs', [AdminJobController::class, 'getJobs'])->name('admin.getJobs');
+        Route::get('/jobs/{status?}', [AdminJobController::class, 'getJobs'])->name('admin.getJobs');
         Route::post('getJobsById', [AdminJobController::class, 'getJobsById'])->name('admin.getJobsById');
         Route::post('updateJob', [AdminJobController::class, 'updateJob'])->name('admin.updateJob');
 
-        Route::get('/applicants', [AdminApplicantController::class, 'getApplicants'])->name('admin.getApplicants');
+        Route::get('/applicants/{status?}', [AdminApplicantController::class, 'getApplicants'])->name('admin.getApplicants');
         Route::post('/getApplicantById', [AdminApplicantController::class, 'getApplicantById'])->name('admin.getApplicantById');
         Route::post('/updateApplicantApproval', [AdminApplicantController::class, 'updateApplicantApproval'])->name('admin.updateApplicantApproval');
 
-        Route::get('/employers', [AdminEmployerController::class, 'getEmployers'])->name('admin.getEmployers');
+        Route::get('/employers/{status?}', [AdminEmployerController::class, 'getEmployers'])->name('admin.getEmployers');
         Route::post('/getEmployerById', [AdminEmployerController::class, 'getEmployerById'])->name('admin.getEmployerById');
         Route::post('/updateEmployerApproval', [AdminEmployerController::class, 'updateEmployerApproval'])->name('admin.updateEmployerApproval');
 

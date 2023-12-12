@@ -18,9 +18,16 @@ use Carbon\Carbon;
 
 class AdminJobController extends Controller
 {
-    public function getJobs() {
-        $jobs = Job::with('employer')
-                ->orderBy('created_at', 'desc')
+    public function getJobs($status = 'all') {
+        $jobs = Job::with('employer');
+
+        $jobs = $jobs->when($status === 'open', function ($query) {
+            return $query->where('status', 1);
+        })->when($status === 'closed', function ($query) {
+            return $query->where('status', 0);
+        });
+                
+        $jobs = $jobs->orderBy('created_at', 'desc')
                 ->get();
 
         return view('admin.jobs', compact('jobs'));

@@ -59,6 +59,8 @@
                         <tr>
                             <td></td>
                             <td></td>
+                            <td></td>
+                            <td></td>
                             <td class="text-center">No records found.</td>
                             <td></td>
                             <td></td>
