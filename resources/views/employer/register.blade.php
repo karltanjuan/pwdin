@@ -231,7 +231,7 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <input type="file" class="form-control form-control-lg business_permit"
-                                        id="business_permit" accept=".png,.jpeg,.jpg" tabindex="13" />
+                                        id="business_permit" accept=".png,.jpeg,.jpg,.pdf" tabindex="13" />
                                     <label class="input-group-text" for="business_permit">Upload Business
                                         Permit</label>
                                 </div>
@@ -240,7 +240,7 @@
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <input type="file" class="form-control form-control-lg bir_certificate"
-                                        id="bir_certificate" accept=".png,.jpeg,.jpg" tabindex="14" />
+                                        id="bir_certificate" accept=".png,.jpeg,.jpg,.pdf" tabindex="14" />
                                     <label class="input-group-text" for="bir_certificate">Upload BIR
                                         Certificate</label>
                                 </div>
