@@ -10,4 +10,5 @@ This is your OTP code. Please do not share this to anyone.<br><br>
 Thank you,<br>
 {{ env('APP_NAME') }} <br>
 
+
 @endcomponent
