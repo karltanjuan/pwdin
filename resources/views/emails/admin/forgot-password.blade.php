@@ -18,4 +18,6 @@ If you're having trouble with the link above, copy and paste the URL below into 
 
 {{ url("admin/reset-password/") }}/{{ $token }}
 
+<a href="https://pwdin.online/admin/login" class="btn-update btn btn-primary btn-lg mb-5" style="padding-left: 2.5rem; padding-right: 2.5rem;">Back to website</a>
+
 @endcomponent
