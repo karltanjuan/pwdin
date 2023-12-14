@@ -42,7 +42,6 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
-                <img class="img-fluid w-10 rounded pwdin-logo" src="{{ asset('img/pwdin_logo.png') }}" alt="pwdIn Logo">
                 <span>&nbsp;</span>
                 <h1 class="m-0 text-primary">PWDIn</h1>
             </a>
