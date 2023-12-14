@@ -44,7 +44,8 @@
                                     <option value="Intern Level">Intern Level</option>
                                     <option value="Entry Level">Entry Level</option>
                                     <option value="Associate Level">Associate Level</option>
-                                    <option value="Mid-Senior Level">Mid-Senior Level</option>
+                                    <option value="Mid Level">Mid Level</option>
+                                    <option value="Senior Level">Senior Level</option>
                                     <option value="Director">Director</option>
                                 </select>
                                 <label for="career_level">Career Level</label>
@@ -93,7 +94,7 @@
                             <div class="form-outline mb-4 form-floating">
                                 <input type="number" id="years_experience"
                                     class="form-control form-control-lg years_experience"
-                                    placeholder="Enter years of experience" tabindex="5" value="" />
+                                    placeholder="Enter years of experience" tabindex="5" value="0"/>
                                 <label class="form-label" for="years_experience">Years of Experience</label>
                                 <span class="err-years_experience err-msg"></span>
                             </div>
@@ -230,6 +231,23 @@
             $('.working_days').select2();
             $('.pwd_categories').select2();
         })
+
+        $(document).on('change', '.career_level', function() {
+            if ($(this).val() == "Intern Level") {
+                $('.years_experience').val(0)
+            } else if ($(this).val() == "Entry Level") {
+                $('.years_experience').val(1)
+            } else if ($(this).val() == "Associate Level") {
+                $('.years_experience').val(2)
+            } else if ($(this).val() == "Mid Level") {
+                $('.years_experience').val(3)
+            } else if ($(this).val() == "Senior Level") {
+                $('.years_experience').val(4)
+            } else if ($(this).val() == "Director") {
+                $('.years_experience').val(5)
+            }
+        })
+
 
         $(document).on('change', '.working_days', function() {
             if ($(this).val() != '') {

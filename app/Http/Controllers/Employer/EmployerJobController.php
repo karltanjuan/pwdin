@@ -40,7 +40,7 @@ class EmployerJobController extends Controller
         }])->first();
 
         $transaction_status = 0;
-        if (!empty($transaction)) {
+        if ($transaction) {
             $transaction_status = $transaction->status;
         }
 
@@ -52,8 +52,8 @@ class EmployerJobController extends Controller
             $query->where('employer_id', auth()->guard('employers')->user()->id);
         }])->first();
 
-        $transaction_status = 0;
-        if (!empty($transaction)) {
+        $transaction_status = "Unpaid";
+        if ($transaction) {
             $transaction_status = $transaction->status;
         }
 
@@ -88,11 +88,6 @@ class EmployerJobController extends Controller
 
         return view('employer.view-job', compact('job'));
     }
-
-    // public function getJobsById(Request $request) {
-    //     $jobs = Job::where('id', $request->id)->first();
-    //     return response()->json($jobs);
-    // }
 
     public function postJob(Request $request){
         $validator = $this->validateJob($request);

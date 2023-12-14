@@ -15,17 +15,8 @@
                     <input class="form-check-input job_type" type="checkbox" id="internship" value="internship">
                     <label class="form-check-label job_type_label" for="internship"><h6 class="mt-n1 mb-0">Internship</h6></label>
                 </div>
-
-                {{-- <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
-                    href="#tab-1" data-type="internship">
-                    <h6 class="mt-n1 mb-0">Internship</h6>
-                </a> --}}
             </li>
             <li class="nav-item">
-                {{-- <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
-                    href="#tab-2" data-type="contract">
-                    <h6 class="mt-n1 mb-0">Contract</h6>
-                </a> --}}
                 <div class="form-check form-check-inline">
                     <input class="form-check-input job_type" type="checkbox" id="contract" value="contract">
                     <label class="form-check-label job_type_label" for="contract"><h6 class="mt-n1 mb-0">Contract</h6></label>
@@ -36,34 +27,62 @@
                     <input class="form-check-input job_type" type="checkbox" id="part-time" value="part-time">
                     <label class="form-check-label job_type_label" for="part-time"><h6 class="mt-n1 mb-0">Part Time</h6></label>
                 </div>
-                {{-- <a class="job-types d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
-                    href="#tab-3" data-type="part-time">
-                    <h6 class="mt-n1 mb-0">Part Time</h6>
-                </a> --}}
             </li>
             <li class="nav-item">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input job_type" type="checkbox" id="full-time" value="full-time">
                     <label class="form-check-label job_type_label" for="full-time"><h6 class="mt-n1 mb-0">Full Time</h6></label>
                 </div>
-                {{-- <a class="job-types d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-4"
-                    data-type="full-time">
-                    <h6 class="mt-n1 mb-0">Full Time</h6>
-                </a> --}}
             </li>
         </ul>
-        
-        <div class="d-flex justify-content-center mb-3">
-            <span class="me-3">Filter by Salary Range:</span>
-            <div>
-                <input type="number" class="form-control salary_start" placeholder="0.00"/>
-            </div> <span class="ms-1 me-1 mt-1 text-bold">-</span>
-            <div>
-                <input type="number" class="form-control salary_end" placeholder="100,000.00"/>
-            </div>
-        </div>
+        <br>
+        <span>Filter by Working Days:</span>
+        <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-3">
+            <li class="nav-item">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input working_days" type="checkbox" id="monday" value="monday">
+                    <label class="form-check-label working_days_label" for="monday"><h6 class="mt-n1 mb-0">Monday</h6></label>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input working_days" type="checkbox" id="tuesday" value="tuesday">
+                    <label class="form-check-label working_days_label" for="tuesday"><h6 class="mt-n1 mb-0">Tuesday</h6></label>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input working_days" type="checkbox" id="wednesday" value="wednesday">
+                    <label class="form-check-label working_days_label" for="wednesday"><h6 class="mt-n1 mb-0">Wednesday</h6></label>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input working_days" type="checkbox" id="thursday" value="thursday">
+                    <label class="form-check-label working_days_label" for="thursday"><h6 class="mt-n1 mb-0">Thursday</h6></label>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input working_days" type="checkbox" id="friday" value="friday">
+                    <label class="form-check-label working_days_label" for="friday"><h6 class="mt-n1 mb-0">Friday</h6></label>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input working_days" type="checkbox" id="saturday" value="saturday">
+                    <label class="form-check-label working_days_label" for="saturday"><h6 class="mt-n1 mb-0">Saturday</h6></label>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input working_days" type="checkbox" id="sunday" value="sunday">
+                    <label class="form-check-label working_days_label" for="sunday"><h6 class="mt-n1 mb-0">Sunday</h6></label>
+                </div>
+            </li>
+        </ul>
 
-        <div class="row mb-5">
+        <div class="row mb-2">
             <div class="col-md-4">
                 <select class="btn-filter form-select" id="btn-filter">  
                     <option disabled selected>View all jobs or view related jobs</option>
@@ -94,6 +113,73 @@
                 </select>
             </div>
             <div class="col-md-4">
+                <select class="btn-career_level form-select" id="btn-career_level">  
+                    <option disabled selected>Filter by Career Level</option>
+                    <option value="Intern Level">Intern Level</option>
+                    <option value="Entry Level">Entry Level</option>
+                    <option value="Associate Level">Associate Level</option>
+                    <option value="Mid Level">Mid Level</option>
+                    <option value="Senior Level">Senior Level</option>
+                    <option value="Director">Director</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <select class="btn-pwd-categories form-select" id="btn-pwd-categories">  
+                    <option disabled selected>Filter by PWD Category</option>
+                    <option value="Psychosocial">Psychosocial</option>
+                    <option value="Mental">Mental</option>
+                    <option value="Chronic illness">Chronic illness</option>
+                    <option value="Learning">Learning</option>
+                    <option value="Visual">Visual</option>
+                    <option value="Orthopedic">Orthopedic</option>
+                    <option value="Communication">Communication</option>
+                    <option value="Physical">Physical</option>
+                    <option value="Deaf/Hard of Hearing">Deaf/Hard of Hearing</option>
+                    <option value="Intellectual">Intellectual</option>
+                    <option value="Speech and Language">Speech and Language</option>
+                    <option value="Cancer">Cancer</option>
+                    <option value="Rare Disease">Rare Disease</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <select class="btn-qualification form-select" id="btn-qualification">
+                    <option disabled selected>Filter by Qualification</option>
+                    <option value="Grade School">Grade School</option>
+                    <option value="High School">High School</option>
+                    <option value="Bachelor's Degree">Bachelor's Degree</option>
+                    <option value="Vocational">Vocational</option>
+                    <option value="Post-Graduate">Post-Graduate</option>
+                    <option value="Others">Others</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <select class="btn-work-setup form-select" id="btn-work-setup">
+                    <option disabled selected>Filter by Work Setup</option>
+                    <option value="Onsite">Onsite</option>
+                    <option value="Remote">Remote</option>
+                    <option value="Hybrid">Hybrid</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center mb-3">
+                    <span class="me-3">Filter by Salary Range:</span>
+                    <div>
+                        <input type="number" class="form-control salary_start" placeholder="0.00"/>
+                    </div> <span class="ms-1 me-1 mt-1 text-bold">-</span>
+                    <div>
+                        <input type="number" class="form-control salary_end" placeholder="100,000.00"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="input-group">
                     <input type="text" class="form-control query" placeholder="Search jobs"/>
                     <button class="btn btn-outline-primary btn-search" type="button" id="btn-search">
@@ -111,31 +197,41 @@
 
     @include('applicant.layouts.scripts')
     <script>
-        let page         = 1;
-        let data_type    = null;
-        let industry     = null;
-        let related      = 'related';
-        let salary_start = 0;
-        let salary_end   = 0;
-        let query        = null;
-        let job_types    = [];
+        let page           = 1;
+        let data_type      = null;
+        let industry       = null;
+        let career_level   = null;
+        let qualification  = null;
+        let work_setup     = null;
+        let related        = 'related';
+        let salary_start   = 0;
+        let salary_end     = 0;
+        let query          = null;
+        let job_types      = [];
+        let working_days   = [];
+        let pwd_categories = null;
 
         $(document).ready(function() {
             job_types = $(".job_type").map(function() {
                 return $(this).val();
             }).get();
 
-            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+            working_days = $(".working_days").map(function() {
+                return $(this).val();
+            }).get();
+
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
+            
         });
 
         $(document).on('click', '#pagination .page-link', function() {
             page = $(this).data('page');
-            filterJobs(data_type, industry, salary_start, salary_end, related, query, page);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page, career_level, qualification, work_setup, pwd_categories);
         });
 
         $(document).on('click', '.job-types', function() {
             data_type = $(this).data('type');
-            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
         })
 
         $(".job_type").change(function() {
@@ -143,17 +239,45 @@
                 return $(this).val();
             }).get();
 
-            filterJobs(data_type, industry, salary_start, salary_end, related, query, page);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page, career_level, qualification, work_setup, pwd_categories);
+        });
+
+        $(".working_days").change(function() {
+            working_days = $(".working_days:checked").map(function() {
+                return $(this).val();
+            }).get();
+
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page, career_level, qualification, work_setup, pwd_categories);
         });
 
         $(document).on('change', '.btn-filter', function() {
             related = $(this).val();
-            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
         })
 
         $(document).on('change', '.btn-industry', function() {
             industry = $(this).val();
-            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
+        })
+
+        $(document).on('change', '.btn-career_level', function() {
+            career_level = $(this).val();
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
+        })
+
+        $(document).on('change', '.btn-qualification', function() {
+            qualification = $(this).val();
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
+        })
+
+        $(document).on('change', '.btn-work-setup', function() {
+            work_setup = $(this).val();
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
+        })
+
+        $(document).on('change', '.btn-pwd-categories', function() {
+            pwd_categories = $(this).val();
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
         })
 
         $(document).on('keypress', '.salary_start', function(e) {
@@ -161,7 +285,7 @@
                 salary_start = $(this).val()
                 salary_end = $('.salary_end').val()
                 
-                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
             }
         })
 
@@ -169,7 +293,7 @@
             if (e.keyCode === 13) {
                 salary_start = $('.salary_start').val()
                 salary_end = $(this).val()
-                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
             }
         })
 
@@ -179,7 +303,7 @@
                 salary_start = $('.salary_start').val()
                 salary_end = $('.salary_end').val()
 
-                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1);
+                filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories);
             }
         })
 
@@ -188,12 +312,24 @@
             salary_start = $('.salary_start').val()
             salary_end = $('.salary_end').val()
 
-            filterJobs(data_type, industry, salary_start, salary_end, related, query, page);
+            filterJobs(data_type, industry, salary_start, salary_end, related, query, page, career_level, qualification, work_setup, pwd_categories);
         })
 
-        function filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1) {
-            var formData = new FormData();
+        function filterJobs(data_type, industry, salary_start, salary_end, related, query, page = 1, career_level, qualification, work_setup, pwd_categories) {
 
+            if (job_types.length == 0) {
+                working_days = $(".job_types").map(function() {
+                    return $(this).val();
+                }).get();
+            }
+
+            if (working_days.length == 0) {
+                working_days = $(".working_days").map(function() {
+                    return $(this).val();
+                }).get();
+            }
+
+            var formData = new FormData();
             formData.append('_token', "{{ csrf_token() }}");
             formData.append('page', page);
             formData.append('type', data_type);
@@ -203,6 +339,11 @@
             formData.append('salary_end', salary_end)
             formData.append('search_query', query)
             formData.append('job_types', job_types)
+            formData.append('working_days', working_days)
+            formData.append('career_level', career_level);
+            formData.append('qualification', qualification);
+            formData.append('work_setup', work_setup);
+            formData.append('pwd_categories', pwd_categories);
 
             // Send an AJAX request to validate the data
             $.ajax({

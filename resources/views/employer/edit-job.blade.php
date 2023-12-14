@@ -48,8 +48,11 @@
                                     <option value="Associate Level"
                                         {{ $job->career_level === 'Associate Level' ? 'selected' : '' }}>Associate Level
                                     </option>
-                                    <option value="Mid-Senior Level"
-                                        {{ $job->career_level === 'Mid-Senior Level' ? 'selected' : '' }}>Mid-Senior Level
+                                    <option value="Mid Level"
+                                        {{ $job->career_level === 'Mid Level' ? 'selected' : '' }}>Mid Level
+                                    </option>
+                                    <option value="Senior Level"
+                                        {{ $job->career_level === 'Senior Level' ? 'selected' : '' }}>Senior Level
                                     </option>
                                     <option value="Director" {{ $job->career_level === 'Director' ? 'selected' : '' }}>
                                         Director</option>
@@ -327,6 +330,22 @@
 
             $('label[for="working_days"]').css('z-index', '-1')
             $('label[for="pwd_categories"]').css('z-index', '-1')
+        })
+
+        $(document).on('change', '.career_level', function() {
+            if ($(this).val() == "Intern Level") {
+                $('.years_experience').val(0)
+            } else if ($(this).val() == "Entry Level") {
+                $('.years_experience').val(1)
+            } else if ($(this).val() == "Associate Level") {
+                $('.years_experience').val(2)
+            } else if ($(this).val() == "Mid Level") {
+                $('.years_experience').val(3)
+            } else if ($(this).val() == "Senior Level") {
+                $('.years_experience').val(4)
+            } else if ($(this).val() == "Director") {
+                $('.years_experience').val(5)
+            }
         })
 
         $(document).on('change', '.working_days', function() {

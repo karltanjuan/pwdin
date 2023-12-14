@@ -126,13 +126,16 @@ Route::group(['prefix' => 'employer'], function() {
     Route::middleware('is_employer')->group(function () {
         Route::get('/dashboard', [EmployerDashboardController::class, 'index'])->name('employer.dashboard');
 
-        Route::get('/jobs/{status?}', [EmployerJobController::class, 'index'])->name('employer.index');
+        
         Route::get('/jobs/add', [EmployerJobController::class, 'add'])->name('employer.add');
-        Route::post('postJob', [EmployerJobController::class, 'postJob'])->name('employer.postJob');
         Route::get('/jobs/edit/{id}', [EmployerJobController::class, 'edit'])->name('employer.edit');
+        Route::get('/jobs/view/{id}', [EmployerJobController::class, 'view'])->name('employer.view');
+        Route::get('/jobs/{id}/applicants', [EmployerJobController::class, 'getApplicants'])->name('employer.getApplicants');
+        Route::get('/jobs/{job_id}/applicants/{applicant_id}', [EmployerJobController::class, 'getApplicantById'])->name('employer.getApplicantById');
+        Route::get('/jobs/{status?}', [EmployerJobController::class, 'index'])->name('employer.index');
+        Route::post('postJob', [EmployerJobController::class, 'postJob'])->name('employer.postJob');
         Route::post('updateJob', [EmployerJobController::class, 'updateJob'])->name('employer.updateJob');
         // Route::post('getJobsById', [EmployerJobController::class, 'getJobsById'])->name('employer.getJobsById');
-        Route::get('/jobs/view/{id}', [EmployerJobController::class, 'view'])->name('employer.view');
         Route::post('deleteJob', [EmployerJobController::class, 'deleteJob'])->name('employer.deleteJob');
 
         Route::get('subscription', [InvoiceController::class, 'getSubscription'])->name('employer.getSubscription');
@@ -144,9 +147,6 @@ Route::group(['prefix' => 'employer'], function() {
         Route::post('saveAppStatus', [ApplicationStatusController::class, 'saveAppStatus'])->name('employer.saveAppStatus');
         Route::post('getAppStatusByName', [ApplicationStatusController::class, 'getAppStatusByName'])->name('employer.getAppStatusByName');
         Route::post('deleteAppStatus', [ApplicationStatusController::class, 'deleteAppStatus'])->name('employer.deleteAppStatus');
-
-        Route::get('/jobs/{id}/applicants', [EmployerJobController::class, 'getApplicants'])->name('employer.getApplicants');
-        Route::get('/jobs/{job_id}/applicants/{applicant_id}', [EmployerJobController::class, 'getApplicantById'])->name('employer.getApplicantById');
 
         Route::get('/applicants/{status?}', [EmployerApplicantController::class, 'getApplicants'])->name('employer.getApplicants');
 

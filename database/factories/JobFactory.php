@@ -25,7 +25,7 @@ class JobFactory extends Factory
             'employer_id'             => 1,
             'job_title'               => $this->faker->jobTitle,
             'job_description'         => "<p>".$this->faker->sentence."</p>",
-            'career_level'            => $this->faker->randomElement(['Intern Level', 'Entry Level', 'Associate Level', 'Mid-Senior Level', 'Director']),
+            'career_level'            => $this->faker->randomElement(['Intern Level', 'Entry Level', 'Associate Level', 'Mid Level', 'Senior Level', 'Director']),
             'job_type'                => $this->faker->randomElement(['Full-time', 'Part-time', 'Internship', 'Contract']),
             'years_experience'        => $this->faker->numberBetween(0, 10),
             'job_industry'            => $this->faker->randomElement(['Accounting/Finance', 'Admin/Human Resources', 'Sales/Marketing', 'Arts/Media/Communication', 'Services', 'Hotel/Restaurant', 'Education/Training', 'Computer/Information Technology', 'Engineering', 'Manufacturing', 'uilding/Construction', 'Sciences', 'Healtcare', 'Journalist/Editors', 'General Work', 'Publishing', 'Others']),

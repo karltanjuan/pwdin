@@ -32,6 +32,22 @@ class ApplicantJobController extends Controller
             $request->industry = null;
         }
 
+        if ($request->career_level == 'null') {
+            $request->career_level = null;
+        }
+
+        if ($request->qualification == 'null') {
+            $request->qualification = null;
+        }
+
+        if ($request->work_setup == 'null') {
+            $request->work_setup = null;
+        }
+
+        if ($request->pwd_categories == 'null') {
+            $request->pwd_categories = null;
+        }
+
         if ($request->search_query == 'null') {
             $request->search_query = null;
         }
@@ -51,10 +67,25 @@ class ApplicantJobController extends Controller
             return $query->whereIn('job_type', array_map('ucwords', $job_types));
         });
 
+        $working_days = $request->working_days;
+        $daysArray = explode(',', $working_days);
+
+        $jobs = $jobs->when(!empty($working_days), function ($query) use ($daysArray) {
+            return $query->where(function ($query) use ($daysArray) {
+                foreach ($daysArray as $day) {
+                    $query->orWhere('working_days', 'like', '%'.ucwords($day).'%');
+                }
+            });
+        });
+
         $salary_start = (int)$request->salary_start;
         $salary_end   = (int)$request->salary_end;
 
         $jobs = $request->industry !== null ? $jobs->where('job_industry', ucwords($request->industry)) : $jobs;
+        $jobs = $request->career_level !== null ? $jobs->where('career_level', ucwords($request->career_level)) : $jobs;
+        $jobs = $request->qualification !== null ? $jobs->where('qualification', ucwords($request->qualification)) : $jobs;
+        $jobs = $request->work_setup !== null ? $jobs->where('work_setup', ucwords($request->work_setup)) : $jobs;
+        $jobs = $request->pwd_categories !== null ? $jobs->where('pwd_categories', 'like', '%'.ucwords($request->pwd_categories).'%') : $jobs;
         $jobs = $salary_start !== 0 ? $jobs->where('salary', '>=', $salary_start)->where('hide_salary', 0) : $jobs;
         $jobs = $salary_end !== 0 ? $jobs->where('salary', '<=', $salary_end)->where('hide_salary', 0) : $jobs;
         $jobs = $request->search_query !== null ? $jobs->where('job_title', 'like', '%'.$request->search_query.'%') : $jobs;
