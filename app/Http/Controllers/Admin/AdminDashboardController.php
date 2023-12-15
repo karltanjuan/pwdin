@@ -22,8 +22,8 @@ class AdminDashboardController extends Controller
         $id = auth()->guard('admins')->user()->id;
 
         $total_applicants = Application::count();
-        $total_hired      = Application::where('status', 'Hired')->count();
-        $total_rejected   = Application::where('status', 'Rejected')->count();
+        $total_hired      = Application::where('status', 'Hired')->where('is_rejected', 0)->count();
+        $total_rejected   = Application::where('is_rejected', 1)->count();
 
         $total_jobs = Job::count();
         $total_jobs_open = Job::where('status', 1)->count();

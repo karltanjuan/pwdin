@@ -198,6 +198,7 @@ Route::group(['prefix' => 'admin'], function() {
         Route::post('updateJob', [AdminJobController::class, 'updateJob'])->name('admin.updateJob');
 
         Route::get('/applicants/{status?}', [AdminApplicantController::class, 'getApplicants'])->name('admin.getApplicants');
+        Route::get('/applications/{status?}', [AdminApplicantController::class, 'getApplications'])->name('admin.getApplications');
         Route::post('/getApplicantById', [AdminApplicantController::class, 'getApplicantById'])->name('admin.getApplicantById');
         Route::post('/updateApplicantApproval', [AdminApplicantController::class, 'updateApplicantApproval'])->name('admin.updateApplicantApproval');
 

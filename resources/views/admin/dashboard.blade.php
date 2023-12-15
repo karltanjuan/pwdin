@@ -61,7 +61,7 @@
         <div class="col-md-3">
             <div class="card card2 mb-4">
                 <div class="card-body">
-                    <a class="text-white" href="{{url('admin/applicants/hired')}}">
+                    <a class="text-white" href="{{url('admin/applications/hired')}}">
                         <h3>{{$total_hired}} <i class="fa-solid fa-handshake"></i></h3>
                         <p>Hired</p>
                     </a>
@@ -71,7 +71,7 @@
         <div class="col-md-3">
             <div class="card card3 mb-4">
                 <div class="card-body">
-                    <a class="text-white" href="{{url('admin/applicants/rejected')}}">
+                    <a class="text-white" href="{{url('admin/applications/rejected')}}">
                         <h3>{{$total_rejected}} <i class="fa-solid fa-rectangle-xmark"></i></h3>
                         <p>Rejected</p>
                     </a>

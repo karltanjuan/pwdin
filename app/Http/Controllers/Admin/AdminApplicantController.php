@@ -12,6 +12,7 @@ use Auth;
 use Validator;
 use Session;
 use App\Models\User;
+use App\Models\Application;
 use Carbon\Carbon;
 
 class AdminApplicantController extends Controller
@@ -29,6 +30,22 @@ class AdminApplicantController extends Controller
                       ->get();
                       
         return view('admin.applicants', compact('applicants'));
+    }
+
+    public function getApplications($status) {
+        $applicants = Application::with('applicant', 'job', 'job.employer')
+            ->when($status === 'hired', function ($query) {
+                return $query->where('status', 'Hired')->where('is_rejected', 0);
+            })->when($status === 'rejected', function ($query) {
+                return $query->where('is_rejected', 1);
+            })
+            ->orderBy('created_at', 'desc')->get();
+               
+        if (count($applicants) === 0) {
+            return redirect('/admin/applicants');
+        }
+        
+        return view('admin.applications', compact('applicants'));
     }
 
     public function getApplicantById(Request $request) {
