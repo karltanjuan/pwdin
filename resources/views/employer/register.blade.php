@@ -103,10 +103,13 @@
                             </div>
                             <div class="col-md-4">
                                 <!-- Email input -->
-                                <div class="form-outline mb-4 form-floating">
-                                    <input type="email" id="email" class="form-control form-control-lg email" placeholder="Enter email address" tabindex="2" />
-                                    <label class="form-label" for="email">Email address</label>
-                                    <span class="err-email err-msg"></span>
+                                <div class="input-group mb-3">
+                                    <input type="email" class="form-control form-control-lg email" placeholder="Email (Required)" id="email"/>
+                                    <div class="input-group-append">
+                                        <a href="javascript:void(0)" tabindex="21"
+                                            style="cursor:pointer;" class="btn-otp btn btn-lg btn-secondary">Send OTP
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -281,6 +284,42 @@
 
     {{-- Modals --}}
 
+    <div class="modal fade" id="otp-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="otpModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title yourEmail">Get OTP for Email Verification</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+                        <div class="d-flex justify-content-center align-items-center continer">
+                            <div class="card py-5 px-3">
+                                <h5 class="m-0">Email verification</h5>
+                                <span class="mobile-text">
+                                <b>Enter the code we just sent on your email</b>
+                                </span>
+                                <div class="d-flex flex-row mt-5">
+                                <!-- HTML -->
+                                    <input type="text" class="form-control otp-input" id="otp1" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp2" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp3" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp4" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp5" maxlength="1" />
+                                    <input type="text" class="form-control otp-input" id="otp6" maxlength="1" />
+                                </div>
+                                <div class="text-center mt-5">
+                                <span class="d-block mobile-text" id="countdown"></span>
+                                <span class="d-block mobile-text" id="resend"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="agreement-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="agreementModal" aria-hidden="true">
         <div class="modal-dialog">
@@ -436,9 +475,144 @@
             }
         })
 
-        // $('input').on('keypress', function() {
-        //     registerUser();
-        // })
+        function validateEmail(email) {
+            const email_validator = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+            if (email.trim() === '') {
+                return false;
+            }
+
+            return email_validator.test(email);
+        }
+
+        $('.btn-otp').click(function() {
+            if(!validateEmail($('.email').val())) {
+                $('.err-email').text('Email field is invalid')
+                $('.email').addClass('border-danger')
+            } else {
+                $('.err-email').text('')
+                $('.email').removeClass('border-danger')
+                $('#otp-modal').modal('show')
+                sendOTP();
+            }
+        })
+
+        let otp_counter = 0;
+        function sendOTP() {
+            $('.btn-otp').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+
+            var formData = new FormData();
+            formData.append('_token', "{{ csrf_token() }}");
+            formData.append('email', $('.email').val());
+
+            if (otp_counter === 0) {
+                otp_counter++;
+                $(this).prop('disabled', true);
+
+                $.ajax({
+                    url: '{{ route('applicant.sendOTP') }}',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.code == "200") {
+                            $('.btn-otp').html('Send OTP')
+                            localStorage.setItem("otp_code", response.otp_code);
+                        } else {
+                            $('.btn-otp').html('Send OTP').prop('disabled', false);
+                            otp_counter = 0;
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the AJAX request error
+                        var result = JSON.parse(xhr.responseText)
+
+                        $('.btn-otp').html('Send OTP').prop('disabled', false);
+                        otp_counter = 0;
+                    }
+                });
+
+            }
+        }
+
+        function handleOtpInput() {
+            var otp = '';
+            
+            // Concatenate the values of all OTP inputs
+            $('.otp-input').each(function() {
+                otp += $(this).val();
+            });
+
+            // Check if the entered OTP matches the stored OTP
+            if (otp === localStorage.getItem('otp_code')) {
+                $('.btn-otp')
+                    .text('Verified')
+                    .removeClass('btn-secondary')
+                    .addClass('btn-success');
+
+                $('#otp-modal').modal('hide');
+            }
+        }
+
+        $('.otp-input').on('input', function() {
+            var otp = '';
+            
+            // Concatenate the values of all OTP inputs
+            $('.otp-input').each(function() {
+                otp += $(this).val();
+            });
+
+            // Check if the entered OTP matches the stored OTP
+            if (otp === localStorage.getItem('otp_code')) {
+                $('.btn-otp')
+                    .text('Verified')
+                    .removeClass('btn-secondary')
+                    .addClass('btn-success');
+
+                $('#otp-modal').modal('hide');
+            }
+        });
+
+        $('.otp-input').on('paste', function(e) {
+            e.preventDefault();
+
+            // Get the pasted text
+            var pastedText = (e.originalEvent || e).clipboardData.getData('text/plain');
+
+            // Iterate through each character and fill the respective input field
+            for (var i = 0; i < pastedText.length && i < 6; i++) {
+                $('#otp' + (i + 1)).val(pastedText[i]);
+            }
+        });
+        
+        let timerOn = true;
+
+        function timer(remaining) {
+            var m = Math.floor(remaining / 60);
+            var s = remaining % 60;
+            m = m < 10 ? "0" + m : m;
+            s = s < 10 ? "0" + s : s;
+            document.getElementById("countdown").innerHTML = `Time left: ${m}:${s}`;
+            remaining -= 1;
+
+            if (remaining >= 0 && timerOn) {
+                setTimeout(function () {
+                    timer(remaining);
+                }, 1000);
+                document.getElementById("resend").innerHTML = ``;
+                return;
+            }
+
+            if (!timerOn) {
+                return;
+            }
+
+            document.getElementById("resend").innerHTML = `Don't receive the code? 
+                <span class="font-weight-bold text-color cursor" onclick="timer(3)">Resend</span>`;
+        }
+
+        // Start the timer with 15 minutes (900 seconds)
+        timer(900);
 
         $(document).on('click', '.btn-agree', function() {
             $('.accept-agreement').prop('checked', true)

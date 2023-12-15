@@ -606,7 +606,6 @@
             }
         }
 
-        // Define a named function
         function handleOtpInput() {
             var otp = '';
             
@@ -626,8 +625,6 @@
             }
         }
 
-
-        // JavaScript
         $('.otp-input').on('input', function() {
             var otp = '';
             
@@ -658,10 +655,7 @@
                 $('#otp' + (i + 1)).val(pastedText[i]);
             }
         });
-
-
-
-        // Email OTP Timer
+        
         let timerOn = true;
 
         function timer(remaining) {
