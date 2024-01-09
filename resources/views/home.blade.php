@@ -59,6 +59,7 @@
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
             <a href="/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+                <img class="img-fluid logo" src="{{asset('img/logo.jpg')}}" alt="Logo"/>
                 <span>&nbsp;</span>
                 <h1 class="m-0 text-primary">PWDIn</h1>
             </a>
@@ -125,7 +126,7 @@
                     </div>
                 </div>
                 <div class="owl-carousel-item position-relative">
-                    <img class="img-fluid" src="{{ asset('img/cover2.PNG') }}" alt="">
+                    <img class="img-fluid" src="{{ asset('img/cover2.png') }}" alt="">
                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
                         style="background: rgba(43, 57, 64, .5);">
                         <div class="container">

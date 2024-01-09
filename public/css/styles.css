@@ -987,3 +987,7 @@ span
 .match-password {
   display: none;
 }
+
+.logo {
+  width: 45px;
+}

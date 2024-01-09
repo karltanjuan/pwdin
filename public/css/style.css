@@ -357,3 +357,7 @@ body{
     cursor:  pointer;
     border: none;
 }
+
+.logo {
+    width: 45px;
+}
