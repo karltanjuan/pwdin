@@ -21,6 +21,7 @@ class JobFactory extends Factory
      */
     public function definition(): array
     {
+        
         return [
             'employer_id'             => 1,
             'job_title'               => $this->faker->jobTitle,
